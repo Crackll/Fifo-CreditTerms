@@ -1,0 +1,27 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+
++ Compatible with Magento 2.3 and Marketplace 3.0.x.
+
+-------------------------------- Version 2.1.0 --------------------------------------
+
++ Compatible with Magento 2.3 and Marketplace 2.2.x.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
++ Compatible with Magento 2.2.x and Marketplace 2.3.x
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
++ Compatible with Marketplace 2.1.x.
++ Sellers can create categories for their collection page.
++ Independent categories from Magento catalog.
++ Layered navigation filter by seller category on seller collection page.
++ Admin can create categories for seller.

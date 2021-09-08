@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/** Webkul SMTP adminhtml routes xml
+ * @category  Webkul
+ * @package   Webkul_smtp
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="smtp" frontName="smtp">
+            <module name="Webkul_Smtp" />
+        </route>
+    </router>
+</config>

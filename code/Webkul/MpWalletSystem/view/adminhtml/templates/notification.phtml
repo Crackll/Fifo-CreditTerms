@@ -1,0 +1,50 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpWalletSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+
+$image = $block->getImageUrl();
+$payeeNotification = $block->getPayeeNotificationCount();
+if ($payeeNotification > 5) {
+    $payeeNotification = "5+";
+}
+
+$bankcounter = $block->getBankTransferCounter();
+if ($bankcounter > 5) {
+    $bankcounter = "5+";
+}
+?>
+<?php if ($payeeNotification) { ?>
+    <script>
+        require([
+            'jquery'
+            ], function ($) {
+                $( document ).ready(function() {
+                    var image = '<?=$block->escapeJs($image)?>';
+                    var payeeNotification = '<?=$block->escapeJs($payeeNotification)?>';
+                    $('.item-walletpayee a').append("<span><img class='wk-wallet-notification-image' src = '" 
+                    + image + "'><span class='wk-wallet-counter'>" + payeeNotification + "</span></span>");
+                });
+            });
+    </script>
+<?php } ?>
+<?php if ($bankcounter) { ?>
+    <script>
+        require([
+            'jquery'
+            ], function ($) {
+                $( document ).ready(function() {
+                    var image = '<?=$block->escapeJs($image)?>';
+                    var bankcounter = '<?=$block->escapeJs($bankcounter)?>';
+                    $('.item-banktransfer a').append("<span><img class='wk-wallet-notification-image' src = '"
+                    +  image + "'><span class='wk-wallet-counter'>" + bankcounter + "</span></span>");
+                });
+            });
+    </script>
+<?php } ?>

@@ -1,0 +1,113 @@
+Reset Connection,Reset Connection
+Check Status,Check Status
+Elastic Indexes,Elastic Indexes
+A total of %1 record(s) were updated.,A total of %1 record(s) were updated.
+please select an index to update mode,please select an index to update mode
+invalid index type,invalid index type
+"All the mappings and data successfully removed from elastic, please save the configuration again to generate mappings and use CLI tool to index data again at elastic server.","All the mappings and data successfully removed from elastic, please save the configuration again to generate mappings and use CLI tool to index data again at elastic server."
+no index id provided to reindex,no index id provided to reindex
+connection reset successfully,connection reset successfully
+connection working,connection working
+invalid configuration,invalid configuration
+"please use console command to reindex, since product count is too much to handle","please use console command to reindex, since product count is too much to handle"
+"mapping can not be updated, please goto command line and delete the old index at store id %1 and reindex again to update mapping","mapping can not be updated, please goto command line and delete the old index at store id %1 and reindex again to update mapping"
+Html Strip Char Filter,Html Strip Char Filter
+Mapping Filter,Mapping Filter
+Pattern Replace Filter,Pattern Replace Filter
+Elision Filter,Elision Filter
+Lowercase Filter,Lowercase Filter
+Synonym Filter,Synonym Filter
+Stop Word Filter,Stop Word Filter
+Disable,Disable
+Level 1,Level 1
+Level 2,Level 2
+Product,Product
+Category,Category
+Pages,Pages
+Catalog,Catalog
+CMS,CMS
+Best Fields,Best Fields
+Most Fields,Most Fields
+Cross Fields,Cross Fields
+Phrase,Phrase
+Phrase Prefix,Phrase Prefix
+AND,AND
+OR,OR
+Multi Match Query,Multi Match Query
+Simple Match Query,Simple Match Query
+english,english
+arabic,arabic
+armenian,armenian
+basque,basque
+bengali,bengali
+light bengali,light bengali
+brazilian,brazilian
+bulgarian,bulgarian
+catalan,catalan
+czech,czech
+danish,danish
+dutch,dutch
+finnish,finnish
+french,french
+galician,galician
+german,german
+greek,greek
+hindi,hindi
+hungarian,hungarian
+indonesian,indonesian
+irish,irish
+italian,italian
+sorani,sorani
+latvian,latvian
+lithuanian,lithuanian
+norwegian,norwegian
+light_nynorsk,light_nynorsk
+portuguese,portuguese
+"something went wrong while creating the mapping, please check logs","something went wrong while creating the mapping, please check logs"
+We can't save the cron expression.,We can't save the cron expression.
+Update On Save,Update On Save
+Update On Shedule,Update On Shedule
+Reindex,Reindex
+Reindex Required,Reindex Required
+Ready,Ready
+Search,Search
+Search entire store here...,Search entire store here...
+Webkul,Webkul
+Elastic Search Settings,Elastic Search Settings
+General Settings,General Settings
+Host,Host
+Port Number,Port Number
+Check Connection Status,Check Connection Status
+"check status of the elastic server, but you need to fill host and port first","check status of the elastic server, but you need to fill host and port first"
+reset connection from elastic server,reset connection from elastic server
+Search Settings,Search Settings
+Select Frontend Search Type,Select Frontend Search Type
+Select Fields For Multi Search,Select Fields For Multi Search
+Select Mutli Match Type,Select Mutli Match Type
+Select Operator For Multi Search,Select Operator For Multi Search
+Minimum Should Match,Minimum Should Match
+Allow Spell Correction in search,Allow Spell Correction in search
+Select Search Filters,Select Search Filters
+Enter Comma Seperated List Elisions,Enter Comma Seperated List Elisions
+Use Stop Words Filter,Use Stop Words Filter
+Enter Comma Seperated List Of Stop Words,Enter Comma Seperated List Of Stop Words
+Select Language Stemmer,Select Language Stemmer
+Enter comma seperated words to exclude from stemming,Enter comma seperated words to exclude from stemming
+Enter Comma Seperated List Of Filter Mappings,Enter Comma Seperated List Of Filter Mappings
+Enter Pattern,Enter Pattern
+Enter Pattern To Replace With Filter Pattern,Enter Pattern To Replace With Filter Pattern
+Set Cron For Index Management,Set Cron For Index Management
+Frequency,Frequency
+Start Time,Start Time
+Index Type,Index Type
+Mode,Mode
+Status,Status
+"Are you sure you want to reset all the indexes and data at elastic server, please take proper backup before performing this action","Are you sure you want to reset all the indexes and data at elastic server, please take proper backup before performing this action"
+Confirm Reset,Confirm Reset
+Elastic Search,Elastic Search
+Index Managenent,Index Managenent
+Action,Action
+Index Prefix,Index Prefix
+Please enter elastic host as: localhost or 127.0.0.1,Please enter elastic host as: localhost or 127.0.0.1
+index prefix will be used to create your data index unique on elastic server,index prefix will be used to create your data index unique on elastic server
+Please enter the port number,Please enter the port number

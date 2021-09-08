@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="sampleproduct" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Sample Product Configuration</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_SampleProduct::config_sampleproduct</resource>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sample Product System Settings</label>
+                <field id="enable" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Enable Sample Product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_to_login_customer" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Allow to only login customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_customer_groups" translate="label" type="multiselect" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Customer Groups</label>
+                    <source_model>Magento\Customer\Model\Config\Source\Group</source_model>
+                    <depends>
+                        <field id="allow_to_login_customer">1</field>
+                    </depends>
+                    <validate>required-entry validate-select</validate>
+                </field>
+                <field id="max_sample_qty" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Maximum allowed sample quantities to order</label>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-99999999.9999</validate>
+                    <comment>
+                        If "Allow to only login customer" is "yes" then customer can only order "Maximum allowed sample quantities".
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

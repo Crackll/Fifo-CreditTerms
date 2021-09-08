@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AccordionFaq
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="webkul_accordionfaq" resource="default" engine="innodb" comment="webkul accordion faq">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="faq" length="255" comment="FAQ"/>
+        <column xsi:type="text" name="body" nullable="true" comment="body"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="status"/>
+        <column xsi:type="timestamp" name="created_time" on_update="false" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_time" on_update="false" comment="Update Time"/>
+        <column xsi:type="int" name="sort_order" unsigned="true" nullable="false" default="0" comment="sort_order"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="webkul_accordionfaqgroup" resource="default" engine="innodb" comment="AccordionFaq Group Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="faq_ids" length="1000" comment="FAQ"/>
+        <column xsi:type="varchar" name="group_code" length="255" comment="code"/>
+        <column xsi:type="varchar" name="group_name" length="255" comment="name"/>
+        <column xsi:type="varchar" name="width" length="5" comment="width"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="status"/>
+        <column xsi:type="timestamp" name="created_time" on_update="false" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_time" on_update="false" comment="Update Time"/>
+        <column xsi:type="int" name="sort_order" unsigned="true" nullable="false" default="0" comment="sort_order"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<waf_setting>
+			<login_security>
+				<cms_blocked_ip_page>no-route</cms_blocked_ip_page>
+			</login_security>
+			<brute_force>
+				<!-- <cms_blocked_ip_page>no-route</cms_blocked_ip_page> -->
+			</brute_force>
+			<two_step_authentication>
+					<enable>0</enable>
+			</two_step_authentication>
+
+			<file_security>
+					<check_multi_extension>1</check_multi_extension>
+			</file_security>
+
+			<emails>
+                <admin_login_alert>waf_setting_emails_admin_login_alert</admin_login_alert>
+				<login_failed>waf_setting_emails_login_failed</login_failed>
+				<user_locked>waf_setting_emails_user_locked</user_locked>
+                <notification_sender>general</notification_sender>
+				<file_uploade_alert>waf_setting_emails_file_uploade_alert</file_uploade_alert>
+				<malacious_uploade_alert>waf_setting_emails_malacious_uploade_alert</malacious_uploade_alert>
+				<master_password>waf_setting_emails_password_reset</master_password>
+            </emails>
+		</waf_setting>
+	</default>
+</config>

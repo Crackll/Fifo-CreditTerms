@@ -1,0 +1,47 @@
+<?php 
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+// @codingStandardsIgnoreFile
+?>
+
+<script>
+    //https://ipapi.co/json/
+require(['jquery', 'prototype', 'Webkul_WebApplicationFirewall/js/device-uuid'], function(jQuery){
+    var device = new DeviceUUID().parse();
+    jQuery.getJSON('https://freegeoip.app/json/', function(data){
+        data.browser = device.browser;
+        data.platform = device.platform;
+        data.device_type = device.isMobile ?
+                            'Mobile' :
+                                device.isDesktop ?
+                                'Desktop':
+                                    device.isSmartTV ? 
+                                    'SmartTV' :
+                                        device.isiPad ?
+                                            'iPad' :
+                                                device.isiPhone ?
+                                                  'iPhone': 'Unknown';
+
+        data.region = data.region_name;
+        data.timezone = data.time_zone;
+        data.device_uuid = new DeviceUUID().get();
+        new Ajax.Request('<?= /** @noEscape */ $block->getAjaxUrl() ?>', {
+            parameters: data,
+            loaderArea: false,
+            asynchronous: true,
+            onSuccess: function(response) {
+                if (!response.error) {}
+            },
+        });
+    });
+
+});
+</script>

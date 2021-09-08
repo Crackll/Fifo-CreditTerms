@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Webkul_Helpdesk::manager" title="Webkul Helpdesk" sortOrder="15" >
+                    <resource id="Webkul_Helpdesk::dashboards" title="Dashboard" sortOrder="10"></resource>
+
+                    <resource id="Webkul_Helpdesk::ticketsmanagement" title="Tickets Management" sortOrder="20">
+                        <resource id="Webkul_Helpdesk::tickets" title="Manage Tickets" sortOrder="20" />
+                        <resource id="Webkul_Helpdesk::type" title="Manage Ticket Type" sortOrder="21" />
+                        <resource id="Webkul_Helpdesk::status" title="Manage Ticket Status" sortOrder="22" />
+                        <resource id="Webkul_Helpdesk::priority" title="Manage Ticket Priority" sortOrder="23" />
+                        <resource id="Webkul_Helpdesk::customattribute" title="Manage Ticket Custom Attributes" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::edit_ticket_properties" title="Edit Ticket Properties" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::edit_status" title="Edit Status" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::assign_ticket" title="Assign Ticket" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::send_reply" title="Send Reply" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::forward_ticket" title="Forward Ticket" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::add_note" title="Add Note" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::delete_ticket" title="Delete Ticket" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::split_ticket" title="Split Ticket" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::delete_conversation" title="Delete Thread" sortOrder="24" />
+                        <resource id="Webkul_Helpdesk::add_cc_bcc" title="Add Cc Bcc" sortOrder="24" />
+                    </resource>
+
+                    <resource id="Webkul_Helpdesk::agentsmanagement" title="Agent Management" sortOrder="10">
+                        <resource id="Webkul_Helpdesk::agent" title="Manage Agents" sortOrder="20" />
+                        <resource id="Webkul_Helpdesk::level" title="Manage Agent Level" sortOrder="22" />
+                        <resource id="Webkul_Helpdesk::group" title="Manage Groups" sortOrder="23" />
+                    </resource>
+
+                    <resource id="Webkul_Helpdesk::customermanagement" title="Manage Customer" sortOrder="10">
+                        <resource id="Webkul_Helpdesk::customers" title="Manage Customer" sortOrder="20" />
+                        <resource id="Webkul_Helpdesk::customerorganization" title="Manage Organization" sortOrder="21" />
+                    </resource>
+                    <resource id="Webkul_Helpdesk::supportcontent" title="Manage Support Center" sortOrder="101">
+                        <resource id="Webkul_Helpdesk::sla" title="Manage SLA Policies" sortOrder="102" /> 
+                        <resource id="Webkul_Helpdesk::supportcenter" title="Manage Support Center" sortOrder="103" />
+                        <resource id="Webkul_Helpdesk::emailtemplate" title="Manage Email Template" sortOrder="104" />
+                        <resource id="Webkul_Helpdesk::activity" title="Activity" sortOrder="105"/>
+                        <resource id="Webkul_Helpdesk::businesshours" title="Manage Business Hours" sortOrder="106"/>
+                        <resource id="Webkul_Helpdesk::events" title="Manage Events and Triggers" sortOrder="107"/>
+                        <resource id="Webkul_Helpdesk::responses" title="Responses" sortOrder="108"/>
+                        <resource id="Webkul_Helpdesk::tag" title="Tag" sortOrder="109"/>
+                        <resource id="Webkul_Helpdesk::connectemail" title="Connect Email(s)" sortOrder="110"/>
+                    </resource>                    
+
+                    <resource id="Webkul_Helpdesk::reporting" title="Reporting" sortOrder="10">
+                        <resource id="Webkul_Helpdesk::reportcustomer" title="Customer Report Summary" sortOrder="20" />
+                        <resource id="Webkul_Helpdesk::reportagent" title="Agent Report Summary" sortOrder="21" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Webkul_Helpdesk::config_helpdesk" title="Helpdesk Configuration" sortOrder="100" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

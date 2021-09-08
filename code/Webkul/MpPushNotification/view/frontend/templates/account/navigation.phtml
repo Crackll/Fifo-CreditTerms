@@ -1,0 +1,51 @@
+<?php
+/**
+ * @category   Webkul
+ * @package    Webkul_MpPushNotification
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMarketplaceHelper();
+$b_class=$block->getCurrentNavClass('mppushnotification/users/index');
+$t_class=$block->getCurrentNavClass('mppushnotification/templates/index');
+
+
+if ($helper->isSeller()) { ?>
+    <li class="mp-push-notification nav item <?= /* @noEscape */ $b_class; ?>
+    <?= /* @noEscape */  $t_class;?>">  
+        <?php if ($block->getCurrentNavClass('mppushnotification/users/index')) { ?>   
+            <strong><?= /* @noEscape */  __('Push Notification') ?></strong>        
+            <?php
+        } else { ?>    
+            <a href="#"><?= /* @noEscape */  __('Push Notification') ?></a>                
+        <?php } ?>
+        <ul class="nav items">
+            <li class="nav item <?= /* @noEscape */  $block->getCurrentNavClass('mppushnotification/users/index');?>">
+                <?php if ($block->getCurrentNavClass('mppushnotification/users/index')) { ?>   
+                    <strong><?= /* @noEscape */  __('Notification Subscribers') ?></strong>        
+                    <?php
+                } else { ?>    
+                    <a href="<?= /* @noEscape */  $block->getPushUrl('mppushnotification/users/index')?>">
+                        <?= /* @noEscape */  __('Notification Subscribers') ?>
+                    </a>                
+                <?php } ?>
+            </li>
+            <li class="nav item <?= /* @noEscape */  $t_class;?>">
+                <?php if ($t_class) { ?>   
+                    <strong><?= /* @noEscape */  __('Notification Templates') ?></strong>        
+                    <?php
+                } else { ?>    
+                    <a href="<?= /* @noEscape */  $block->getPushUrl('mppushnotification/templates/index')?>">
+                        <?= /* @noEscape */  __('Notification Templates') ?>
+                    </a>                
+                <?php } ?>
+            </li>
+        </ul>   
+    </li>
+<?php } ?>
+

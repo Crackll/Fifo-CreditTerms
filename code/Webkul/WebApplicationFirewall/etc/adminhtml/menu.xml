@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_WebApplicationFirewall::system_acl" title="Web Application Firewall Logs" translate="title" module="Webkul_WebApplicationFirewall" sortOrder="100" parent="Webkul_WebApplicationFirewall::waf_security" resource="Webkul_WebApplicationFirewall::waf_security"/>
+        <add id="Webkul_WebApplicationFirewall::system_acl_login" title="Admin Login Success Logs" translate="title" module="Webkul_WebApplicationFirewall" sortOrder="10" parent="Webkul_WebApplicationFirewall::system_acl" action="waf/adminlogin" resource="Webkul_WebApplicationFirewall::acl_login"/>
+        <add id="Webkul_WebApplicationFirewall::system_acl_login_failed" title="Brute Force Login Attempts Log" translate="title" module="Webkul_WebApplicationFirewall" sortOrder="20" parent="Webkul_WebApplicationFirewall::system_acl" action="waf/bruteforce" resource="Webkul_WebApplicationFirewall::acl_login_failed"/>
+        <!-- ====================== Start Code Added ===================== -->
+        <add id="Webkul_WebApplicationFirewall::waf_security" module="Webkul_WebApplicationFirewall" resource="Webkul_WebApplicationFirewall::waf_security" sortOrder="10" translate="title" title="Web Application Firewall"/>
+        <add action="waf/filesystempermission/permissionviewer" id="Webkul_WebApplicationFirewall::permissionviewer" module="Webkul_WebApplicationFirewall" parent="Webkul_WebApplicationFirewall::system_acl" resource="Webkul_WebApplicationFirewall::permissionviewer" sortOrder="10" title="View Permissions"/>
+        <!-- ====================== End Code Added ===================== -->
+    </menu>
+</config>

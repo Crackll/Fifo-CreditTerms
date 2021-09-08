@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+/** Webkul Smtp module xml
+ * @category  Webkul
+ * @package   Webkul_Smtp
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="smtp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+            <label>SMTP Setting</label>
+            <tab>webkul</tab>
+            <resource>Webkul_Smtp::config_setting</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label comment" sortOrder="1" type="select" showInDefault="1" >
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="host" translate="label comment" sortOrder="2" type="select" showInDefault="1" >
+                    <label>Host</label>
+                    <source_model>Webkul\Smtp\Model\Config\Source\EmailHostList</source_model>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable" separator=",">1</field>
+                    </depends>
+                </field>
+                <field id="host_url" translate="label comment" sortOrder="3" type="text" showInDefault="1" >
+                    <label>Host Url</label>
+                    <depends>
+                        <field id="host" separator=",">amazon-ses,custom</field>
+                        <field id="enable" separator=",">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="port" translate="label comment" sortOrder="4" type="text" showInDefault="1" >
+                    <label>Port</label>
+                    <depends>
+                        <field id="host" separator=",">custom</field>
+                        <field id="enable" separator=",">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="user_name" translate="label comment" sortOrder="5" type="text" showInDefault="1" >
+                    <label>User Name</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable" separator=",">1</field>
+                    </depends>
+                </field>
+                <field id="password" translate="label comment" sortOrder="6" type="password" showInDefault="1" >
+                    <label>Password</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable" separator=",">1</field>
+                    </depends>
+                </field>
+                <field id="label" translate="label comment" sortOrder="7" type="label" showInDefault="1" >
+                    <label></label>
+                    <depends>
+                        <field id="host" separator=",">smtp.gmail.com</field>
+                    </depends>
+                    <comment>If 2 step authentication On in your gmail account please fill 16-character App Password. For cretae app password check this one : https://support.google.com/accounts/answer/185833</comment>
+                </field>
+            </group>
+            <group id="test" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1">
+                <label>Test Mail</label>
+                <field id="mail_from" translate="label comment" sortOrder="1" type="text" showInDefault="1" >
+                    <label>Email From</label>
+                    <validate>validate-email</validate>
+                </field>
+                <field id="mail_to" translate="label comment" sortOrder="2" type="text" showInDefault="1" >
+                    <label>Email To</label>
+                    <validate>validate-email</validate>
+                </field>
+                <field id="content" translate="label comment" sortOrder="3" type="textarea" showInDefault="1" >
+                    <label>Content</label>
+                </field>
+                <field id="sendmail_button" translate="label" sortOrder="4" showInDefault="1">
+                    <frontend_model>Webkul\Smtp\Block\System\Config\Form\SendTestMail</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,50 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMpHelper();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+$isPartner = $helper->isSeller();
+$isCampaignIndex = $helper->isAllowedAction('mppromotioncampaign/campaign/index');
+?>
+<style type="text/css">
+    @media only screen and (max-width: 767px){
+        .block-collapsible-nav.wk-mp-main{
+            top: 20px;
+        }
+    }
+</style>
+<?php
+if ($isPartner && (($isSellerGroup && $isCampaignIndex) || !$isSellerGroup)) { ?>
+    <?php if (($isSellerGroup && $isCampaignIndex) || !$isSellerGroup) { ?>
+        <?php
+        $navClass = "";
+        if ($block->getNavSelectClass('mpcampaign/campaign/index')) {
+            $navClass = "current active";
+        }
+        $campaignUrl = $block->getUrl(
+            'mppromotioncampaign/campaign/index/',
+            ['_secure' => $block->getRequest()->isSecure()]
+        );
+        ?>
+        <li 
+        class="nav item notification-link wk-mp-item-customer level-0 <?= /* @noEscape */ $navClass ?>" 
+        id="wk-mp-menu-customer" >
+            <a href="<?= /* @noEscape */ $campaignUrl?>" 
+                class="<?= /* @noEscape */  $navClass?>">
+                <span><?= /* @noEscape */  __('Promotion') ?></span>
+            </a>
+        </li>
+        <?php } ?>
+<?php }?>
+
+
+
+

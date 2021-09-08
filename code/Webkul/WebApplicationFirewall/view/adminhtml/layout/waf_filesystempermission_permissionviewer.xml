@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+-->
+<page layout="admin-1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" src_type="url"/>
+        <css src="Webkul_WebApplicationFirewall::css/permissionviewer.css"/>
+    </head>
+
+    <body>
+    		<referenceContainer name="content">
+    			   <block class="Webkul\WebApplicationFirewall\Block\Adminhtml\FileSystemPermission\PermissionViewer" name="filesystempermission.permissionviewer" template="Webkul_WebApplicationFirewall::filesystempermission/permissionviewer.phtml"/>
+    		</referenceContainer>
+  	</body>
+</page>

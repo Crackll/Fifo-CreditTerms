@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerApproval
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="customerapproval" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Customer Approval</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <!-- create group for fields in section -->
+            <resource>Webkul_CustomerApproval::config_customerapproval</resource>
+            <group id="general_settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="auto_approval" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Enable Auto Approval for customers</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="not_approved_afterlogin" translate="label comment" sortOrder="5" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account not approved message after Login</label>
+                    <depends>
+                        <field id="auto_approval">0</field>
+                    </depends>
+                </field>
+                <field id="not_approved_afterregistration" translate="label comment" sortOrder="5" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account not approved message after Registration</label>
+                    <depends>
+                        <field id="auto_approval">0</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Templates</label>
+                <field id="customer_approval_template" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Account Approval Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="customer_disapproval_template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Account Disapproval Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="customer_registration_after_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>After Registration Email to Customer Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="admin_notification_template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Notification Email Template on Customer Registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="admin_notificatin" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Notification</label>
+                <field id="admin_name" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1">
+                    <label>Name</label>
+                </field>
+                <field id="admin_email" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1">
+                    <label>Email</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

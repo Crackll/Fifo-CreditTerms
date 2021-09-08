@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <head>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/product.css"/>
+        <css src="Webkul_Marketplace::css/layout.css"/>
+        <css src="Webkul_Marketplace::colorpicker/css/colorpicker.css"/>
+    </head>
+    <body>
+        <referenceBlock name="seller.page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Marketplace Edit Price Rules</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="seller.content">
+             <block class="Webkul\MpPriceList\Block\PriceList\AddPriceRules" name="microsite.details" template="Webkul_MpPriceList::tabs/microsite.phtml" cacheable="false">
+                 <block class="Webkul\MpPriceList\Block\PriceList\AddPriceRules" name="mppricelist_pricelist_addpricerules" template="Webkul_MpPriceList::pricelist/addpricerules.phtml" group="microsite_details" cacheable="false">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Add Rules</argument>
+                    </arguments>
+                </block>
+                <block class="Webkul\MpPriceList\Block\PriceList\AddPriceRules" name="mppricelist_rules" template="Webkul_MpPriceList::pricelist/addrulesonproduct.phtml" group="microsite_details" cacheable="false">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Assign Rules on Products</argument>
+                    </arguments>
+                     <container name="addrulesonproducts.grid.container" htmlTag="div" htmlClass="container">
+                             <uiComponent name="mppricelist_seller_productlist"/>
+                    </container> 
+                </block>
+        </block>
+       </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software protected Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="mprewardsystem" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Marketplace Reward System</label>
+            <tab>webkul</tab>
+            <resource>Webkul_MpRewardSystem::config_mprewardsystem</resource>
+            <group id="general_settings" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings of Reward Points</label>
+                <field id="enable" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Reward System Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="reward_value" translate="label comment" sortOrder="2" type="text" showInDefault="1">
+                    <label>1 Reward Point Value is Equals to</label>
+                    <validate>validate-number required-entry validate-digits-range digits-range-0-1000000</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>e.g. 10</comment>
+                </field>
+                <field id="max_reward_assign" translate="label comment" sortOrder="3" type="text" showInDefault="1">
+                    <label>Maximum Reward Points can Assign to a Customer</label>
+                    <validate>validate-number required-entry validate-digits-range digits-range-1-1000000</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>e.g. 1000 (Maximum number of points assign to a customer)</comment>
+                </field>
+                <field id="max_reward_used" translate="label comment" sortOrder="4" type="text" showInDefault="1">
+                    <label>Maximum Reward Points can be Used By a Customer</label>
+                    <validate>validate-number required-entry validate-digits-range digits-range-1-1000000</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>e.g. 1000 (Maximum number of points can be used by the customer at the time of order place)</comment>
+                </field>
+                <field id="allow_registration" translate="label comment" sortOrder="5" type="select" showInDefault="1">
+                    <label>Allow Reward Points on Registration</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="registration_reward" translate="label comment" sortOrder="6" type="text" showInDefault="1">
+                    <label>Reward Points On Registration</label>
+                    <depends>
+                        <field id="allow_registration">1</field>
+                        <field id="enable">1</field>
+                    </depends>
+                    <validate>max-reward-val-less-then-assign-val validate-number required-entry validate-digits-range</validate>
+                    <comment>e.g. 10</comment>
+                </field>
+                <field id="allow_review" translate="label comment" sortOrder="7" type="select" showInDefault="1">
+                    <label>Allow Reward Points on Product Review</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="review_reward" translate="label comment" sortOrder="8" type="text" showInDefault="1">
+                    <label>Reward Points On Product Review</label>
+                    <depends>
+                        <field id="allow_review">1</field>
+                        <field id="enable">1</field>
+                    </depends>
+                    <validate>max-reward-val-less-then-assign-val-review validate-number required-entry validate-digits-range</validate>
+                    <comment>e.g. 10</comment>
+                </field>
+                <field id="priority" translate="label comment" sortOrder="10" type="select" showInDefault="1" >
+                    <label>Order Placed Reward Points Calculation Based On</label>
+                    <source_model>Webkul\MpRewardSystem\Model\Config\Source\Priority</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Reward points for placed order will calculate based on Product/Cart/Category.</comment>
+                </field>
+                <field id="activeproduct" translate="label comment" sortOrder="11" type="select" showInDefault="1">
+                    <label>Rewards Applied product's Quantity wise</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="priority">0</field>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>If yes then reward points will apply product's quantity wise.</comment>
+                </field>
+            </group>
+            <group id="email_settings" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+      				<label>Manage Reward Email Setting</label>
+              <field id="enable_mprewardsystem_transaction_mail" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                  <label>Email notification for Transactions</label>
+                  <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+              </field>
+      				<field id="mprewardsystem_transaction" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+      						<label>Transactions Template</label>
+      						<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                  <depends>
+                      <field id="enable_mprewardsystem_transaction_mail">1</field>
+                  </depends>
+      				</field>
+      		</group>
+        </section>
+    </system>
+</config>

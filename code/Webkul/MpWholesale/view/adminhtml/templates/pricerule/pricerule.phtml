@@ -1,0 +1,120 @@
+<?php $storetotal = 5;
+$entityId = $block->getRequest()->getParam('id');
+$priceRuleData = $block->getPriceRuleObject();
+$units = $block->getUnitsDataWithValue();
+?>
+ <fieldset class="fieldset admin__fieldset">
+   <div class="messages"></div>
+    <?php if ($entityId) {?>
+    <input type="hidden" name="entity_id" value="<?= $block->escapeHtml($entityId); ?>" />
+    <?php } ?>
+   <div class="field admin__field required">
+     <label class="label" for="rule_name">
+       <span><?= $block->escapeHtml(__('Rule Name')); ?></span>
+     </label>
+     <div class="control">
+       <input id="rule_name" name="rule_name" type="text" 
+       value="<?= $block->escapeHtml($priceRuleData->getRuleName()); ?>" class="input-text required-entry" />
+     </div>
+   </div>
+   <div class="field admin__field required">
+     <label class="label" for="status">
+       <span><?= $block->escapeHtml(__('Status')); ?></span>
+     </label>
+     <div class="control">
+       <select id="status" name="status" type="text" class="input-text required-entry">
+         <option value=''><?= $block->escapeHtml(__('Select')); ?></option>
+         <option value="1" <?php if ($priceRuleData->getStatus() == 1) { echo $block->escapeHtml(__("selected"));} ?> >
+            <?= $block->escapeHtml(__('Enabled')); ?></option>
+         <option value="0" <?php if ($priceRuleData->getStatus() == 0) { echo $block->escapeHtml(__("selected"));} ?> >
+            <?= $block->escapeHtml(__('Disabled')); ?></option>
+       </select>
+     </div>
+   </div>
+ </fieldset>
+<fieldset class="admin__fieldset fieldset">
+    <legend class="legend">
+        <span><?= $block->escapeHtml(__('Manage Units')) ?></span>
+    </legend><br />
+    <div class="admin__control-table-wrapper" id="manage-options-panel" data-index="attribute_options_select_container">
+        <table class="admin__control-table" data-index="attribute_options_select">
+            <thead>
+                <tr id="pricerule-options-table">
+                    <th class="col-draggable"></th>
+                    <th class="col-default control-table-actions-th">
+                        <span><?= $block->escapeHtml(__('Unit of quantity')) ?></span>
+                    </th>
+                    <th class="col-default control-table-actions-th">
+                        <span><?= $block->escapeHtml(__('Quantity')) ?></span>
+                    </th>
+                    <th class="col-default control-table-actions-th">
+                        <span><?= $block->escapeHtml(__('Price per quantity')) ?></span>
+                    </th>
+                    <th class="col-delete">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody data-role="options-container" class="ignore-validate"></tbody>
+            <tfoot>
+            <tr>
+                <th colspan="<?= (int) $storetotal ?>" class="col-actions-add">
+                  <button id="add_new_option_button" data-action="add_new_row"
+                          title="<?= $block->escapeHtml(__('Add Option')) ?>"
+                          type="button" class="action- scalable add">
+                      <span><?= $block->escapeHtml(__('Add Option')) ?></span>
+                  </button>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+        <input type="hidden" id="option-count-check" value="" />
+    </div>
+    <script id="row-template" type="text/x-magento-template">
+        <tr <% if (data.rowClasses) { %>class="<%- data.rowClasses %>"<% } %>>
+            <td><input name="option[entity_id][<%- data.id %>]" value="<%- data.entity_id %>" 
+                class="input-text" type="hidden" /></td>
+            <td class="col-default control-table-actions-cell">
+                <select class="input-select" name="option[unit_id][<%- data.id %>]">
+                    <%_.forEach(data.units_Data, function (value,index) {%>
+                          <% if(index == data.unit_id) { %>
+                              <option value="<%- index %>" data-value="<%- data.id %>" selected><%- value %></option>
+                          <% } else { %>
+                                <option value="<%- index %>" data-value="<%- data.id %>"><%- value %></option>
+                          <% } %>
+                  <%})%>
+                </select>
+            </td>
+            <td class="col-<%- data.id %>"><input name="option[qty][<%- data.id %>]" value="<%- data.qty %>" 
+                class="input-text required-option" type="text" /></td>
+            <td class="col-<%- data.id %>"><input name="option[price_per_qty][<%- data.id %>]" 
+            value="<%- data.qty_price %>" 
+                class="input-text required-option" type="text" /></td>
+            <td id="delete_button_container_<%- data.id %>" class="col-delete">
+              <input type="hidden" class="delete-flag" data-value="<%- data.entity_id %>" 
+                name="option[delete][<%- data.id %>]" value="" />
+                <button id="delete_button_<%- data.id %>" title="<?= $block->escapeHtml(__('Delete')) ?>" 
+                type="button"
+                    class="action- scalable delete delete-option"
+                    >
+                    <span><?= $block->escapeHtml(__('Delete')) ?></span>
+                </button>
+            </td>
+        </tr>
+    </script>
+    <?php
+    $values = [];
+    foreach ($block->getOptionValues() as $value) {
+        $value = $value->getData();
+        $values[] = $value;
+    }
+    ?>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Webkul_MpWholesale/js/options": {
+                    "attributesData": <?= /* @noEscape */ json_encode($values, JSON_HEX_QUOT) ?>,
+                    "unitsData":  <?= /* @noEscape */ json_encode($units, JSON_HEX_QUOT) ?>
+                }
+            }
+        }
+    </script>
+</fieldset>

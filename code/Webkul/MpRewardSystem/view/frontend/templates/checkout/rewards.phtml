@@ -1,0 +1,124 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRewardSystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div class="block discount" id="block-discount" 
+data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
+    <div class="title" data-role="title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">
+        <strong id="block-discount-heading" role="heading" aria-level="2"><?=/* @noEscape */ __('Seller\'s Reward'); ?>
+        </strong>
+    </div>
+    <div class="content" data-role="content" aria-labelledby="block-discount-heading" role="tabpanel" 
+    aria-hidden="true" style="display: none;">
+        <form id="discount-coupon-form" action="<?=$block->escapeUrl($block
+        ->getUrl("mprewardsystem/checkout/applyrewards")) ?>" method="post" data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="remove" id="remove-coupone" value="0" />
+            <input type="hidden" name="remaining_reward_point" id="remaining_reward_point" value="" />
+            <div class="fieldset coupon">
+                <div class="field">
+                    <label for="coupon_code" class="label"><span><?=/* @noEscape */ __('Select seller\'s reward');?> 
+                    </span></label>
+                    <select id="select_reward" class="select" name="seller_id">
+                            <option value=""><?=/* @noEscape */ __('Select seller\'s reward');?></option>
+                            <?php foreach ($block->getRewards() as $key => $value): ?>
+                                <?php if ($value['remaining_reward_point'] > 0): ?>
+                                    <option value="<?=$block->escapeHtml($key); ?>" data-reward="<?=$block
+                                    ->escapeHtml((int)($value['remaining_reward_point'])) ?>"><?=$block
+                                    ->escapeHtml("Seller : ".$block
+                                    ->getSellerName($key).", Rewards : ".
+                                    (int)($value['remaining_reward_point']).", Amount : ".$block
+                                    ->getPricingHelper()->currency($value['amount'], true, false)); ?>
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="fieldset coupon reward_field" style="display:none">
+                <div class="field">
+                    <label for="coupon_code" class="label"><span><?=/* @noEscape */ __('Enter Reward Points');?>
+                     </span></label>
+                    <div class="control">
+                        <input id="reward_points" type="text" class="required-entry input-text" value=""
+                         name="used_reward_points" max="0" min="1" placeholder="Enter reward points">
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button class="action apply primary" type="submit" value="Apply Reward">
+                            <span><?=/* @noEscape */ __('Apply Reward') ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <?php $rewardInfo = $block->getRewardsSession();?>
+        <?php if (is_array($rewardInfo) && !empty($rewardInfo)): ?>
+            <form id="cancel-Reward-form" action="<?=$block->escapeUrl($block
+            ->getUrl('mprewardsystem/checkout/cancelrewards')) ?>" method="post">
+                <dl class="wk_applied_rewards">
+                    <dt><?=/* @noEscape */ __('Applied Rewards') ?></dt>
+                    <dd>
+                        <ul class="form-list">
+                            <?php foreach ($rewardInfo as $key => $info): ?>
+                                    <li>
+                                        <label>
+                                            <span><?=$block->escapeHtml($block
+                                            ->getSellerName($info['seller_id'])) ?> : </span>
+                                            <span><?=/* @noEscape */ __('Using') ?></span>
+                                            <span><?=$block->escapeHtml($block->getPricingHelper()
+                                            ->currency(abs($info['amount']), true, false)) ?></span>
+                                            <span><?=$block
+                                            ->escapeHtml("(".$info['used_reward_points']." ".__('Rewards').") of") ?>
+                                             </span>
+                                             <span><?=$block->escapeHtml($block->getPricingHelper()
+                                                ->currency($info['avail_amount'], true, false)) ?></span>
+                                             <span><?=$block
+                                                ->escapeHtml("(".$info['remaining_reward_point'].
+                                                " ".__('Rewards').")")?>
+                                              </span>
+                                        </label>
+                                    </li>
+                            <?php endforeach; ?>
+                        </ul>
+                         <div class="actions-toolbar">
+                            <div class="primary">
+                                <button class="action apply primary" id="cancel_reward" type="submit" 
+                                value="<?= /* @noEscape */__('Cancel Rewards') ?>">
+                                    <span><?=/* @noEscape */ __('Cancel Reward') ?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </form>
+        <?php endif; ?>
+    </div>
+</div>
+<script>
+    require([
+        "jquery",
+        'jquery/ui', // Jquery UI Library
+        'jquery/validate', // Jquery Validation Library
+        'mage/translate'
+    ], function ($){
+        $('#select_reward').on('change',function(){
+        if($(this).val()!=''){
+        $(".reward_field").css({"display":"block"});
+        $("#reward_points").attr("data-validate","{required:true,'validate-number-range':true,'validate-number':true}")
+        $("#reward_points").attr("max",$('option:selected', this).attr('data-reward'));
+        $("#remaining_reward_point").val($("#reward_points").attr("max"));
+        } else {
+            $(".reward_field").css({"display":"none"});
+        }
+        });
+
+    });
+</script>

@@ -1,0 +1,21 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+		 
+		 + Compatible with magento 2.4
+
+-------------------------------- Version 3.0.0 --------------------------------------
+		 
+		 + Compatible with magento 2.3
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+		+ Admin can create campaign
+		+ Admin add product on campaign 
+		+ Seller can join  campaign
+		+ Seller add product on campaign
+		+ Seller can delete product from campaign
+		+ Admin can manage campaign
+		+ Admin can manage product on campaign

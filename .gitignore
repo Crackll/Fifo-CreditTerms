@@ -1,4 +1,4 @@
-*
+/*
 !/.gitignore
-!/code/**
-!/design/**
+!code
+!design

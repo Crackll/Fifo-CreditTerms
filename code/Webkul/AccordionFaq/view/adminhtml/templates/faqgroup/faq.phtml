@@ -1,0 +1,46 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AccordionFaq
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<script>
+    require([
+        'jquery',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function($){
+        $("#edit_form").append('<input type="hidden" id="faq_ids" name="faq_ids" value="">');
+        $("#edit_form").append('<input type="hidden" name="faqgroup_id" value="<?= $escaper->escapeHtml($block->getFaqGroupId()); ?>">');
+        var checkBoxes = "<?= $escaper->escapeHtml($block->getFaqIds()) ?>";
+        $('#faq_ids').val(checkBoxes);
+        function setValues() {
+            var ids = [];
+            $("table tbody tr td input:checkbox").each(function(){
+                if($(this).prop("checked")) {
+                    id = $(this).val();
+                    ids.push(id);
+                }
+            });
+            ids.sort();
+            ids = ids.join();
+            $("#faq_ids").val(ids);
+        }
+        $(document).ready(function(){
+            $(document).on('click', 'table tbody tr', function(event) {
+                setValues();
+            });
+            $(document).on('click', 'table tbody tr td', function(event) {
+                setValues();
+            });
+            $(document).on('click', 'table thead tr', function(event) {
+                setValues();
+            });
+        });
+    });
+</script>

@@ -1,0 +1,17 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + compatible with magento 2.3.x
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Seller can create purchase order for Approved wholesale quotes.
+	+ The admin can merge different purchase orders into a single purchase order.
+	+ Notification emails on order status change.
+	+ Wholesalers can check their respective purchase orders.
+	+ Wholesalers can schedule the shipments.
+	+ Admin can configure whether Order Approval required or not.
+	+ Admin can allow sellers to receive shipments.
+	+ Sellers can check the status of their purchase order.

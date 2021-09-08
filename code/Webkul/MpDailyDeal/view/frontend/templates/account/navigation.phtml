@@ -1,0 +1,58 @@
+<!--
+/**
+ * Webkul_MpDailyDeal Navigation.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+$dealHelper = $block->getDealHelper();
+if ($dealHelper->isDealEnable()) {
+    $helper = $block->geMpHelper();
+    $isSellerGroup = $helper->isSellerGroupModuleInstalled();
+    if ($helper->isSeller() && ( (($isSellerGroup && $helper->isAllowedAction('mpdailydeal/account/index'))
+     || !$isSellerGroup) || (($isSellerGroup && $helper->isAllowedAction('mpdailydeal/account/deallist'))
+     || !$isSellerGroup))) { ?>
+        <li class="mp-daily-deal nav item <?= /* @noEscape */ $block->getCurrentNavClass('mpdailydeal/account')?>">  
+            <?php if ($block->getCurrentNavClass('mpdailydeal/account')) { ?>   
+                <strong><?= /* @noEscape */ __('Daily Deal') ?></strong>        
+                <?php
+            } else { ?>    
+                <a href="#"><?= /* @noEscape */ __('Daily Deal') ?></a>                
+            <?php } ?>
+            <ul class="nav items">
+            <?php if (($isSellerGroup &&
+            $helper->isAllowedAction('mpdailydeal/account/index')) || !$isSellerGroup) { ?>
+                <li class="nav item <?= /* @noEscape */
+                 $block->getCurrentNavClass('mpdailydeal/account/index');?>">
+                    <?php if ($block->getCurrentNavClass('mpdailydeal/account/index')) { ?>   
+                        <strong><?= /* @noEscape */ __('Add Deal On Product') ?></strong>        
+                        <?php
+                    } else { ?>    
+                        <a href="<?= /* @noEscape */ $block->getDealUrl('mpdailydeal/account/index')?>">
+                            <?= /* @noEscape */ __('Add Deal On Product') ?>
+                        </a>                
+                    <?php } ?>
+                </li>
+            <?php } ?>
+            <?php if (($isSellerGroup &&
+            $helper->isAllowedAction('mpdailydeal/account/deallist')) || !$isSellerGroup) { ?>
+                <li class="nav item <?= /* @noEscape */
+                $block->getCurrentNavClass('mpdailydeal/account/deallist');?>">
+                    <?php if ($block->getCurrentNavClass('mpdailydeal/account/deallist')) { ?>   
+                        <strong><?= /* @noEscape */ __('Deal Product List') ?></strong>        
+                        <?php
+                    } else { ?>    
+                        <a href="<?= /* @noEscape */ $block->getDealUrl('mpdailydeal/account/deallist')?>">
+                            <?= /* @noEscape */ __('Deal Product List') ?>
+                        </a>                
+                    <?php } ?>
+                </li>
+            <?php } ?>
+            </ul>   
+        </li>
+    <?php } ?>
+<?php } ?>

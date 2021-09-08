@@ -1,0 +1,134 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->getMpHelper();
+ 
+    $isPartner = $helper->isSeller();
+    $data = ["products" => $block->getProductIds(true)];
+    $data = $block->getJsonFromArray($data);
+    $categoryData = $block->getCategoryData();
+    $id = $categoryData['id'];
+    $categoryName = $categoryData['category_name'];
+    $position = $categoryData['position'];
+    $status = $categoryData['status'];
+    $productIds = $categoryData['product_ids'];
+    $allStatus = $block->getAllStatus();
+?>
+<div class="wk-mpsellercategory-container">
+    <?php if ($isPartner == 1): ?>
+        <form action="<?= /* @noEscape */ $block->getUrl('mpsellercategory/category/save') ?>" 
+        enctype="multipart/form-data" method="post" id="form-save-category" 
+        data-mage-init='{"validation":{}}'>
+            <div class="fieldset wk-ui-component-container">
+                <?= $block->getBlockHtml('formkey') ?>
+                <?= $block->getBlockHtml('seller.formkey') ?>
+                <input type="hidden" name="id" value="<?= /* @noEscape */ $id ?>">
+                <input type="hidden" name="product_ids" id="product_ids" value="<?= /* @noEscape */ $productIds; ?>">
+                <div class="page-main-actions">
+                    <div class="page-actions-placeholder"></div>
+                    <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+                        <div class="page-actions-inner" data-title="<?= /* @noEscape */ __("Category"); ?>">
+                            <div class="page-actions-buttons">
+                                <button id="back" title="<?= /* @noEscape */ __("Back"); ?>" type="button" 
+                                class="action- scalable back wk-ui-grid-btn-back wk-ui-grid-btn" 
+                                data-ui-id="back-button">
+                                    <span><?= /* @noEscape */ __("Back"); ?></span>
+                                </button>
+                                <button id="save" title="<?= /* @noEscape */ __("Save Category"); ?>" type="submit" 
+                                class="action- scalable save primary ui-button ui-widget 
+                                ui-state-default ui-corner-all ui-button-text-only wk-ui-grid-btn 
+                                wk-ui-grid-btn-primary" 
+                                data-form-role="save" 
+                                data-ui-id="save-button" role="button" aria-disabled="false">
+                                    <span class="ui-button-text">
+                                        <span><?= /* @noEscape */ __("Save Category"); ?></span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="category_name" class="label">
+                        <span><?= /* @noEscape */ __("Name"); ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" name="category_name" 
+                        data-validate="{required:true}" title="<?= /* @noEscape */ __("Name"); ?>" 
+                        id="category_name" value="<?= /* @noEscape */ $block->escapeHtml($categoryName) ?>">
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="position" class="label">
+                        <span><?= /* @noEscape */ __("Position"); ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry validate-digits" 
+                        name="position" 
+                        data-validate="{required:true}" title="<?= /* @noEscape */ __("Position"); ?>" 
+                        id="position" value="<?= /* @noEscape */ $block->escapeHtml($position) ?>">
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="status" class="label">
+                        <span><?= /* @noEscape */ __("Status"); ?></span>
+                    </label>
+                    <div class="control">
+                        <select data-validate="{'validate-select':true}" title="<?= /* @noEscape */ __("Status"); ?>" 
+                        id="status" name="status" class="required-entry" data-ui-id="select-status">
+                            <?php foreach ($allStatus as $value => $label): ?>
+                                <?php if ($status == $value): ?>
+                                    <option value="<?= /* @noEscape */ $value; ?>" 
+                                    selected><?= /* @noEscape */ __($label); ?>
+                                    </option>
+                                <?php else: ?>
+                                    <option value="<?= /* @noEscape */ $value; ?>"><?= /* @noEscape */ __($label); ?>
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="wk-category-products">
+            <div class="fieldset wk-ui-component-container">
+                <div class="field">
+                    <label for="products" class="label wk-head-title">
+                        <span><?= /* @noEscape */ __("Products in Category"); ?></span>
+                    </label>
+                    <div class="control">
+                        <?= /* @noEscape */ $block->getChildHtml(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Webkul_MpSellerCategory/js/category/edit": <?= /* @noEscape */ $data ?>
+                }
+            }
+        </script>
+    <?php else: ?>
+        <h2 class="wk-mp-error-msg">
+            <?= /* @noEscape */ __("To Become Seller Please Contact to Admin."); ?>
+        </h2>
+    <?php endif; ?>
+</div>
+<script>
+ require(['jquery', 'jquery/ui'], function($){ 
+    jQuery("#back").click(function(){
+        window.location.replace("<?= /* @noEscape */ $block->getStoreUrl().'mpsellercategory/category/manage/' ?>");
+    });
+ });
+</script>

@@ -1,0 +1,50 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+
+$collection = $block->getSupportCenterData();
+$url = $block->getUrl();
+?>
+<div class="wk_ts_thread_container">
+    <div style="width:98%;padding:1%;float:left;box-sizing: content-box;">
+        <div class="page-title" style="clear:both">
+            <h1><?= $block->escapeHtml(__("Check Ticket Status")) ?></h1>
+        </div>
+        <form action="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/loginPost/')) ?>" 
+        method="post" 
+        id="wk_ts_checkstatus_form" data-mage-init='{"validation":{}}'>
+            <ul class="form-list-login" id="wk_bodymain">
+                <?= $block->getBlockHtml('formkey')?>
+                <li>
+                    <label class="required"><em>*</em><?= $block->escapeHtml(__("E-Mail 
+                    Address")) ?>:</label>
+                    <div class="input-box">
+                        <input type="text" class="required-entry input-text" placeholder="<?=
+                        $block->escapeHtml(__('Email Address')) ?>" name="email"/>
+                    </div>
+                </li>
+                <li>
+                    <label class="required"><em>*</em><?= $block->escapeHtml(__("Ticket ID"))
+                    ?>:</label>
+                    <div class="input-box">
+                        <input type="text" class="required-entry input-text" name="ticketid" 
+                        placeholder="<?= $block->escapeHtml(__('Ticket ID')) ?>"/>
+                    </div>
+                </li>
+            </ul>
+             <div class="buttons-set-login">
+                <p class="tk_required required"><?= $block->escapeHtml(__("* Required Fields")) ?></p>
+                <button class="button action primary" 
+                title="<?= $block->escapeHtml(__("Continue")) ?>" type="submit" id="save_butn">
+                    <span><span><?= $block->escapeHtml(__("Continue")) ?></span></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

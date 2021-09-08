@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mpproductlabel>
+            <general_settings>
+                <label_manage>1</label_manage>
+                <allowed_image_extensions>jpg,png</allowed_image_extensions>
+                <defaultWidth_productPage>20</defaultWidth_productPage>
+                <defaultHeight_productPage>20</defaultHeight_productPage>
+                <defaultWidth_categoryPage>30</defaultWidth_categoryPage>
+                <defaultHeight_categoryPage>30</defaultHeight_categoryPage>
+            </general_settings>
+            <email>
+                <new_label_approve_request>mpproductlabel_email_new_label_approve_request</new_label_approve_request>
+                <edit_label_approve_request>mpproductlabel_email_edit_label_approve_request</edit_label_approve_request>
+                <label_approve>mpproductlabel_email_label_approve</label_approve>
+                <label_disapprove>mpproductlabel_email_label_disapprove</label_disapprove>
+            </email>
+        </mpproductlabel>
+    </default>
+</config>

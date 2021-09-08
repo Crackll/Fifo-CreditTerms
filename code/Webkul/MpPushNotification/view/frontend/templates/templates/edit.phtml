@@ -1,0 +1,90 @@
+<?php
+/**
+ * @category   Webkul
+ * @package    Webkul_MpPushNotification
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMarketplaceHelper();
+$template = $block->getTemplateData();
+$isPartner = $helper->isSeller();
+$c_action="mppushnotification/templates/save";
+$secureurl=['_secure' => $block->getRequest()->isSecure()];
+?>
+<?php if ($isPartner == 1): ?>
+    <form action="<?= /* @noEscape */  $block->getUrl($c_action, $secureurl); ?>" 
+    enctype="multipart/form-data" method="post" id="new-template" data-form="new-template"
+     data-mage-init='{"validation":{}}'>
+    <div class="wk-mp-design" id="wk-bodymain">
+        <fieldset class="fieldset info wk-mp-fieldset">
+            <legend class="legend">
+                <span><?= /* @noEscape */  __('Save Template') ?></span>
+                <button class="button wk-mp-btn" title="<?= /* @noEscape */  __('Save') ?>"
+                type="submit" id="save-btn">
+                    <span><span><?= /* @noEscape */  __('Save') ?></span></span>
+                </button>
+            </legend>            
+            <?= /* @noEscape */  $block->getBlockHtml('formkey')?>
+            <input type="hidden" class="input-text" name="entity_id" id="entity_id" 
+            value="<?= /* @noEscape */  $template['entity_id']; ?>" />
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */  __('Title') ?>:</label>
+                <div class="control">
+                    <input type="text" class="required-entry input-text validate-alphanum-with-spaces"
+                    name="title" id="title" value="<?= /* @noEscape */  $template['title']; ?>" />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */  __('Message') ?>:</label>
+                <div class="control">
+                    <input type="text" class="required-entry input-text validate-alphanum-with-spaces"
+                     name="message" id="message" value="<?= /* @noEscape */  $template['message']; ?>"/>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */  __('Redirect Url') ?>:</label>
+                <div class="control">
+                    <input type="url" class="required-entry input-text" name="url" id="name"
+                     value="<?= /* @noEscape */  $template['url']; ?>"/>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */  __('Tags') ?>:</label>
+                <div class="control">
+                    <input type="text" class="required-entry input-text validate-alphanum-with-spaces"
+                    name="tags" id="tags" value="<?= /* @noEscape */  $template['tags']; ?>"/>
+                </div>
+            </div>
+            <div class="field">
+                <label for="image" class="label">
+                    <span><?= /* @noEscape */  __("Logo"); ?></span>
+                </label>
+                <div class="control">
+                    <div class="wk-ap-ap-img-box">
+                        <div class="wk-editform-del">X</div>
+                        <img  id="imgsrc" height="50px" width="50px" src="<?= /* @noEscape */
+                        $block->getImageView($template['logo']);?>">
+                    </div>
+                    <span class="file-uploader-spinner"></span>
+                    <input accept="image/*" type="file" class="input-text" title="logo" name="logo" id="logo">
+                </div>
+            </div>
+
+        </fieldset>
+    </div>        
+</form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "editTemplate": {}
+        }
+    }
+</script>
+<?php else: ?>
+    <h2 class="wk-mp-error-msg">
+        <?= /* @noEscape */  __("To Become Seller Please Contact to Admin."); ?>
+    </h2>
+<?php endif; ?>

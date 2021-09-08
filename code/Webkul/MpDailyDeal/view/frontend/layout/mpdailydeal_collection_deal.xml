@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_MpDailyDeal seller deal collection layout.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="marketplace_seller_top_header" />
+    <head>
+   		<css src="Webkul_MpDailyDeal::css/style.css"/>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/collection.css"/>
+        <css src="Webkul_Marketplace::css/filter.css"/>
+        <css src="Magento_Swatches::css/swatches.css"/>
+        <link src="Webkul_MpDailyDeal::js/dealtimer.js"/>
+	</head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\MpDailyDeal\Block\Product\SellerDealProducts" name="marketplace_sellerdealcollection" template="Webkul_MpDailyDeal::marketplace/collectionview.phtml" before="-">
+                <block class="Webkul\Marketplace\Block\Profile" name="marketplace_seller_top_block" template="Webkul_Marketplace::seller/top-block.phtml"/>
+                <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setToolbarBlockName">
+                    <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="marketplace_seller_top_block">
+            <block class="Webkul\Marketplace\Block\Sellercategory" name="marketplace_seller_profile_contact" template="Webkul_Marketplace::seller/contact.phtml"/>
+            <block class="Webkul\Marketplace\Block\Sellercategory" name="marketplace_seller_profile_menu" template="Webkul_Marketplace::seller/menu.phtml" before="-"/>
+        </referenceContainer>
+        <referenceContainer name="marketplace_seller_profile_menu">
+        	<block class="Webkul\MpDailyDeal\Block\DealLink" name="marketplace_deal_link_block" template="deal_link_block.phtml" before="marketplace_sellerprofileleft" />
+    	</referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\SampleProduct\Api\Data\SampleProductInterface" type="Webkul\SampleProduct\Model\SampleProduct"/>
+    <preference for="Webkul\SampleProduct\Api\Data\SampleProductOrderInterface" type="Webkul\SampleProduct\Model\SampleProductOrder"/>
+    <preference for="Magento\Checkout\CustomerData\Cart" type="Webkul\SampleProduct\CustomerData\Cart" />
+    <!-- plugin used to check cart sample limit -->
+    <type name="Magento\InventorySales\Model\IsProductSalableForRequestedQtyCondition\IsCorrectQtyCondition">
+        <plugin name="Webkul_SampleProduct::checkSellerMaxQty" type="Webkul\SampleProduct\Plugin\InventorySales\Model\IsProductSalableForRequestedQtyCondition\IsCorrectQtyCondition" />
+    </type>
+</config>

@@ -1,0 +1,20 @@
+{
+    "name": "webkul/accordion-faq",
+    "description": "Webkul Magento2 Accordion Faq module",
+    "require": {
+        "magento/module-ui": "101.2.*"
+    },
+    "type": "magento2-module",
+    "version": "4.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\AccordionFaq\\": ""
+        }
+    }
+}

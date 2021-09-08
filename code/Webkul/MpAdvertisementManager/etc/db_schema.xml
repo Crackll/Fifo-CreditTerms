@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="marketplace_ads_pricing" resource="default" engine="innodb" comment="Marketplace Ads Pricing">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Id"/>
+        <column xsi:type="int" name="block_position" unsigned="true" nullable="false" comment="Block Position"/>
+        <column xsi:type="decimal" name="price" nullable="false" default="0.0000" comment="Ads price"/>
+        <column xsi:type="smallint" name="valid_for" nullable="false" unsigned="true" comment="Ads valid days"/>
+        <column xsi:type="smallint" name="sort_order" padding="5" nullable="false" comment="Ads sort order"/>
+        <column xsi:type="smallint" name="website_id" unsigned="true" nullable="false" default="0" comment="Website ID"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="false" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="marketplace_ads_block" resource="default" engine="innodb" comment="Marketplace Ads Block">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Id"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" padding="10" comment="ads position"/>
+        <column xsi:type="text" name="image_name" nullable="true" comment="name of image"/>
+        <column xsi:type="text" name="title" nullable="true" comment="block title"/>
+        <column xsi:type="text" name="url" nullable="true" comment="ads url"/>
+        <column xsi:type="varchar" name="added_by" length="255" nullable="true" default="seller" comment="added by"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="false" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="marketplace_ads_purchase_details" resource="default" engine="innodb" comment="Marketplace Ads Pricing">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Order Id"/>
+        <column xsi:type="int" name="seller_id" nullable="false" unsigned="true" comment="Seller Id"/>
+        <column xsi:type="int" name="product_id" nullable="false" unsigned="true" comment="Product Id"/>
+        <column xsi:type="int" name="item_id" nullable="false" unsigned="true" comment="Item Id"/>
+        <column xsi:type="int" name="block_position" nullable="false" unsigned="true" comment="ads position"/>
+        <column xsi:type="int" name="block" nullable="false" unsigned="true" comment="block"/>
+        <column xsi:type="decimal" name="price" nullable="false" unsigned="true" comment="price"/>
+        <column xsi:type="text" name="block_name" nullable="false" comment="Block name"/>
+        <column xsi:type="text" name="valid_for" nullable="false" comment="ads valid days"/>
+        <column xsi:type="boolean" name="enable" nullable="false" default="1" comment="Enable/Disable from admin"/>
+        <column xsi:type="smallint" name="store_id" nullable="false" unsigned="true" comment="Store ID"/>
+        <column xsi:type="varchar" length="255" name="store_name" nullable="false" default="0" comment="Store Name"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" comment="Creation Time"/>
+        <column xsi:type="boolean" name="invoice_generated" nullable="false" default="0" comment="Invoice generated or not ?"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MARKETPLACE_ADS_PURCHASE_DETAILS_ORDER_ID_SALES_ORDER_ENTITY_ID" table="marketplace_ads_purchase_details" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="MARKETPLACE_ADS_PURCHASE_DETAILS_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+
+    </table>
+    <table name="marketplace_ads_purchase_block_details" resource="default" engine="innodb" comment="marketplace ads block html">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Id"/>
+        <column xsi:type="int" name="ads_purchase_detail_id" padding="10" unsigned="true" nullable="true" identity="false" comment="Ads purchase detail ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" comment="Order Id"/>
+        <column xsi:type="text" name="image_name"  nullable="true" comment="name of image"/>
+        <column xsi:type="text" name="title"  nullable="true" comment="block title"/>
+        <column xsi:type="text" name="url"  nullable="true" comment="ads url"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MARKETPLACE_ADS_PURCHASE_BLOCK_DETAILS_ADS_PURCHASE_DETAIL_ID_MARKETPLACE_ADS_PURCHASE_DETAILS_ID" table="marketplace_ads_purchase_block_details" column="ads_purchase_detail_id" referenceTable="marketplace_ads_purchase_details" referenceColumn="id" onDelete="CASCADE"/>
+        <index referenceId="MARKETPLACE_ADS_PURCHASE_BLOCK_DETAILS_ADS_PURCHASE_DETAIL_ID" indexType="btree">
+            <column name="ads_purchase_detail_id"/>
+        </index>
+    </table>
+</schema>

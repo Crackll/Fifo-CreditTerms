@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- <preference for="Webkul\WebApplicationFirewall\Api\AdminLoginRepositoryInterface" type="Webkul\WebApplicationFirewall\Model\AdminLoginRepository"/> -->
+    <preference for="Webkul\WebApplicationFirewall\Api\Data\AdminLoginInterface" type="Webkul\WebApplicationFirewall\Model\AdminLogin"/>
+    <preference for="Webkul\WebApplicationFirewall\Api\Data\SecurityLoginInterface" type="Webkul\WebApplicationFirewall\Model\SecurityLogin"/>
+    <preference for="Webkul\WebApplicationFirewall\Api\LoginNotificationManagementInterface" type="Webkul\WebApplicationFirewall\Model\LoginNotificationManagement"/>
+	<preference for="Webkul\WebApplicationFirewall\Api\ResetSubuserPasswordInterface" type="Webkul\WebApplicationFirewall\Model\ResetSubuserPassword"/>
+	<preference for="Webkul\WebApplicationFirewall\Api\ScanDirectoriesManagementInterface" type="Webkul\WebApplicationFirewall\Model\ScanDirectoriesManagement"/>
+	<preference for="Webkul\WebApplicationFirewall\Api\Data\ScanDirectoriesInterface" type="Webkul\WebApplicationFirewall\Model\ScanDirectories"/>
+	<preference for="Webkul\WebApplicationFirewall\Integrations\AbuseIPDBInterface" type="Webkul\WebApplicationFirewall\Integrations\AbuseIPDB"/>
+	<preference for="Webkul\WebApplicationFirewall\Integrations\MailBoxLayerInterface" type="Webkul\WebApplicationFirewall\Integrations\MailBoxLayer"/>
+	<preference for="Webkul\WebApplicationFirewall\Model\Validators\IpValidatorInterface" type="Webkul\WebApplicationFirewall\Model\Validators\IpValidator"/>
+	<preference for="Webkul\WebApplicationFirewall\Integrations\ValidatorInterface" type="Webkul\WebApplicationFirewall\Integrations\Validator"/>
+	<preference for="Webkul\WebApplicationFirewall\Api\ValidateHttpRequestInterface" type="Webkul\WebApplicationFirewall\Model\Http\ValidateRequest"/>
+	<preference for="Webkul\WebApplicationFirewall\Api\ScanHttpResultInterface" type="Webkul\WebApplicationFirewall\Model\Http\ScanResult"/>
+	<preference for="Webkul\WebApplicationFirewall\Api\Data\VulnerabilityInterface" type="Webkul\WebApplicationFirewall\Model\Vulnerability"/>
+    <virtualType name="Webkul\WebApplicationFirewall\Model\ResourceModel\AdminLogin\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">webkul_adminlogin_attempt</argument>
+			<argument name="resourceModel" xsi:type="string">Webkul\WebApplicationFirewall\Model\ResourceModel\AdminLogin\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Webkul\WebApplicationFirewall\Api\ValidateHttpRequestInterface">
+		<arguments>
+			<argument name="integrations" xsi:type="array">
+				<item name="abuseipdb" xsi:type="string">abuseipdb</item>
+			</argument>
+		</arguments>
+	</type>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="waf_adminlogin_log_listing_data_source" xsi:type="string">Webkul\WebApplicationFirewall\Model\ResourceModel\AdminLogin\Grid\Collection</item>
+				<item name="waf_bruteforce_login_log_listing_data_source" xsi:type="string">Webkul\WebApplicationFirewall\Model\ResourceModel\SecurityLogin\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<virtualType name="Webkul\WebApplicationFirewall\Model\ResourceModel\SecurityLogin\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">webkul_waf_securitylogin</argument>
+			<argument name="resourceModel" xsi:type="string">Webkul\WebApplicationFirewall\Model\ResourceModel\SecurityLogin\Collection</argument>
+		</arguments>
+	</virtualType>
+
+	<type name="Webkul\WebApplicationFirewall\Logger\IPHandler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\WebApplicationFirewall\Logger\IPLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">ipLogger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\WebApplicationFirewall\Logger\IPHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+	<type name="Webkul\WebApplicationFirewall\Helper\DebugHelper">
+		<arguments>
+			<argument name="loggers" xsi:type="array">
+				<item name="ip" xsi:type="object">\Webkul\WebApplicationFirewall\Logger\IPLogger</item>
+			</argument>
+		</arguments>
+	</type>
+
+	<type name="Magento\Framework\File\Uploader">
+		<plugin name="wafPreventMaliciousFileUploading" type="Webkul\WebApplicationFirewall\Plugin\Magento\Framework\File\Uploader"/>
+	</type>
+	<type name="Magento\Eav\Model\Attribute\Data\Text">
+		<plugin name="emailValidation" type="Webkul\WebApplicationFirewall\Plugin\Magento\Eav\Model\Attribute\Validator\EmailAddress"/>
+	</type>
+	<type name="Magento\Framework\AppInterface">
+		<plugin name="InjectionRequestValidator" type="Webkul\WebApplicationFirewall\App\HttpPlugin"/>
+	</type>
+	<!-- <virtualType name="SQLInjectionRequestValidator" type="Webkul\WebApplicationFirewall\App\Request\SQLInjectionRequestValidator"/>
+	<virtualType name="RequestValidator" type="Magento\Framework\App\Request\CompositeValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="sql_injection_validator" xsi:type="object">SQLInjectionRequestValidator</item>
+            </argument>
+        </arguments>
+    </virtualType> -->
+
+    <!-- ====================== Start Code Added ===================== -->
+    <preference for="Webkul\WebApplicationFirewall\Api\FrontendTwoStepAuthRepositoryInterface" type="Webkul\WebApplicationFirewall\Model\FrontendTwoStepAuthRepository"/>
+  	<preference for="Webkul\WebApplicationFirewall\Api\Data\FrontendTwoStepAuthInterface" type="Webkul\WebApplicationFirewall\Model\Data\FrontendTwoStepAuth"/>
+  	<preference for="Webkul\WebApplicationFirewall\Api\Data\FrontendTwoStepAuthSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <!-- ====================== End Code Added ===================== -->
+
+</config>

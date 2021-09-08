@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Webkul_Helpdesk::js/save.js"/>
+    </head>
+    <body>
+        <referenceContainer name="left">
+            <block class="Webkul\Helpdesk\Block\Adminhtml\SupportCenter\Edit\Tabs" name="helpdesk.supportcenter.edit.tabs"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Webkul\Helpdesk\Block\Adminhtml\SupportCenter\Edit" name="helpdesk.supportcenter.edit"/>
+        </referenceContainer>
+    </body>
+</page>

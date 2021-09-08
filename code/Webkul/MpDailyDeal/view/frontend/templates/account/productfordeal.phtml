@@ -1,0 +1,164 @@
+<?php
+/**
+ * Webkul_MpDailyDeal product for deal block.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+
+$helper = $block->geMpHelper();
+$paramData = $block->getRequest()->getParams();
+$filter = '';
+
+if (isset($paramData['s'])) {
+    $filter = $paramData['s'] != '' ? $paramData['s'] : '';
+}
+
+$productsColl = $block->getAllProducts();
+?>    
+<div class="wk-mp-design">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span><?= /* @noEscape */ __('My Product List For Deal') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+            <?php $c=$block->getUrl('mpdailydeal/account/index/', ['_secure' =>
+             $block->getRequest()->isSecure()]); ?>
+                <form action="<?= /* @noEscape */$c; ?>" 
+                method="get" id="form-productlist-filter" 
+                 name="formProductlistFilter" data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?= /* @noEscape */ __('Product Name') ?></span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <tr>
+                                <td>
+                                    <input type="text" class="input-text"
+                                     name="s" placeholder='<?= /* @noEscape */
+                                        __('Search by product name') ?>' value="<?= /* @noEscape */
+                                      $block->escapeHtml($filter)?>" 
+                                     data-validate="{'validate-no-html-tags':true}" />
+                                </td>
+                                <td>
+                                    <button class="button" title="Save" type="submit">
+                                        <span><span><span>
+                                        <?= /* @noEscape */ __('Submit') ?></span></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <?php
+                if ($productsColl && $productsColl->getSize()): ?>
+            <table cellspacing="0" 
+            class="border wk-mp-list-table wk-mp-list-container-table">
+                <thead>
+                    <tr class="wk-content">
+                        <th class="wk-first-td">
+                            <span class="label name">
+                                        <?= /* @noEscape */ __('Product')?>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="label">
+                                        <?= /* @noEscape */ __('Action')?>
+                            </span>
+                        </th>                        
+                    </tr>
+                </thead>
+                    <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($productsColl->getData() as $products) {
+                                    $i++;
+                                    $products = $block->getProductData($products['entity_id']);
+                                    $image_url = $block->imageHelperObj()->init($products, 'product_page_image_small')
+                                        ->setImageFile($products->getFile())
+                                        ->getUrl();
+                                    ?>
+                            <tr class="wk-row-view <?= /* @noEscape */
+                            $class = ($i == count($block->getAllProducts()))? 'wk-last_tr':''?>">
+                                <td class="wk-first_td">
+                                    <input type="hidden" class="hidden-id"
+                                     value="<?= /* @noEscape */
+                                            $products->getEntityId(); ?>" />
+                                    <div class="label name" title="<?= /* @noEscape */
+                                     $products->getName(); ?>">
+                                        <div class="wk-pro-divide1">
+                                            <img src="<?= /* @noEscape */
+                                            $image_url?>" class="image" />
+                                        </div>
+                                        <div class="wk-pro-divide2">
+                                            <div style="width:100%;">
+                                                        <?php if ($products->getStatus()==1 &&
+                                                        $products->getVisibility()!=1) { ?>
+                                                    <a href="<?= /* @noEscape */
+                                                    $products->getProductUrl()?>" target="blank">
+                                                <?php }?>
+                                                            <?= /* @noEscape */ $products->getName();?>
+                                                        <?php if ($products->getStatus()==1 &&
+                                                        $products->getVisibility()!=1) { ?>
+                                                    </a>
+                                                <?php }?>
+                                            </div>
+<div style="width:100%;float:left;">
+                                    <?php
+                                    if ($products->getPrice()) {
+                                    /* @noEscape */
+                                        echo $block->getFormatedPrice(
+                                            $products->getPrice(),
+                                            $helper->getCurrencySymbol()
+                                        );
+                                    } else {
+                                            /* @noEscape */ echo $helper->getCurrencySymbol().'0.00';
+                                    }
+                                    ?>
+</div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                <a href="<?= /* @noEscape */ $block->getAddDealUrl($products->getEntityId())?>" 
+                                class="button" ><?= /* @noEscape */ __('Add Deal') ?></a>
+                                </td>                        
+                            </tr>
+                                    <?php
+                                }?>
+                    </tbody>
+                </table>                
+                        <?php else: ?>
+                    <div class="wk-emptymsg">
+                            <?= /* @noEscape */ __('No Product Available') ?>
+                    </div>
+                <?php endif ?>                    
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */
+             $block->getPagerHtml(); ?></div>
+        <?php endif ?>    
+    </fieldset>    
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;" onclick="javascript: window.history.back();" 
+            class="left">&laquo; <?= /* @noEscape */ __('Back') ?></a>
+        </p>
+    </div>
+</div>    
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "sellerProductList": {}
+        }
+    }
+</script>

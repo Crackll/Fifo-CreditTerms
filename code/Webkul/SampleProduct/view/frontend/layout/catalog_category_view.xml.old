@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_SampleProduct::css/style.css"/>       
+    </head>
+    <body>
+        <referenceBlock name="category.products.list">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Webkul\SampleProduct\ViewModel\FormViewModel</argument>
+            </arguments>
+            <action method="setTemplate" ifconfig="sampleproduct/settings/enable">
+                <argument name="template" xsi:type="string">Webkul_SampleProduct::product/list.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

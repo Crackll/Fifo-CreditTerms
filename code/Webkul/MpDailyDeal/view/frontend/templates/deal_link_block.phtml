@@ -1,0 +1,17 @@
+<?php
+/**
+ * Webkul_MpDailyDeal Deal Link Block.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $block->geMpHelper();
+$url = $helper->getRewriteUrl('mpdailydeal/collection/deal/shop/'.$block->getShopUrl());
+?>
+<div class="wk-mp-seller-profile-box wk-mp-profile-icon-wrapper">
+    <a class="store-name" href="<?= /* @noEscape */ $url?>">
+        <?= /* @noEscape */ __('Deals Collection') ?>
+    </a>
+</div>

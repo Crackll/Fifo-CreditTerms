@@ -1,0 +1,38 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+	+ Compatible with magento 2.4.x.
+	+ Compatible with marketplace 5.0.*.
+	+ Pagination add in customer end reward details page.
+
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ Compatible with magento 2.4.x.
+	+ Compatible with marketplace 4.0.*.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Compatible with magento 2.3.x.
+	+ Compatible with marketplace 3.0.*.
+
+-------------------------------- Version 2.1.1 --------------------------------------
+	+ Compatible with magento 2.3.x.
+	+ Compatible with marketplace 2.2.*.
+	+ compatible with Marketplace Seller Coupon 2.1.*.
+	+ Customer can see their total pending rewards.
+	
+	
+-------------------------------- Version 2.1.0 --------------------------------------
+
+	+ Compatible with magento 2.3.x.
+	+ Compatible with marketplace 2.2.*.
+	
+-------------------------------- Version 2.0.0 --------------------------------------
+
+  + Admin & Seller can set price per reward point.
+	+ Admin & seller can create cart reward rules.
+	+ Buyer can see their reward details.
+	+ Admin & seller can set reward category,Product,Cart based on checkout.
+	+ Buyer can get Review Register,Review and Order purchased.
+	+ Buyer can apply multiple seller’s and admin's reward in same order and also delete them.
+	+ Admin can check all reward transactions details from their panel.

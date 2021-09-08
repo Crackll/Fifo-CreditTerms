@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">mppromotioncampaign_seller_campain.mppromotioncampaign_seller_campain_data_source</item>
+            <item name="deps" xsi:type="string">mppromotioncampaign_seller_campain.mppromotioncampaign_seller_campain_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">mpcampaign_seller_columns</item>
+    </argument>
+    <dataSource name="mppromotioncampaign_seller_campain_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">mppromotioncampaign_seller_campain_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+             <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Webkul_Marketplace/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="marketplace/mui_index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="cacheRequests" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">mppromotioncampaign_seller_campain.mppromotioncampaign_seller_campain.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">mppromotioncampaign_seller_campain.mppromotioncampaign_seller_campain.mpcampaign_seller_columns.ids</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <columns name="mpcampaign_seller_columns" >
+        <column name="banner" class="Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\BannerSeller">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="label" xsi:type="string" translate="true">Promotion Banner</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </column>
+        <column name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </column>
+        <column name="start_date" class="Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\CampaignPeriod">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Period</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </column>
+          <column name="totalproducts">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Product</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+        </column>
+        <column name="totalsellers">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Store</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+         <column name="campaign_status" class="Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\CampaignStatus">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\CampaignStatusOption</item>
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Webkul_Marketplace/js/grid/columns/selectLink</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="filter" xsi:type="string">false</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Running Status</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\Frontend\CampaignActionSeller">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Webkul_MpPromotionCampaign/js/grid/columns/campaignModel</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortOrder" xsi:type="number">120</item>
+                    <item name="label" xsi:type="string" translate="true">Manage</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

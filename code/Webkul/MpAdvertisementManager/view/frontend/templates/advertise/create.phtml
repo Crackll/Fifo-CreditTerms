@@ -1,0 +1,134 @@
+<!-- /**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_MpAdvertisementManager
+* @author    Webkul
+* @copyright Copyright (c)   Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/ -->
+<?php
+    $isAdsDemoEnable = $block->getIsAdsDemoEnable();
+    $adsPlans = $block->getAdsPlans();
+    $jsonConfig = $block->getJsJosnConfig();
+?>
+<div class="actions-toolbar wk-enable-demo-action">
+    <div class="primary">
+        <?php if ($isAdsDemoEnable) {
+            ?>
+                <button data-status="1" class="action primary enable-ads-demo"><?=
+                $block->escapeHtml(__("Disable Ads Demo")); ?></button>
+            <?php
+
+        } else {
+            ?>
+                <button data-status="0" class="action primary enable-ads-demo"><?=
+                $block->escapeHtml(__("Enable Ads Demo")); ?></button>
+            <?php
+        }
+        ?>
+    </div>
+</div>
+
+<div class="fieldset ads-container">
+
+    <div class="ads-plans-container">
+        
+        <legend class="legend"><?= $block->escapeHtml(__("Ads plans")); ?></legend>
+        <div class="title">
+            <?php if ($adsPlans->getSize() <= 0) {  ?>
+                <note><?= $block->escapeHtml(__("there is no plans available yet")); ?></note>
+            <?php } else { ?>
+                <?php foreach ($adsPlans as $plan) {
+                    $isAdsCanBeBooked = $block->isAddCanBeBooked($plan->getBlockPosition()); ?>
+                    <div class="plan-items <?= $block->escapeHtml($isAdsCanBeBooked)?'':'ads-sold-out' ?>">
+                        <form id="plan-form-<?=
+                         $block->escapeHtml($plan->getBlockPosition()); ?>" action="<?=
+                          $block->escapeUrl($block->getAddToCartAction()); ?>" method="post">
+                            <fieldset class="wk-plan-fieldset fieldset">
+                                <input type="hidden" name="book[<?=
+                                 $block->escapeHtml($plan->getBlockPosition()); ?>][block_position]" value="<?=
+                                  $block->escapeHtml($plan->getBlockPosition()); ?>" />
+
+                                <input type="hidden" value="<?=
+                                 $block->escapeHtml($plan->getBlockPosition()); ?>" name="blockId" />
+
+                                <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+                                <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+
+                                <input type="hidden" name="book[<?=
+                                 $block->escapeHtml($plan->getBlockPosition()); ?>][price]" value="<?=
+                                  $block->escapeHtml($plan->getPrice()); ?>" />
+
+                                <div class="legend">
+                                
+                                    <div class="control"><?=
+                                     $block->escapeHtml($block->getPositionLabel($plan->getBlockPosition())); ?>
+                                     <span class="step" title = "Remaining Ads on the Block"><?=
+                                        $block->escapeHtml($block->remainingAdsOnParticularBlock($plan
+                                        ->getBlockPosition()));  ?></span></div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label"><span><?= $block->escapeHtml(__("Price")) ?></span></label>
+                                    <div class="ads-price control"><?=
+                                     $block->escapeHtml($block->getFormattedPrice($plan->getPrice())); ?></div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label"><span><?=
+                                     $block->escapeHtml(__("Valid Days")) ?></span></label>
+                                    <div class="control">
+                                        <?= $block->escapeHtml(__("%1 days", $block->getDays($plan
+                                            ->getBlockPosition()))); ?>
+                                        <input type="hidden" class="input-text" name="book[<?=
+                                         $block->escapeHtml($plan->getBlockPosition()); ?>][days]" value="<?=
+                                          $block->escapeHtml($block->getDays($plan->getBlockPosition())); ?>" />
+                                    </div>
+                                </div>
+                                <?php
+                                if ($isAdsCanBeBooked != false) {
+                                    ?>
+                                        <div class="field">
+                                            <label class="label"><span><?=
+                                             $block->escapeHtml(__("Ad Blocks")) ?></span></label>
+                                            <div class="ads-block control">
+                                                <select name="book[<?= $block->escapeHtml($plan
+                                                    ->getBlockPosition()); ?>][block]" 
+                                                    class="ads-block-select select" <?=
+                                                    $block->escapeHtml($isAdsCanBeBooked)?'':'disabled' ?>>
+                                                    <?php foreach ($block->getSellerBlocks() as $adsBlock) { ?>
+                                                        <option value="<?= $block->escapeHtml($adsBlock->getId()); ?>">
+                                                        <?= $block->escapeHtml($block
+                                                        ->escapeHtml($adsBlock->getTitle())); ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }
+                                ?>
+                                
+                                <button <?= $block->escapeHtml($isAdsCanBeBooked)?'':'disabled' ?> 
+                                type="submit" class="book-plan action primary"><?=
+                                 $block->escapeHtml($isAdsCanBeBooked?__('Book'):__('Booked')) ?></button>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*":{
+            "wkadvertise":{
+                "advertiseData": {"data": <?= /* @noEscape */ $jsonConfig; ?>}
+            }
+        }
+    }
+</script>

@@ -1,0 +1,30 @@
+<!--
+/**
+    * Webkul Software.
+    *
+    * @category  Webkul
+    * @package   Webkul_CustomerApproval
+    * @author    Webkul
+    * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+    * @license   https://store.webkul.com/license.html
+    */
+-->
+<!--@subject {{var myvar2}}  @-->
+
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%customer_name," customer_name=$myvar1}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            {{trans 'Your account has been approved. Click <a href="%login_url">here</a> to login.' login_url=$myvar3 |raw }}
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

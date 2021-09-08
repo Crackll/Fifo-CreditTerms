@@ -1,0 +1,36 @@
+<?php
+/**
+ * Webkul DailyDeals Product Edit
+ *
+ * @category  Webkul
+ * @package   Webkul_DailyDeals
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+
+$dealsDateTime = $block->getDealsDateTime();
+if ($dealsDateTime) { ?>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Webkul_MpDailyDeal/js/setattribute": {
+                        "dealFrom": "<?= /* @noEscape */ $dealsDateTime['deal_from_date'] ?>",
+                        "dealTo": "<?= /* @noEscape */ $dealsDateTime['deal_to_date'] ?>",
+                        "dateFormat" :"<?= /* @noEscape */ $dealsDateTime['date_format'] ?>",
+                        "productType" : "<?= /* @noEscape */ $dealsDateTime['product_type'] ?>"
+                }
+            }
+        }
+    </script>
+<?php } ?>
+<script>
+        require([
+            "jquery",
+            "mage/mage"
+        ], function($){
+            $('[data-index=block_gallery]').find('div').trigger('click');
+        });
+</script>
+

@@ -1,0 +1,182 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$slaModel = $block->getCurrentSlaPolicy();
+if (!empty($slaModel->getSlaServiceLevelTargets())) {
+    $slaServiceLevelTargets = $block->getSerializer()->unserialize($slaModel->getSlaServiceLevelTargets());
+}
+$ticketsPriorityArr = $block->getTicketsPriority();
+?>
+<div class="entry-edit">
+    <div class="box sla-targets">
+        <div id="option_2" class="option-box">
+            <div class="grid tier form-list">
+                <table cellspacing="0" cellpadding="0" class="border">
+                    <tbody>
+                        <tr class="headings">
+                            <th class="type-priority"><?= $block->escapeHtml(__('Priority')) ?></th>
+                            <th class="type-response"><?= $block->escapeHtml(__('Respond within')) ?></th>
+                            <th class="type-resolve"><?= $block->escapeHtml(__('Resolve within')) ?></th>
+                            <th class="type-operational-hours">
+                            <?= $block->escapeHtml(__('Operational Hrs')) ?>
+                            </th>
+                        </tr>
+                        <?php foreach ($ticketsPriorityArr as $priority): ?>
+                            <?php $priorityId = $priority['value'] ?>
+                            <tr>
+                                <td>
+                                    <?= $block->escapeHtml($priority['label']) ?>
+                                </td>
+                                <td>
+                                    <input type="text" 
+                                    value="<?php
+                                    if (isset($slaServiceLevelTargets['targets'][$priorityId])
+                                    &&
+                                    count($slaServiceLevelTargets['targets'])) {
+                                        echo
+                                        $block->escapeHtml(
+                                            $slaServiceLevelTargets['targets'][$priorityId]['response-in']
+                                        );
+                                    } else {
+                                        echo '15';
+                                    } ?>" 
+                                                              name="sla[targets][<?=
+                                                                $block->escapeHtml($priorityId)
+                                                                ?>][response-in]" 
+                                                                class="input-text input-time required-entry">
+                                    <select title="" 
+                                    class="select time-type" 
+                                    name="sla[targets][<?=
+                                    $block->escapeHtml($priorityId) ?>][response-time-type]">
+                                        <option value="minutes" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['response-time-type']
+                                            == 'minutes') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Mins')) ?>
+                                        </option>
+                                        <option value="days" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['response-time-type'] ==
+                                            'days') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Days')) ?>
+                                        </option>
+                                        <option value="hours" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['response-time-type'] ==
+                                            'hours') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Hrs')) ?>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" 
+                                    value="<?php
+                                    if (isset($slaServiceLevelTargets['targets'][$priorityId])
+                                    && count($slaServiceLevelTargets['targets'])) {
+                                        echo
+                                        $block->escapeHtml(
+                                            $slaServiceLevelTargets['targets'][$priorityId]['resolve-in']
+                                        );
+                                    } else {
+                                        echo '15';
+                                    } ?>" 
+                                                              name="sla[targets][<?=
+                                                                $block->escapeHtml($priorityId)
+                                                                ?>][resolve-in]" 
+                                                              class="input-text input-time required-entry">
+                                    <select title="" class="select time-type" 
+                                    name="sla[targets][<?= $block->escapeHtml($priorityId)?>][resolve-time-type]">
+                                        <option value="minutes" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['resolve-time-type'] ==
+                                            'minutes') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Mins')) ?>
+                                        </option>
+                                        <option value="days" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['resolve-time-type'] ==
+                                            'days') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Days')) ?>
+                                        </option>
+                                        <option value="hours" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['resolve-time-type'] ==
+                                            'hours') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Hrs')) ?>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select title="" class="select" 
+                                    name="sla[targets][<?= $block->escapeHtml($priorityId) ?>][operational-hours]">
+                                        <option value="1" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'][$priorityId])
+                                        && count($slaServiceLevelTargets['targets'])
+                                        ) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['operational-hours'] ==
+                                            '1') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Business Hours')) ?>
+                                        </option>
+                                        <option value="2" 
+                                        <?php
+                                        if (isset($slaServiceLevelTargets['targets'][$priorityId])
+                                        && count($slaServiceLevelTargets['targets'])) {
+                                            if ($slaServiceLevelTargets['targets'][$priorityId]['operational-hours'] ==
+                                            '2') {
+                                                echo 'selected';
+                                            }
+                                        } ?>>
+                                            <?= $block->escapeHtml(__('Calendar Hours')) ?>
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

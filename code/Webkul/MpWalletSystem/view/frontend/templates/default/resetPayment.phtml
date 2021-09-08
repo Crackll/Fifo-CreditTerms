@@ -1,0 +1,31 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpWalletSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+
+$walletBlock = $block->getLayout()->createBlock(\Webkul\MpWalletSystem\Block\Walletsystem::class);
+$url = $block->getajaxUrl();
+$grandTotal = $block->getGrandTotal();
+$walletBlock->helper(\Webkul\MpWalletSystem\Helper\Data::class)->checkWalletproductWithOtherProduct();
+?>
+<?php
+$formData = [
+    'grandtotal'   => $grandTotal,
+    'ajaxurl'       => $url,
+    'wkshippingmethod'    =>  '#shipping-method-buttons-container button.continue'
+];
+$serializedFormData = $walletBlock->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Wkwalletsystem": <?=/*@noEscape*/$serializedFormData; ?>
+        }
+    }
+</script>

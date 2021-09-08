@@ -1,0 +1,1836 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$slaModel = $block->getCurrentSlaPolicy();
+$oneCondition = json_decode($slaModel->getOneConditionCheck(), true);
+$allCondition = json_decode($slaModel->getAllConditionCheck(), true);
+$ticketsPriorityArr = $block->getTicketsPriority();
+$ticketTypeArr = $block->getTicketsType();
+$ticketGroupArr = $block->getTicketsGroup();
+$ticketsStatusArr = $block->getTicketsStatus();
+$agentColl = $block->getAgentCollection();
+$tagCollection = $block->getAllTagCollection();
+?>
+<div class="entry-edit">
+    <div class="box rule-action-container">
+        <div class="option-box">
+            <div class="grid tier form-list">
+                <h4><?= $block->escapeHtml(__("At Least One Conditions for SLA to apply")) ?></h4>
+                <label><?= $block->escapeHtml(__("Based on at least one condition from 
+                these conditions, SLA will work for HelpDesk, be careful and select 
+                valid conditions.")) ?></label>
+                <table cellspacing="0" cellpadding="0" class="border rule-action-details" for="one_condition">
+                    <tbody>
+                        <?php if (isset($oneCondition['action-type'])): ?>
+                            <?php foreach ($oneCondition['action-type'] as $actionType): ?>
+                                <tr>
+                                    <td>
+                                        <select 
+                                        class="required-entry condition action-type" 
+                                        name="one_condition[action-type][]">
+                                            <optgroup label="<?= $block->escapeHtml(__('Mail')) ?>">
+                                                <option value="from" 
+                                                <?php
+                                                if ($actionType == "from") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('From')) ?>
+                                                </option>
+                                                <option value="to" 
+                                                <?php
+                                                if ($actionType == "to") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('To')) ?>
+                                                </option>
+                                            </optgroup>
+                                            <optgroup 
+                                            label="<?= $block->escapeHtml(__('Ticket'))
+                                            ?>">
+                                                <option value="subject" 
+                                                <?php
+                                                if ($actionType == "subject") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Subject')) ?>
+                                                </option>
+                                                <option value="description" 
+                                                <?php
+                                                if ($actionType == "description") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?=
+                                                $block->escapeHtml(__('Description')) ?>
+                                                </option>
+                                                <option value="subject_description" 
+                                                <?php
+                                                if ($actionType == "subject_description") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Subject or Description')) ?>
+                                                </option>
+                                                <option value="priority" 
+                                                <?php
+                                                if ($actionType == "priority") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Priority'))
+                                                ?></option>
+                                                <option value="status" 
+                                                <?php
+                                                if ($actionType == "status") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Status')) ?>
+                                                </option>
+                                                <option value="source" 
+                                                <?php
+                                                if ($actionType == "source") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Source')) ?>
+                                                </option>
+                                                <option value="created" 
+                                                <?php
+                                                if ($actionType == "created") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Created')) ?>
+                                                </option>
+                                                <option value="agent" 
+                                                <?php
+                                                if ($actionType == "agent") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Agent')) ?></option>
+                                                <option value="group" 
+                                                <?php
+                                                if ($actionType == "group") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Group')) ?></option>
+                                            </optgroup>
+                                            <optgroup 
+                                            label="<?= $block->escapeHtml(__('Customer')) ?>">
+                                                <option value="customer_email" 
+                                                <?php
+                                                if ($actionType == "customer_email") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Customer Email')) ?>
+                                                </option>
+                                                <option value="customer_name" 
+                                                <?php
+                                                if ($actionType == "customer_name") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Customer Name')) ?>
+                                                </option>
+                                            </optgroup>
+                                            <optgroup label="<?= $block->escapeHtml(__('Organization')) ?>">
+                                                <option value="organization_name" 
+                                                <?php
+                                                if ($actionType == "organization_name") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Organization Name')) ?>
+                                                </option>
+                                                <option value="organization_domain" 
+                                                <?php
+                                                if ($actionType == "organization_domain") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Organization Domain')) ?>
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <?php if ($actionType == 'from'): ?>
+                                            <select name="one_condition[from][match_condition]">
+                                                <option value="is" 
+                                                <?php if ($oneCondition['from']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['from']['match_condition'] ==
+                                                "isNot") {
+                                                     echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['from']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['from']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="one_condition[from][match]" 
+                                            class="required-entry" 
+                                            value="<?= $block->escapeHtml($oneCondition['from']['match']) ?>" />
+                                        <?php elseif ($actionType == 'to'): ?>
+                                            <select name="one_condition[to][match_condition]">
+                                                <option value="is" 
+                                                <?php if ($oneCondition['to']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['to']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['to']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['to']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="one_condition[to][match]" 
+                                            class="required-entry" 
+                                            value="<?= $block->escapeHtml($oneCondition['to']['match']) ?>" />
+                                        <?php elseif ($actionType == 'subject'): ?>
+                                            <select name="one_condition[subject][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['subject']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['subject']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['subject']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['subject']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?>
+                                                </option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($oneCondition['subject']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($oneCondition['subject']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="one_condition[subject][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['subject']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'description'): ?>
+                                            <select name="one_condition[description][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['description']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['description']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['description']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['description']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?>
+                                                </option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($oneCondition['description']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains"))?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($oneCondition['description']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?>
+                                                </option>
+                                            </select>
+                                            <input 
+                                            name="one_condition[description][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['description']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'subject_description'): ?>
+                                            <select name="one_condition[subject_description][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['subject_description']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['subject_description']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['subject_description']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['subject_description']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?>
+                                                </option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($oneCondition['subject_description']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains"))?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($oneCondition['subject_description']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?>
+                                                </option>
+                                            </select>
+                                            <input 
+                                            name="one_condition[subject_description][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['subject_description']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'priority'): ?>
+                                            <select name="one_condition[priority][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['priority']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['priority']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="one_condition[priority][match]">
+                                                <option value=""></option>
+                                                <?php foreach ($ticketsPriorityArr as $key => $priority): ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($priority['value']) ?>" 
+                                                    <?php
+                                                    if ($oneCondition['priority']['match'] ==
+                                                    $priority['value']) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?= $block->escapeHtml($priority['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                        <?php elseif ($actionType == 'status'): ?>
+                                            <select name="one_condition[status][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['status']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['status']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="one_condition[status][match]">
+                                                <option value=""></option>
+                                                <?php foreach ($ticketsStatusArr as $key => $status): ?>
+                                                    <option 
+                                                    value="<?=$block->escapeHtml($status['value']) ?>" 
+                                                    <?php
+                                                    if ($oneCondition['status']['match'] == $status['value']) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?= $block->escapeHtml($status['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'source'): ?>
+                                            <select name="one_condition[source][match_condition]">
+                                                <option value="is" 
+                                                <?php if ($oneCondition['source']['match_condition']
+                                                == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['source']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="one_condition[source][match]">
+                                                <option value=""></option>
+                                                <option value="website"
+                                                <?php
+                                                if ($oneCondition['source']['match'] ==
+                                                "website") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Website")) ?></option>
+                                                <option value="email"
+                                                <?php
+                                                if ($oneCondition['source']['match'] == "email") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Email")) ?>
+                                                </option>
+                                            </select>
+                                        <?php elseif ($actionType == 'created'): ?>
+                                            <select name="one_condition[created][match_condition]">
+                                                <option value="before" 
+                                                <?php
+                                                if ($oneCondition['created']['match_condition'] == "before") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Before")) ?>
+                                                </option>
+                                                <option value="beforeOn" 
+                                                <?php
+                                                if ($oneCondition['created']['match_condition'] ==
+                                                "beforeOn") {
+                                                    echo "selected"; } ?>>
+                                                <?=
+                                                    $block->escapeHtml(__("Before or On"))
+                                                ?></option>
+                                                <option value="after" 
+                                                <?php
+                                                if ($oneCondition['created']['match_condition']
+                                                == "after") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("After"))
+                                                ?></option>
+                                                <option value="afterOn" 
+                                                <?php
+                                                if ($oneCondition['created']['match_condition'] ==
+                                                "afterOn") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("After or On")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="one_condition[created][match]" 
+                                            class="required-entry one_condition_date" 
+                                            id="one_condition_date" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['created']['match'])
+                                            ?>" 
+                                            style="width: 332px ! important;"/>
+                                        <?php elseif ($actionType == 'agent'): ?>
+                                            <select name="one_condition[agent][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['agent']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['agent']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?></option>
+                                            </select>
+                                            <select name="one_condition[agent][match]">
+                                                <?php foreach ($agentColl as $key => $agent): ?>
+                                                    <option 
+                                                    value="<?=
+                                                    $block->escapeHtml($agent->getUserId())
+                                                    ?>" 
+                                                    <?php
+                                                    if ($oneCondition['agent']['match']
+                                                    == $agent->getUserId()) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?= $block->escapeHtml($agent->getName()) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'group'): ?>
+                                            <select name="one_condition[group][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['group']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['group']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="one_condition[group][match]">
+                                                <?php foreach ($ticketGroupArr as $key => $group): ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($group['value']) ?>" 
+                                                    <?php
+                                                    if ($oneCondition['group']['match'] ==
+                                                    $group['value']) { echo "selected"; } ?>>
+                                                    <?=
+                                                    $block->escapeHtml($group['label'])
+                                                    ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'customer_email'): ?>
+                                            <select name="<%- data.field_name %>[customer_email][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['customer_email']['match_condition'] ==
+                                                "is") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['customer_email']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?></option>
+                                                <option 
+                                                value="isContains" 
+                                                <?php if ($oneCondition['customer_email']['match_condition'] ==
+                                                "isContains") {
+                                                                          echo "selected";
+                                                } ?>>
+                                                <?=
+                                                    $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['customer_email']['match_condition'] ==
+                                                "isNotContains"
+                                                ) {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="one_condition[customer_email][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['customer_email']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'customer_name'): ?>
+                                            <select name="one_condition[customer_name][match_condition]">
+                                                <option value="is" 
+                                                <?php if ($oneCondition['customer_name']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['customer_name']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?></option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['customer_name']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                }
+                                                ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['customer_name']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?>
+                                                </option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($oneCondition['customer_name']['match_condition'] == "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($oneCondition['customer_name']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?></option>
+                                            </select>
+                                            <input name="one_condition[customer_name][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['customer_name']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'organization_name'): ?>
+                                            <select name="one_condition[organization_name][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['organization_name']['match_condition'] ==
+                                                "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['organization_name']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['organization_name']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['organization_name']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?></option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($oneCondition['organization_name']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($oneCondition['organization_name']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?></option>
+                                            </select>
+                                            <input name="one_condition[organization_name][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['organization_name']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'organization_domain'): ?>
+                                            <select name="one_condition[organization_domain][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($oneCondition['organization_domain']['match_condition'] ==
+                                                "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($oneCondition['organization_domain']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($oneCondition['organization_domain']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($oneCondition['organization_domain']['match_condition'] ==
+                                                "isNotContains") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?>
+                                                </option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($oneCondition['organization_domain']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($oneCondition['organization_domain']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?></option>
+                                            </select>
+                                            <input 
+                                            name="one_condition[organization_domain][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($oneCondition['organization_domain']['match'])
+                                            ?>" />
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="last">
+                                        <span title="Delete row">
+                                            <button 
+                                            class="scalable delete delete-select-row icon-btn" 
+                                            type="button" 
+                                            title="<?= $block->escapeHtml(__('Delete Row')) ?>">
+                                                <span>
+                                                    <span>
+                                                        <span>
+                                                        <?= $block->escapeHtml(__('Delete Row')) ?>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td class="a-right" colspan="100">
+                            <button class="scalable add add-action-btn" 
+                            for="condition-tmp" type="button" 
+                            title="<?= $block->escapeHtml(__('Add Action')) ?>">
+                                <span>
+                                    <span>
+                                        <span><?= $block->escapeHtml(__('Add Action')) ?></span>
+                                    </span>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="option-box">
+            <div class="grid tier form-list">
+                <h4><?= $block->escapeHtml(__("All Conditions for SLA")) ?></h4>
+                <label><?= $block->escapeHtml(__("Based on these all conditions, SLA 
+                will work for HelpDesk, be careful and select valid conditions.")) ?></label>
+                <table cellspacing="0" cellpadding="0" 
+                class="border rule-action-details"  for="all_condition">
+                    <tbody>
+                        <?php if (isset($allCondition['action-type'])): ?>
+                            <?php foreach ($allCondition['action-type'] as $actionType): ?>
+                                <tr>
+                                    <td>
+                                        <select 
+                                        class="required-entry condition action-type" 
+                                        name="all_condition[action-type][]">
+                                            <optgroup label="<?= $block->escapeHtml(__('Mail')) ?>">
+                                                <option value="from" 
+                                                <?php if ($actionType == "from") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('From')) ?>
+                                                </option>
+                                                <option value="to" 
+                                                <?php if ($actionType == "to") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('To')) ?>
+                                                </option>
+                                            </optgroup>
+                                            <optgroup label="<?= $block->escapeHtml(__('Ticket')) ?>">
+                                                <option value="subject" 
+                                                <?php
+                                                if ($actionType == "subject") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Subject')) ?>
+                                                </option>
+                                                <option value="description" 
+                                                <?php
+                                                if ($actionType == "description") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Description')) ?>
+                                                </option>
+                                                <option value="subject_description" 
+                                                <?php
+                                                if ($actionType == "subject_description") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Subject or Description')) ?>
+                                                </option>
+                                                <option value="priority" 
+                                                <?php if ($actionType == "priority") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Priority')) ?>
+                                                </option>
+                                                <option value="status" 
+                                                <?php if ($actionType == "status") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Status')) ?>
+                                                </option>
+                                                <option value="source" 
+                                                <?php if ($actionType == "source") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Source')) ?>
+                                                </option>
+                                                <option value="created" 
+                                                <?php
+                                                if ($actionType == "created") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Created')) ?>
+                                                </option>
+                                                <option value="agent" 
+                                                <?php if ($actionType == "agent") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Agent')) ?>
+                                                </option>
+                                                <option value="group" 
+                                                <?php if ($actionType == "group") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__('Group')) ?>
+                                                </option>
+                                            </optgroup>
+                                            <optgroup label="<?= $block->escapeHtml(__('Customer')) ?>">
+                                                <option value="customer_email" 
+                                                <?php
+                                                if ($actionType == "customer_email") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Customer Email')) ?>
+                                                </option>
+                                                <option value="customer_name" 
+                                                <?php
+                                                if ($actionType == "customer_name") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Customer Name')) ?>
+                                                </option>
+                                            </optgroup>
+                                            <optgroup label="<?= $block->escapeHtml(__('Organization')) ?>">
+                                                <option value="organization_name" 
+                                                <?php
+                                                if ($actionType == "organization_name") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Organization Name')) ?>
+                                                </option>
+                                                <option value="organization_domain" 
+                                                <?php
+                                                if ($actionType == "organization_domain") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__('Organization Domain')) ?>
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <?php if ($actionType == 'from'): ?>
+                                            <select name="all_condition[from][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['from']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['from']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?></option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['from']['match_condition'] == "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains"))?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['from']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+                                            </select>
+                                            <input name="all_condition[from][match]" 
+                                            value="<?= $block->escapeHtml($allCondition['from']['match']) ?>" />
+                                        <?php elseif ($actionType == 'to'): ?>
+                                            <select name="all_condition[to][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['to']['match_condition'] ==
+                                                "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['to']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['to']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?=
+                                                    $block->escapeHtml(__("Is Contains"))?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['to']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="all_condition[to][match]" 
+                                            class="required-entry" 
+                                            value="<?= $block->escapeHtml($allCondition['to']['match']) ?>" />
+                                        <?php elseif ($actionType == 'subject'): ?>
+                                            <select name="all_condition[subject][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['subject']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['subject']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php if ($allCondition['subject']['match_condition'] ==
+                                                "isContains") {
+                                                                          echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains"))?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['subject']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?></option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($allCondition['subject']['match_condition'] == "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($allCondition['subject']['match_condition'] == "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?></option>
+                                            </select>
+                                            <input name="all_condition[subject][match]" 
+                                            class="required-entry" 
+                                            value="<?= $block->escapeHtml($allCondition['subject']['match']) ?>" />
+                                        <?php elseif ($actionType == 'description'): ?>
+                                            <select name="all_condition[description][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['description']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['description']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['description']['match_condition'] == "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?>
+                                                </option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['description']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?></option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($allCondition['description']['match_condition'] ==
+                                                "startWith") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($allCondition['description']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?></option>
+                                            </select>
+                                            <input name="all_condition[description][match]" 
+                                            class="required-entry" 
+                                            value="<?= $block->escapeHtml($allCondition['description']['match']) ?>" />
+                                        <?php elseif ($actionType == 'subject_description'): ?>
+                                            <select name="all_condition[subject_description][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['subject_description']['match_condition'] ==
+                                                "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['subject_description']['match_condition'] ==
+                                                "isNot") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['subject_description']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['subject_description']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?></option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($allCondition['subject_description']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($allCondition['subject_description']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?></option>
+                                            </select>
+                                            <input 
+                                            name="all_condition[subject_description][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($allCondition['subject_description']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'priority'): ?>
+                                            <select name="all_condition[priority][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['priority']['match_condition'] ==
+                                                "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['priority']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="all_condition[priority][match]">
+                                                <option value=""></option>
+                                                <?php foreach ($ticketsPriorityArr as $key => $priority): ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($priority['value']) ?>" 
+                                                    <?php
+                                                    if ($allCondition['priority']['match'] == $priority['value']) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?= $block->escapeHtml($priority['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                        <?php elseif ($actionType == 'status'): ?>
+                                            <select name="all_condition[status][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['status']['match_condition'] ==
+                                                "is") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['status']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="all_condition[status][match]">
+                                                <option value=""></option>
+                                                <?php foreach ($ticketsStatusArr as $key => $status): ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($status['value']) ?>" 
+                                                    <?php
+                                                    if ($allCondition['status']['match'] == $status['value']) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?= $block->escapeHtml($status['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'source'): ?>
+                                            <select name="all_condition[source][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['source']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['source']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?></option>
+                                            </select>
+                                            <select name="all_condition[source][match]">
+                                                <option value=""></option>
+                                                <option value="website"
+                                                <?php
+                                                if ($allCondition['source']['match'] == "website") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Website")) ?></option>
+                                                <option value="email"
+                                                <?php
+                                                if ($allCondition['source']['match'] == "email") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Email")) ?></option>
+                                            </select>
+                                        <?php elseif ($actionType == 'created'): ?>
+                                            <select name="all_condition[created][match_condition]">
+                                                <option value="before" 
+                                                <?php
+                                                if ($allCondition['created']['match_condition'] ==
+                                                "before") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Before")) ?>
+                                                </option>
+                                                <option value="beforeOn" 
+                                                <?php
+                                                if ($allCondition['created']['match_condition'] == "beforeOn") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Before or On")) ?></option>
+                                                <option value="after" 
+                                                <?php
+                                                if ($allCondition['created']['match_condition'] ==
+                                                "after") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("After")) ?>
+                                                </option>
+                                                <option value="afterOn" 
+                                                <?php
+                                                if ($allCondition['created']['match_condition'] ==
+                                                "afterOn") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("After or On")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="all_condition[created][match]" 
+                                            class="required-entry one_condition_date" 
+                                            id="all_condition_date" 
+                                            value="<?= $block->escapeHtml($allCondition['created']['match']) ?>" 
+                                            style="width: 332px ! important;"/>
+                                        <?php elseif ($actionType == 'agent'): ?>
+                                            <select name="all_condition[agent][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['agent']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['agent']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="all_condition[agent][match]">
+                                                <?php foreach ($agentColl as $key => $agent): ?>
+                                                     <option 
+                                                     value="<?= $block->escapeHtml($agent->getUserId()) ?>" 
+                                                     <?php
+                                                        if ($allCondition['agent']['match']
+                                                        == $agent->getUserId()) {
+                                                            echo "selected";
+                                                        } ?>>
+                                                    <?= $block->escapeHtml($agent->getName()) ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'group'): ?>
+                                            <select name="all_condition[group][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['group']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php if ($allCondition['group']['match_condition'] ==
+                                                "isNot") {
+                                                     echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                            </select>
+                                            <select name="all_condition[group][match]">
+                                                <?php foreach ($ticketGroupArr as $key => $group): ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($group['value']) ?>" 
+                                                    <?php
+                                                    if ($allCondition['group']['match']
+                                                    == $group['value']) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?= $block->escapeHtml($group['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'customer_email'): ?>
+                                            <select name="<%- data.field_name %>[customer_email][match_condition]">
+                                                <option value="is" 
+                                                <?php if ($allCondition['customer_email']['match_condition'] ==
+                                                "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['customer_email']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['customer_email']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['customer_email']['match_condition'] ==
+                                                "isNotContains"
+                                                ) {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                            </select>
+                                            <input 
+                                            name="all_condition[customer_email][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($allCondition['customer_email']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'customer_name'): ?>
+                                            <select name="all_condition[customer_name][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['customer_name']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option 
+                                                value="isNot" 
+                                                <?php
+                                                if ($allCondition['customer_name']['match_condition'] == "isNot") {
+                                                    echo "selected";
+                                                } ?>><?= $block->escapeHtml(__("Is Not")) ?></option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['customer_name']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php if ($allCondition['customer_name']['match_condition'] ==
+                                                "isNotContains") { echo "selected"; } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?></option>
+                                                <option value="startWith" 
+                                                <?php
+                                                if ($allCondition['customer_name']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($allCondition['customer_name']['match_condition'] == "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?>
+                                                </option>
+                                            </select>
+                                            <input 
+                                            name="all_condition[customer_name][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($allCondition['customer_name']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'organization_name'): ?>
+                                            <select name="all_condition[organization_name][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['organization_name']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                 <?= $block->escapeHtml(__("Is")) ?></option>
+                                                <option 
+                                                value="isNot" 
+                                                <?php
+                                                if ($allCondition['organization_name']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['organization_name']['match_condition'] ==
+                                                "isContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['organization_name']['match_condition'] ==
+                                                "isNotContains") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?></option>
+                                                <option value="startWith"
+                                                <?php
+                                                if ($allCondition['organization_name']['match_condition'] ==
+                                                "startWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+                                                <option value="endWith" 
+                                                <?php
+                                                if ($allCondition['organization_name']['match_condition'] ==
+                                                "endWith") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?>
+                                                </option>
+                                            </select>
+                                            <input name="all_condition[organization_name][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($allCondition['organization_name']['match'])
+                                            ?>" />
+                                        <?php elseif ($actionType == 'organization_domain'): ?>
+                                            <select name="all_condition[organization_domain][match_condition]">
+                                                <option value="is" 
+                                                <?php
+                                                if ($allCondition['organization_domain']['match_condition'] == "is") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is")) ?>
+                                                </option>
+                                                <option value="isNot" 
+                                                <?php
+                                                if ($allCondition['organization_domain']['match_condition'] ==
+                                                "isNot") {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not")) ?>
+                                                </option>
+                                                <option value="isContains" 
+                                                <?php
+                                                if ($allCondition['organization_domain']['match_condition'] ==
+                                                "isContains"
+                                                ) {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Contains")) ?></option>
+                                                <option 
+                                                value="isNotContains" 
+                                                <?php
+                                                if ($allCondition['organization_domain']['match_condition'] ==
+                                                "isNotContains"
+                                                    ) {
+                                                        echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Start With")) ?>
+                                                </option>
+                                                <option 
+                                                value="startWith" 
+                                                <?php
+                                                if ($allCondition['organization_domain']['match_condition'] ==
+                                                "startWith"
+                                                ) {
+                                                     echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("Is Not Contains")) ?>
+                                                </option>
+                                                <option 
+                                                value="endWith" 
+                                                <?php
+                                                if ($allCondition['organization_domain']['match_condition'] == "endWith"
+                                                ) {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml(__("End With")) ?>
+                                                </option>
+                                            </select>
+                                            <input 
+                                            name="all_condition[organization_domain][match]" 
+                                            class="required-entry" 
+                                            value="<?=
+                                            $block->escapeHtml($allCondition['organization_domain']['match'])
+                                            ?>" />
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="last">
+                                        <span title="Delete row">
+                                            <button 
+                                            class="scalable delete delete-select-row icon-btn" 
+                                            type="button" 
+                                            title="<?= $block->escapeHtml(__('Delete Row')) ?>">
+                                                <span>
+                                                    <span>
+                                                        <span>
+                                                        <?= $block->escapeHtml(__('Delete Row')) ?>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td class="a-right" colspan="100">
+                            <button class="scalable add add-action-btn" 
+                            for="condition-tmp" type="button" 
+                            title="<?= $block->escapeHtml(__('Add Action')) ?>">
+                                <span>
+                                    <span>
+                                        <span><?= $block->escapeHtml(__('Add Action')) ?></span>
+                                    </span>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Condition Handle template -->
+<script class="condition-tmp" type="text/x-jquery-tmpl">
+    <tr>
+        <td>
+            <select class="required-entry condition action-type" name="<%- data.field_name %>[action-type][]">
+                <option value=""></option>
+                <optgroup label="<?= $block->escapeHtml(__('Mail')) ?>">
+                    <option value="from"><?= $block->escapeHtml(__('From')) ?></option>
+                    <option value="to"><?= $block->escapeHtml(__('To')) ?></option>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__('Ticket')) ?>">
+                    <option value="subject"><?= $block->escapeHtml(__('Subject')) ?></option>
+                    <option value="description"><?= $block->escapeHtml(__('Description')) ?></option>
+                    <option value="subject_description"><?= $block->escapeHtml(__('Subject or Description')) ?></option>
+                    <option value="priority"><?= $block->escapeHtml(__('Priority')) ?></option>
+                    <option value="status"><?= $block->escapeHtml(__('Status')) ?></option>
+                    <option value="source"><?= $block->escapeHtml(__('Source')) ?></option>
+                    <option value="created"><?= $block->escapeHtml(__('Created')) ?></option>
+                    <option value="agent"><?= $block->escapeHtml(__('Agent')) ?></option>
+                    <option value="group"><?= $block->escapeHtml(__('Group')) ?></option>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__('Customer')) ?>">
+                    <option value="customer_email">
+                    <?= $block->escapeHtml(__('Customer Email')) ?>
+                    </option>
+                    <option value="customer_name">
+                    <?= $block->escapeHtml(__('Customer Name')) ?>
+                    </option>
+                </optgroup>
+                <optgroup label="<?= $block->escapeHtml(__('Organization')) ?>">
+                    <option value="organization_name">
+                    <?= $block->escapeHtml(__('Organization Name')) ?>
+                    </option>
+                    <option value="organization_domain">
+                    <?= $block->escapeHtml(__('Organization Domain')) ?>
+                    </option>
+                </optgroup>
+            </select>
+        </td>
+        <td>
+        </td>
+        <td class="last">
+            <span title="Delete row">
+                <button class="scalable delete delete-select-row icon-btn" type="button" 
+                title="<?= $block->escapeHtml(__('Delete Row')) ?>">
+                    <span>
+                        <span>
+                            <span><?= $block->escapeHtml(__('Delete Row')) ?></span>
+                        </span>
+                    </span>
+                </button>
+            </span>
+        </td>
+    </tr>
+</script>
+
+
+<script class="condition from" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[from][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[from][match]" class="required-entry" />
+</script>
+
+<script class="condition to" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[to][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[to][match]" class="required-entry" />
+</script>
+
+<script class="condition subject" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[subject][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[subject][match]" class="required-entry" />
+</script>
+
+<script class="condition description" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[description][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[description][match]" class="required-entry" />
+</script>
+
+<script class="condition subject_description" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[subject_description][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[subject_description][match]" class="required-entry" />
+</script>
+
+<script class="condition priority" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[priority][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+    </select>
+    <select name="<%- data.field_name %>[priority][match]">
+        <option value=""></option>
+        <?php foreach ($ticketsPriorityArr as $key => $priority): ?>
+            <option value="<?= $block->escapeHtml($priority['value']) ?>">
+            <?= $block->escapeHtml($priority['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="condition status" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[status][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+    </select>
+    <select name="<%- data.field_name %>[status][match]">
+        <option value=""></option>
+        <?php foreach ($ticketsStatusArr as $key => $status): ?>
+            <option value="<?= $block->escapeHtml($status['value']) ?>">
+            <?= $block->escapeHtml($status['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="condition source" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[source][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+    </select>
+    <select name="<%- data.field_name %>[source][match]">
+        <option value=""></option>
+        <option value="website"><?= $block->escapeHtml(__("Website")) ?></option>
+        <option value="email"><?= $block->escapeHtml(__("Email")) ?></option>
+    </select>
+</script>
+
+<script class="condition created" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[created][match_condition]">
+        <option value="before"><?= $block->escapeHtml(__("Before")) ?></option>
+        <option value="beforeOn"><?= $block->escapeHtml(__("Before or On")) ?></option>
+        <option value="after"><?= $block->escapeHtml(__("After")) ?></option>
+        <option value="afterOn"><?= $block->escapeHtml(__("After or On")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[created][match]" id="<%- data.field_name %>_date" 
+    class="required-entry one_condition_date" style="width: 332px ! important;"/>
+</script>
+
+<script class="condition agent" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[agent][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+    </select>
+    <select name="<%- data.field_name %>[agent][match]">
+        <option value=""></option>
+        <?php foreach ($agentColl as $key => $agent): ?>
+            <option value="<?= $block->escapeHtml($agent->getUserId()) ?>">
+            <?= $block->escapeHtml($agent->getName()) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="condition group" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[group][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+    </select>
+    <select name="<%- data.field_name %>[group][match]">
+        <option value=""></option>
+        <?php foreach ($ticketGroupArr as $key => $group): ?>
+            <option value="<?= $block->escapeHtml($group['value']) ?>">
+            <?= $block->escapeHtml($group['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="condition subject_description" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[subject_description][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[subject_description][match]" class="required-entry" />
+</script>
+
+<script class="condition customer_name" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[customer_name][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[customer_name][match]" class="required-entry" />
+</script>
+
+<script class="condition customer_email" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[customer_email][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[customer_email][match]" class="required-entry" />
+</script>
+
+<script class="condition organization_name" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[organization_name][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[organization_name][match]" class="required-entry" />
+</script>
+
+<script class="condition organization_domain" type="text/x-jquery-tmpl">
+    <select name="<%- data.field_name %>[organization_domain][match_condition]">
+        <option value="is"><?= $block->escapeHtml(__("Is")) ?></option>
+        <option value="isNot"><?= $block->escapeHtml(__("Is Not")) ?></option>
+        <option value="isContains"><?= $block->escapeHtml(__("Is Contains")) ?></option>
+        <option value="isNotContains"><?= $block->escapeHtml(__("Is Not Contains")) ?></option>
+        <option value="startWith"><?= $block->escapeHtml(__("Start With")) ?></option>
+        <option value="endWith"><?= $block->escapeHtml(__("End With")) ?></option>
+    </select>
+    <input name="<%- data.field_name %>[organization_domain][match]" class="required-entry" />
+</script>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "condition": {}
+        }
+    }
+</script>

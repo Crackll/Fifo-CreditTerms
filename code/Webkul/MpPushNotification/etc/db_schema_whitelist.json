@@ -1,0 +1,32 @@
+{
+    "mp_pushnotification_users_token": {
+        "column": {
+            "entity_id": true,
+            "token": true,
+            "browser": true,
+            "name": true,
+            "template_id": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mp_pushnotification_templates": {
+        "column": {
+            "entity_id": true,
+            "title": true,
+            "token": true,
+            "message": true,
+            "url": true,
+            "logo": true,
+            "logo_url": true,
+            "tags": true,
+            "seller_id": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

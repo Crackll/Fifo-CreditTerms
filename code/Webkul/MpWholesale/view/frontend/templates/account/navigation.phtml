@@ -1,0 +1,58 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$mpHelper = $block->getMpHelper();
+$helper = $block->getMpWholeSaleHelper();
+$isPartner= $mpHelper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $mpHelper->isSellerGroupModuleInstalled();
+?>
+<?php if ($isPartner && $helper->getModuleStatus()) { ?>
+    <?php if ($mpHelper->isAllowed('mpwholesale/product/view') ||
+        $mpHelper->isAllowed('mpwholesale/quotation/view')) { ?>
+        <li class="mpwholesale nav item <?= strpos($magentoCurrentUrl, 'mpwholesale')? "current":"";?>">
+            <?php if (strpos($magentoCurrentUrl, 'mpwholesale') !== false) { ?>
+                <strong><?= $block->escapeHtml(__('Wholesale')); ?></strong>
+            <?php } else { ?>
+                <a href="#">
+                    <?= $block->escapeHtml(__('Wholesale')); ?>
+                </a>
+            <?php } ?>
+            <ul class="nav items">
+                <?php if ($mpHelper->isAllowed('mpwholesale/quotation/view')) { ?>
+                    <li class="nav item <?php /* @noEscape */
+                        strpos($magentoCurrentUrl, 'mpwholesale/product/view') !== false ? "current":"";?>">
+                        <?php if (strpos($magentoCurrentUrl, 'mpwholesale/product/view') !== false) { ?>
+                            <strong><?php /* @noEscape */ __('Wholesale Product') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?php /* @noEscape */ $block->getProductViewUrl() ?>">
+                                <?php /* @noEscape */ __('Wholesale Product') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                <?php } ?>
+                <?php if ($mpHelper->isAllowed('mpwholesale/quotation/view')) { ?>
+                    <li class="nav item <?php /* @noEscape */
+                        strpos($magentoCurrentUrl, 'mpwholesale/quotation/view') !== false ? "current":"";?>">
+                        <?php if (strpos($magentoCurrentUrl, 'mpwholesale/quotation/view') !== false) { ?>
+                            <strong><?php /* @noEscape */ __('Wholesale Quotation') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?php /* @noEscape */ $block->getQuotationViewUrl() ?>">
+                                <?php /* @noEscape */ __('Wholesale Quotation') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                <?php } ?>
+            </ul>
+        </li>
+    <?php } ?>
+<?php } ?>

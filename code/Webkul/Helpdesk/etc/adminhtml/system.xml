@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="helpdesk" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Helpdesk</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_Helpdesk::config_helpdesk</resource>
+            <!-- create group for fields in section -->
+            <group id="helpdesk_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>HelpDesk Settings</label>
+                <field id="ticketsystemname" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket System Name</label>
+                </field>
+                <field id="ticketsystememail" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket System Email-id</label>
+                    <validate>validate-email</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Email\Address</backend_model>
+                    <comment>e.g johndoe@domain.com</comment>
+                </field>
+                <field id="uploadfilesize" translate="label comment" sortOrder="3" type="text" showInDefault="1">
+                    <label>Enter Upload File Size</label>
+                    <validate>number</validate>
+                    <comment>e.g 2 (mb)</comment>
+                    <tooltip>in Mbs</tooltip>
+                </field>
+                <field id="loginrequired" translate="label comment" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Login Required for Ticket Creation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowedextensions" translate="label comment" sortOrder="6" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed File Extensions</label>
+                    <comment>Enter file extensions seperated by comma(,) like jpeg,png,gif,pdf</comment>
+                </field>
+                <field id="alloweditor" translate="label comment" sortOrder="7" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable WYSIWYG Editor on Front</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dateformat" translate="label comment" sortOrder="8" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Date format</label>
+                    <source_model>Webkul\Helpdesk\Model\Dateformat</source_model>
+                    <comment>System will display date in this format</comment>
+                </field>
+                <field id="customer_can_delete_ticket" translate="label comment" sortOrder="9" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Can Delete Ticket</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_can_delete_thread" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Can Delete Own Thread</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_can_add_cc" translate="label comment" sortOrder="11" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Can Add CC</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_can_close_ticket" translate="label comment" sortOrder="9" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Can Close Ticket</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="priority_on_creation" translate="label comment" sortOrder="9" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Priority On Ticket Creation Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="status_on_creation" translate="label comment" sortOrder="9" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Status On Ticket Creation Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="group_on_creation" translate="label comment" sortOrder="9" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Group On Ticket Creation Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="agent_ticket_visibilty" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Agent can see all tickets</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="ticketstatus" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Ticket Status</label>
+                <field id="openstatus" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket Open</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+                <field id="newstatus" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket New</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+                <field id="pendingstatus" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket Pending</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+                <field id="solvestatus" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket Solved</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+                <field id="closedstatus" translate="label comment" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket Closed</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+                <field id="spamstatus" translate="label comment" sortOrder="6" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket Spam</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+            </group>
+            <group id="ticketdeafult" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Ticket Default Setting</label>
+                <field id="defaultstatus" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Status</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsStatus</source_model>
+                </field>
+                <field id="defaulttype" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Ticket Type</label>
+                    <source_model>Webkul\Helpdesk\Model\Type</source_model>
+                </field>
+                <field id="defaultgroup" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Group</label>
+                    <source_model>Webkul\Helpdesk\Model\Group</source_model>
+                </field>
+                <field id="defaultpriority" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Priority</label>
+                    <source_model>Webkul\Helpdesk\Model\TicketsPriority</source_model>
+                </field>
+            </group>
+            <group id="admin_ticketview" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Ticket View</label>
+                <field id="threadlimit" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ticket Thread Limit </label>
+                    <validate>validate-digits</validate>
+                    <tooltip>Number of threads will at the time of ticket view</tooltip>
+                </field>
+                <field id="draftsavetime" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Draft Saving Time</label>
+                    <validate>required-entry number</validate>
+                    <comment>e.g 50000</comment>
+                    <tooltip>Ajax will be save the data after these milliseconds</tooltip>
+                </field>
+                <field id="lockviewtime" translate="label comment" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Lock View Time</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="lockexpiretime" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Lock Expire Time</label>
+                    <validate>required-entry</validate>
+                    <tooltip>After locking ticket,after this time,agent lock will expire </tooltip>
+                    <comment>e.g : 10:00:00</comment>
+                </field>
+            </group>
+            <group id="activity" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Activity</label>
+                <field id="dashboardactivitylimit" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Activity Limit Dashboard</label>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="allowedactivity" translate="label comment" sortOrder="2" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Generate Activity</label>
+                    <source_model>Webkul\Helpdesk\Model\Activity</source_model>
+                </field>
+                <field id="activitypriorityondelete" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Activity priority on delete</label>
+                    <source_model>Webkul\Helpdesk\Model\Activitypriority</source_model>
+                </field>
+                <field id="activitypriorityonadd" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Activity priority on add</label>
+                    <source_model>Webkul\Helpdesk\Model\Activitypriority</source_model>
+                </field>
+                <field id="activitypriorityonedit" translate="label comment" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Activity priority on edit</label>
+                    <source_model>Webkul\Helpdesk\Model\Activitypriority</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

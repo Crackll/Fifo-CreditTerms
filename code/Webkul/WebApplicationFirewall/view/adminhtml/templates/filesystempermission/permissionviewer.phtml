@@ -1,0 +1,72 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+?>
+
+<hr><br>
+
+<?php
+$securityMsg = __('File system security is complex and extremely important.');
+$securityMsg .= __(' We strongly recommend you consult an experienced system administrator');
+$securityMsg .= __(' or network administrator before you decide what permissions to set.');
+$securityMsg .= __(' We provide a mechanism for you to use but a permissions strategy is up to you.');
+?>
+
+<div class="padding-16">
+    <div>
+        <h2><?= $block->escapeHtml(__('Website Mode'))?></h2>
+        <p>
+            <?= $block->escapeHtml(__("Your website is running under"))?>
+            <?= " <b class='darkgreen'>".$block->escapeHtml(__('%1', ucfirst($block->getMagentoMode())))."</b>"?>
+            <?= $block->escapeHtml(__("mode"))?>
+        </p>
+        <br>
+    </div>
+
+    <hr class="dashed-line">
+    <br>
+    <div>
+        <h2><?= $block->escapeHtml(__('Server Type'))?></h2>
+        <select id="hosting-selector">
+            <option value=""><?= $block->escapeHtml(__('---------- Select Server Type ----------'))?></option>
+            <option value="shared"><?= $block->escapeHtml(__('Shared Hosting (One User)'))?></option>
+            <option value="private"><?= $block->escapeHtml(__('Private Hosting (Two User)'))?></option>
+        </select>
+
+        <div>
+            <br>
+            <span><b><?= $block->escapeHtml(__('Note: '))?></b></span>
+            <span><b><?= $block->escapeHtml($securityMsg)?></b></span>
+        </div>
+    </div>
+
+    <div id="permission-viewer-component" data-bind="scope:'permissionviewercomponent'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+
+        <?php
+            $ajaxUrl = $block->getUrl('waf/filesystempermission/directorycontentprovider');
+        ?>
+        <script type="text/x-magento-init">
+        {
+            "#permission-viewer-component": {
+                "Magento_Ui/js/core/app": {
+                   "components": {
+                        "permissionviewercomponent": {
+                            "component": "Webkul_WebApplicationFirewall/js/permission-viewer-component",
+                            "dirInfoAjaxUrl": "<?= $block->escapeHtml($ajaxUrl)?>"
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+    </div>
+</div>

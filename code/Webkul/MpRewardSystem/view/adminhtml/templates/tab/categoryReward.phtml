@@ -1,0 +1,79 @@
+<!-- /**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */ -->
+<div class="entry-edit">
+    <div id="reward_add_block">
+        <form action="<?=$block->escapeUrl($block
+        ->getUrl('mprewardsystem/category/massRewardPoint')) ?>" 
+        enctype="multipart/form-data" method="post" id="formmassadd">
+            <?=/* @noEscape */ $block->getBlockHtml('formkey')?>
+            <input type="hidden" name="reward_category" id="in_reward_category" value="" />
+            <fieldset class="fieldset admin__fieldset">
+                <div class="messages"></div>
+                <div class="field admin__field">
+                    <label class="label" for="rewardpoint">
+                        <span><?=/* @noEscape */ __('Enter Points')?></span>
+                    </label>
+                    <div class="control">
+                        <input id="rewardpoint" name="rewardpoint" type="text" class="input-text validate-number" />
+                    </div>
+                </div>
+                <div class="field admin__field">
+                    <label class="label" id="reward_point_status" for="status">
+                        <span><?=/* @noEscape */ __('Reward Point Status')?></span>
+                    </label>
+                    <div class="control">
+                        <select id="status" name="status" type="text" class="input-text required-entry">
+                            <option value=0 selected="selected"><?=/* @noEscape */ __('Disable')?></option>
+                            <option value=1><?=/* @noEscape */ __('Enable')?></option>
+                        </select>
+                    </div>
+                </div>
+                <button title="<?=/* @noEscape */ __('Update point for category') ?>" 
+                type="button" id="save_butn"><span><span>
+                <span><?=/* @noEscape */ __('Update Points') ?></span>
+                </span></span></button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<?=/* @noEscape */ $block->getGridHtml(); ?>
+<?php
+    $blockGrid = $block->getBlockGrid();
+    $gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<?php
+$formData = [
+    'wkcategoryids'    =>    '#wkcategoryids',
+    'categorySavebtn'    =>    '#save_butn',
+    'massupdateformcategory'    => '#formmassadd',
+    'categorySubmitButton'    =>    '.submit_button',
+];
+$serializedFormData = \Zend_Json::encode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkMpRewardsystem": <?=/* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_MpRewardSystem/js/assign-category": {
+                "gridJsObjectName": <?=/* @noEscape */ '"' . $gridJsObjectName . '"' ?: '{}'; ?>
+            }
+        }
+    }
+</script>
+<!-- @todo remove when "UI components" will support such initialization -->
+<script>
+    // require('mage/apply/main').apply();
+</script>

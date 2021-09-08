@@ -1,0 +1,32 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/**
+ * Wishlist Item Bottom
+ *
+ * @var \Webkul\CustomerSubaccount\Block\Wishlist\Item
+ */
+
+$item = $block->getItem();
+$helper = $block->getHelper();
+?>
+<div>
+<?= /* @noEscape */ __('Qty')." : <strong>".($item->getQty()*1).'</strong>' ?>
+</div>
+<div class="product-item-inner">
+    <div class="product-item-actions">
+        <?php if ($helper->canRemoveFromMainWishlist()) { ?>
+        <a href="<?= /* @noEscape */ $block->getUrl('wkcs/wishList/remove', ['id'=>$item->getId()])?>" title="Remove Item" class="btn-remove action delete" style="vertical-align: middle;">
+            <span>Remove item</span>
+        </a>
+        <?php } ?>
+    </div>
+</div>

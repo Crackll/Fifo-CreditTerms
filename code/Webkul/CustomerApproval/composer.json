@@ -1,0 +1,24 @@
+{
+    "name": "webkul/module-customerapproval",
+    "description": "Webkul Customer Approval for Magento2",
+    "require": {
+        "magento/module-customer": "103.0.*",
+        "magento/module-ui": "101.2.*",
+        "magento/theme-adminhtml-backend": "100.4.*",
+        "magento/module-config": "101.2.*",
+        "magento/module-email": "101.1.*"
+    },
+    "type": "magento2-module",
+    "version": "4.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\CustomerApproval\\": ""
+        }
+    }
+}

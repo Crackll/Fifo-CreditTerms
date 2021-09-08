@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+           <css src="Webkul_RegionUpload::css/form.css" />
+    </head>
+    <update handle="styles"/>
+    <body>
+        <referenceBlock name="menu">
+            <action method="setActive">
+                <argument name="itemId" xsi:type="string">Webkul_RegionUpload::region_upload</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Webkul\RegionUpload\Block\Adminhtml\UploadRegion" />
+            <block class="Webkul\RegionUpload\Block\Adminhtml\Form" name="wk_upload_form" template="Webkul_RegionUpload::form.phtml" />
+        </referenceContainer>
+    </body>
+</page>
+

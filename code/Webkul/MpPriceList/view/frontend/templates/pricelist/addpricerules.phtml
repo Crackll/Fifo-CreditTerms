@@ -1,0 +1,277 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$showCategoriesSelected = [];
+$editPriceRuleId = "";
+$showCategoryBlockCss = 'wk-no-display';
+$showQuantityBlockCss = 'wk-no-display';
+$showTotalBlockCss = 'wk-no-display';
+$formattedOldProductId = "";
+$unformattedString = "";
+$assignedProductId = [];
+$formattedOldProductId = "";
+$ruleApplyOn = "";
+$totalAmount ='';
+$baseCurrencyCode = $block->getBaseCurrencyCode();
+$currentCurrencyCode = $block->getCurrentCurrencyCode();
+if (!empty($block->getRequest()->getParam('id'))) {
+    $editPriceRuleId = $block->getRequest()->getParam('id');
+    $priceRuleData = $block->getEditPriceRuleData($editPriceRuleId);
+    if (!empty($priceRuleData)) {
+        $ruleApplyOn = $priceRuleData->getApplyOn();
+        if ($priceRuleData->getApplyOn() == 1) {
+            $showProductBlockCss = '';
+        }
+        if ($priceRuleData->getApplyOn() == 2) {
+            $showCategoryBlockCss = '';
+        }
+        if ($priceRuleData->getApplyOn() == 3) {
+            $showQuantityBlockCss = '';
+        }
+        if ($priceRuleData->getApplyOn() == 4) {
+            $totalAmount = $block->getwkconvertCurrency(
+                $baseCurrencyCode,
+                $currentCurrencyCode,
+                $priceRuleData->getTotal()
+            );
+            $showTotalBlockCss = '';
+        }
+        $amount = $priceRuleData->getAmount();
+        if ($priceRuleData->getPriceType() == 1) {
+            $amount = $block->getwkconvertCurrency(
+                $baseCurrencyCode,
+                $currentCurrencyCode,
+                $priceRuleData->getAmount()
+            );
+        }
+        $assignedProductId = $block->getAssignedProductOnRules($editPriceRuleId);
+        if (!empty($assignedProductId)) {
+            $unformattedString = implode(',', $assignedProductId);
+            $formattedOldProductId = $block->getFormattedString($assignedProductId);
+        }
+        $showCategoriesSelected = $block->showCategoriesSelectedInCategoryTree($editPriceRuleId);
+    }
+}
+$calculationTypeArray = $block->getCalculationTypeArray();
+$priceTypeArray = $block->getPriceTypeOptions();
+$applyOptionsArray = $block->getApplyOptions();
+$statusOptionsArray = $block->getStatusOptions();
+$customerId = $block->getCustomerId();
+
+?>
+<style>
+.wk-mp-pricelist .wk-no-display{display:none;}
+.wk-mp-pricelist .wk-mp-fieldset .control {overflow: unset;}
+</style>
+
+<form method='post'
+    id='mppricelist_add_rules_form'
+    action="<?= $block->escapeHtml($block->getUrl('mppricelist/pricerules/save')) ?>"
+    data-mage-init='{"validation": {}}'>
+    <input type="hidden" name="seller_id" id="seller_id" value="<?= $block->escapeHtml($customerId);?>" />    
+    <input type="hidden"
+        name="pricelist_rule_products"
+        id="pricelist_rule_products"
+        value="<?= $block->escapeHtml($unformattedString);?>"
+    />
+    <?php if (!empty($editPriceRuleId)) {?>
+    <input type="hidden" name="id" value="<?= $block->escapeHtml($editPriceRuleId);?>"/>
+    <?php }?>
+    <input type="hidden"
+        name="pricelist_rule_products_old"
+        id="pricelist_rule_products_old"
+        value="<?= $block->escapeHtml($formattedOldProductId);?>"
+    />
+    <div class='wk-mp-design wk-mp-pricelist'>
+        <fieldset class="fieldset info wk-mp-fieldset">
+            <legend class="legend">
+                <span><?= $block->escapeHtml(__('Add New Rule')) ?></span>
+                <button class="button wk-mp-btn"  id= "submit" title="Continue" type="submit" style="display:none">
+                    <span><span><?= $block->escapeHtml(__('Continue')) ?></span></span>
+                </button>
+            </legend>
+             <!--form starts -->
+             <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Price Rule Name')) ?>:</label>
+                <div class="control">
+                    <input name="title"
+                        class="required-entry input-text"
+                        type='text'
+                        data-validate="{required:true, 'validate-no-html-tags':true}"
+                        value="<?php if (!empty($priceRuleData) && !empty($priceRuleData->getTitle())) {
+                                echo $block->escapeHtml($priceRuleData->getTitle());
+                               } ?>"
+                    />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Price Calculation Type')) ?>:</label>
+                <div class="control">
+                    <select  class="required-entry" name="calculation_type">
+                    <?php foreach ($calculationTypeArray as $calculationType): ?>
+                        <option value="<?= $block->escapeHtml($calculationType['value']) ?>"
+                            <?php if (!empty($priceRuleData) &&
+                                !empty($priceRuleData->getCalculationType() &&
+                                $priceRuleData->getCalculationType()  == $calculationType['value'])) {
+                                    echo 'selected';
+                            }?>
+                        ><?= $block->escapeHtml($calculationType['label'])?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Price Type')) ?>:</label>
+                <div class="control">
+                    <select  class="required-entry" name="price_type">
+                    <?php foreach ($priceTypeArray as $priceType): ?>
+                                <option value="<?= $block->escapeHtml($priceType['value']) ?>"
+                                    <?php if (!empty($priceRuleData) &&
+                                        !empty($priceRuleData->getPriceType()) &&
+                                        $priceRuleData->getPriceType()== $priceType['value']) {
+                                            echo 'selected';
+                                    }?>
+                                ><?= $block->escapeHtml($priceType['label'])?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Amount')) ?>:</label>
+                <div class="control">
+                    <input  name="store_currency_amount"
+                        class="required-entry validate-greater-than-zero input-text"
+                        type='text' 
+                        value="<?php if (!empty($amount)) {
+                                echo $block->escapeHtml(round($amount, 2));
+                               } ?>"
+                    />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Priority')) ?>:</label>
+                <div class="control">
+                    <input  name="priority"
+                        value="<?php if (!empty($priceRuleData) && !empty($priceRuleData->getPriority())) {
+                                echo $block->escapeHtml($priceRuleData->getPriority());
+                               } ?>"
+                        class="required-entry validate-greater-than-zero validate-digits input-text"
+                        type='text'
+                    />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Applicable On')) ?>:</label>
+                <div class="control">
+                    <select class="required-entry" id='applicable_on' name="apply_on">
+                    <?php foreach ($applyOptionsArray as $applyOptions): ?>
+                                <option value="<?= $block->escapeHtml($applyOptions['value']) ?>"
+                                <?php if (!empty($priceRuleData) &&
+                                    !empty($priceRuleData->getApplyOn()) &&
+                                    $priceRuleData->getApplyOn()== $applyOptions['value']) {
+                                        echo 'selected';
+                                }?>
+                                ><?= $block->escapeHtml($applyOptions['label'])?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field wk-pricelist-category required <?= $block->escapeHtml($showCategoryBlockCss);?>">
+                <label class="label"><?= $block->escapeHtml(__('Categories')) ?>:</label>
+                <div class="control">
+                    <div data-bind="scope: 'sellerCategory'">
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                    </div>
+                    <script type="text/x-magento-init">
+                        {
+                            "*": {
+                                "Magento_Ui/js/core/app": {
+                                    "components": {
+                                        "sellerCategory": {
+                                            "component": "Webkul_Marketplace/js/product/seller-category-tree",
+                                            "template" : "Webkul_Marketplace/seller-category-tree",
+                                            "filterOptions": true,
+                                            "levelsVisibility": "1",
+                                            "multiple": true,
+                                            "showCheckbox": true,
+                                            "options": <?= /* @noEscape */ $block->getCategoriesTree();?>,
+                                            "value": <?= /* @noEscape */ json_encode($showCategoriesSelected)?>
+                                           
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+            </form>
+            <div class="field wk-pricelist-quantity required <?= $block->escapeHtml($showQuantityBlockCss);?>">
+                <label class="label"><?= $block->escapeHtml(__('Quantity')) ?>:</label>
+                <div class="control">
+                    <input name="qty"
+                        class="validate-greater-than-zero validate-digits input-text required-entry"
+                        type='text'
+                        id='applicable_quantity'
+                        value="<?php if (!empty($priceRuleData) && !empty($priceRuleData->getQty())) {
+                                echo $block->escapeHtml($priceRuleData->getQty());
+                               } ?>"
+                    />
+                </div>
+            </div>
+            <div class="field  wk-pricelist-total required <?= $block->escapeHtml($showTotalBlockCss);?>">
+                <label class="label"><?= $block->escapeHtml(__('Total')) ?>:</label>
+                <div class="control">
+                    <input name="store_currency_total"
+                        class="validate-greater-than-zero input-text required-entry"
+                        type='text'
+                        id='applicable_total'
+                        value="<?php if (!empty($totalAmount)) {
+                                echo $block->escapeHtml(round($totalAmount, 2));
+                               } ?>"
+                    />
+                    <span>
+                        <?= $block->escapeHtml(
+                            __('Value considered as equal to or greater than to the product price')
+                        );?>
+                    </span>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Status')) ?>:</label>
+                <div class="control">
+                    <select name="status" class="required-entry">
+                    <?php foreach ($statusOptionsArray as $statusOptions): ?>
+                        <option value="<?= $block->escapeHtml($statusOptions['value']) ?>"
+                        <?php if (!empty($priceRuleData) && $priceRuleData->getStatus()== $statusOptions['value']) {
+                            echo 'selected';
+                        }?>
+                        ><?= $block->escapeHtml(__($statusOptions['label']));?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+</form>
+<?php
+$formData = [
+    'ruleApplyOn'=>$ruleApplyOn
+];
+$serializedFormData = $block->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "sellerAddPriceRules": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

@@ -1,0 +1,39 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+
+$collection = $block->getSupportCenterData();
+$url = $block->getUrl();
+?>
+<?php if (count($collection)):?>
+<div class="wk_ts_thread_container">
+    <?php $i = 1; ?>
+    <?php foreach ($collection as $item): ?>
+        <div class="wk_support_information_container" 
+        id="support_id_<?= $block->escapeHtml($item->getId()) ?>" style="<?php if ($i++ <
+        count($collection)) { echo 'border-bottom: 1px solid rgb(200, 200, 200);'; } ?>">
+            <h1><?= $block->escapeHtml($item->getName()) ?></h1>
+            <p><?= $block->escapeHtml($item->getDescription()) ?></p>
+            <?php $cmsIndentifiers = explode(',', $item->getCmsId()) ?>
+            <?php foreach ($cmsIndentifiers as $cmsId):  ?>
+                <div class="wk_support_information"><br/>
+                    <?php $cms = $block->getCmsPage($cmsId, 'identifier'); ?>
+                    <a href="<?= $block->escapeUrl($block->getUrl($cms->getIdentifier()))
+                    ?>"><?= $block->escapeHtml($cms->getTitle()) ?></a><br/>
+                    <?php if ($cms->getMetaDescription() != ""): ?>
+                        <?= $block->escapeHtml(substr($cms->getMetaDescription(), 0, 100)."...") ?>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php else:?>
+    <div class="helpdesk-empty"><span><?= $block->escapeHtml(__("No support center found."));?></span></div>
+<?php endif;?>

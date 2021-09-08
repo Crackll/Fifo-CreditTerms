@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <type name="Webkul\CustomerSubaccount\Logger\Handler">
+    <arguments>
+      <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+    </arguments>
+  </type>
+  <type name="Webkul\CustomerSubaccount\Logger\Logger">
+    <arguments>
+      <argument name="name" xsi:type="string">webkulCustomerSubaccountLogHandler</argument>
+      <argument name="handlers" xsi:type="array">
+        <item name="system" xsi:type="object">Webkul\CustomerSubaccount\Logger\Handler</item>
+      </argument>
+    </arguments>
+  </type>
+  <preference for="Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface" type="Webkul\CustomerSubaccount\Rewrite\ResourceModel\OrderCollectionFactoryInterface"/>
+  <preference for="Magento\Customer\Controller\Account\LoginPost" type="Webkul\CustomerSubaccount\Rewrite\Controller\LoginPost"/>
+  <preference for="Magento\Customer\Block\Account\SortLink" type="Webkul\CustomerSubaccount\Rewrite\Block\AccountSortLink"/>
+  <preference for="Magento\Wishlist\Controller\WishlistProviderInterface" type="Webkul\CustomerSubaccount\Rewrite\WishlistProviderInterface"/>
+  <preference for="Magento\Wishlist\Controller\WishlistProvider" type="Webkul\CustomerSubaccount\Rewrite\WishlistProvider"/>
+  <type name="Magento\Checkout\Model\DefaultConfigProvider">
+    <plugin name="webkul_customersubaccount-shippingconfigprovider-pluginobserver" type="Webkul\CustomerSubaccount\Plugin\ShippingConfigProvider" sortOrder="1"/>
+  </type>
+  <preference for="Magento\Quote\Model\QuoteAddressValidator" type="Webkul\CustomerSubaccount\Rewrite\Model\QuoteAddressValidator"/>
+  <preference for="Magento\Review\Controller\Product\Post" type="Webkul\CustomerSubaccount\Rewrite\Controller\ProductPost"/>
+  <preference for="Magento\Multishipping\Block\Checkout\Addresses" type="Webkul\CustomerSubaccount\Rewrite\Block\MultishipAddress"/>
+  <preference for="Magento\Multishipping\Model\Checkout\Type\Multishipping" type="Webkul\CustomerSubaccount\Rewrite\Model\Multishipping"/>
+  <preference for="Magento\Multishipping\Block\Checkout\Billing" type="Webkul\CustomerSubaccount\Rewrite\Block\MultishipBilling"/>
+  <preference for="Magento\Multishipping\Block\Checkout\Address\Select" type="Webkul\CustomerSubaccount\Rewrite\Block\MultishipAddressSelect"/>
+  <virtualType name="Webkul\CustomerSubaccount\Model\ResourceModel\Subaccount\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+      <arguments>
+          <argument name="mainTable" xsi:type="string">wkcs_subaccounts</argument>
+          <argument name="resourceModel" xsi:type="string">Webkul\CustomerSubaccount\Model\ResourceModel\Subaccount</argument>
+      </arguments>
+  </virtualType>
+  <type name="Webkul\CustomerSubaccount\Model\ResourceModel\Subaccount\Grid\Collection">
+      <arguments>
+          <argument name="mainTable" xsi:type="string">wkcs_subaccounts</argument>
+          <argument name="eventPrefix" xsi:type="string">wkcs_subaccounts_grid_collection</argument>
+          <argument name="eventObject" xsi:type="string">wkcs_subaccounts_grid_collection</argument>
+          <argument name="resourceModel" xsi:type="string">Webkul\CustomerSubaccount\Model\ResourceModel\Subaccount</argument>
+      </arguments>
+  </type>
+  <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+      <arguments>
+          <argument name="collections" xsi:type="array">
+              <item name="wkcs_subaccount_list_data_source" xsi:type="string">Webkul\CustomerSubaccount\Model\ResourceModel\Subaccount\Grid\Collection</item>
+          </argument>
+      </arguments>
+  </type>
+  <type name="Magento\Review\Controller\Customer\Index">
+    <plugin name="webkul_customersubaccount-ReviewList-plugin" type="Webkul\CustomerSubaccount\Plugin\ReviewList" sortOrder="1"/>
+  </type>
+  <type name="Magento\Review\Controller\Customer\View">
+    <plugin name="webkul_customersubaccount-ReviewView-plugin" type="Webkul\CustomerSubaccount\Plugin\ReviewView" sortOrder="1"/>
+  </type>
+  <type name="Magento\Customer\Model\Address\Validator\Customer">
+    <plugin name="webkul_customersubaccount-ReviewView-plugin" type="Webkul\CustomerSubaccount\Plugin\AddressValidator" sortOrder="1"/>
+  </type>
+</config>

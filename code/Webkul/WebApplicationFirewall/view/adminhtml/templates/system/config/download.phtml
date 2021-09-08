@@ -1,0 +1,66 @@
+<?php
+
+/**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_WebApplicationFirewall
+* @author Webkul
+* @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*
+*/
+// @codingStandardsIgnoreFile
+
+/** @var \Webkul\WebApplicationFirewall\Block\Adminhtml\System\Config\DownloadButton $block */
+
+?>
+<div id="library_area">
+<?= /** @noEscape */ $block->getButtonHtml() ?>
+</div>
+
+<span class="collect-indicator" id="indicator_span">
+    <span id="installing" hidden="hidden">
+        <img alt="Installing" style="margin:0 5px"
+             src="<?= /** @noEscape */ $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+        <?= /** @noEscape */ __('Installing ...') ?>
+    </span>
+    <img title="<?= __('Library installed.') ?>" id="installed" <?= /** @noEscape */ $block->isInstalled() ?> alt="<?= __('Installed') ?>" style="margin:-3px 5px"
+         src="<?= /** @noEscape */ $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+</span>
+
+<script>
+require([
+    'jquery',
+    'prototype'
+], function (jQuery) {
+    downloadLibrary = function () {
+        var self = this;
+        new Ajax.Request('<?= /** @noEscape */ $block->getAjaxUrl() ?>', {
+            parameters: {},
+            loaderArea: false,
+            asynchronous: true,
+            onCreate: function () {
+                jQuery('#installed').hide();
+                jQuery('#installing').show();
+                // jQuery(self).prop("disabled", true);
+            },
+
+            onSuccess: function(response) {
+                var res = response.responseJSON;
+                if (res.error == false) {
+                    jQuery('#installed').show();
+                } else {
+                    jQuery('<div class="message message-error" style="margin-bottom: 5px;color:red"><p>' + res.messages + '</p></div>').insertAfter('#download_button');
+                }
+
+                jQuery('#installing').hide();
+            },
+        });
+    };
+    if ($('download_button')) {
+        $('download_button').observe('click', downloadLibrary);
+    }
+});
+
+</script>

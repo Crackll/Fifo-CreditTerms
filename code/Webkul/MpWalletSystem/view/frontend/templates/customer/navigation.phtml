@@ -1,0 +1,58 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpWalletSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+$walletBlock = $block->getLayout()->createBlock(\Webkul\MpWalletSystem\Block\Walletsystem::class);
+$helper = $walletBlock->helper(\Webkul\MpWalletSystem\Helper\Data::class);
+$isEnabled = $helper->getWalletenabled();
+$magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<?php
+if ($isEnabled) { ?>
+    <li class="walletsystemnav nav item 
+    <?= strpos($magentoCurrentUrl, 'mpwalletsystem') !== false ? "current":"";?>">
+        <?php if (strpos($magentoCurrentUrl, 'mpwalletsystem') !== false) { ?>
+            <strong><?=$block->escapeHtml(__('My Wallet'))?></strong>
+            <?php
+        } else { ?>
+            <a href="#"><?=$block->escapeHtml(__('My Wallet'))?></a>
+        <?php } ?>
+        <ul class="nav items">
+            <li class="nav item 
+            <?=strpos($magentoCurrentUrl, 'mpwalletsystem/index/index') !== false ? "current":"";?>">
+           <?php
+            if (strpos($magentoCurrentUrl, 'mpwalletsystem/index/index') !== false) { ?>
+                <strong><?=$block->escapeHtml(__('Manage Wallet Amount'))?></strong>
+                <?php
+            } else { ?>
+                <a href="<?=$block->escapeUrl($block->getUrl('mpwalletsystem/index/index')); ?>">
+                    <?=$block->escapeHtml(__('Manage Wallet Amount'))?>
+                </a>
+                <?php
+            } ?>
+            </li>
+            <li class="nav item <?=
+            strpos($magentoCurrentUrl, 'mpwalletsystem/transfer/index') !== false ? "current":"";?>">
+           <?php
+            if (strpos($magentoCurrentUrl, 'mpwalletsystem/transfer/index') !== false) { ?>
+                <strong><?=$block->escapeHtml(__('Transfer Wallet Amount'))?></strong>
+                <?php
+            } else { ?>
+                <a href="<?=$block->escapeUrl($block->getUrl('mpwalletsystem/transfer/index')); ?>">
+                    <?=$block->escapeHtml(__('Transfer Wallet Amount'))?>
+                </a>
+                <?php
+            } ?>
+            </li>
+        </ul>
+    </li>
+<?php }?>

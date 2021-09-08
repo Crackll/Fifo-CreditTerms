@@ -1,0 +1,31 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x and Marketplace 5.0.*
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x and Marketplace 4.0.*
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Compatible with Marketplace 3.0.*
+    + Add MassAction in wholesaler list.
+	+ Columns Control added in price Rule.
+	- Filter Issue Fixed.
+	- Message limit issue fixed.
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Compatible with Magento 2.3.x.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Anyone can register as a wholesaler.
+	+ The admin can add wholesalers from the back-end.
+	+ Notification emails like wholesaler registration etc.
+	+ Wholesalers can add their products.
+	+ Wholesalers can communicate with the seller.
+	+ Wholesalers can check their leads.
+	+ Wholesalers can create price rules.
+	+ Sellers can quote for the wholesalers’ products.
+	+ Sellers can add the quantity of the product and a message while sending the quote to the wholesaler.

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <head>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/product.css"/>
+        <css src="Webkul_Marketplace::css/layout.css"/>
+        <css src="Webkul_Marketplace::colorpicker/css/colorpicker.css"/>
+    </head>
+    <body>
+        <referenceBlock name="seller.page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Marketplace Price List</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="seller.content">
+             <block  ifconfig='mppricelist/mppricelist_settings/enable_pricelist' class="Magento\Framework\View\Element\Template" name="mppricelist_seller_pricelist_managelist" template="Webkul_MpPriceList::pricelist/managepricelist.phtml" cacheable="false"/>
+        </referenceContainer>
+          <referenceContainer name="mppricelist_seller_pricelist_managelist">
+            <uiComponent name="mppricelist_sellerpricelist_list"/>
+        </referenceContainer>
+    </body>
+</page>

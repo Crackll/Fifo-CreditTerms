@@ -1,0 +1,29 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$offer = $block->getOffer();
+$image = $block->getBannerImage($offer);
+?>
+<link rel="stylesheet" 
+    href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" 
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" 
+    crossorigin="anonymous"/>
+<div class="wkmpc-offer-detail-container">
+    <div class="wkmpc-offer-detail <?= /* @noEscape */ ($image?'':'wkmpc-offer-detail-text');?>">
+        <?php  if ($image) {
+            ?>
+            <img class="wkmpc-offer-image" src="<?=  /* @noEscape */ $image?>"/>
+            <?php
+        } else {?>
+            <span class="wkmpc-offer-text"><?=  /* @noEscape */  __($offer->getName()) ?></span>
+        <?php } ?>
+       
+    </div>
+</div>

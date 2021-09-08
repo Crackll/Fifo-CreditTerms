@@ -1,0 +1,232 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$labeldata = $block->getCollection();
+$_helper = $block->getHelperObject();
+$addApproval = $_helper->getConfigData('label_approval');
+$editApproval =$_helper->getConfigData('label_edit_approval');
+$paramData = $block->getRequest()->getParams();
+$filter = '';
+$filterPosition = '';
+$filterStatus = 4;
+if (isset($paramData['label_filter'])) {
+    $filter = $paramData['label_filter'] != '' ? $paramData['label_filter'] : '';
+}
+if (isset($paramData['label_filterposition'])) {
+    $filterPosition = $paramData['label_filterposition'] != '' ? $paramData['label_filterposition'] : '';
+}
+if (isset($paramData['label_filterstatus'])) {
+    $filterStatus = $paramData['label_filterstatus'] != '' ? $paramData['label_filterstatus'] : '';
+}
+
+$position = [
+    '' => __('All'),
+    \Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_LEFT =>__('Top-Left'),
+    \Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_RIGHT =>__('Top-Right'),
+    \Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_LEFT => __('Bottom-Left'),
+    \Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_RIGHT => __('Bottom-Right')
+];
+$status = [
+    4 => __('All'),
+    \Webkul\MarketplaceProductLabels\Model\Label::STATUS_PENDING =>__('Pending'),
+    \Webkul\MarketplaceProductLabels\Model\Label::STATUS_DISABLE =>__('Disapproved'),
+    \Webkul\MarketplaceProductLabels\Model\Label::STATUS_ENABLE => __('Approved'),
+    \Webkul\MarketplaceProductLabels\Model\Label::STATUS_DISAPPROVE => __('Disabled')
+];
+?>
+<legend class="legend">
+    <span><?= /* @noEscape */ __('Product Label List') ?></span>
+</legend>
+<form action="<?= /* @noEscape */ $block->getUrl(
+    'mplabels/label/labellist',
+    ['_secure' => $block->getRequest()->isSecure()]
+)?>" method="get">
+    <table cellspacing="0" class="border wk-mp-list-table">
+        <thead>
+            <tr id="wk-mp-tr-heading">
+                <th><span><?= /* @noEscape */ __('Label Name') ?></span></th>
+                <th><span><?= /* @noEscape */ __('Position') ?></span></th>
+                <th><span><?= /* @noEscape */ __('Status') ?></span></th>
+                <th><span>&nbsp;</span></th>
+            </tr>
+        </thead>
+        <tbody class="wk-mp-body" id="colender-check">
+            <tr>
+                <td>
+                    <input type="text" class="input-text" name="label_filter"
+                    placeholder='<?= /* @noEscape */ __('Search label by label name') ?>'
+                    value="<?= /* @noEscape */ $filter?>"/>
+                </td>
+                <td>
+                    <select name="label_filterposition" class="input-text">
+                        <?php foreach ($position as $var => $position): ?>
+                            <option 
+                            value="<?= /* @noEscape */ $var ?>"
+                            <?php if ($var == $filterPosition): ?>
+                            selected="selected"<?php endif; ?>>
+                            <?= /* @noEscape */ $position ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td>
+                    <select name="label_filterstatus" class="input-text">
+                        <?php foreach ($status as $var => $status): ?>
+                            <option 
+                            value="<?= /* @noEscape */ $var ?>"
+                            <?php if ($var == $filterStatus): ?>
+                            selected="selected"<?php endif; ?>>
+                            <?= /* @noEscape */ $status ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td>
+                    <button class="button" title="Save" type="submit">
+                        <span><span><span><?= /* @noEscape */ __('Submit') ?></span></span></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<?php if ($labeldata): ?>
+    <div class="hor-scroll">
+        <form action="<?= /* @noEscape */
+        $block->getUrl('mplabels/label/massDelete', ['_secure' => $block->getRequest()->isSecure()])?>"
+        method="post" id="form-productlist-massdelete" name="formProductlistMassdelete"
+        data-mage-init='{"validation":{}}'>
+            <button class="wk-label-button" type="submit" style="float: left;padding: 5px 5px 5px 0;"
+                id="mass-delete-butn">
+                <span><span><?= /* @noEscape */ __('Delete Product Labels') ?></span></span>
+            </button>
+            <table cellspacing="0" class="border wk-mp-list-table wk-mp-list-container-table">
+                <thead>
+                    <tr class="wk-content">
+                        <th class="wk-check-first-td">
+                            <span>
+                                <input type="checkbox" name="mpselecctall" value="all" id="mpselecctall"/>
+                            </span>
+                        </th>
+                        <th class="wk-first-td">
+                            <span class="label name">
+                                <?= /* @noEscape */ __('Label')?>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="label pro-status">
+                                <?= /* @noEscape */ __('Position')?>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="label pro-status">
+                                <?= /* @noEscape */ __('Status')?>
+                            </span>
+                        </th>
+                        <th>
+                            <span class="label">
+                                <?= /* @noEscape */ __('Action')?>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    $i = 0;
+                foreach ($labeldata as $labels) {
+                    $i++;
+                    ?>
+                        <tr class="wk-row-view <?= /* @noEscape */
+                            $class = ($i == count($block->getSellerLabelList()))? 'wk-last_tr':''?>">
+                            <td class="wk-check-first-td">
+                                <span>
+                                    <input type="checkbox" name="labels_mass_delete[]" 
+                                    class="mpcheckbox" value="<?= /* @noEscape */ $labels['id']; ?>"/>
+                                </span>
+                            </td>
+                            <td class="wk-first_td">
+                                <div class="label name" title="<?= /* @noEscape */ $labels['label_name']; ?>">
+                                    <div class="wk-pro-divide1">
+                                        <img src="<?= /* @noEscape */
+                                        $block->getMediaUrl($labels['image_name']); ?>" class="image" />
+                                    </div>
+                                    <div class="wk-pro-divide2">
+                                        <div style="width:100%;">
+                                        <?= /* @noEscape */ $labels['label_name'];?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                            <?php
+                            $pos = $labels['position'];
+                            if ($pos == (\Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_LEFT)) {
+                                /* @noEscape */ echo __('Top-Left');
+                            } elseif ($pos == (\Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_RIGHT)) {
+                                /* @noEscape */ echo __('Top-Right');
+                            } elseif ($pos == (\Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_LEFT)) {
+                                /* @noEscape */ echo __('Bottom-Left');
+                            } elseif ($pos == (\Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_RIGHT)) {
+                                /* @noEscape */ echo __('Bottom-Right');
+                            }
+                            ?>
+                            </td>
+                            <td>
+                            <?php
+                            $status = $labels['status'];
+                            if ($addApproval || $editApproval) {
+                                if ($status == (\Webkul\MarketplaceProductLabels\Model\Label::STATUS_PENDING)) {
+                                    /* @noEscape */ echo __('Pending');
+                                } elseif ($status == (\Webkul\MarketplaceProductLabels\Model\Label::STATUS_ENABLE)) {
+                                    /* @noEscape */ echo __('Approved');
+                                } else {
+                                    /* @noEscape */ echo __('Disapproved');
+                                }
+                            } else {
+                                if ($status == (\Webkul\MarketplaceProductLabels\Model\Label::STATUS_ENABLE)) {
+                                    /* @noEscape */ echo __('Enabled');
+                                } elseif ($status == (\Webkul\MarketplaceProductLabels\Model\Label::STATUS_DISABLE)) {
+                                    /* @noEscape */ echo __('Disapproved');
+                                } else { /* @noEscape */ echo __('Disabled');
+                                }
+                            }
+                            ?>
+                            </td>
+                            <td>
+                                <span class="label wk-action">
+                                    <?php // @codingStandardsIgnoreStart ?>
+                                    <img src="<?= /* @noEscape */
+                                    $block->getViewFileUrl('Webkul_Marketplace::images/icon-edit.png'); ?>"
+                                    data-url="<?= /* @noEscape */ $block->getUrl('mplabels/label/editlabel', ['id'=>$labels['id'], '_secure' => $block->getRequest()->isSecure()])?>"
+                                    alt="<?= /* @noEscape */ __('Edit')?>"
+                                    title="<?= /* @noEscape */ __('Edit')?>" class="mp-label-edit"/>
+                                    <?php // @codingStandardsIgnoreEnd ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+        </form>
+        <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml();?></div>
+        <?php endif ?>
+    </div>
+<?php else: ?>
+    <?= /* @noEscape */ __('empty'); ?>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_MarketplaceProductLabels/js/label/label-list": {}
+        }
+    }
+</script>
+
+

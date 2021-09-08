@@ -1,0 +1,32 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!--@subject {{trans "%store_name - Security Alert" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var store.getFrontendName()":"Store Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+{{inlinecss file="css/email-inline.css"}}
+<table>
+    <tr class="email-summary">
+        <td>
+            <h3>{{trans "Login Attempted with Incorrect Details"}}</h3>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{layout area="frontend" handle="login_activity_log" login_logs=$loginLogs}}
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,161 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpWalletSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+use \Webkul\MpWalletSystem\Model\Wallettransaction;
+
+$walletBlock = $block->getLayout()->createBlock(\Webkul\MpWalletSystem\Block\Walletsystem::class);
+    $helper = $walletBlock->helper(\Webkul\MpWalletSystem\Helper\Data::class);
+if ($helper->getWalletenabled()) {
+        $status = 0;
+        $customerId = $helper->getCustomerId();
+        $currency_code = $helper->getCurrentCurrencyCode();
+        $transactionData = $block->getTransactionData();
+        $prefix = $helper->getTransactionPrefix($transactionData->getSenderType(), $transactionData->getAction()); ?>
+        <div class="wk_ws_main">
+            <div class='wk_ws_main_head'>
+                <div class="wk_ws_sub_head1">
+                    <img src='
+                    <?=$block->escapeUrl($block->getViewFileUrl('Webkul_MpWalletSystem::images/wallet.png'));?>
+                    ' width="70px" height="55px">
+                </div>
+                <div class="wk_ws_sub_head2">
+                <h2><?=$block->escapeHtml(__('Wallet Details'));?></h2>
+                <h3>
+                    <span class="wk_ws_price">
+                        <?=$block->escapeHtml($block->getWalletRemainingTotal($customerId))?>
+                    </span>
+                    <?=$block->escapeHtml("(".$currency_code.")")?>
+                </h3>
+                <span><?=$block->escapeHtml(__("Your Wallet Balance"))?></span>
+                </div>
+            </div>
+            <div class='wk_ws_body'>
+                <table class="wallet-transaction-view">
+                    <tbody>
+                        <tr>
+                            <th><?=$block->escapeHtml(__("Amount"))?></th>
+                            <td><?=/*@noEscape*/$block->getTransactionAmount($transactionData)?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$block->escapeHtml(__("Action"))?></th>
+                            <td><?=$block->escapeHtml($transactionData->getAction())?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$block->escapeHtml(__("Type"))?></th>
+                            <td><?=$block->escapeHtml(__($prefix))?></td>
+                        </tr>
+                        <?php
+                        if ($transactionData->getOrderId()) {
+                            $order = $block->getOrder()->load($transactionData->getOrderId());
+                            $incrementid = $order->getIncrementId();
+                        }
+                            $orderDetailsActions = [
+                                Wallettransaction::ORDER_PLACE_TYPE,
+                                Wallettransaction::REFUND_TYPE
+                            ];
+                            if (in_array(
+                                $transactionData->getSenderType(),
+                                $orderDetailsActions
+                            )) { ?>
+                            <tr>
+                                <th><?=$block->escapeHtml(__("Reference"))?></th>
+                                <td><a href="
+                                <?= $block->escapeUrl($block->getUrl(
+                                    'sales/order/view/',
+                                    ['order_id'=>$transactionData->getOrderId()]
+                                ));?>"><?=$block->escapeHtml("#".$incrementid)?></a></td>
+                            </tr>
+                        <?php } elseif ($transactionData->getSenderType()==Wallettransaction::CASH_BACK_TYPE) {
+                                if ($transactionData->getAction()==Wallettransaction::WALLET_ACTION_TYPE_CREDIT) { ?>
+                                <tr>
+                                    <th><?=$block->escapeHtml(__("Reference"))?></th>
+                                    <td><a href="
+                                    <?= $block->escapeUrl($block->getUrl(
+                                        'sales/order/view/',
+                                        ['order_id'=>$transactionData->getOrderId()]
+                                    ));?>"><?=$block->escapeHtml("#".$incrementid)?></a></td>
+                                </tr>
+                        <?php }
+                        } elseif ($transactionData->getSenderType()==Wallettransaction::CUSTOMER_TRANSFER_TYPE) {
+                            if ($transactionData->getAction()==Wallettransaction::WALLET_ACTION_TYPE_CREDIT) {
+                                $senderData = $block->getCustomerDataById($transactionData->getSenderId()); ?>
+                                <tr>
+                                    <th><?=$block->escapeHtml(__("Sender"))?></th>
+                                    <td>
+                                    <?=$block->escapeHtml(__(
+                                        $senderData->getFirstname().
+                                        " ".
+                                        $senderData->getLastname()
+                                    ))?></td>
+                                </tr>
+                        <?php } else {
+                                $recieverData = $block->getCustomerDataById(
+                                    $transactionData->getSenderId()
+                                );
+                                if ($recieverData->getEntityId()):
+                                    ?>
+                                <tr>
+                                    <th><?=$block->escapeHtml(__("Receiver"))?></th>
+                                    <td>
+                                    <?=$block->escapeHtml(__(
+                                        $recieverData->getFirstname().
+                                        " ".
+                                        $recieverData->getLastname()
+                                    ))?></td>
+                                </tr>
+                            <?php else: ?>
+                                <tr>
+                                    <th><?=$block->escapeHtml(__("Receiver"))?></th>
+                                    <td><?=$block->escapeHtml(__("Reciever not exists"))?></td>
+                                </tr>
+                            <?php endif;?>
+                        <?php }
+                        } elseif ($transactionData->getSenderType()==Wallettransaction::CUSTOMER_TRANSFER_BANK_TYPE
+                        ) { ?>
+                            <tr>
+                                <th><?=$block->escapeHtml(__("Bank Details"))?></th>
+                                <td><?=/*@noEscape*/ nl2br($transactionData->getBankDetails())?></td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <th><?=$block->escapeHtml(__("Transaction At"))?></th>
+                            <td><?=$block->escapeHtml($transactionData->getTransactionAt())?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$block->escapeHtml(__("Transaction note"))?></th>
+                            <td><?=$block->escapeHtml($transactionData->getTransactionNote())?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$block->escapeHtml(__("Transaction Status"))?></th>
+                            <td>
+                                <?php if ($transactionData->getStatus()==Wallettransaction::WALLET_TRANS_STATE_PENDING
+                                ) {
+                                    echo $block->escapeHtml(__('Pending'));
+                                } elseif ($transactionData->getStatus()==Wallettransaction::WALLET_TRANS_STATE_CANCEL) {
+                                    echo $block->escapeHtml(__('Cancelled'));
+                                } else {
+                                    echo $block->escapeHtml(__('Approved'));
+                                } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<?php }?>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" 
+        onclick="javascript: window.history.back();" class="left">&laquo; <?=$block->escapeJs(__('Back')) ?></a>
+    </p>
+</div>

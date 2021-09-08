@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_MpAuction default layout.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="Webkul\MpAuction\Block\Account\Navigation" name="seller_auction_menu" before="-" template="Webkul_MpAuction::/layout2/account/navigation.phtml">
+                <arguments>
+                    <argument name="mp_auction_viewmodel" xsi:type="object">Webkul\MpAuction\ViewModel\MpAuction</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block class="Webkul\MpAuction\Block\WishlistSidebar" name="wishlistsidebar.mpauction.products" template="Webkul_MpAuction::wishlistsidebar.phtml"/>
+            <!-- <block class="Magento\Sales\Block\Reorder\Sidebar" name="sale.reorder.mpauction.sidebar" template="Magento_Sales::reorder/sidebar.phtml"/> -->
+        </referenceContainer>
+    </body>
+</page>
+

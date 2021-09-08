@@ -1,0 +1,35 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $categories = $block->getCategories();
+    $selectedCategoryIds = $block->getSelectedCategoryIds();
+?>
+<?php if ($categories->getSize()): ?>
+    <div id="seller-category-container" class="field wk-mpsellercategory-product-container wk-display-none">
+        <label class="label"><?= /* @noEscape */ __("Collection Page Categories"); ?>:</label>
+        <div class="wk-field wk-seller-category-panel">
+            <?php foreach ($categories as $category): ?>
+                <div class="wk-cat-container">
+                    <span class="wk-foldersign"></span>
+                    <span class="wk-cat-name"><?= /* @noEscape */ $category->getCategoryName(); ?></span>
+                    <?php if (in_array($category->getId(), $selectedCategoryIds)): ?>
+                        <input name="product[seller_category_ids][]" 
+                        value="<?= /* @noEscape */ $category->getId(); ?>" checked="" type="checkbox">
+                    <?php else: ?>
+                        <input name="product[seller_category_ids][]" 
+                        value="<?= /* @noEscape */ $category->getId(); ?>" type="checkbox">
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul 
+ * @package   Webkul_ElasticSearch
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="elasticsearch" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Elastic Search Settings</label>
+            <tab>webkul</tab>
+            <resource>Webkul_ElasticSearch::config</resource>
+
+            <group id="settings" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+
+                <field id="host" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Host</label>
+                    <validate>required-entry</validate>
+                    <comment>Please enter elastic host as: localhost or 127.0.0.1</comment>
+                </field>
+                <field id="port" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Port Number</label>
+                    <validate>required-entry validate-digits</validate>
+                    <comment>Please enter the port number</comment>
+                </field>
+                <field id="index_prefix" translate="label comment" type="text" sortOrder="41" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Index Prefix</label>
+                    <comment>index prefix will be used to create your data index unique on elastic server</comment>
+                </field>
+                <field id="status" translate="label comment"  sortOrder="50"  showInDefault="1" showInWebsite="0" showInStore="0" type="button">
+                     <label>Check Connection Status</label>
+                    <frontend_model>Webkul\ElasticSearch\Block\Adminhtml\System\Config\Status</frontend_model>
+                    <comment>check status of the elastic server, but you need to fill host and port first</comment>
+                </field>
+                <field id="reset" translate="label comment"  sortOrder="60"  showInDefault="1" showInWebsite="0" showInStore="0" type="button">
+                     <label>Reset Connection</label>
+                    <frontend_model>Webkul\ElasticSearch\Block\Adminhtml\System\Config\Reset</frontend_model>
+                    <comment>reset connection from elastic server</comment>
+                </field>
+            </group>  
+
+            <group id="search_settings" translate="label comment" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search Settings</label>
+                <field id="type" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\SearchType</source_model>
+                    <label>Select Frontend Search Type</label>
+                    <comment>
+                        Choose best search type according to your store needs learn from here: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
+                    </comment>
+                </field>
+
+                <field id="search_fields" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Fields For Multi Search</label>
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\MultiSearchFields</source_model>
+                    <comment>Select Fields For Multi Search</comment>
+                    <depends><field id="type">multi_match</field></depends>
+                </field>
+
+                <field id="multi_match_type" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Mutli Match Type</label>
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\MultiSearchType</source_model>
+                    <comment>Select Multi Match Type</comment>
+                    <depends><field id="type">multi_match</field></depends>
+                </field>
+
+                <field id="operator" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Operator For Multi Search</label>
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\Operator</source_model>
+                    <comment>Select Operator 'AND' Or 'OR'</comment>
+                    <depends><field id="type">multi_match</field></depends>
+                </field>
+
+                <field id="minimum_match" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Minimum Should Match</label>
+                    <comment>minimum match percent to reduce low quality matches</comment>
+                    <validate>validate-digits</validate>
+                    <depends><field id="type">multi_match</field></depends>
+                </field>
+
+                <!-- <field id="highlight" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Highlight Search term in result</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>enable or disable highlight search term</comment>
+                </field> -->
+
+                <field id="fuzziness" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow Spell Correction in search</label>
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\Fuzziness</source_model>
+                    <comment>Fuzziness allow search to auto-correct spelling mistakes </comment>
+                </field>
+                <field id="filters" translate="label comment" type="multiselect" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Search Filters</label>
+                    <comment>Select search filters to filter search query</comment>
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\Filters</source_model>
+                </field>
+                <field id="elision_articles" translate="label comment" type="textarea" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Comma Seperated List Elisions</label>
+                    <comment>enter comma separated list of elision articles, this will only work if elision filter is selected</comment>
+                </field>
+                <field id="use_stop_filter" translate="label comment" type="select" sortOrder="43" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Stop Words Filter</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>enable stop words filtering</comment>
+                </field>
+                <field id="stop_words" translate="label comment" type="textarea" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Comma Seperated List Of Stop Words</label>
+                    <comment>enter comma separated list of stop words, if none entered it will use elastic default stop word list</comment>
+                    <depends><field id="use_stop_filter">1</field></depends>
+                </field>
+                <field id="stemmer" translate="label comment" type="select" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Language Stemmer</label>
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\Stemmer</source_model>
+                    <comment>select store wise language stemmer according to store language</comment>
+                </field>
+                <field id="remove_from_stemming" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter comma seperated words to exclude from stemming</label>
+                    <comment>Enter store wise list of comma seperated example: cats,catlike etc</comment>
+                </field>
+                <!-- <field id="use_char_filter" translate="label" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Use Charecter Filters</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>enable char filtering</comment>
+                </field> -->
+                <field id="char_filters" translate="label comment" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Search Filters</label>
+                    <comment>Select search filters to filter search query</comment>
+                
+                    <source_model>Webkul\ElasticSearch\Model\System\Config\Source\CharFilters</source_model>
+                </field>
+                <field id="mapping_filter" translate="label comment" type="textarea" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Comma Seperated List Of Filter Mappings</label>
+                    <comment>this filter will only work if mapping filter is selected, enter comma separated list of filter mapping like: ٠ => 0,١ => 1,٢ => 2,٣ => 3</comment>
+                    
+                </field>
+                <field id="pattern_replace_filter" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Pattern</label>
+                    <comment>this filter will only work if pattern replace filter is selected, note: A badly written regular expression could run very slowly or even throw a StackOverflowError and cause the node it is running on to exit suddenly.</comment>
+                    
+                </field>
+                <field id="replacement" translate="label comment" type="text" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enter Pattern To Replace With Filter Pattern</label>
+                    <comment>Works with pattern filter, used as replacement for pattern</comment>
+                   
+                </field>
+            </group> 
+            <!-- <group id="autocomplete_settings" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search Autocomplete Settings</label>
+                <field id="hot_search" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Hot Search</label>
+                    <comment>List of search terms comma separated</comment>
+                </field>
+                <field id="size" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Max Search Suggestions</label>
+                    <validate>required-entry validate-digits max-length-10</validate>
+                    <comment>Enter Maximum search results you want to show in autocomplete suggestions, maximim should be less then 12</comment>
+                </field>
+            </group> -->
+            <!-- <group id="cron_settings" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Set Cron For Index Management</label>
+                <field id="frequency" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Magento\Cron\Model\Config\Backend\Product\Alert</backend_model>
+                </field>
+                <field id="time" translate="label" type="time" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Start Time</label>
+                </field>
+            </group> -->
+        </section>
+    </system>
+</config>

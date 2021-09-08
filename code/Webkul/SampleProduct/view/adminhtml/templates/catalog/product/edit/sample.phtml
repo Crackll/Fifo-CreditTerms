@@ -1,0 +1,128 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/** @var $block \Webkul\SampleProduct\Block\Adminhtml\Product\Edit\Tab\Sample */
+
+$isSampleBlockAllowed = $block->isSampleBlockAllowed();
+$sampleData = $block->getSampleData();
+ 
+//Get Object Manager Instance
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+//Load product by product id
+$helper = $objectManager->create('Webkul\SampleProduct\Helper\Data');
+
+$status = $helper->isCurrentSampleProductById($block->getProductId());
+
+$sampleDataQty = '';
+if (!empty($sampleData['quantity_and_stock_status'])) {
+    $sampleDataQty = $sampleData['quantity_and_stock_status']['qty'];
+}
+?>
+<fieldset class="admin__fieldset" id="wk-sampleproduct-component" data-bind="scope: 'sampleproduct'">
+        <?php if (!$isSampleBlockAllowed) { ?>
+            <div class="admin__field-complex">
+                <div class="admin__field-complex-content">
+                    <?= /* @noEscape */ __('Not applicable for this product type.')?>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div class="admin__field" data-index="wk-sample-status">
+                <div class="admin__field-label">
+                    <label>
+                        <span data-config-scope="[<?= /* @noEscape */ __('WEBSITE')?>]">
+                            <?= /* @noEscape */ __('Enable Sample') ?>
+                        </span>
+                    </label>
+                </div>
+                <?php
+                // $status = 0;
+
+                // if (!empty($sampleData['quantity_and_stock_status'])) {
+                //     $status = $sampleData['quantity_and_stock_status']['is_in_stock'];
+                // }
+                ?>
+                <div class="admin__field-control">
+                    <select class="admin__control-select" 
+                        data-form-part="product_form" 
+                        name="sample[status]" id="wk-sample-status">
+                        <option <?php if ($status == 0) { echo "selected";} ?> data-title="Disable" value="0">
+                            <?= /* @noEscape */ __('Disable')?>
+                        </option>
+                        <option <?php if ($status == 1) { echo "selected";} ?> data-title="Enable" value="1">
+                            <?= /* @noEscape */ __('Enable')?>
+                        </option>
+                    </select>
+                </div>
+            </div>
+        <?php } ?>
+</fieldset>
+<script id="sampleproduct-template" type="text/x-magento-template">
+    <div class="admin__field" data-index="wk-sample-title">
+        <div class="admin__field-label">
+            <label>
+                <span data-config-scope="[<?= /* @noEscape */ __('store view')?>]">
+                    <?= /* @noEscape */ __('Sample Title') ?>
+                </span>
+            </label>
+        </div>
+        <div class="admin__field-control">
+            <input class="admin__control-text" type="text" 
+                data-form-part="product_form" 
+                name="sample[title]" id="wk-sample-title" 
+                value="<?= /* @noEscape */ $sampleData->getName() ?>"
+                placeholder="<?= /* @noEscape */ __('Sample Product') ?>">
+        </div>
+    </div>
+    <div class="admin__field" data-index="wk-sample-price">
+        <div class="admin__field-label">
+            <label for="wk-sample-price">
+                <span data-config-scope="[<?= /* @noEscape */ __('GLOBAL')?>]">
+                    <?= /* @noEscape */ __('Sample Price') ?>
+                </span>
+            </label>
+        </div>
+        <div class="admin__field-control">
+            <div class="admin__control-addon">
+                <input class="admin__control-text"
+                    data-form-part="product_form" 
+                    type="text" name="sample[price]" 
+                    id="wk-sample-price" 
+                    value="<?= /* @noEscape */ $sampleData->getPrice() ?>"
+                    maxlength="255">
+                <label class="admin__addon-prefix" >
+                    <span ><?= /* @noEscape */ $block->getCurrencySymbol()?></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="admin__field" data-index="wk-sample-qty">
+        <div class="admin__field-label">
+            <label>
+                <span data-config-scope="[<?= /* @noEscape */ __('GLOBAL')?>]">
+                    <?= /* @noEscape */ __('Sample Qty') ?>
+                </span>
+            </label>
+        </div>
+        <div class="admin__field-control">
+            <input class="admin__control-text"
+                data-form-part="product_form" 
+                value="<?= /* @noEscape */ $sampleDataQty ?>"
+                type="text" name="sample[qty]" id="wk-sample-qty">
+        </div>
+    </div>
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_SampleProduct/js/sampleproduct": ""
+        }
+    }
+</script>

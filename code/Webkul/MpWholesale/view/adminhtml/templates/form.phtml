@@ -1,0 +1,205 @@
+<?php
+/**
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+//edit quote at seller end.
+$helper = $block->getWholeSaleHelper();
+$params = $block->getParameters();
+$entityId = $params["id"];
+$quote = $block->getQuoteData($entityId);
+$currencySymbol = $helper->getBaseCurrencySymbol();
+$disabled = true;
+$qtyDisabled = false;
+$priceDisabled = false;
+$statusDisable = false;
+$baseCurrency = $helper->getBaseCurrencyCode();
+?>
+<div class="wk_design block">
+    <fieldset class="fieldset info wk-fieldset">
+        <legend class="legend">
+            <span><?= /* @noEscape */ __('Edit Quote') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <input type="hidden"
+                    class="len"
+                    name="id"
+                    id="id"
+                    value="<?= /* @noEscape */ $entityId; ?>"
+                />
+                <?php   $product = $block->getProductData($quote->getProductId());
+                        $imageUrl = $block->imageHelperObj()
+                            ->init($product, 'product_listing_thumbnail_preview')
+                            ->resize(100, 100)
+                            ->getUrl();
+                ?>
+                <table class="data-table border wk-list-table">
+                    <thead>
+                        <tr class="first last">
+                            <th rowspan="1">
+                                <span><?= /* @noEscape */ __("Product"); ?></span>
+                            </th>
+                            <th rowspan="1">&nbsp;</th>
+                            <th colspan="1" class="a-right quote-price-head">
+                                <span title="<?= /* @noEscape */ __('Price After Configuration'); ?>">
+                                    <?= /* @noEscape */ __("Price"); ?>
+                                </span>
+                            </th>
+                            <th colspan="1" class="a-right quote-qty-head">
+                                <span title="<?= /* @noEscape */ __('Quote Quantity'); ?>">
+                                    <?= /* @noEscape */ __("Quantity"); ?>
+                                </span>
+                            </th>
+                            <th colspan="1" class="a-right quote-status-head">
+                                <span title="<?= /* @noEscape */ __('Quote Status'); ?>">
+                                    <?= /* @noEscape */ __("Status"); ?>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="first odd">
+                            <td class="product-cart-image">
+                                <img alt="<?= /* @noEscape */ $product->getName(); ?>"
+                                    src="<?= /* @noEscape */ $imageUrl ?>"
+                                >
+                            </td>
+                            <td class="product-cart-info">
+                                <h2 class="product-name">
+                                    <?= /* @noEscape */ $product->getName(); ?>
+                                </h2>
+                            </td>
+                            <td class="a-right">
+                                <span class="cart-price">
+                                    <span class="price">
+                                    <?= /* @noEscape */ $helper->getformattedPrice($quote->getQuotePrice());?>
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-right">
+                                <span class="cart-qty">
+                                    <span class="qty">
+                                        <?= /* @noEscape */ $quote->getQuoteQty(); ?>
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-right">
+                                <span class="quote-status">
+                                <?php $unapproveStatus = \Webkul\MpWholesale\Model\Quotes::STATUS_UNAPPROVED;
+                                    $approveStatus = \Webkul\MpWholesale\Model\Quotes::STATUS_APPROVED;?>
+                                    <?php if ($quote->getStatus() == $unapproveStatus) { ?>
+                                        <span class="label wk_ws_status_pending">
+                                            <?= /* @noEscape */ __('Pending')?>
+                                        </span>
+                                    <?php } elseif ($quote->getStatus() == $approveStatus) { ?>
+                                        <span class="label wk_ws_status_approved">
+                                            <?= /* @noEscape */ __('Approved')?>
+                                        </span>
+                                    <?php } else { ?>
+                                        <span class="label wk_ws_status_decline">
+                                            <?= /* @noEscape */ __('Declined')?>
+                                        </span>
+                                    <?php } ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="last even">
+                            <td colspan="1">
+                                <b>
+                                    <?= /* @noEscape */ __("Quote Description")." : "; ?>
+                                </b>
+                            </td>
+                            <td colspan="2">
+                                <?= /* @noEscape */ $quote->getQuoteMsg(); ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="wk_qs_message_container">
+    <div class="wk-design">
+        <div class="fieldset info wk-fieldset">
+        <fieldset class="fieldset">
+            <legend class="legend">
+                <span><?= /* @noEscape */ __('Quote Detail') ?></span>
+            </legend>
+        </fieldset>
+        <input
+            type="hidden"
+            name="quote_id"
+            value="<?= /* @noEscape */ $entityId ?>"
+        >
+        <input type="hidden"
+            class='input-text'
+            readonly='readonly'
+            value="<?= /* @noEscape */ $quote->getWholesalerId() ?>"
+            name='sender_id'
+        />
+        <input type="hidden"
+            class='input-text'
+            readonly='readonly'
+            value="<?= /* @noEscape */ $quote->getSellerId() ?>"
+            name='receiver_id'
+        />
+        <div class="field required">
+            <label class="label admin__field-label">
+                <span>
+                    <?= /* @noEscape */ __("Status") ?>
+                </span>
+            </label>
+            <div class="control">
+                <select id="quote_status" name="status">
+                    <option value="1" <?php if ($quote->getStatus() == 1) { echo "selected";} ?>>
+                        <?= /* @noEscape */ __("Pending") ?>
+                    </option>
+                    <option value="2" <?php if ($quote->getStatus() == 2) { echo "selected";} ?>>
+                        <?= /* @noEscape */ __("Approved") ?>
+                    </option>
+                    <option value="3" <?php if ($quote->getStatus() == 3) { echo "selected";} ?>>
+                        <?= /* @noEscape */ __("Decline") ?>
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label admin__field-label">
+                <span>
+                    <?= /* @noEscape */ __("Enter Message:") ?>
+                </span>
+            </label>
+            <div class="control">
+                <textarea id="wk_qs_msg_area"
+                    type="text"
+                    class="required-entry input-text validate-length maximum-length-255"
+                    name="conversations"
+                    style="resize:none;width:100%;"
+                ></textarea>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/mage",
+        ], function($wk_jq){
+        var dataForm = $wk_jq('#edit_form');
+        dataForm.mage('validation', {});
+        $wk_jq("#save").on("click",function(){
+            if($wk_jq("#edit_form").valid()){
+                $wk_jq(this).attr("disabled","disabled");
+            }
+        });
+    });
+</script>

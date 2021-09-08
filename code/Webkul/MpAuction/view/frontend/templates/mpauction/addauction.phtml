@@ -1,0 +1,263 @@
+<?php
+
+/**
+ * Webkul_MpAuction Add Auction.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$auctionProduct = $block->getAuctionProduct();
+$mpAuctionConfig = $block->getMpAuctionConfig();
+$aid = $block->getRequest()->getParam('aid');
+$key = -1;
+if ($auctionProduct && $block->isAuctionEnable()) { ?>
+    <form action="<?= /* @noEscape */ $block->getAuctionSaveAction() ?>" method="POST"  id="form-seller-auction" data-mage-init='{"validation":{}}'>
+    <?php if ($auctionProduct->getMinAmount() != 0) { ?>
+        <input type="hidden" name="min_amount" value="<?= /* @noEscape */ $auctionProduct->getMinAmount(); ?>">
+    <?php } ?>
+    <div class="wk-mp-design">
+        <fieldset class="info wk-mp-fieldset fieldset" id="associate-product">
+            <legend class="legend" style="display:block !important;">
+                <span><?= /* @noEscape */ __('Add Auction On Product') ?></span>
+                <?php if ($auctionProduct->getAuctionStatus()!=='0') { ?>
+                <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save') ?>" type="submit" id="save-btn">
+                    <span><span><?= /* @noEscape */ __('Save Auction'); ?></span></span>
+                </button>
+                <?php } ?>
+            </legend>            
+            <?= /* @noEscape */ $block->getBlockHtml('formkey');
+                echo $block->getBlockHtml('seller.formkey');
+                $required = 'required';
+                $requiredEntry = 'required-entry';
+            ?>
+            <input type="hidden" name="aid" value="<?= /* @noEscape */ $aid; ?>">
+            <input type="hidden" name="time_zone" id="seller_time_zone">
+            <div class="fieldset form-list" id="cust">
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Auction Options') ?> : </label>
+                    <div class="control">
+                        <select id="auction_type" class="select val_required <?= /* @noEscape */ $requiredEntry ?>" title="Auction Options" name="auction_type[]" multiple="multiple">
+                            <option value="1" <?= /* @noEscape */ strpos($auctionProduct->getAuctionType(), '1')!==false? 'selected="selected"' : '' ?> ><?= /* @noEscape */ __("Buy It Now"); ?></option>
+                            <option value="2" <?= /* @noEscape */ strpos($auctionProduct->getAuctionType(), '2')!==false? 'selected="selected"' : '' ?> ><?= /* @noEscape */ __("Auction"); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Starting Price') ?> : </label>
+                    <div class="control">
+                        <input type="text" value="<?= /* @noEscape */ $block->converPriceInCurrentCurrency($auctionProduct->getStartingPrice())?>" class="<?= /* @noEscape */ $requiredEntry ?> validate-zero-or-greater input-text validate-number" name="starting_price" id="starting_price" />
+                    </div>
+                </div>
+                <?php if ($mpAuctionConfig['reserve_enable']) { ?>
+                    <div class="field">
+                        <label class="label"><?= /* @noEscape */ __('Reserve Price') ?> : </label>
+                        <div class="control">
+                            <input type="text" value="<?= /* @noEscape */ $block->converPriceInCurrentCurrency($auctionProduct->getReservePrice())?>" class="validate-zero-or-greater input-text validate-number" name="reserve_price" id="reserve_price" />
+                        </div>
+                    </div>
+                <?php } ?>
+                <div class="field <?= /* @noEscape */  $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Start Auction Time ') ?> : </label>
+                    <div class="control">
+                    <input type="text" value="<?= /* @noEscape */ !empty($auctionProduct->getStartAuctionTime())?$block->converToTz($auctionProduct->getStartAuctionTime()):'';?>" autocomplete="off" class="<?= /* @noEscape */ $requiredEntry ?> widthinput input-text" name="start_auction_time" id="<?= /* @noEscape */ empty($auctionProduct->getStartAuctionTime())?'start_auction_time':''?>"  <?= /* @noEscape */ !empty($auctionProduct->getStartAuctionTime())?'readonly':''?>  />
+                    </div>
+                    <div id="custom-error-message-container"></div>
+                </div>
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Stop Auction Time ') ?> : </label>
+                    <div class="control">
+                    <input type="text" value="<?= /* @noEscape */ !empty($auctionProduct->getStopAuctionTime()) ? $block->converToTz($auctionProduct->getStopAuctionTime()):""; ?>" autocomplete="off" class="<?= /* @noEscape */ $requiredEntry ?> widthinput input-text" name="stop_auction_time" id="<?= /* @noEscape */ empty($auctionProduct->getStopAuctionTime())?'stop_auction_time':''?>" <?= /* @noEscape */ !empty($auctionProduct->getStartAuctionTime())?'readonly':''?> />
+
+                    </div>
+                </div>
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Number of Days Till Winner Can Buy') ?> : </label>
+                    <div class="control">
+                        <input type="text" value="<?= /* @noEscape */ $auctionProduct->getDays()?>" class="<?= /* @noEscape */ $requiredEntry ?> validate-greater-than-zero input-text validate-number integer" name="days" id="days" />
+                    </div>
+                   </div>
+                    <?php if ($auctionProduct['type']=="downloadable") {  ?>
+                        <input type="hidden" value="1" class="<?= /* @noEscape */ $requiredEntry ?> validate-zero-or-greater input-text validate-number" name="min_qty" id="min_qty" />
+                    <?php } else { ?>
+                        <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Minimum Quantity') ?> : </label>
+                    <div class="control">
+                        <input type="text" value="<?= /* @noEscape */ $auctionProduct->getMinQty()?>" class="<?= /* @noEscape */ $requiredEntry ?> validate-zero-or-greater input-text validate-number integer" name="min_qty" id="min_qty" />
+                    </div>
+                    </div>
+                    <?php }?>
+                    <?php if ($auctionProduct['type']=="downloadable") { ?>
+                    <input type="hidden" value="1" class="<?= /* @noEscape */ $requiredEntry ?> validate-zero-or-greater input-text validate-number" name="max_qty" id="max_qty" />
+                    <?php } else { ?>
+                    <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Maximum Quantity') ?> : </label>
+                    <div class="control">
+                    <input type="text" value="<?= /* @noEscape */ $auctionProduct->getMaxQty()?>" class="<?= /* @noEscape */ $requiredEntry ?> validate-zero-or-greater input-text validate-number integer" name="max_qty" id="max_qty" />
+                    </div>
+                 </div>
+                    <?php }?>
+                <?php if ($mpAuctionConfig['auto_enable']) { ?>
+                <div class="field">
+                    <label class="label"><?= /* @noEscape */ __('Automatic Option') ?> : </label>
+                    <div class="control">
+                        <select id="auto_auction_type" class="select val_required" title="<?= /* @noEscape */ __('Automatic Option')?>" name="auto_auction_opt">
+                            <option value="0" <?= /* @noEscape */ $auctionProduct->getAutoAuctionOpt()=='0'? 'selected="selected"' : '' ?> ><?= /* @noEscape */ __("Disabled"); ?></option>
+                            <option value="1" <?= /* @noEscape */ $auctionProduct->getAutoAuctionOpt()=='1'? 'selected="selected"' : '' ?> ><?= /* @noEscape */ __("Enabled"); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <?php } ?>
+                <?php if ($mpAuctionConfig['increment_auc_enable']) {
+                    $show = $auctionProduct->getIncrementOpt()? 'show' : '';
+                    ?>
+                <div class="field">
+                    <label class="label"><?= /* @noEscape */ __('Increment Option') ?> : </label>
+                    <div class="control">
+                        <select id="increment_opt" class="select val_required" title="<?= /* @noEscape */ __('Increment Option')?>" name="increment_opt">
+                            <option value="0" <?= /* @noEscape */ $auctionProduct->getIncrementOpt()=='0'? 'selected="selected"' : '' ?> ><?= /* @noEscape */ __("Disabled"); ?></option>
+                            <option value="1" <?= /* @noEscape */ $auctionProduct->getIncrementOpt()=='1'? 'selected="selected"' : '' ?> ><?= /* @noEscape */ __("Enabled"); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="show-incremental-rule <?= /* @noEscape */ $show ?>">
+                    <button class="button wk-mp-btn wk-show-incremental-rule-btn" title="<?= /* @noEscape */ __('Show Admin Increment Bid Rule') ?>" type="button">
+                    <span><span><?= /* @noEscape */ __('Show Admin Increment Bid Rule'); ?></span></span>
+                    </button>
+                </div>
+                <div class="wk-seller-auction-incremental-rule">
+                    <label class="label table <?= /* @noEscape */ $show ?>"><?= /* @noEscape */ __('Increment bid rule set by admin')?></label>
+                    <table cellspacing="0" id="admin-inc-price-contener" class="border wk-mp-list-table <?= /* @noEscape */ $show ?>">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?= /* @noEscape */ __('From') ?></span></th>
+                                <th><span><?= /* @noEscape */ __('To') ?></span></th>
+                                <th><span><?= /* @noEscape */ __('Price') ?></span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <?php
+                                $incPriceRules = $block->getDefaultIncPriceSetByAdmin();
+                            foreach ($incPriceRules as $incPrice) {?>
+                                <tr>
+                                    <td>
+                                        <label class="input-text"><?= /* @noEscape */ $incPrice['from'] ?></label>
+                                    </td>
+                                    <td>
+                                        <label class="input-text"><?= /* @noEscape */ $incPrice['to'] ?></label>
+                                    </td>
+                                    <td>
+                                        <label class="input-text"><?= /* @noEscape */ $incPrice['price'] ?></label>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    <hr/>
+                </div>
+                <div class="wk-seller-increment-rule">
+                    <label class="label table <?= /* @noEscape */ $show ?>"><?= /* @noEscape */ __('you can add your Increment bid rule otherwise admin Increment bid rule will apply')?></label>
+                    <table cellspacing="0" id="inc-price-contener" class="border wk-mp-list-table <?= /* @noEscape */ $show ?>">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?= /* @noEscape */ __('From') ?></span></th>
+                                <th><span><?= /* @noEscape */ __('To') ?></span></th>
+                                <th><span><?= /* @noEscape */ __('Price') ?></span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <?php
+                                $incPriceRules = $block->getIncPriceInArray($auctionProduct->getIncrementPrice());
+                            foreach ($incPriceRules as $key => $incPrice) {?>
+                                <tr>
+                                    <td>
+                                        <input type="text" value="<?= /* @noEscape */ $incPrice['from'] ?>" placeholder="<?= /* @noEscape */ __('From') ?>" name="increment[from][<?= /* @noEscape */ $key ?>]" class="input-text">
+                                    </td>
+                                    <td>
+                                        <input type="text" value="<?= /* @noEscape */ $incPrice['to'] ?>" placeholder="<?= /* @noEscape */ __('To') ?>" name="increment[to][<?= /* @noEscape */ $key ?>]" class="input-text">
+                                    </td>
+                                    <td>
+                                        <input type="text" value="<?= /* @noEscape */ $incPrice['price'] ?>" placeholder="<?= /* @noEscape */ __('Price') ?>" name="increment[price][<?= /* @noEscape */ $key ?>]" class="input-text">
+                                    </td>
+                                    <td>
+                                        <button class="delete delete-option" type="button" title="Delete" >
+                                            <span><?= /* @noEscape */ __('Delete') ?></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <button type="button" title="Save" class="button addrow" id="button_addrow">
+                                        <span>
+                                            <span>
+                                                <span><?= /* @noEscape */ __('Add Row') ?></span>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <?php } ?>
+            </div>
+        </fieldset>
+    </div>
+</form>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();" class="left">&laquo; <?= /* @noEscape */ __('Back') ?></a>
+    </p>
+</div>
+<script type="template/webkul" id="increment_row">
+    <tr>
+        <td>
+            <input placeholder="<?= /* @noEscape */ __('From');?>" type="text" class="input-text required-option" value="" name="increment[from]" />
+        </td>
+        <td>
+            <input placeholder="<?= /* @noEscape */ __('To');?>" type="text" class="input-text required-option" value="" name="increment[to]" />
+        </td>
+        <td>
+            <input type="text" placeholder="<?= /* @noEscape */ __('Price');?>" class="input-text required-option" value="" name="increment[price]" />
+        </td>
+        <td>
+            <button class="delete delete-option" type="button" title="Delete" >
+                <span><?= /* @noEscape */ __('Delete') ?></span>
+            </button>
+        </td>
+    </tr>
+</script>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($){
+       var dataForm = $('#form-seller-auction');
+       dataForm.mage('validation', {
+            errorPlacement: function(error, element) {
+                element.after(error);
+            },
+       });
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+                "addauctionproduct": {
+                    "count_key" : "<?= /* @noEscape */ $key ?>",
+                    "config_time_zone": "<?= /* @noEscape */ $block->getConfigTimeZone() ?>",
+                    "startOffset" : "<?= /* @noEscape */ $block->getUtcOffset($auctionProduct->getStartAuctionTime()); ?>",
+                    "stopOffset" : "<?= /* @noEscape */ $block->getUtcOffset($auctionProduct->getStopAuctionTime()); ?>"
+                }
+            }
+    }
+</script>
+<?php } else { ?>
+<div class="wk-emptymsg"><?= /* @noEscape */ __('No Product In List')?></div>
+<?php } ?>
+

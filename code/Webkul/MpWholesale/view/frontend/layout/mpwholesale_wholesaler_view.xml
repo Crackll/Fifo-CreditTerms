@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_MpWholesale
+* @author Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+       <css src="Webkul_MpWholesale::css/wholesaler.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\MpWholesale\Block\Wholesaler\View"  name="mpwholesale_wholesaler_view" template="Webkul_MpWholesale::wholesaler/view.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

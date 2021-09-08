@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AccordionFaq
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="accordionfaq_addfaq_list_data_source" xsi:type="string">Webkul\AccordionFaq\Model\ResourceModel\Addfaq\Grid\Collection</item>
+				<item name="accordionfaq_faqgroup_list_data_source" xsi:type="string">Webkul\AccordionFaq\Model\ResourceModel\Faqgroup\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<type name="Webkul\AccordionFaq\Model\ResourceModel\Addfaq\Grid\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">webkul_accordionfaq</argument>
+			<argument name="eventPrefix" xsi:type="string">accordionfaq_addfaq_grid_collection</argument>
+			<argument name="eventObject" xsi:type="string">addfaq_grid_collection</argument>
+			<argument name="resourceModel" xsi:type="string">Webkul\AccordionFaq\Model\ResourceModel\Addfaq</argument>
+		</arguments>
+	</type>
+	<type name="Webkul\AccordionFaq\Model\ResourceModel\Faqgroup\Grid\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">webkul_accordionfaqgroup</argument>
+			<argument name="eventPrefix" xsi:type="string">accordionfaq_faqgroup_grid_collection</argument>
+			<argument name="eventObject" xsi:type="string">faqgroup_grid_collection</argument>
+			<argument name="resourceModel" xsi:type="string">Webkul\AccordionFaq\Model\ResourceModel\Faqgroup</argument>
+		</arguments>
+	</type>
+	<virtualType name="AccordionFaqGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+		<arguments>
+			<argument name="appliers" xsi:type="array">
+				<item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+				<item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+			</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="AddfaqGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+		<arguments>
+			<argument name="collection" xsi:type="object" shared="false">Webkul\AccordionFaq\Model\ResourceModel\Addfaq\Collection</argument>
+			<argument name="filterPool" xsi:type="object" shared="false">AccordionFaqGirdFilterPool</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="FaqgroupGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+		<arguments>
+			<argument name="collection" xsi:type="object" shared="false">Webkul\accordionfaq\Model\ResourceModel\Faqgroup\Collection</argument>
+			<argument name="filterPool" xsi:type="object" shared="false">accordionfaqGirdFilterPool</argument>
+		</arguments>
+	</virtualType>
+</config>

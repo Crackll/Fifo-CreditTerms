@@ -1,0 +1,21 @@
+{
+    "name": "webkul/marketplace-purchase-management",
+    "description": "Magento2 Marketplace Purchase Management",
+    "require": {
+        "webkul/module-marketplace": "5.0.*",
+        "webkul/marketplace-wholesale": "5.0.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\MpPurchaseManagement\\": ""
+        }
+    }
+}

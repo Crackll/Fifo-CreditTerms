@@ -1,0 +1,133 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$_helper = $block->getHelperObject();
+$allowedImgExtensions = $_helper->getConfigData('allowed_image_extensions');
+?>
+
+<form action="<?= /* @noEscape */
+$block->getUrl('mplabels/label/labelsave', ['_secure' => $block->getRequest()->isSecure()])?>"
+enctype="multipart/form-data" method="post" id="edit-product" data-form="edit-product"
+data-mage-init='{"validation":{}}'>
+<input id="seller_id" name="seller_id" type="hidden" value=<?= /* @noEscape */ $block->getSellerId()?>>
+    <div class="wk-mp-design" id="wk-bodymain">
+        <fieldset class="fieldset info wk-mp-fieldset">
+            <div data-mage-init='{"formButtonAction": {}}' class="wk-mp-page-title legend">
+                <span><?= /* @noEscape */ __('Label Information') ?></span>
+                <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save') ?>" type="submit" id="save-btn">
+                    <span><span><?= /* @noEscape */ __('Save') ?></span></span>
+                </button>
+            </div>
+
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */ __('Label Title') ?>:</label>
+                <div class="control">
+                    <input type="text" class="required-entry input-text" name="label_name" id="name"/>
+                </div>
+            </div>
+            <?php
+            if ($_helper->getConfigData('label_approval')) { ?>     
+                <input name="status" type="hidden" value="3">
+                <?php
+            }
+            if (!$_helper->getConfigData('label_approval')) { ?>
+                <div class="field">
+                    <label class="label"><?= /* @noEscape */ __('Status') ?>:</label>
+                    <div class="control">
+                        <select name="status" class="mpproduct-select" id="status">
+                            <option value="1"><?= /* @noEscape */ __('Enabled') ?></option>
+                            <option value="0"><?= /* @noEscape */ __('Disabled') ?></option>
+                        </select>
+                    </div>
+                </div>
+                <?php
+            } ?>
+            <div class="field">
+                <label class="label"><?= /* @noEscape */ __('Position') ?>:</label>
+                <div class="control">
+                    <select name="position" class="mpproduct-select" id="position">
+                        <option value="1"><?= /* @noEscape */ __('Top-Left') ?></option>
+                        <option value="2"><?= /* @noEscape */ __('Top-Right') ?></option>
+                        <option value="3"><?= /* @noEscape */ __('Bottom-Left') ?></option>
+                        <option value="4"><?= /* @noEscape */ __('Bottom-Right') ?></option>
+                    </select>
+                </div>
+            </div>
+            <?php
+            if ($_helper->getConfigData('label_dimension_manage')) { ?> 
+                <div class="field required">
+                    <label class="label"><?= /* @noEscape */ __('Label Width For Product Page') ?>:</label>
+                    <div class="control">
+                        <input type="text"
+                        class="required-entry input-text validate-digits validate-digits-range digits-range-1-100"
+                        name="label_width_productpage" id="label_width_productpage"/>
+                        <span class="note"><span><?= /* @noEscape */ __('Should be integer value like 30,
+                        value calculated in percentage.');?></span></span>
+                    </div>
+                </div>
+                <div class="field required">
+                    <label class="label"><?= /* @noEscape */ __('Label Height For Product Page') ?>:</label>
+                    <div class="control">
+                        <input type="text" 
+                        class="required-entry input-text validate-digits validate-digits-range digits-range-1-100"
+                        name="label_height_productpage" id="label_height_productpage"/>
+                        <span class="note"><span><?= /* @noEscape */ __('Should be integer value like 30,
+                        value calculated in percentage.');?></span></span>
+                    </div>
+                </div>
+                <div class="field required">
+                    <label class="label"><?= /* @noEscape */ __('Label Width For Category Page') ?>:</label>
+                    <div class="control">
+                        <input type="text"
+                        class="required-entry input-text validate-digits validate-digits-range digits-range-1-100"
+                        name="label_width_categorypage" id="label_width_categorypage"/>
+                        <span class="note"><span><?= /* @noEscape */ __('Should be integer value like 30,
+                        value calculated in percentage.');?></span></span>
+                    </div>
+                </div>
+                <div class="field required">
+                    <label class="label"><?= /* @noEscape */ __('Label Height For Category Page') ?>:</label>
+                    <div class="control">
+                        <input type="text"
+                        class="required-entry input-text validate-digits validate-digits-rangedigits-range-1-100"
+                        name="label_height_categoryage" id="label_height_categoryage"/>
+                        <span class="note"><span><?= /* @noEscape */ __('Should be integer value like 30,
+                        value calculated in percentage.');?></span></span>
+                    </div>
+                </div>
+                <?php
+            } ?>
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */ __('Upload Image') ?>:</label>
+                <input type="file" name="image_name" id="image_name" class="input-text custom_file required"><br>
+                <span class="note"><span><?= /* @noEscape */ __('Allowed Image Extensions are : ');
+                echo $allowedImgExtensions; ?></span></span>
+            </div>
+        </fieldset>
+    </div>
+</form>
+<img class = "prev-label wk-label-show" id="customfields_your_image_image" src="#"/>
+
+<script type="text/x-magento-init">
+    {
+        "*":{
+            "Webkul_MarketplaceProductLabels/js/labelPreview":{}
+        }
+    }
+</script>
+
+
+
+
+
+
+
+

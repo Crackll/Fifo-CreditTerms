@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Layer\FilterList">
+        <plugin name="Webkul_MpSellerCategory::filterList" type="Webkul\MpSellerCategory\Plugin\Catalog\Model\Layer\FilterList" sortOrder="10" />
+    </type>
+    <type name="Magento\CatalogSearch\Model\Search\SelectContainer\SelectContainer">
+        <plugin name="Webkul_MpSellerCategory::SelectContainer" type="Webkul\MpSellerCategory\Plugin\CatalogSearch\Model\Search\SelectContainer\SelectContainer" sortOrder="10" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpsellercategory_category_list_data_source" xsi:type="string">Webkul\MpSellerCategory\Model\ResourceModel\Category\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

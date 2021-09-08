@@ -1,0 +1,47 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$helperData = $block->getWkMapHelper();
+if ($helperData->getGoogleMapStatus() && $helperData->getApiKey()) {
+    ?>
+    <style>
+        #opc-new-shipping-address .form.form-shipping-address .fieldset > 
+        .field:last-child, .fieldset > .fields > .field:last-child {
+            margin-top: 44%;
+    }
+        .modal-popup._inner-scroll .modal-inner-wrap .modal-content #opc-new-shipping-address 
+        .form.form-shipping-address .fieldset > .field:last-child, .fieldset > .fields > .field:last-child {
+            margin-top: 1vh;
+        }
+        .payment-method._active .payment-method-billing-address .checkout-billing-address 
+        .fieldset .billing-address-form .fieldset > .choice.field {
+            margin-top: 282px;
+        }
+    /* .checkout-agreements.fieldset {
+        display: block !important;
+    } */
+    .checkout-payment-method .payment-method._active .payment-method-content {
+        margin-bottom: 54px;
+    }
+    </style>
+    <div class="mapContainer">
+        <div id="map"></div>
+    </div>
+    <div class="mapContainerBilling">
+        <div id="mapbilling"></div>
+    </div>
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=<?=/* @noEscape */$helperData->getApiKey();?>&libraries=places"
+        async defer>
+    </script>
+<?php }
+?>

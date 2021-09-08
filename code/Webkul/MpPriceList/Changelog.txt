@@ -1,0 +1,45 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+	+ Compatible with Magento C.E 2.4.x and Marketplace 5.0.x
+
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ Compatible with Magento EE 2.4.x.
+	
+-------------------------------- Version 3.0.1 --------------------------------------
+	+ Feature to create pricelist and rules added for admin
+	
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Compatible with Marketplace 3.0.x
+	
+-------------------------------- Version 2.1.1 --------------------------------------
+	+ Seller can  create pricelist according to store currency
+	+ Minor bug fixes
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with Magento 2.3.x.
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	+ Feature to create pricelist and rules added for admin
+	+ Minor bug fixes
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	+ Bug fixes
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Compatible with Magento 2.2.x.
+	+ vendor can create rules for pricelist.
+	+ vendor can assign multiple rules for pricelist.
+	+ vendor can assign multiple pricelist to customer
+	+ vendor can set rule according to product.
+	+ vendor can set rule according to category.
+	+ vendor can set rule according to quantity.
+	+ vendor can set rule according to total product price.
+	+ vendor can create rule to increase price.
+	+ vendor can create rule to decrease price.
+	+ vendor can set priority of rules.
+	+ vendor can set priority of pricelists.
+	+ vendor can set start and end date for price.
+	+ Pricelist will be applied automatically according to priority.

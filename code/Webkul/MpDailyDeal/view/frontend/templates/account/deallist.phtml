@@ -1,0 +1,238 @@
+<?php
+/**
+ * Webkul_MpDailyDeal deal list block.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/** @var $block \Webkul\Marketplace\Block\Product\Productlist */
+$dealTimeOffset = false;
+$helper = $block->geMpHelper();
+$dealHelper = $block->getDealHelper();
+$paramData = $block->getRequest()->getParams();
+$filter = '';
+
+if (isset($paramData['s'])) {
+    $filter = $paramData['s'] != '' ? $paramData['s'] : '';
+}
+
+$_products_coll = $block->getAllProducts();
+?>    
+<div class="wk-mp-design">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span><?= /* @noEscape */ __('My Product List') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <form action="<?= /* @noEscape */
+                 $block->getUrl('mpdailydeal/account/deallist', ['_secure' => $block->getRequest()->isSecure()])?>" 
+                 method="get" id="form-productlist-filter"  name="formProductlistFilter" 
+                 data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span>
+                                <?= /* @noEscape */ __('Product Name') ?>
+                                </span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <tr>
+                                <td>
+                                    <input type="text" class="input-text" name="s" 
+                                    placeholder='<?= /* @noEscape */ __('Search by product name') ?>' 
+                                    value="<?= /* @noEscape */ $filter?>" 
+                                    data-validate="{'validate-no-html-tags':true}" />
+                                </td>
+                                <td>
+                                    <button class="button" title="Save" type="submit">
+                                        <span><span><span><?= /* @noEscape */ __('Submit') ?>
+                                        </span></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <?php if ($_products_coll && count($_products_coll)): ?>
+                    <?php $c=$block->getUrl('mpdailydeal/account/massdisable', ['_secure' =>
+                     $block->getRequest()->isSecure()]) ;?>
+                    <form action="<?= /* @noEscape */$c;?>"
+                     method="post" id="form-productlist-massdisable" name="formProductlistMassDisable" 
+                     data-mage-init='{"validation":{}}'>
+                        <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+                        <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+                        <button class="button" title="<?= /* @noEscape */ __('Disable Deal') ?>" 
+                        type="submit" id="mass-delete-butn">
+                            <span>
+                                <span><?= /* @noEscape */ __('Disable Deal') ?></span>
+                            </span>
+                        </button>
+                        <table cellspacing="0" class="border wk-mp-list-table wk-mp-list-container-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-check-first-td">
+                                        <span>
+                                            <input type="checkbox" name="mpselecctall" value="all"
+                                             id="mpdealselecctall"/>
+                                        </span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name">
+                                            <?= /* @noEscape */ __('Product')?>
+                                        </span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name">
+                                            <?= /* @noEscape */ __('Deal Price')?>
+                                        </span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name">
+                                            <?= /* @noEscape */ __('Start Date')?>
+                                        </span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name">
+                                            <?= /* @noEscape */ __('End Date')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label">
+                                            <?= /* @noEscape */ __('Deal Status')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label">
+                                            <?= /* @noEscape */ __('Action')?>
+                                        </span>
+                                    </th>                        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($block->getAllProducts() as $products) {
+                                    $products = $dealHelper->loadProductById($products->getEntityId());
+                                    $i++;
+                                    $imageUrl = $block->imageHelperObj()->init($products, 'product_page_image_small')
+                                                ->setImageFile($products->getFile())
+                                                ->getUrl();
+                                    ?>
+                                    <tr class="wk-row-view <?= /* @noEscape */
+                                    $class = ($i == count($block->getAllProducts()))? 'wk-last_tr':''?>">
+                                        <td class="wk-check-first-td">
+                                            <span>
+                                                <input type="checkbox" name="deal_mass_disable[]" 
+                                                class="mpcheckbox" value="<?= /* @noEscape */
+                                                 $products->getEntityId(); ?>"/>
+                                            </span>
+                                        </td>
+                                        <td class="wk-first_td">
+                                            <input type="hidden" class="hidden-id" value="<?= /* @noEscape */
+                                             $products->getEntityId(); ?>" />
+                                            <div class="label name" title="<?= /* @noEscape */
+                                             $products->getName(); ?>">
+                                                <div class="wk-pro-divide1">
+                                                    <img src="<?= /* @noEscape */ $imageUrl?>"
+                                                     class="image" />
+                                                </div>
+                                                <div class="wk-pro-divide2">
+                                                    <div style="width:100%;">
+                                                        <?php if ($products->getStatus()==1 &&
+                                                        $products->getVisibility()!=1) { ?>
+                                                            <a href="<?= /* @noEscape */
+                                                            $products->getProductUrl()?>" target="blank">
+                                                        <?php }?>
+                                                            <?= /* @noEscape */ $products->getName();?>
+                                                        <?php if ($products->getStatus()==1 &&
+                                                        $products->getVisibility()!=1) { ?>
+                                                            </a>
+                                                        <?php }?>
+                                                    </div>
+                                                    <div style="width:100%;float:left;">
+                                                        <?php
+                                                        if ($products->getPrice()*1) { ?>
+                                                            <?= /* @noEscape */
+                                                             $block->getFormatedPrice(
+                                                                 $products->getPrice(),
+                                                                 $helper->getCurrencySymbol()
+                                                             ); ?>
+                                                        <?php } else { ?>
+                                                            <?= /* @noEscape */
+                                                            $helper->getCurrencySymbol().'0.00';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <?php $dealValue = $products->getDealValue();
+                                              $dealDiscountType = $products->getDealDiscountType();
+                                        if ($dealDiscountType == 'percent') {
+                                            $price = (($dealValue * $products->getPrice())/100);
+                                        } else {
+                                            $price = $dealValue;
+                                        }
+                                        ?>
+                                        <td><?= /* @noEscape */
+                                        $block->getFormatedPrice($price, $helper->getCurrencySymbol());?></td>
+                                        <td><span id="deal_from_date<?= /* @noEscape */
+                                         $products->getEntityId(); ?>"><?= /* @noEscape */
+                                          $products->getDealFromDate();
+                                        $dealTimeOffset[$products->getEntityId()]['deal_from_date'] =
+                                        $block->getUtcOffset($products->getDealFromDate());?></span>
+                                        </td>
+                                        <td><span id="deal_to_date<?= /* @noEscape */
+                                         $products->getEntityId(); ?>"><?= /* @noEscape */
+                                          $products->getDealToDate();
+                                        $dealTimeOffset[$products->getEntityId()]['deal_to_date'] =
+                                        $block->getUtcOffset($products->getDealToDate());?></span></td>
+                                        <td>
+                                                <?= /* @noEscape */
+                                                 __($products->getDealStatus()? "Enable" : "Disable"); ?>
+                                        </td>
+                                        <td>
+                                        <a href="<?= /* @noEscape */
+                                         $block->getAddDealUrl($products->getEntityId())?>" class="button" >
+                                         <?= /* @noEscape */ __('Edit Deal') ?></a>
+                                        </td>                        
+                                    </tr>
+                                    <?php
+                                }?>
+                            </tbody>
+                        </table>
+                    </form>                
+                <?php else: ?>
+                    <div class="wk-emptymsg">
+                        <?= /* @noEscape */ __('No Product Available') ?>
+                    </div>
+                <?php endif ?>                    
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */
+             $block->getPagerHtml(); ?></div>
+        <?php endif ?>    
+    </fieldset>    
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;" onclick="javascript: window.history.back();"
+             class="left">&laquo; <?= /* @noEscape */ __('Back') ?></a>
+        </p>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "sellerDealList": {
+                "timeOffset" : <?= /* @noEscape */ json_encode($dealTimeOffset); ?>
+            }
+        }
+    }
+</script>

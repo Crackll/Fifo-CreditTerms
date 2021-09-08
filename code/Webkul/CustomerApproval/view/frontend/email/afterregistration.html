@@ -1,0 +1,30 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerApproval
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!--@subject {{var myvar2}}  @-->
+
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%customer_name," customer_name=$myvar1}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            {{trans "Account approval in process, you will be notified when your account gets approved."}}
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

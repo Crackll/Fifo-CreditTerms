@@ -1,0 +1,30 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $marketplaceHelper = $block->getMpHelper();
+    $isPartner= $marketplaceHelper->isSeller();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+    $isSellerGroup = $marketplaceHelper->isSellerGroupModuleInstalled();
+?>
+<?php if ($isPartner): ?>
+    <?php if (($isSellerGroup &&
+    $marketplaceHelper->isAllowedAction('mpsellercategory/category/')) || !$isSellerGroup): ?>
+        <li id="wk-mp-menu-mpsellercategory" class="wk-mp-menu-mpsellercategory level-0 
+        <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpsellercategory/category/') ? "current active":"";?>">
+            <a 
+                href="<?= /* @noEscape */ $block->getUrl('mpsellercategory/category/manage', ['_secure' => 1]); ?>"
+                class="<?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpsellercategory/category/')? "active":"";?>">
+                <span><?= /* @noEscape */ __('Manage Categories') ?></span>
+            </a>
+        </li>
+    <?php endif; ?>
+<?php endif; ?>

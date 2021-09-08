@@ -1,0 +1,43 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ Compatible with Magento v2.4.0
+
+-------------------------------- Version 3.0.1 --------------------------------------
+	+ Admin Notification feature added in Admin Configuration.
+	
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Mail link issue fixed.
+	+ MUlti Website related issue fixed.
+	+ Translation file updated.
+
+-------------------------------- Version 2.1.3 --------------------------------------
+	+ Admin Notification Mail feature added.
+	
+-------------------------------- Version 2.1.2 --------------------------------------
+	+ Customer Status Options updated.
+	- Already existing customer approval status issue fixed.
+
+-------------------------------- Version 2.1.1 --------------------------------------
+	+ Customer Status included in Customer Grid.
+	+ Filter and Mass Action feature implemented for Customer Status. 
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with Magento v2.3.x.
+
+-------------------------------- Version 2.2.1 --------------------------------------
+	+ Admin Notification feature added in Admin Configuration.
+
+-------------------------------- Version 2.2.0 --------------------------------------
+	+ Mail link issue fixed.
+	+ MUlti Website related issue fixed.
+	+ Translation file updated.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Allows Admin to Manage Customer Approval.
+	+ Configuration to Auto Approve or Manual Approve.
+	+ Configuration to set Message after Login.
+	+ Configuration to set Message after Registration.
+	+ Custom Email templates of Account Approval and Disapproval.

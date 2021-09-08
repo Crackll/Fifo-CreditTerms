@@ -1,0 +1,61 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvertisementManager
+ * @author    Webkul
+ * @copyright Copyright (c)   Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $block->getMpHelper();
+$isPartner= $helper->isSeller();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+$magentoCurrentUrl = $block->getCurrentUrl();
+if ($isPartner) { ?>
+    <?php if (($isSellerGroup && ($helper->isAllowedAction('mpads/block') ||
+     $helper->isAllowedAction('mpads/advertise'))) || !$isSellerGroup) { ?>
+        <li class="mp-advertisment nav item <?=
+        $block->escapeUrl(strpos($magentoCurrentUrl, 'mpads/')) !== false ? "current":"";?>">
+        <?php if (strpos($magentoCurrentUrl, 'mpads/') !== false) { ?>
+            <strong><?= $block->escapeHtml(__('Advertisement')) ?></strong>
+        <?php } else { ?>
+            <a href="#">
+                <?= $block->escapeHtml(__('Advertisement')) ?>
+            </a>
+        <?php } ?>
+        <ul class="nav items">
+            <?php if (($isSellerGroup && $helper->isAllowedAction('mpads/block')) || !$isSellerGroup) { ?>
+                <li class="nav item <?=
+                    $block->escapeUrl(strpos($magentoCurrentUrl, 'mpads/block')) !== false ? "current":"";?>">
+                    <?php if (strpos($magentoCurrentUrl, 'mpads/block') !== false) { ?>
+                        <strong><?= $block->escapeHtml(__('Advertisement Blocks')) ?></strong>
+                    <?php } else { ?>
+                        <a href="<?= $block->escapeUrl($block->getUrl('mpads/block', ['_secure'
+                        => $block->getRequest()->isSecure()])); ?>">
+                            <?= $block->escapeHtml(__('Advertisement Blocks')) ?>
+                        </a>
+                        <?php
+                    }
+                    ?>
+                </li>
+            <?php } ?>
+            <?php if (($isSellerGroup && $helper->isAllowedAction('mpads/advertise')) || !$isSellerGroup) { ?>
+                <li class="nav item <?=
+                    $block->escapeUrl(strpos($magentoCurrentUrl, 'mpads/advertise')) !== false ? "current":"";?>">
+                    <?php if (strpos($magentoCurrentUrl, 'mpads/advertise') !== false) {?>
+                        <strong><?= $block->escapeHtml(__('Buy Advertisement Positions')) ?></strong>
+                    <?php } else { ?>
+                        <a href="<?= $block->escapeUrl($block->getUrl('mpads/advertise', ['_secure'
+                        => $block->getRequest()->isSecure()])); ?>"
+                        >
+                            <?= $block->escapeHtml(__('Buy Advertisement Positions')) ?>
+                        </a>
+                        <?php
+                    }
+                    ?>
+                </li>
+            <?php } ?>
+        </ul>
+    <?php } ?>
+<?php } ?>

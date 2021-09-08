@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- /**
+ * MpPurchaseManagement
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_MpPurchaseManagement::menu" title="Purchase Management" translate="title" module="Webkul_MpPurchaseManagement" sortOrder="100" parent="Webkul_MpWholesale::manager" resource="Webkul_MpPurchaseManagement::menu" dependsOnConfig="mpwholsale/mp_purchase_management/enable_disable"/>
+        <add id="Webkul_MpPurchaseManagement::purchaseorders" title="Purchase Orders" translate="title" module="Webkul_MpPurchaseManagement" sortOrder="6" parent="Webkul_MpPurchaseManagement::menu" action="mppurchasemanagement/order" resource="Webkul_MpPurchaseManagement::purchaseorders" dependsOnConfig="mpwholsale/mp_purchase_management/enable_disable"/>
+    </menu>
+</config>

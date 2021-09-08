@@ -1,0 +1,32 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpTimeDelivery
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+
+$sellerId  = $block->getSellerId();
+$blockCanShow = $block->blockCanShow();
+if ($blockCanShow) { ?>
+    <div class="wk-mp_time_slot_tab">
+            <?= /* @noEscape */ __('Check Delivery Time Slots') ?>
+    </div>
+    <script>
+        window.sellerId = <?= /* @noEscape */ $sellerId ?>;
+    </script>
+    <div class="mptimeslot-div" id="mptimeslot" data-bind="scope:'mptimeslot'" style="display:none">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "#mptimeslot": {
+                    "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
+                }
+            }
+        </script>
+    </div>
+<?php } ?>
+

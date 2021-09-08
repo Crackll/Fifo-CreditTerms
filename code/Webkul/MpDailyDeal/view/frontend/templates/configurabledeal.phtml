@@ -1,0 +1,60 @@
+<?php
+/**
+ * Webkul_MpDailyDeals View On Product template.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeals
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$dealDetail = $block->getCurrentProductDealDetail();
+if (isset($dealDetail['deal_id'])) {
+    $dealId = $dealDetail['deal_id'];
+    $product = $block->getCurrentProduct();
+    $type = $product->getTypeId();
+    $alldeal = [];
+    $alldealDetails = [];
+    if ($type == "configurable") { ?>
+        <?php
+        $associatedProducts = $block->getAllAssociatedProducts();
+        foreach ($associatedProducts as $key => $value) {
+            $dealDetail = $block->getChildProductDealDetail($value);
+            
+            if ($dealDetail && $dealDetail['deal_status']
+            && isset($dealDetail['diff_timestamp'])) {
+                $alldeal[$value] = $dealDetail['saved-amount'];
+                $alldealDetails[$value] = $dealDetail;
+                ?>
+                
+        <?php }
+
+        }
+        arsort($alldeal);
+        $i = 1;
+        $dealDetail = [];
+        foreach ($alldeal as $key => $value) {
+            if ($i == 1) {
+                $dealDetail = $alldealDetails[$key];
+            }
+        }
+        if ($dealDetail) {
+            ?>
+    <div class="deal wk-daily-deal clear" id="max-save-deal" data-deal-id="<?= /* @noEscape */ $dealId;?>">
+                    <span class="price-box ">
+                        <b class="price-label">OFF : <?= /* @noEscape */ $dealDetail['discount-percent']?> %</b>
+                    </span>
+                    <span class="save-box ">
+                        <b class="save-label">Max Save : <?= /* @noEscape */ $dealDetail['saved-amount']?></b>
+                    </span>
+                    <p class="wk_cat_count_clock" data-stoptime="<?= /* @noEscape */ $dealDetail['stoptime'] ?>" 
+                        data-diff-timestamp ="<?= /* @noEscape */ $dealDetail['diff_timestamp'] ?>">
+                    </p>
+                </div>
+    <?php } } ?>
+<?php }?>
+<script type="text/x-magento-init">
+    {
+        "body": {"viewondealproduct": {}}
+    }
+</script>

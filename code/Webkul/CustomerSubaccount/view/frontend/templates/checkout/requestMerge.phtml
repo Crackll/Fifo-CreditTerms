@@ -1,0 +1,26 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/**
+ * Request Merge
+ *
+ * @var $block \Webkul\CustomerSubaccount\Block\Checkout\Buttons
+ */
+
+if ($block->canMergeCartToMainCart()) {
+    ?>
+<a href="<?= /* @noEscape */ $block->getUrl('wkcs/checkout/action', ['type'=>2]) ?>">
+    <button type="button" title="<?= /* @noEscape */ __('Request Cart Merge')?>" class="action primary wkcs-cartpage-button">
+        <span><?= /* @noEscape */ __('Request Cart Merge')?></span>
+    </button>
+</a>
+    <?php
+}
+?>

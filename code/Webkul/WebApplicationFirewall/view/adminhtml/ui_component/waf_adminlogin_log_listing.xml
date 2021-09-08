@@ -1,0 +1,149 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">waf_adminlogin_log_listing.waf_adminlogin_log_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>webkul_webapplicationfirewall_adminlogin_columns</spinner>
+		<deps>
+			<dep>waf_adminlogin_log_listing.waf_adminlogin_log_listing_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource component="Magento_Ui/js/grid/provider" name="waf_adminlogin_log_listing_data_source">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Webkul_WebApplicationFirewall::acl_login</aclResource>
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="waf_adminlogin_log_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>entity_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="webkul_webapplicationfirewall_adminlogin_columns">
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>entity_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="entity_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="email">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Login Email</label>
+			</settings>
+		</column>
+		<column name="ip">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">IP Address</label>
+			</settings>
+		</column>
+		<column name="city">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">City</label>
+			</settings>
+		</column>
+		<column name="region">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Region/State</label>
+			</settings>
+		</column>
+		<column name="country_name">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Country</label>
+			</settings>
+		</column>
+		<column name="latitude">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Latitude</label>
+			</settings>
+		</column>
+		<column name="longitude">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Longitude</label>
+			</settings>
+		</column>
+		<column name="device_type">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Used Device</label>
+			</settings>
+		</column>
+		<column name="platform">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">OS</label>
+			</settings>
+		</column>
+		<column name="browser">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Browser</label>
+			</settings>
+		</column>
+		<column name="login_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+			<settings>
+				<filter>dateRange</filter>
+                <dataType>date</dataType>
+				<label translate="true">Last Login At</label>
+				<sorting>desc</sorting>
+			</settings>
+		</column>
+
+		<column name="reported_unknown">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Reported Unknown Ip</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<actionsColumn class="Webkul\WebApplicationFirewall\Ui\Component\Listing\Column\AdminLoginActions" name="actions">
+			<settings>
+				<indexField>entity_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>

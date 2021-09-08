@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="wk_marketplace_product_label" resource="default" engine="innodb" comment="Marketplace Product Label Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="text" name="image_name" nullable="false" comment="Image Name"/>
+    <column xsi:type="text" name="label_name" nullable="false" comment="Label Name"/>
+    <column xsi:type="int" name="label_width_productpage" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Label Width For Product Page"/>
+    <column xsi:type="int" name="label_height_productpage" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Label Height For Product Page"/>
+    <column xsi:type="int" name="label_width_categorypage" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Label Width For Category Page"/>
+    <column xsi:type="int" name="label_height_categoryage" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Label Height For Category Page"/>
+    <column xsi:type="text" name="position" nullable="false" comment="Position"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Status"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Seller Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

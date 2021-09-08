@@ -1,0 +1,79 @@
+Off,Off
+"Save On Deal ","Save On Deal "
+"Deal Ends in ","Deal Ends in "
+"Max Save On Deal ","Max Save On Deal "
+"Add Deal On Product","Add Deal On Product"
+"Deal List","Deal List"
+"Deal product disabled successfuly.","Deal product disabled successfuly."
+"Invalid request.","Invalid request."
+"Deal Value has to be completed.","Deal Value has to be completed."
+"Deal from date has to be completed.","Deal from date has to be completed."
+"Deal to date has to be completed.","Deal to date has to be completed."
+"Deal value should not be less than 0.","Deal value should not be less than 0."
+"In case of percent type discount, the deal value should not be more than 100.","In case of percent type discount, the deal value should not be more than 100."
+"In case of fixed type discount, the deal value should not be more than product price.","In case of fixed type discount, the deal value should not be more than product price."
+"In case of Percent type discount, the deal value should not be 100 percent.","In case of Percent type discount, the deal value should not be 100 percent."
+"In case of fixed type discount, the deal value should not be same with regular price.","In case of fixed type discount, the deal value should not be same with regular price."
+"Deal information saved successfully.","Deal information saved successfully."
+"Seller Deals Collection","Seller Deals Collection"
+"Something went wrong in getting spin wheel.","Something went wrong in getting spin wheel."
+"Deals Collection","Deals Collection"
+Fixed,Fixed
+Percent,Percent
+Disable,Disable
+Enable,Enable
+Save,Save
+"Save Deal","Save Deal"
+"Deal Status","Deal Status"
+"Discount Type","Discount Type"
+"Deal Value","Deal Value"
+"This field uses to fill deal price in current store currency if deal type is Fixed or in Percent then it take deal price in %.","This field uses to fill deal price in current store currency if deal type is Fixed or in Percent then it take deal price in %."
+"Date From ","Date From "
+"Date To ","Date To "
+Back,Back
+"Product not exist","Product not exist"
+"My Product List","My Product List"
+"Product Name","Product Name"
+"Search by product name","Search by product name"
+Submit,Submit
+"Disable Deal","Disable Deal"
+Product,Product
+"Deal Price","Deal Price"
+"Start Date","Start Date"
+"End Date","End Date"
+Action,Action
+"Enable"" ""Disable","Enable"" ""Disable"
+"Edit Deal","Edit Deal"
+"No Product Available","No Product Available"
+"Daily Deal","Daily Deal"
+"Deal Product List","Deal Product List"
+"My Product List For Deal","My Product List For Deal"
+"Add Deal","Add Deal"
+"Deal Collection","Deal Collection"
+Menu,Menu
+"SELLER'S DEAL COLLECTION","SELLER'S DEAL COLLECTION"
+"We can't find products matching the selection.","We can't find products matching the selection."
+"Add to Cart","Add to Cart"
+"In stock","In stock"
+"Out of stock","Out of stock"
+"Add to Wish List","Add to Wish List"
+"Add to Compare","Add to Compare"
+"Learn More","Learn More"
+"Top Deals of the Day","Top Deals of the Day"
+"Top Sales of the Day","Top Sales of the Day"
+"Top Viewed Deals","Top Viewed Deals"
+"Deals Ends in","Deals Ends in"
+"Save On Deal","Save On Deal"
+"Max Save On Deal","Max Save On Deal"
+" Days "," Days "
+Days,Days
+Hours,Hours
+Minutes,Minutes
+Seconds,Seconds
+Webkul,Webkul
+"Marketplace Daily Deal","Marketplace Daily Deal"
+"General Settings","General Settings"
+"Enable Daily Deal","Enable Daily Deal"
+"Deal From","Deal From"
+"Deal To","Deal To"
+"Daily Deals","Daily Deals"

@@ -1,0 +1,223 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $block->helperData();
+$ticketsHelper = $block->ticketHelper();
+$pendingstatus = $helper->getConfigPendingStatus();
+$newstatus = $helper->getConfigNewStatus();
+$openstatus = $helper->getConfigOpenStatus();
+$closestatus = $helper->getConfigCloseStatus();
+$resolvestatus = $helper->getConfigResolveStatus();
+$spamstatus = $helper->getConfigSpamstatus();
+$dateformat = $helper->getDateFormate();
+?>
+<div class="dashboard-container">
+    <div class="count-box">
+        <div id="dashboard_diagram_totals" class="box">
+            <div class="entry-edit">
+                <table width="100%" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td class="a-center bold">
+                                <span>
+                                    <?= $block->escapeHtml(__("Pending")) ?>
+                                </span><br><br>
+                                <span class="nowrap">
+                                    <a href="
+                                    <?= /** @noEscape */
+                                    $block->getUrl(
+                                        'helpdesk/ticketsmanagement_tickets/index',
+                                        ["status"=>$pendingstatus]
+                                    );?>">
+                                        <span class="price">
+                                            <?=
+                                            $block->escapeHtml(
+                                                $block->getTicketCountByStatus($pendingstatus)
+                                            ) ?></span>
+                                    </a>
+                                    <span style="font-size:14px; color:#DE8946;">
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-center bold">
+                                <span><?= $block->escapeHtml(__("New")) ?></span><br><br>
+                                <span class="nowrap">
+                                    <a 
+                                    href="<?= /** @noEscape */
+                                    $block->getUrl(
+                                        'helpdesk/ticketsmanagement_tickets/index',
+                                        ["status"=>$newstatus]
+                                    )?>">
+                                        <span class="price">
+                                            <?= $block->escapeHtml(
+                                                $block->getTicketCountByStatus($newstatus)
+                                            ) ?>
+                                        </span>
+                                    </a>
+                                    <span>
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-center bold">
+                                <span >
+                                    <?= $block->escapeHtml(__("Open")) ?>
+                                </span><br><br>
+                                <span class="nowrap">
+                                    <a 
+                                    href="<?= /** @noEscape */
+                                        $block->getUrl(
+                                            'helpdesk/ticketsmanagement_tickets/index',
+                                            ["status"=>$openstatus]
+                                        )
+?>">
+                                        <span class="price">
+                                            <?= $block->escapeHtml($block->getTicketCountByStatus($openstatus)) ?>
+                                        </span>
+                                    </a>
+                                    <span>
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-center bold">
+                                <span ><?= $block->escapeHtml(__("Closed")) ?></span><br><br>
+                                <span class="nowrap">
+                                    <a 
+                                    style="text-decoration: none" 
+                                    href="<?= /** @noEscape */
+                                        $block->getUrl(
+                                            'helpdesk/ticketsmanagement_tickets/index',
+                                            ["status"=>$closestatus]
+                                        )
+?>">
+                                        <span class="price">
+                                            <?=
+                                            $block->escapeHtml($block->getTicketCountByStatus($closestatus)) ?>
+                                        </span>
+                                    </a>
+                                    <span>
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-center bold">
+                                <span>
+                                    <?= $block->escapeHtml(__("Resolved")) ?>
+                                </span><br><br>
+                                <span class="nowrap">
+                                    <a 
+                                    href="<?=
+                                    /** @NoEscape */
+                                        $block->getUrl(
+                                            'helpdesk/ticketsmanagement_tickets/index',
+                                            ["status"=>$resolvestatus]
+                                        )
+?>">
+                                        <span class="price">
+                                            <?= $block->escapeHtml(
+                                                $block->getTicketCountByStatus($resolvestatus)
+                                            ) ?>
+                                        </span>
+                                    </a>
+                                    <span>
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="a-center bold">
+                                <span><?= $block->escapeHtml(__("Spam")) ?></span><br><br>
+                                <span  class="nowrap">
+                                    <a  
+                                    href="<?=
+                                    /** @noEscape */
+                                        $block->getUrl(
+                                            'helpdesk/ticketsmanagement_tickets/index',
+                                            ["status"=>$spamstatus]
+                                        )
+?>">
+                                        <span class="price">
+                                            <?= $block->escapeHtml(
+                                                $block->getTicketCountByStatus($spamstatus)
+                                            ) ?>
+                                        </span>
+                                    </a>
+                                    <span>
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="activity-conatiner">
+        <div class="content-header">
+            <h3 class="head-dashboard">
+                <?= $block->escapeHtml(__("Recent Activities")); ?>
+            </h3>
+        </div>
+        <ul>
+            <?php foreach ($block->getDashboardActivity() as $activity): ?>
+                <li class="activity-list">
+                    <div class="wk_activity_head">
+                        <h3>
+                            <?= $block->escapeHtml($activity->getUserType()) ?>
+                        </h3>
+                        <h3>
+                            <?= $block->escapeHtml(__($activity->getField())).
+                            " - ".
+                            $block->escapeHtml(ucfirst((__($activity->getType())))) ?>
+                        </h3>
+                    </div>
+                    <div class="wk_ts_pannel_heading 
+                    <?php
+                    if (strtolower($activity->getUserType()) == 'customer') { echo 'customer'; }
+                    ?>">
+                        <?php
+                        if ($activity->getUserType() == "Customer") {
+                            $user = $ticketsHelper->getHelpdeskCustomerById($activity->getUserId());
+                            $userUrl = $block->getUrl('helpdesk/customer_customer/edit', ["id"=>$user->getId()]);
+                        } else {
+                            $user = $ticketsHelper->getAdminUserById($activity->getUserId());
+                            $userUrl = $block->getUrl('helpdesk/agentsmanagement_agent/edit', ["user_id"=>$user->getId()]);
+                        }
+                        ?>
+                        <?= $block->escapeHtml(substr($activity->getPerformer(), 0, 1)) ?>
+                        <div class="arrow_box">
+                            <span class="detail_head">
+                                <?= $block->escapeHtml(__("Performer Details")) ?>
+                            +</span>
+                            <span class="customer_name">
+                                <a href="<?= /** noEscape*/ $userUrl; ?>" target="_blank">
+                                    <i class="fa fa-user"></i>
+                                    <?= $block->escapeHtml($user->getName()) ?>
+                                </a>
+                            </span>
+                            <span class="customer_email">
+                                <i class="fa fa-envelope"></i>
+                                <?= $block->escapeHtml($user->getEmail()) ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wk_activity_label_box">
+                        <?= $block->escapeHtml($activity->getLevel()) ?><br/>
+                        <?= $block->escapeHtml($activity->getLabel()) ?><br/>
+                        <?= $block->escapeHtml(__("Date"))." : ".
+                        /** @noEscape */ date($dateformat, strtotime($activity->getCreatedAt())) ?><br/>
+                    </div>
+                </l1>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "dashboard": {}
+        }
+    }
+</script>

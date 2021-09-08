@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Webkul_MpSellerCategory::css/styles.css"/>
+        <script src="Webkul_MpSellerCategory::js/product/category.js"/>
+    </head>
+    <body>
+        <referenceBlock name="marketplace_product_edit">
+            <block class="Webkul\MpSellerCategory\Block\Product" name="mpsellercategory_product_edit"/>
+        </referenceBlock>
+        <referenceBlock name="mpsellercategory_product_edit">
+            <action method="setTemplate" ifconfig="mpsellercategory/settings/allow">
+                <argument name="template" xsi:type="string">Webkul_MpSellerCategory::product/category.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,46 @@
+<?php
+    $ajaxUrl = $block->getAjaxUrl();
+?>
+<?php /* @escapeNotVerified */ echo $block->getButtonHtml(); ?>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/alert',
+            'Magento_Ui/js/modal/confirm'
+        ],
+        function($, alert, confirm) {
+            var makeAjaxCall = function() {
+                $.ajax({
+                    url: '<?php /***/ echo $ajaxUrl;  ?>',
+                    type: 'POST',
+                    data: {
+                        form_key: window.FORM_KEY
+                    },
+                    showLoader: true,
+                    dataType: 'json',
+                    success: function(response) {
+                        alert({content: response.message});
+                        // if (response.success) {
+                        //     $('[data-ui-id="page-actions-toolbar-save-button"]#save').trigger("click");
+                        // }
+                        
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            };
+            $("body").on("click", "#elastic_status", function() {
+                confirm({
+                    title: "please make sure you have saved the host and port fields first", 
+                    actions: {
+                        confirm: function() { makeAjaxCall(); } 
+                    }
+                });
+            });
+
+        }
+    );
+</script>

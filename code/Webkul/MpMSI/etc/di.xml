@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpMSI
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Webkul\Marketplace\Block\Product\Edit\Variations\Config\Matrix">
+        <plugin name="msi-data-for-configurable" type="Webkul\MpMSI\Plugin\Block\Product\Edit\Variations\Config\Matrix" />
+    </type>
+
+    <type name="Webkul\Marketplace\Block\Product\Steps\Bulk">
+        <plugin name="msi-bulk-template" type="Webkul\MpMSI\Plugin\Block\Product\Steps\Bulk" />
+    </type>
+
+    <type name="Webkul\Marketplace\Block\Product\Steps\Summary">
+        <plugin name="msi-sources-summary" type="Webkul\MpMSI\Plugin\Block\Product\Steps\Summary" />
+    </type>
+
+    <type name="Webkul\Marketplace\Block\Order\View">
+        <plugin name="msi-update-shipment-view" type="Webkul\MpMSI\Plugin\Block\Order\View" />
+    </type>
+
+    <type name="Webkul\Marketplace\Block\Product\Productlist">
+        <plugin name="msi-update-product-list" type="Webkul\MpMSI\Plugin\Block\Product\Listing" />
+    </type>
+
+    <preference for="Webkul\Marketplace\Controller\Order\Shipment" type="Webkul\MpMSI\Controller\Order\Shipment" />
+    
+</config>

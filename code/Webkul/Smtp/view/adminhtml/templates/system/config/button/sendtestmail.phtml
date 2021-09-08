@@ -1,0 +1,22 @@
+<?php
+/**
+ * Webkul_Smtp import category script
+ *
+ * @category    Webkul
+ * @package     Webkul_Smtp
+ * @author      Webkul Software Private Limited
+ *
+ */
+?>
+<div class="pp-buttons-container">
+    <button id="<?= /* @noEscape */ $block->getId() ?>" onclick="return false;">
+        <span><span><span><?= /* @noEscape */ $block->escapeHtml($block->getButtonLabel()); ?></span></span></span>
+    </button>
+</div>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "testmailsend": {"mailsendurl":"<?= /* @noEscape */ $block->getAjaxCheckUrl() ?>"}
+        }
+    }
+</script>

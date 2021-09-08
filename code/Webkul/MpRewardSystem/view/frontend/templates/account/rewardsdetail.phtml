@@ -1,0 +1,235 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+// $block->escapeUrl(
+?>
+<?php
+  $_rewardDetails = $block->getRewardDetails();
+  $rewardPointCollection = $block->getAllCollection();
+?>
+<div class="wk-mp-design">
+    <fieldset class="fieldset info wk-mp-fieldset">        
+    <div class="grid">
+        <div class="hor-scroll">
+            <?php if ($rewardPointCollection->getSize()==0): ?>
+                <div class="fieldset info wk_mp_fieldset">
+                    <div class="wk_emptymsg">
+                        <?=/* @noEscape */ __('No rewards Available') ?>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="wk_sales">
+                    <div class="wk_total wk_sale_css" id="credit">
+                        <span class="wk_sale_color"><label 
+                        class="wk_sale_label"><?=/* @noEscape */ __('Total Points') ?>
+                        </label> : <?=$block->escapeHtml($_rewardDetails['total_credits'])?></span>
+                    </div>
+                    <div class="wk_totalused wk_sale_css" id="debit">
+                         <span class="wk_sale_color">
+                         <label class="wk_sale_label"><?=/* @noEscape */ __('Used Points') ?>
+                         </label> : <?=$block->escapeHtml($_rewardDetails['total_debits']); ?></span>
+                    </div>
+                    <div class="wk_remaining wk_sale_css" id="remaining_amount">
+                        <span class="wk_sale_color"><label class="wk_sale_label">
+                        <?=/* @noEscape */ __('Remaining Points') ?>
+                        </label> : <?=$block->escapeHtml($_rewardDetails['total_remaining']); ?></span>
+                    </div>
+                    <div class="wk_remaining wk_sale_css" id="pending_amount">
+                        <span class="wk_sale_color">
+                        <label class="wk_sale_label"><?=/* @noEscape */ __('Pending Points') ?>
+                        </label> : <?=$block->escapeHtml($_rewardDetails['pending_reward']); ?></span>
+                    </div>
+                </div>
+                <div class="data-grid-wrap reward-detail-table">
+                    <table class="data-grid" id="">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col"><?=/* @noEscape */ __("Description"); ?></th>
+                                <th scope="col" class="col"><?=/* @noEscape */ __("Debit Points"); ?></th>
+                                <th scope="col" class="col"><?=/* @noEscape */ __("Credit Points"); ?></th>
+                                <th scope="col" class="col"><?=/* @noEscape */ __("Status"); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rewardPointCollection as $record):  ?>
+                                <tr>
+                                <?php	if ($record->getOrderId()) {
+                                          $order = $block->getOrder()->load($record->getOrderId());
+                                          $incrementid = $order->getIncrementId();
+                                    ?>
+                                          <td data-th="<?=/* @noEscape */ __('Order id: ')?>" 
+                                          class="col description"><?=/* @noEscape */ __('Order id: ')?>
+                                          <a href="<?=$block->escapeUrl($block
+                                             ->getUrl('sales/order/view/', ['order_id'=>$record
+                                             ->getOrderId()]));?>">#<?=$block->escapeHtml($incrementid);?></a><br>
+                                          </td>
+                                        <?php } else { ?>
+                                          <td data-th="<?=/* @noEscape */ __('Order id: ')?>" class="col description">
+                                          <?=$block->escapeHtml($record->getTransactionNote()); ?>
+                                          </td>
+                                        <?php } ?>
+                                <?php if ($record->getAction()=='debit') { ?>
+                                                <td data-th="<?=/* @noEscape */ __("Debit")?>" 
+                                                class="col debit"><?=$block->escapeHtml($record
+                                                ->getRewardPoint());?></td>
+                                                <td data-th="<?=/* @noEscape */ __("Credit")?>" 
+                                                class="col credit"><?=/* @noEscape */ __("-")?></td>
+                                        <?php } else { ?>
+                                            <td data-th="<?=/* @noEscape */ __("Debit")?>" 
+                                            class="col debit"><?=/* @noEscape */ __("-")?></td>
+                                            <td data-th="<?=/* @noEscape */ __("Credit")?>" 
+                                            class="col credit"><?=$block->escapeHtml($record->getRewardPoint());?></td>
+                                        <?php }?>
+                                    <td data-th="<?=/* @noEscape */  __("Status")?>" class="col status">
+                                    <?=/* @noEscape */ $record->getStatus()?$record
+                                    ->getAction()=='debit'?__('Applied'):__("Approved"):__('Pending')?></td>
+                                </tr>
+                            <?php endforeach;  ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+             <div class="order-products-toolbar toolbar bottom"><?=$block->getPagerHtml();?></div>
+            <?php endif?>
+    </fieldset>
+</div>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();" 
+        class="left">&laquo; <?=/* @noEscape */ __('Back') ?></a>
+    </p>
+</div>
+<div class="wk-popup-template" style="display:none;">
+    <div class="wk_popup_overlay">
+        <div class="wk_popup_wrapper">
+            <div class="wk_popup_cntnt_overflow">
+                <div class="wk_popup_header">
+                    <h1>Total Points</h1>
+                    <span class="wk_popup_close">x</span>
+                </div>
+                <div class="wk_popup_cntnt">
+                    <div class="grid">
+                        <div class="hor-scroll">
+                            <table cellspacing="0" class="border wk_mp_list_table wk_mp_list_container_table">
+                                <thead>
+                                    <tr class="wk_content">
+                                        <th class="wk_first_td"><span class="label">
+                                        <?=/* @noEscape */ __('Seller')?></span></th>
+                                        <th><span class="label totalPoints">
+                                        <?=/* @noEscape */ __('Total Rewards')?></span></th>
+                                        <th><span class="label usedPoints">
+                                        <?=/* @noEscape */ __('Used Rewards')?></span></th>
+                                        <th><span class="label remainingPoints">
+                                        <?=/* @noEscape */ __('Remaining Rewards')?></span></th>
+                                        <th><span class="label pendingPoints">
+                                        <?=/* @noEscape */ __('Pending Rewards')?></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="reward-type-template" type="text/x-magento-template">
+    <tr class="wk_row_view">
+        <td class="wk_first_td">
+            <span class="label"><%- data.sellerName %></span>
+        </td>
+        <td>
+            <span class="label totalPoints"><%- data.total %></span>
+        </td>
+        <td>
+            <span class="label usedPoints"><%- data.used %></span>
+        </td>
+        <td>
+            <span class="label remainingPoints"><%- data.remaining %></span>
+        </td>
+        <td>
+            <span class="label pendingPoints"><%- data.pending %></span>
+        </td>
+    </tr>
+</script>
+<script>
+    require([
+        "jquery",
+        "mage/template",
+        "mage/mage"
+    ], function ($, mageTemplate, alert){
+            $(".wk_sale_css").on("click",function() {
+                var self = $(this);
+                $("body").find(".page-wrapper").css({"opacity":"0.35"});
+                $("body").append($("#loading-mask"));
+                $("#loading-mask").show();
+                $('.wk_popup_cntnt tbody').append('');
+                $.ajax({
+                    url: "<?=$block->escapeUrl($block->getUrl('mprewardsystem/account/sellerrewarddetails')) ?>",
+                    type: "POST",
+                    dataType: "json",
+                    showLoader: true,
+                    data:{type:self.attr("id")},
+                    success:function(content) {
+                        $("#loading-mask").hide();
+                     var obj=$(".wk-popup-template").clone();
+                  $.each(content, function(i, v){
+                      var progressTmpl = mageTemplate('#reward-type-template'),
+                    tmpl;
+                      tmpl = progressTmpl({
+                      data: {
+                          sellerName: v.seller,
+                          total: v.total,
+                          used: v.used,
+                          remaining:v.remaining,
+                          pending:v.pending
+                      }
+                  });
+                  obj.find('.wk_popup_cntnt tbody').append(tmpl);
+                  });
+                              obj.find(".wk_popup_overlay").addClass("del");
+                              if(self.attr("id")=="credit") {
+                                  obj.find(".usedPoints").parent().remove();
+                                  obj.find(".remainingPoints").parent().remove();
+                                  obj.find(".pendingPoints").parent().remove();
+                                  obj.find(".wk_popup_header h1").text("<?=/* @noEscape */ __('Total Points')?>");
+                              } else if(self.attr("id")=="debit") {
+                                  obj.find(".totalPoints").parent().remove();
+                                  obj.find(".remainingPoints").parent().remove();
+                                  obj.find(".pendingPoints").parent().remove();
+                                  obj.find(".wk_popup_header h1").text("<?=/* @noEscape */ __('Used Points')?>");
+                              } else  if(self.attr("id")=="remaining_amount"){
+                                  obj.find(".totalPoints").parent().remove();
+                                  obj.find(".usedPoints").parent().remove();
+                                  obj.find(".pendingPoints").parent().remove();
+                                  obj.find(".wk_popup_header h1").text("<?=/* @noEscape */ __('Remaining Points')?>");
+                              } else  if(self.attr("id")=="pending_amount"){
+                                  obj.find(".totalPoints").parent().remove();
+                                  obj.find(".usedPoints").parent().remove();
+                                  obj.find(".remainingPoints").parent().remove();
+                                  obj.find(".wk_popup_header h1").text("<?=/* @noEscape */ __('Pending Points')?>");
+                              }
+                        $("body").append(obj.html());
+                        $("body").find(".page-wrapper").css({"opacity":"0.35"});
+                    }
+                });
+        });
+        $("body").delegate(".wk_popup_close","click",function() {
+            $(".del").fadeOut(1000);
+            $(".del").remove();
+            $("body").find(".page-wrapper").css({"opacity":"1"});
+        });
+    });
+</script>

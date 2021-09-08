@@ -1,0 +1,113 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+?>
+<?php
+$_helper = $block->getMpHelper();
+$helper = $block->getDataByKey("curHelper");
+$isPartner= $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+?>
+<?php
+if ($isPartner && $helper->getMpRewardEnabled()) {
+    $status = false;
+    if (strpos($magentoCurrentUrl, 'mprewardsystem/account/cartrecord') !== false ||
+    strpos($magentoCurrentUrl, 'mprewardsystem/product/index') !== false ||
+    strpos($magentoCurrentUrl, 'mprewardsystem/category/index') !== false ||
+    strpos($magentoCurrentUrl, 'mprewardsystem/account/index') !== false) {
+        $status = true;
+    }
+    if (($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/account/index'))
+    || ($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/account/cartrecord'))
+    || ($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/product/index'))
+    || ($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/category/index')) || !$isSellerGroup) {?>
+        <li class="mprewardsystem nav item <?=/* @noEscape */ $status ? "current":"";?>">
+        <?php
+        if (strpos($magentoCurrentUrl, 'mprewardsystem/account') !== false
+        || strpos($magentoCurrentUrl, 'mprewardsystem/product') !== false
+        || strpos($magentoCurrentUrl, 'mprewardsystem/category') !== false) { ?>
+            <strong><?=/* @noEscape */ __('Rewards Manager') ?></strong>
+            <?php
+        } else { ?>
+            <a href="#">
+                <?=/* @noEscape */ __('Rewards Manager') ?>
+            </a>
+            <?php
+        } ?>
+            <ul class="nav items">
+                <?php if (($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/account/index'))
+                || !$isSellerGroup) { ?>
+                <li class="nav item <?=/* @noEscape */ (strpos($magentoCurrentUrl, 'mprewardsystem/account/index')
+                !== false) ? "current":"";?>">
+                    <?php
+                    if ((strpos($magentoCurrentUrl, 'mprewardsystem/account/index') !== false)) { ?>
+                    <strong><?=/* @noEscape */ __('Manage Rewards') ?></strong>
+                        <?php
+                    } else { ?>
+                    <a href="<?=$block->escapeUrl($block->getUrl('mprewardsystem/account/index')); ?>">
+                            <?=/* @noEscape */ __('Manage Rewards') ?>
+                    </a>
+                        <?php
+                    } ?>
+                </li>
+                <?php } ?>
+                <?php if (($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/account/cartrecord'))
+                || !$isSellerGroup) { ?>
+                <li class="nav item <?=/* @noEscape */ (strpos($magentoCurrentUrl, 'mprewardsystem/account/cartrecord')
+                !== false) ? "current":"";?>">
+                    <?php
+                    if ((strpos($magentoCurrentUrl, 'mprewardsystem/account/cartrecord') !== false)) { ?>
+                    <strong><?=/* @noEscape */ __('Manage Cart Reward') ?></strong>
+                        <?php
+                    } else { ?>
+                    <a href="<?=$block->escapeUrl($block->getUrl('mprewardsystem/account/cartrecord')); ?>">
+                            <?=/* @noEscape */ __('Manage Cart Reward') ?>
+                    </a>
+                        <?php
+                    } ?>
+                </li>
+                <?php } ?>
+                <?php if (($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/product/index'))
+                || !$isSellerGroup) { ?>
+              <li class="nav item <?=/* @noEscape */ (strpos($magentoCurrentUrl, 'mprewardsystem/product/index')
+                 !== false) ? "current":"";?>">
+                    <?php
+                    if ((strpos($magentoCurrentUrl, 'mprewardsystem/product/index') !== false)) { ?>
+                      <strong><?=/* @noEscape */ __('Manage Product Reward') ?></strong>
+                            <?php
+                    } else { ?>
+                      <a href="<?=$block->escapeUrl($block->getUrl('mprewardsystem/product/index')); ?>">
+                            <?=/* @noEscape */ __('Manage Product Reward') ?>
+                      </a>
+                        <?php
+                    } ?>
+              </li>
+                <?php } ?>
+            <?php if (($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/category/index'))
+            || !$isSellerGroup) { ?>
+            <li class="nav item <?=/* @noEscape */ (strpos($magentoCurrentUrl, 'mprewardsystem/category/index')
+            !== false) ? "current":"";?>">
+                <?php
+                if ((strpos($magentoCurrentUrl, 'mprewardsystem/category/index') !== false)) { ?>
+                <strong><?=/* @noEscape */ __('Manage Category Reward') ?></strong>
+                    <?php
+                } else { ?>
+                <a href="<?=$block->escapeUrl($block->getUrl('mprewardsystem/category/index')); ?>">
+                        <?=/* @noEscape */ __('Manage Category Reward') ?>
+                </a>
+                    <?php
+                } ?>
+            </li>
+            <?php } ?>
+            </ul>
+        </li>
+    <?php }
+}?>

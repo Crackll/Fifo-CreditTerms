@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="mpwholsale" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Marketplace Wholesale</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_MpWholesale::config_mpwholesale</resource>
+            <!-- create group for fields in section -->
+            <group id="general_settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="status" translate="label comment" sortOrder="1" type="select" showInDefault="1">
+                    <label>Status</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="name" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Name</label>
+                </field>
+                <field id="adminemail" translate="label comment" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Admin Email-id</label>
+                    <validate>validate-email</validate>
+                </field>
+                <field id="wholesaler_approval" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Wholesaler Approval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="wholeseller_product_approval" translate="label comment" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Wholesaler Product Approval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="privacy_policy" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Privacy Policy</label>
+                <field id="policy_heading" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy Policy Heading</label>
+                    <validate>validate-no-html-tags</validate>
+                </field>
+                <field id="policy_content" translate="label comment" sortOrder="1" type="editor" showInStore="1" showInDefault="1" >
+                    <label>Privacy Policy Description</label>
+                    <frontend_model>Webkul\MpWholesale\Block\Adminhtml\System\Config\Editor</frontend_model>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Wholesale Transactional Emails</label>
+                <field id="new_account_notification" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="2">
+                    <label>New Wholesale Account Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="new_quote" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>New Quote Email to Wholesaler</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="quote_message" translate="label" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Message Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="custom_email" translate="label" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wholesaler Custom Email to Seller</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="quote_status" translate="label" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Status Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="new_product" translate="label" sortOrder="6" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New Product Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="product_approve" translate="label" sortOrder="7" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Approval Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="product_unapprove" translate="label" sortOrder="8" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Unapproval Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="wholesaler_approve" translate="label" sortOrder="9" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wholesaler Approval Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="wholesaler_inactive" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wholesaler Inactive Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="become_wholesaler_request" translate="label" sortOrder="11" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wholesaler Request Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

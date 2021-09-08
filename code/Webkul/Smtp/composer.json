@@ -1,0 +1,21 @@
+{
+    "name": "webkul/smtp-configurator",
+    "description": "Webkul Magento2 Smtp Configurator",
+    "require": {
+        "magento/framework": "^102.0.3",
+        "magento/module-backend": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "3.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\Smtp\\": ""
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "webkul/module-helpdesk",
+    "description": "Webkul Helpdesk For Magento2 Module",
+    "require": {
+        "magento/framework": "103.0.*",
+        "tedivm/fetch": "0.7.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\Helpdesk\\": ""
+        }
+    }
+}

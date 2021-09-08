@@ -1,0 +1,69 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AbandonedCart
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<?php
+    $dataset = $block->getDatasets();
+    $labels = $block->getLabels();
+    $fromDate = $block->getRequest()->getParam('fromDate');
+    $toDate = $block->getRequest()->getParam('toDate');
+?>
+<div style ="float:left; display:none !important">
+    <form method="post" action ="">
+        <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+        <div class="admin__field">
+            <label class="admin__field-label">
+                <span>From Date</span>
+            </label>
+            <div class="admin__field-control">
+                <input type="text" 
+                        class="admin__control-text has-datepicker" 
+                        id="calendar_inputField" 
+                        name="fromDate"
+                        value = "<?= /* @noEscape */ $fromDate; ?>"
+                        aria-required="true" />
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label">
+                <span>To Date</span>
+            </label>
+
+            <div class="admin__field-control">
+                <input type="text" 
+                        class="admin__control-text has-datepicker" 
+                        id="calendar_inputField2" 
+                        name="toDate"
+                        value = "<?= /* @noEscape */ $toDate; ?>"
+                        aria-required="true" />
+            </div>
+        </div>
+        <div class="admin__field">
+            <button type="submit" class="action-default scalable primary">
+                Filter Results
+            </button>
+        </div>
+    </form>
+</div>
+<div id="container" style="width: 100%; float:right">
+    <canvas id="canvas"></canvas>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_AbandonedCart/js/reports": {
+                "labels": <?= /* @noEscape */ $labels; ?>,
+                "abandonedCartData": <?= /* @noEscape */ $dataset["abandonedCartData"]; ?>,
+                "sentMailsData": <?= /* @noEscape */ $dataset["sentMailsData"]; ?>,
+                "convertedData": <?= /* @noEscape */ $dataset["convertedData"]; ?>
+            }
+        }
+    }
+</script>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_MpSellerCategory::menu" title="Marketplace Seller Categories" module="Webkul_MpSellerCategory" sortOrder="100" parent="Webkul_Marketplace::marketplace" resource="Webkul_MpSellerCategory::menu"/>
+        <add id="Webkul_MpSellerCategory::category" title="Seller Categories" module="Webkul_MpSellerCategory" sortOrder="20" parent="Webkul_MpSellerCategory::menu" action="mpsellercategory/category" resource="Webkul_MpSellerCategory::category"/>
+    </menu>
+</config>

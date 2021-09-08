@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerApproval
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="customerapproval_email_customer_registration_after_template" label="Customer Approval After Registration Email Template" file="afterregistration.html" type="html" module="Webkul_CustomerApproval" area="frontend"/>
+    <template id="customerapproval_email_customer_approval_template" label="Customer Approved Email Template" file="customerapproved.html" type="html" module="Webkul_CustomerApproval" area="frontend"/>
+    <template id="customerapproval_email_customer_disapproval_template" label="Customer Disapproved Email Template" file="customerdisapproved.html" type="html" module="Webkul_CustomerApproval" area="frontend"/>
+    <template id="customerapproval_email_admin_notification_template" label="Admin Notification Email Template" file="adminnotification.html" type="html" module="Webkul_CustomerApproval" area="frontend"/>
+</config>

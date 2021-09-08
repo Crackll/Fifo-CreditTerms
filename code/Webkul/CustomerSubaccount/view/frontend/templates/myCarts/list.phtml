@@ -1,0 +1,125 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/**
+ * My Cart List
+ *
+ * @var \Webkul\CustomerSubaccount\Block\MyCarts\Lists
+ */
+
+$subacccarts = $block->getCollection();
+$helper = $block->getHelper();
+?>
+<form action="<?= /* @noEscape */ $block->getUrl('wkcs/myCarts/index')?>" method="get" id="form-cartlist-filter" name="formCartlistFilter" autocomplete="off" data-mage-init='{"validation": {}}'>
+    <table cellspacing="0" class="wkcs-filter-table">
+        <thead>
+            <tr>
+                <th><span><?= /* @noEscape */ __('Id')?></span></th>
+                <th><span><?= /* @noEscape */ __('Type')?></span></th>
+                <th><span><?= /* @noEscape */ __('Status')?></span></th>
+                <th><span>&nbsp;</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="input-text validate-greater-than-zero" name="qid" placeholder="<?= /* @noEscape */ __('Search by Id')?>" value="<?= /* @noEscape */ $block->getRequest()->getParam('qid')?>">
+                </td>
+                <td>
+                    <select name="qt">
+                        <option value=""><?= /* @noEscape */ '' ?></option>
+                        <option value="1" <?= /* @noEscape */ $block->getRequest()->getParam('qt')==1?'selected':'' ?>><?= /* @noEscape */ __('Approval') ?></option>
+                        <option value="2" <?= /* @noEscape */ $block->getRequest()->getParam('qt')==2?'selected':'' ?>><?= /* @noEscape */ __('Merge') ?></option>
+                    </select>
+                </td>
+                <td>
+                    <select name="qs">
+                        <?php foreach ($block->getStatuses() as $statusKey => $statusValue) {?>
+                            <option value="<?= /* @noEscape */ $statusKey ?>" <?= /* @noEscape */ $block->getRequest()->getParam('qs')==$statusKey?'selected':'' ?>><?= /* @noEscape */ $statusValue ?></option>
+                        <?php }?> 
+                    </select>
+                </td>
+                <td><button class="button" title="<?= /* @noEscape */ __('Save')?>" type="submit"><span><span><span><?= /* @noEscape */ __('Submit')?></span></span></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<?php if ($subacccarts && count($subacccarts)): ?>
+    <div class="table-wrapper">
+        <table class="data" id="subaccount-list">
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= /* @noEscape */ __('Id') ?></th>
+                    <th scope="col" class="col type"><?= /* @noEscape */ __('Type') ?></th>
+                    <th scope="col" class="col itemqty"><?= /* @noEscape */ __('Items Qty') ?></th>
+                    <th scope="col" class="col subtotal"><?= /* @noEscape */ __('Subtotal') ?></th>
+                    <th scope="col" class="col view"><?= /* @noEscape */ __('Items') ?></th>
+                    <th scope="col" class="col status"><?= /* @noEscape */ __('Status') ?></th>
+                    <th scope="col" style="" class="col edit-action"><?= /* @noEscape */ __('Action') ?></th> 
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($subacccarts as $subacccarts):
+                    $quote = $block->getQuote($subacccarts->getQuoteId());
+                    $action = 'na';
+                    if ($subacccarts->getStatus()==0) {
+                        $status = __('Pending');
+                        $action = 'delete';
+                    } elseif ($subacccarts->getStatus()==2) {
+                        $status = __('Ordered');
+                    } else {
+                        $status = __('N/A');
+                        if ($subacccarts->getType()==1) {
+                            $status = __('Approved');
+                            $action = 'order';
+                        } elseif ($subacccarts->getType()==2) {
+                            $status = __('Merged');
+                        }
+                    }
+                    ?>
+                    <tr>
+                        <td class="col id"><?= /* @noEscape */ $subacccarts->getId() ?></td>
+                        <td class="col type"><?= /* @noEscape */ $subacccarts->getType()==1?__('Approval'):__('Merge') ?></td>
+                        <td class="col itemqty"><?= /* @noEscape */ $quote->getItemsCount() ?></td>
+                        <td class="col subtotal"><?= /* @noEscape */ $block->getFormattedPrice($quote->getSubtotal()) ?></td>
+                        <td class="col view">
+                            <a href="<?= /* @noEscape */ $block->getUrl('wkcs/quote/index', ['id'=>$subacccarts->getQuoteId(), 'isAjax'=>1]) ?>"><?= /* @noEscape */ __('View') ?></a>
+                        </td>
+                        <td class="col status"><?= /* @noEscape */ $status ?></td>
+                        <td class="col action">
+                            <?php if ($action == 'order') { ?>
+                                <a href="<?= /* @noEscape */ $block->getUrl('wkcs/myCarts/place', ['id'=>$subacccarts->getQuoteId()]) ?>"><?= /* @noEscape */ __('Order') ?></a>
+                            <?php } elseif ($action == 'delete') { ?>
+                                <a href="<?= /* @noEscape */ $block->getUrl('wkcs/myCarts/delete', ['id'=>$subacccarts->getQuoteId()]) ?>"><?= /* @noEscape */ __('Delete') ?></a>
+                            <?php } else { ?>
+                                <?= /* @noEscape */ __('N/A') ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="toolbar bottom"> <?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span> <?= /* @noEscape */ __('No Cart available to Merge.'); ?></span></div>
+<?php endif ?>
+
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "mycartlist": ""
+    }
+}
+</script>

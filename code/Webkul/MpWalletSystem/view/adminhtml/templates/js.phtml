@@ -1,0 +1,37 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpWalletSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+?>
+<?php
+$userHasWallet = $block->getUserHasWallet();
+$invoiceId = $block->getRequest()->getParam('invoice_id');
+
+$formData = [
+    'userHasWallet' => $userHasWallet,
+    'invoiceId'     => $invoiceId
+];
+$serializedFormData = $block->getHelper()->jsonEncode($formData);
+?>
+<script>
+    require([
+        "jquery",
+        "mage/mage",
+        'domReady!'
+    ], function($){
+        $('body').trigger('contentUpdated');
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkWalletsystem": <?=/*@noEscape*/$serializedFormData ?>
+        }
+    }
+</script>

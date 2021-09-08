@@ -1,0 +1,77 @@
+{
+    "wk_mp_pricelist_list": {
+        "column": {
+            "id": true,
+            "seller_id": true,
+            "title": true,
+            "priority": true,
+            "status": true,
+            "start_date": true,
+            "end_date": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_mp_pricelist_rule": {
+        "column": {
+            "id": true,
+            "seller_id": true,
+            "title": true,
+            "priority": true,
+            "status": true,
+            "calculation_type": true,
+            "price_type": true,
+            "apply_on": true,
+            "rule_type": true,
+            "is_combination": true,
+            "amount": true,
+            "store_currency_amount": true,
+            "base_currency_code": true,
+            "store_currency_code": true,
+            "currency_rates": true,
+            "total": true,
+            "store_currency_total": true,
+            "qty": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_mp_pricelist_assigned_rule": {
+        "column": {
+            "id": true,
+            "pricelist_id": true,
+            "rule_id": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_mp_pricelist_rule_items": {
+        "column": {
+            "id": true,
+            "entity_type": true,
+            "parent_id": true,
+            "entity_value": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_mp_pricelist_user_details": {
+        "column": {
+            "id": true,
+            "pricelist_id": true,
+            "type": true,
+            "user_id": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

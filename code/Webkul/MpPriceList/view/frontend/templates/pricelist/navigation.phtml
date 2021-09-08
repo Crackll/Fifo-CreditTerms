@@ -1,0 +1,79 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$viewModel = $block->getViewModel();
+$_helper = $viewModel->getMpHelper();
+$helper = $viewModel->getPriceListHelper();
+$isPartner = $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+
+?>
+<?php
+if ($isPartner && $helper->isModuleEnabled()) {
+    if (($isSellerGroup && $_helper->isAllowedAction('mppricelist/sellerpricelist/managepricelist')) ||
+        ($isSellerGroup && $_helper->isAllowedAction('mppricelist/sellerpricelist/managepricelist')) ||
+        !$isSellerGroup) {?>
+        <li class="mppricelist nav item
+            <?= $block->escapeHtml(strpos($magentoCurrentUrl, 'mppricelist')? "current":"");?>">
+        <?php
+        if (strpos($magentoCurrentUrl, 'mppricelist') !== false) { ?>
+            <strong><?= $block->escapeHtml(__(' Marketplace PriceList')) ?></strong>
+            <?php
+        } else { ?>
+            <a href="#">
+                <?= $block->escapeHtml(__('Manage PriceList')) ?>
+            </a>
+            <?php
+        } ?>
+
+            <ul class="nav items">
+                <?php if (($isSellerGroup && $_helper->isAllowedAction('mppricelist/sellerpricelist/managepricelist'))
+                || !$isSellerGroup) { ?>
+                <li class="nav item<?= $block->escapeHtml(strpos(
+                    $magentoCurrentUrl,
+                    'mppricelist/sellerpricelist/managepricelist'
+                ) !== false ? "current":"");?>">
+                    <?php
+                    if (strpos($magentoCurrentUrl, 'mppricelist/sellerpricelist/managepricelist') !== false) { ?>
+                    <strong><?= $block->escapeHtml(__('Manage PriceList')) ?></strong>
+                        <?php
+                    } else { ?>
+                    <a href="<?= $block->escapeHtml($block->getUrl('mppricelist/sellerpricelist/managepricelist')); ?>">
+                        <?= $block->escapeHtml(__('Manage PriceList')) ?>
+                    </a>
+                        <?php
+                    } ?>
+                </li>
+                <?php } ?>
+                <?php if (($isSellerGroup && $_helper->isAllowedAction('mppricelist/pricerules/manageruleslist'))
+                || !$isSellerGroup) { ?>
+                <li class="nav item <?= $block->escapeHtml(strpos(
+                    $magentoCurrentUrl,
+                    'mppricelist/pricerules/manageruleslist'
+                ) !== false ? "current":"");?>">
+                    <?php
+                    if (strpos($magentoCurrentUrl, 'mppricelist/pricerules/manageruleslist') !== false) { ?>
+                    <strong><?= $block->escapeHtml(__('Manage PriceRules')) ?></strong>
+                        <?php
+                    } else { ?>
+                    <a href="<?= $block->escapeHtml($block->getUrl('mppricelist/pricerules/manageruleslist')); ?>">
+                        <?= $block->escapeHtml(__('Manage PriceRules')) ?>
+                    </a>
+                        <?php
+                    } ?>
+                </li>
+                <?php } ?>
+            </ul>
+        </li>
+<?php }
+}?>

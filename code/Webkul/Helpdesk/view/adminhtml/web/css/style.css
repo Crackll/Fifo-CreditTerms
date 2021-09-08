@@ -1,0 +1,284 @@
+.rule-action-container table {
+    width: 100%;
+}
+.rule-action-container tr {
+    border-bottom: 1px solid #cddddd;
+}
+.rule-action-container td {
+    width: 40%;
+    padding:5px;
+}
+.rule-action-container td.last {
+    width: 15%;
+}
+.rule-action-container .option-box {
+    background: none repeat scroll 0 0 #e7efef;
+    border: 1px solid #cddddd;
+    margin: 1.5em 0;
+    padding: 1em;
+}
+.rule-action-container input, select, textarea {
+    margin: 2px;
+}
+.rule-action td.first {
+    width: 20%;
+}
+.rule-action input, select, textarea {
+    width: 100%;
+}
+.timerange .label, .timerange .content {
+    display: inline-block;
+    padding: 5px;
+    float: inherit;
+}
+.timerange .label {
+    width: 15%;
+}
+
+.timerange .content {
+    width: 80%;
+}
+.timerange .content * {
+    padding: 3px;
+}
+.fullweek_toggle ,.fullweek_toggle .radio , .working-days .timerange{
+    width: 100%;
+}
+.working-days {
+    width: 94%;
+    margin-left: 5%;
+    float: left;
+    border-left: 1px solid #d6d6d6;
+}
+.business_days {
+    display: block;
+    width: 110px;
+    text-align: left;
+}
+.business_days.active {
+    font-weight: bold;
+}
+#businesshours_hours_form table .label {
+    width: 15%;
+}
+#businesshours_hours_form table .value {
+    width: 84%;
+}
+#businesshours_hours_form select {
+    width: 80px!important;
+}
+.timerange .content * {
+    padding: 3px;
+}
+.holidaylist-head select, .holidaylist-head input {
+    padding: 5px;
+}
+.add-holiday-button-set button {
+    margin-top: 0;
+    padding: 7px;
+}
+.holidaylist-row .delete-icon {
+    width: 5%;
+    float: left;
+    font-weight: 900;
+    font-size: 15px;
+    cursor: pointer;
+}
+.holiday-list-container {
+    border: 1px solid #ddd;
+    float: left;
+    width: 99%;
+    list-style: none;
+}
+.holiday-list-container li {
+    float: left;
+    margin-left: 3px !important;
+    padding: 20px;
+    width: 97%;
+}
+.holiday-list-container li select{
+    width:80px!important;
+}
+.holidaylist-row {
+    background-color: #fff;
+}
+.holidaylist-row .delete-icon:before {
+    content : "×";
+}
+.holidaylist-row .holiday-date {
+    width: 10%;
+    float: left;
+}
+.holidaylist-row .holiday-name {
+    width: 84%;
+    float: left;
+}
+#HolidayValidation ,#InvalidHoliday {
+    position: absolute;
+    left: 0;
+    top: 24px;
+}
+.holiday-name-block {
+    position: relative;
+}
+.text_red {
+    color:#ff0000;
+}
+.response-action-container .grid tr {
+    border-bottom: 1px solid rgba(102, 102, 102, 0.52);
+}
+.response-action-container .grid td {
+    padding: 10px;
+}
+.response-action-container .grid td.last {
+    width: 32px;
+}
+.response-action-container .option-box {
+    background: none repeat scroll 0 0 #e7efef;
+    border: 1px solid #cddddd;
+    margin: 1.5em 0;
+    padding: 1em;
+}
+.mail_row {
+    margin-bottom: 5px;
+}
+.response-action-details td:nth-child(2) select ,.response-action-details td:nth-child(2) textarea{
+    width: 60% !important;
+}
+.response-action-details td:nth-child(1) select {
+    width: 100%;
+}
+.response-action-details td:nth-child(2) input {
+    width: 60%px !important;
+}
+.response-action-details tr td:first-child {
+    width: 160px;
+}
+.form-list label {
+    color: #666666 !important;
+    font-weight: bold;
+    position: relative;
+    z-index: 0;
+}
+.sla-targets td {
+    padding: 6px;
+}
+.sla-targets .input-time, .time-type {
+    width: 48%!important;
+}
+/** Dashboard CSS Start **/
+.arrow_box {
+    display: none;
+}
+.arrow_box {
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #cccccc;
+    font-size: 12px;
+    left: 63px;
+    position: absolute;
+    top: -19px;
+    height: auto;
+    width: auto;
+    z-index: 10;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    color: #7c7c7c;
+    -moz-box-shadow: 3px 3px 3px #ccc;
+    -webkit-box-shadow: 3px 3px 3px #ccc;
+    -o-box-shadow: 3px 3px 3px #ccc;
+    box-shadow: 3px 3px 3px #ccc;
+}
+.arrow_box span {
+    float: left;
+    line-height: normal;
+    padding: 5px;
+    text-align: left;
+    width: 100%;
+}
+.arrow_box .detail_head {
+    border-bottom: 1px solid #ccc;
+    height: 25px;
+    background-color: #F7F7F7;
+}
+.arrow_box:after, .arrow_box:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.arrow_box:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #FFFFFF;
+    border-width: 13px;
+    margin-top: -13px;
+}
+.arrow_box:before {
+    border-color: rgba(204, 204, 204, 0);
+    border-right-color: #cccccc;
+    border-width: 14px;
+    margin-top: -14px;
+}
+.arrow_box a {
+    text-decoration: none;
+}
+.activity-conatiner tbody tr:hover {
+    background: none repeat scroll 0 0 #fcf5dd;
+}
+.dashboard-container .count-box {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    background: #f9f9f8;
+}
+.a-center span{
+    font-weight: 600;
+}
+.a-center a{
+    text-decoration: none;
+}
+.a-center a:hover{
+    text-decoration: none;
+}
+.activity-conatiner {
+    margin-top: 20px;
+}
+.activity-container {
+    margin-top: 20px;
+}
+.activity-conatiner ul {
+    list-style: none;
+}
+.head-dashboard {
+    font-size: 18px;
+}
+.activity-list {
+    border: 1px solid #cccccc;
+    padding: 10px;
+}
+.activity-list:hover {
+    background-color: #f9f9f8;
+}
+.wk_ts_pannel_heading {
+    background: linear-gradient(to left, #ffffff, #b4e8fc) repeat scroll 0 0 #b4e8fc;
+    border: 1px solid #b4e8fc;
+    border-radius: 24px;
+    color: #595959;
+    font-size: 23px;
+    font-weight: 700;
+    height: 50px;
+    line-height: 48px;
+    text-align: center;
+    width: 50px;
+    float: left;
+    cursor: pointer;
+    position: relative;
+}
+.wk_activity_label_box {
+    margin-left: 65px;
+}
+/** Dashboard CSS Stop **/

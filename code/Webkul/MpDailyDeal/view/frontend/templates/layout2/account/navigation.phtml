@@ -1,0 +1,72 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $block->geMpHelper();
+$dataHelper = $block->getDealHelper();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+if ($dataHelper->isDealEnable()) {
+    ?>
+<style type="text/css">
+    @media only screen and (max-width: 767px){
+
+        .block-collapsible-nav.wk-mp-main{
+            top: 20px;
+        }
+    }
+</style>
+    <?php
+    if ($helper->isSeller()
+    && ((($isSellerGroup && $helper->isAllowedAction('mpdailydeal/account/index')) ||
+     !$isSellerGroup) || (($isSellerGroup && $helper->isAllowedAction('mpdailydeal/account/deallist')) ||
+      !$isSellerGroup))) { ?>
+<li class="level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpdailydeal/account/index')? "current active":"";?>">
+    <a href="#" onclick="return false;" class="">
+        <span><?= /* @noEscape */ __('Daily Deal')?></span>
+    </a>
+    <div class="wk-mp-submenu">
+        <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Daily Deal')?></strong>
+        <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+        <ul>
+            <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu  parent  level-1">
+                <strong class="wk-mp-submenu-group-title">
+                    <span><?= /* @noEscape */ __('Menu')?></span>
+                </strong>
+<div class="wk-mp-submenu">
+    <ul>
+        <?php if (($isSellerGroup &&
+        $helper->isAllowedAction('mpdailydeal/account/index')) || !$isSellerGroup) { ?>
+            <li class="level-2">
+                <a href="<?= /* @noEscape */
+                $block->getUrl('mpdailydeal/account/index', ['_secure' => $block->getRequest()->isSecure()]); ?>">
+                    <span><?= /* @noEscape */ __('Add Deal On Product') ?></span>
+                </a>
+            </li>
+        <?php } ?>
+            <?php if (($isSellerGroup &&
+            $helper->isAllowedAction('mpdailydeal/account/deallist')) || !$isSellerGroup) { ?>
+    <li class="level-2">
+    <a href="<?= /* @noEscape */
+        $block->getUrl('mpdailydeal/account/deallist', ['_secure' => $block->getRequest()->isSecure()]); ?>">
+            <span><?= /* @noEscape */ __('Deal Product List') ?></span>
+        </a>
+    </li>
+        <?php } ?>
+    </ul>
+</div>
+            </li>
+        </ul>
+    </div>
+</li>
+    <?php } }?>
+
+
+
+

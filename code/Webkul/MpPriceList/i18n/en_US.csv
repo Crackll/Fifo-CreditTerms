@@ -1,0 +1,138 @@
+Back,Back
+"Create New Price List","Create New Price List"
+Id,Id
+Email,Email
+"Customer Name","Customer Name"
+"Delete Pricelist","Delete Pricelist"
+Title,Title
+"Calculation Type","Calculation Type"
+"Price Type","Price Type"
+Amount,Amount
+Priority,Priority
+Status,Status
+"Create New Rule","Create New Rule"
+"Delete Rule","Delete Rule"
+ID,ID
+Name,Name
+SKU,SKU
+Price,Price
+"Increase Price","Increase Price"
+"Decrease Price","Decrease Price"
+"Fixed Price","Fixed Price"
+"Percent Price","Percent Price"
+Product,Product
+Category,Category
+"Product Quantity","Product Quantity"
+"Total Product Price","Total Product Price"
+Active,Active
+Inactive,Inactive
+"Pricelist does not exists","Pricelist does not exists"
+"Pricelist deleted succesfully","Pricelist deleted succesfully"
+"Something went wrong","Something went wrong"
+"Item does not exists.","Item does not exists."
+"Price List","Price List"
+"New Price List","New Price List"
+"View Price List","View Price List"
+"Pricelist(s) activated succesfully","Pricelist(s) activated succesfully"
+"Pricelist(s) deactivated succesfully","Pricelist(s) deactivated succesfully"
+"Pricelist(s) deleted succesfully","Pricelist(s) deleted succesfully"
+"Start date should be less than End date","Start date should be less than End date"
+"Pricelist saved successfully","Pricelist saved successfully"
+"Rule does not exists","Rule does not exists"
+"Rule deleted succesfully","Rule deleted succesfully"
+Rules,Rules
+"New Rule","New Rule"
+"View Price List Rules","View Price List Rules"
+"Rule(s) activated succesfully","Rule(s) activated succesfully"
+"Rule(s) deactivated succesfully","Rule(s) deactivated succesfully"
+"Rule(s) deleted succesfully","Rule(s) deleted succesfully"
+"Rule saved successfully","Rule saved successfully"
+"This price rule no longer exists.","This price rule no longer exists."
+"Edit Price Rule","Edit Price Rule"
+"Manage Price Rules","Manage Price Rules"
+"Pricelist is disabled by admin, Please contact to admin!","Pricelist is disabled by admin, Please contact to admin!"
+"Rule(s) activated successfully","Rule(s) activated successfully"
+"Rule(s) deactivated successfully","Rule(s) deactivated successfully"
+"Rule(s) deleted successfully","Rule(s) deleted successfully"
+"Add Price List","Add Price List"
+"Add Price Rules","Add Price Rules"
+"This pricelist no longer exists.","This pricelist no longer exists."
+"Edit Price List","Edit Price List"
+"Manage Price List","Manage Price List"
+"Pricelist(s) activated successfully","Pricelist(s) activated successfully"
+"Pricelist(s) deactivated successfully","Pricelist(s) deactivated successfully"
+"Pricelist(s) deleted successfully","Pricelist(s) deleted successfully"
+Edit,Edit
+Deactive,Deactive
+View,View
+edit,edit
+"View Customer","View Customer"
+Admin,Admin
+"Marketplace PriceList","Marketplace PriceList"
+Menu,Menu
+"Price List Name","Price List Name"
+" Start Date"," Start Date"
+"Start Date","Start Date"
+" End Date"," End Date"
+label,label
+Submit,Submit
+"Add New Rule","Add New Rule"
+Continue,Continue
+"Price Rule Name","Price Rule Name"
+"Price Calculation Type","Price Calculation Type"
+"Applicable On","Applicable On"
+Categories,Categories
+Quantity,Quantity
+Total,Total
+"Value considered as equal to or greater than to the product price","Value considered as equal to or greater than to the product price"
+"Add Rule","Add Rule"
+" Marketplace PriceList"," Marketplace PriceList"
+"Manage PriceList","Manage PriceList"
+"Manage PriceRules","Manage PriceRules"
+Save,Save
+Webkul,Webkul
+"Marketplace PriceList Settings","Marketplace PriceList Settings"
+"Enable  PriceList","Enable  PriceList"
+"Price List Information","Price List Information"
+"Save Price List","Save Price List"
+"End Date","End Date"
+Customers,Customers
+"Create Price List","Create Price List"
+Delete,Delete
+"Do you want to delete selected Pricelists?","Do you want to delete selected Pricelists?"
+Seller,Seller
+"Created At","Created At"
+"Create Rule","Create Rule"
+"Do you want to delete selected rules?","Do you want to delete selected rules?"
+"Rule Name","Rule Name"
+"Price Rule Information","Price Rule Information"
+"Save Price Rule","Save Price Rule"
+Products,Products
+"Add Rules","Add Rules"
+"Assign Rules on Products","Assign Rules on Products"
+"Marketplace Edit Price Rules","Marketplace Edit Price Rules"
+"Marketplace Manage Price Rules","Marketplace Manage Price Rules"
+"Add Pricelist","Add Pricelist"
+"Assign Rules","Assign Rules"
+"Marketplace Add Price List","Marketplace Add Price List"
+"Marketplace Add Price Rules","Marketplace Add Price Rules"
+"Edit Pricelist","Edit Pricelist"
+"Edit Rules","Edit Rules"
+"Marketplace Edit Price List","Marketplace Edit Price List"
+"Marketplace Price List","Marketplace Price List"
+"Do you want to delete selected Pricerules?","Do you want to delete selected Pricerules?"
+" Amount"," Amount"
+Thumbnail,Thumbnail
+"Attribute Set","Attribute Set"
+AttributeSetText,AttributeSetText
+StatusText,StatusText
+Type,Type
+"Actions","Actions"
+"categories is a required field","categories is a required field"
+"Total quantity is a required field","Total quantity is a required field"
+"Total product price is a required field","Total product price is a required field"
+"Please fill the required Fields","Please fill the required Fields"
+"Rule Id","Rule Id"
+"Purchased On","Purchased On"
+Activate,Activate
+Deactivate,Deactivate

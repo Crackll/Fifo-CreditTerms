@@ -1,0 +1,36 @@
+<fieldset class="fieldset">
+    <div class="fields">
+        <table class="admin__dynamic-rows admin__control-table data-grid">
+                <thead>
+                    <tr>
+                        <th class="data-grid-th"><label data-bind="i18n: 'Source'"></label></th>
+                        <th class="data-grid-th"><label data-bind="i18n: 'Source Status'"></label></th>
+                        <th class="data-grid-th _required"><label class="label" data-bind="i18n: 'Qty'"></label></th>
+                        <th class="data-grid-th"><label data-bind="i18n: 'Unassign'"></label></th>
+                    </tr>
+                </thead>
+                <tbody class="assinged-sources-container">
+                    <!-- ko foreach: $data.sources -->
+                        <tr>
+                            <td>
+                                <span data-bind="text: $data.name"></span>
+                                <input type="hidden" data-bind="attr: {value: $data.source_code, name: $parent.getFieldName($parent.attributeCode(), $parent.attributeValue(), $data.key, 'source_code')}">
+                            </td>
+                            <td data-bind="text: $data.enabled"></td>
+                            
+                            <td><input class="admin__control-text required-entry validate-number" maxlength="255"       data-bind="value: $data.quantity,
+                                valueUpdate: 'afterkeydown',
+                                attr: {name: $parent.getFieldName($parent.attributeCode(), $parent.attributeValue(), $data.key, 'quantity_per_source')}">
+                            </td>
+                            
+                            <td>
+                                <button  data-bind="click: function (d, e) {$parent.removeItem.apply($parent, [d, e]);}" class="action-delete" type="button"></button>
+                                    <span data-bind="i18n: 'Remove'"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    <!--/ko-->
+                </tbody>
+        </table>
+    </div>
+</fieldset>

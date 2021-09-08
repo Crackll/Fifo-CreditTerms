@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- update currency rates in rules table-->
+     <type name="Magento\CurrencySymbol\Controller\Adminhtml\System\Currency\SaveRates">
+        <plugin name="Webkul_MpPriceList::wk_pricelist_update_currency" type="Webkul\MpPriceList\Plugin\CurrencySymbol\Controller\Adminhtml\System\Currency\SaveRates" sortOrder="1" />
+    </type>
+</config>

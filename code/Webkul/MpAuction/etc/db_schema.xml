@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_MpAuction Frontend events
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_mpauction_product" resource="default" engine="innodb" comment="Auction Product">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Magento Product Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" comment="Customer Id"/>
+        <column xsi:type="int" name="order_id" nullable="true" comment="Order Id"/>
+        <column xsi:type="int" name="is_processing" padding="2" default="0" nullable="true" comment="is_processing for winner data"/>
+        <column xsi:type="decimal" name="min_amount" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Min Amount"/>
+        <column xsi:type="decimal" name="starting_price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Starting Price"/>
+        <column xsi:type="decimal" name="reserve_price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Reserve Price"/>
+        <column xsi:type="int" name="auction_status" unsigned="true" nullable="false" comment="Auction Status"/>
+        <column xsi:type="int" name="days" unsigned="true" nullable="false" comment="Days"/>
+        <column xsi:type="int" name="min_qty" unsigned="true" nullable="false" comment="Min Qty"/>
+        <column xsi:type="int" name="max_qty" unsigned="true" nullable="false" comment="Max Qty"/>
+        <column xsi:type="text" name="start_auction_time" nullable="true" comment="Start Auction Time"/>
+        <column xsi:type="text" name="stop_auction_time" nullable="true" comment="Stop Auction Time"/>
+        <column xsi:type="int" name="increment_opt" unsigned="true" nullable="false" comment="Increment Options"/>
+        <column xsi:type="text" name="increment_price" comment="Increment Price"/>
+        <column xsi:type="int" name="auto_auction_opt" unsigned="true" nullable="false" comment="Auto Auction Option"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" comment="Status"/>
+        <column xsi:type="int" name="expired" unsigned="true" nullable="false" comment="Expired"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wk_mpauction_amount" resource="default" engine="innodb" comment="Auction Amount">
+        <column xsi:type="int" name="entity_id" nullable="false" unsigned="true" identity="true" padding="10" comment="Entity Id"/>
+        <column xsi:type="int" name="auction_id" nullable="false" unsigned="true" comment="Auction Id"/>
+        <column xsi:type="int" name="product_id" nullable="false" unsigned="true" comment="Product Id"/>
+        <column xsi:type="int" name="customer_id" nullable="false" unsigned="true" comment="Customer Id"/>
+         <column xsi:type="int" name="is_auto_bid" default="0" nullable="true" padding="2" comment="is_auto_bid"/>
+        <column xsi:type="decimal" name="auction_amount" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Auction Amount"/>
+        <column xsi:type="int" name="winning_status" nullable="false" unsigned="true" comment="Winning Status"/>
+        <column xsi:type="int" name="shop" nullable="false" unsigned="true" comment="Shop"/>
+        <column xsi:type="int" name="status" nullable="false" unsigned="true" comment="Status"/>
+        <column xsi:type="text" name="created_at" nullable="true" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="WK_MPAUCTION_AMOUNT_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID"
+         table="wk_mpauction_amount" column="auction_id" referenceTable="wk_mpauction_product"
+          referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_MPAUCTION_AMOUNT_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID" indexType="btree">
+            <column name="auction_id"/>
+        </index>
+    </table>
+    <table name="wk_mpauction_incremental_price" resource="default" engine="innodb" comment="Auction incremental price">
+        <column xsi:type="int" name="entity_id" nullable="false" unsigned="true" identity="true" padding="10" comment="Entity Id"/>
+        <column xsi:type="text" name="user_id" comment="User Id"/>
+        <column xsi:type="text" name="incval" comment="Incval"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wk_mpauto_auction" resource="default" engine="innodb" comment="Auto Auction">
+        <column xsi:type="int" name="entity_id" nullable="false" unsigned="true" identity="true" padding="10" comment="Entity Id"/>
+        <column xsi:type="int" name="auction_id" nullable="false" unsigned="true" comment="Auction Id"/>
+        <column xsi:type="int" name="product_id" nullable="false" unsigned="true" comment="Product Id"/>
+        <column xsi:type="int" name="customer_id" nullable="false" unsigned="true" comment="Customer Id"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Amount"/>
+        <column xsi:type="decimal" name="winning_price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Winning Price"/>
+        <column xsi:type="text" name="status" comment="Status"/>
+        <column xsi:type="int" name="shop" nullable="false" unsigned="true" comment="Shop"/>
+        <column xsi:type="int" name="flag" nullable="false" unsigned="true" comment="Flag"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Order Sync Time"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="WK_MPAUTO_AUCTION_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID"
+         table="wk_mpauto_auction" column="auction_id" referenceTable="wk_mpauction_product"
+          referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_MPAUTO_AUCTION_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID" indexType="btree">
+            <column name="auction_id"/>
+        </index>
+    </table>
+    <table name="wk_mpauction_winner_data" resource="default" engine="innodb" comment="Auto Auction">
+        <column xsi:type="int" name="entity_id" nullable="false" unsigned="true" identity="true" padding="10" comment="Entity Id"/>
+        <column xsi:type="int" name="auction_id" padding="10" nullable="false" unsigned="true" comment="Auction Id"/>
+        <column xsi:type="int" name="product_id" nullable="false" unsigned="true" comment="Product Id"/>
+        <column xsi:type="int" name="customer_id" nullable="false" unsigned="true" comment="Customer Id"/>
+        <column xsi:type="decimal" name="win_amount" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Winning Amount"/>
+        <column xsi:type="int" name="days" unsigned="true" nullable="false" comment="Days"/>
+        <column xsi:type="int" name="min_qty" unsigned="true" nullable="false" comment="Min Qty"/>
+        <column xsi:type="int" name="max_qty" unsigned="true" nullable="false" comment="Max Qty"/>
+        <column xsi:type="text" name="start_auction_time" nullable="true" comment="Start Auction Time"/>
+        <column xsi:type="text" name="stop_auction_time" nullable="true" comment="Stop Auction Time"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" comment="Status"/>
+        <column xsi:type="int" name="complete" unsigned="true" nullable="false" comment="Complete"/>
+       <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Order Sync Time"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+         <constraint xsi:type="foreign" referenceId="WK_MPAUTO_WINNER_DATA_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID"
+         table="wk_mpauto_auction" column="auction_id" referenceTable="wk_mpauction_product"
+          referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_MPAUTO_WINNER_DATA_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID" indexType="btree">
+            <column name="auction_id"/>
+        </index>
+    </table>
+</schema>

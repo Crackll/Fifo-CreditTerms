@@ -1,0 +1,69 @@
+<div data-bind="visible: pathFormVisibility()">
+    <br>
+    <hr class="dashed-line">
+    <br>
+    <h2 data-bind="text: getHeading()"></h2>
+
+    <form id="pathForm" method="POST" data-bind="submit: submitPath">
+        <div class="field">
+            <div class="control">
+                <input type="text" name="directoryPath" id="directoryPath" value=".">
+                <input type="hidden" name="serverType" id="serverType">
+                <input type="submit" class="hide">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- ko ifnot: contentsLength() == 0 -->
+<table class="permission-table" border="true">
+    <thead>
+        <tr>
+            <th data-bind="i18n: 'Files/Directories'"></th>
+            <th colspan="2" data-bind="i18n: 'Permission'"></th>
+            <th data-bind="i18n: 'Status'"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- ko foreach: contents() -->
+            <!-- ko if: type =='directory' -->
+                <tr data-bind="css: {'directory-row': true}, attr: {id: 'row_'+$index()}">
+                    <td data-bind="text: basename, click: $parent.getContents.bind($data), css: {'directory-text': true}"></td>
+                    <td data-bind="text: permission"></td>
+                    <td data-bind="text: mode"></td>
+                    <!-- ko if: response['status'] == true -->
+                        <td>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                    <!-- /ko -->
+                    <!-- ko ifnot: response['status'] == true -->
+                        <td>
+                            <i class="fa fa-exclamation-triangle" data-bind="attr: {'title': response['message']}" aria-hidden="true"></i>
+                        </td>
+                    <!-- /ko -->
+                </tr>
+            <!-- /ko -->
+
+            <!-- ko if: type =='file' -->
+                <tr>
+                    <td data-bind="text: basename"></td>
+                    <td data-bind="text: permission"></td>
+                    <td data-bind="text: mode"></td>
+                    <!-- ko if: response['status'] == true -->
+                        <td>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
+                    <!-- /ko -->
+                    <!-- ko ifnot: response['status'] == true -->
+                        <td>
+                            <i class="fa fa-exclamation-triangle" data-bind="attr: {'title': response['message']}" aria-hidden="true"></i>
+                        </td>
+                    <!-- /ko -->
+                </tr>
+            <!-- /ko -->
+
+        <!-- /ko -->
+    </tbody>
+</table>
+<!-- /ko -->

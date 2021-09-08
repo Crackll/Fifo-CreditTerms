@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software
+*
+* @category Webkul
+* @package Webkul_ElasticSearch
+* @author Webkul
+* @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <elasticsearch>
+            <settings>
+                <index_prefix>magento</index_prefix>
+            </settings>
+        	<search_settings>
+                <type>multi_match</type>
+                <search_fields>name,sku,description</search_fields>
+                <multi_match_type>best_fields</multi_match_type>
+                <operator>or</operator>
+                <minimum_match>75</minimum_match>
+                <filters>lowercase</filters>
+                <use_stop_filter>0</use_stop_filter>
+                <stemmer>english</stemmer>
+                <use_char_filter>1</use_char_filter>
+                <char_filters>html_strip</char_filters>
+            </search_settings>
+            <autocomplete_settings>
+                <size>10</size>
+            </autocomplete_settings>
+    	</elasticsearch>
+    </default>
+</config>

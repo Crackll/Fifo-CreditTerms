@@ -1,0 +1,47 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+
+ // @codingStandardsIgnoreFile
+
+?>
+
+<?php $_logs = $block->getLoginLogs() ?>
+<?php if ($_logs): ?>
+<table class="login-log-table" align="center" style="border-collapse: collapse; border: 1px solid; width: 100%;">
+    <thead>
+        <tr>
+            <th style="border-collapse: collapse; border: 1px solid #ccc;">
+                <span style="margin: 10px"><?= /* @escapeNotVerified */  __('User') ?></span>
+            </th>
+            <th style="border-collapse: collapse; border: 1px solid #ccc;">
+                <span style="margin: 10px"><?= /* @escapeNotVerified */  __('From IP') ?></span>
+            </th>
+            <th style="border-collapse: collapse; border: 1px solid #ccc;">
+                <span style="margin: 10px"><?= /* @escapeNotVerified */  __('Login Time') ?></span>
+            </th>
+        </tr>
+    </thead>
+    <?php foreach ($_logs as $log): ?>
+        <tr>
+            <td style="border-collapse: collapse; border: 1px solid #ccc;">
+                <span style="margin: 10px"><?= $block->escapeHtml($log->getUsername()); ?></span>
+            </td>
+            <td style="border-collapse: collapse; border: 1px solid #ccc;">
+                <span style="margin: 10px"><?= $block->escapeHtml($log->getIp()); ?></span>
+            </td>
+            <td style="border-collapse: collapse; border: 1px solid #ccc;">
+                <span style="margin: 10px"><?= $block->escapeHtml($log->getTime()); ?></span>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php endif; ?>

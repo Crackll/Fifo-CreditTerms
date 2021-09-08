@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_Helpdesk::manager" title="Helpdesk Manager" module="Webkul_Helpdesk" sortOrder="10" resource="Webkul_Helpdesk::manager" translate="title"/>
+
+        <add id="Webkul_Helpdesk::dashboards" title="Dashboard" module="Webkul_Helpdesk" sortOrder="10" parent="Webkul_Helpdesk::manager" action="helpdesk/dashboard" resource="Webkul_Helpdesk::dashboards" translate="title"/>
+
+        <add id="Webkul_Helpdesk::ticketsmanagement" title="Tickets Management" module="Webkul_Helpdesk" sortOrder="11" parent="Webkul_Helpdesk::manager" resource="Webkul_Helpdesk::ticketsmanagement" translate="title"/>
+
+        <add id="Webkul_Helpdesk::tickets" title="Manage Tickets" module="Webkul_Helpdesk" sortOrder="111" parent="Webkul_Helpdesk::ticketsmanagement" action="helpdesk/ticketsmanagement_tickets/index" resource="Webkul_Helpdesk::tickets" translate="title"/>
+        <add id="Webkul_Helpdesk::type" title="Manage Ticket Type" module="Webkul_Helpdesk" sortOrder="112" parent="Webkul_Helpdesk::ticketsmanagement" action="helpdesk/ticketsmanagement_type/index" resource="Webkul_Helpdesk::type" translate="title"/>
+        <add id="Webkul_Helpdesk::status" title="Manage Ticket Status" module="Webkul_Helpdesk" sortOrder="113" parent="Webkul_Helpdesk::ticketsmanagement" action="helpdesk/ticketsmanagement_status/index" resource="Webkul_Helpdesk::status" translate="title"/>
+        <add id="Webkul_Helpdesk::priority" title="Manage Ticket Priority" module="Webkul_Helpdesk" sortOrder="114" parent="Webkul_Helpdesk::ticketsmanagement" action="helpdesk/ticketsmanagement_priority/index" resource="Webkul_Helpdesk::priority" translate="title"/>
+        <add id="Webkul_Helpdesk::customattribute" title="Manage Ticket Custom Attributes" module="Webkul_Helpdesk" sortOrder="115" parent="Webkul_Helpdesk::ticketsmanagement" action="helpdesk/ticketsmanagement_attribute/index" resource="Webkul_Helpdesk::customattribute" translate="title"/>
+
+        <add id="Webkul_Helpdesk::agentsmanagement" title="Agent Management" module="Webkul_Helpdesk" sortOrder="12" parent="Webkul_Helpdesk::manager" resource="Webkul_Helpdesk::agentsmanagement" translate="title"/>
+
+        <add id="Webkul_Helpdesk::agent" title="Manage Agents" module="Webkul_Helpdesk" sortOrder="121" parent="Webkul_Helpdesk::agentsmanagement" action="helpdesk/agentsmanagement_agent/index" resource="Webkul_Helpdesk::agent" translate="title"/>
+        <add id="Webkul_Helpdesk::level" title="Manage Agent Level" module="Webkul_Helpdesk" sortOrder="123" parent="Webkul_Helpdesk::agentsmanagement" action="helpdesk/agentsmanagement_level/index" resource="Webkul_Helpdesk::level" translate="title"/>
+        <add id="Webkul_Helpdesk::group" title="Manage Groups" module="Webkul_Helpdesk" sortOrder="124" parent="Webkul_Helpdesk::agentsmanagement" action="helpdesk/agentsmanagement_group/index" resource="Webkul_Helpdesk::group" translate="title"/>
+
+        <add id="Webkul_Helpdesk::customermanagement" title="Customer Management" module="Webkul_Helpdesk" sortOrder="13" parent="Webkul_Helpdesk::manager" resource="Webkul_Helpdesk::customermanagement" translate="title"/>
+
+        <add id="Webkul_Helpdesk::customers" title="Manage Customer" module="Webkul_Helpdesk" sortOrder="131" parent="Webkul_Helpdesk::customermanagement" action="helpdesk/customer_customer/index" resource="Webkul_Helpdesk::customers" translate="title"/>
+        
+        <add id="Webkul_Helpdesk::customerorganization" title="Manage Organization" module="Webkul_Helpdesk" sortOrder="132" parent="Webkul_Helpdesk::customermanagement" action="helpdesk/customer_organization/index" resource="Webkul_Helpdesk::customerorganization" translate="title"/>
+
+        <add id="Webkul_Helpdesk::supportcontent" title="Connect Email(s)" module="Webkul_Helpdesk" sortOrder="11" parent="Webkul_Helpdesk::manager" resource="Webkul_Helpdesk::supportcontent" translate="title"/>
+
+        <add id="Webkul_Helpdesk::sla" title="Manage SLA Policies" module="Webkul_Helpdesk" sortOrder="171" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/slapolicy/index" resource="Webkul_Helpdesk::sla" translate="title"/>
+
+        <add id="Webkul_Helpdesk::businesshours" title="Manage Business Hours" module="Webkul_Helpdesk" sortOrder="14" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/businesshours/index" resource="Webkul_Helpdesk::businesshours" translate="title"/>
+
+        <add id="Webkul_Helpdesk::events" title="Manage Events and Triggers" module="Webkul_Helpdesk" sortOrder="15" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/events/index" resource="Webkul_Helpdesk::events" translate="title"/>
+
+        <add id="Webkul_Helpdesk::responses" title="Responses" module="Webkul_Helpdesk" sortOrder="16" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/responses/index" resource="Webkul_Helpdesk::responses" translate="title"/>
+
+        <add id="Webkul_Helpdesk::tag" title="Tag" module="Webkul_Helpdesk" sortOrder="170" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/tag/index" resource="Webkul_Helpdesk::tag" translate="title"/>
+
+        
+
+        <add id="Webkul_Helpdesk::supportcenter" title="Manage Support Center" module="Webkul_Helpdesk" sortOrder="172" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/supportcenter/index" resource="Webkul_Helpdesk::supportcenter" translate="title"/>
+
+        <add id="Webkul_Helpdesk::emailtemplate" title="Manage Email Template" module="Webkul_Helpdesk" sortOrder="19" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/emailtemplate/index" resource="Webkul_Helpdesk::emailtemplate" translate="title"/>
+
+        <add id="Webkul_Helpdesk::connectemail" title="Connect Email(s)" module="Webkul_Helpdesk" sortOrder="20" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/connectemail/index" resource="Webkul_Helpdesk::connectemail" translate="title"/>
+
+        <add id="Webkul_Helpdesk::activity" title="Activity" module="Webkul_Helpdesk" sortOrder="21" parent="Webkul_Helpdesk::supportcontent" action="helpdesk/activity" resource="Webkul_Helpdesk::activity" translate="title"/>
+
+        <add id="Webkul_Helpdesk::reporting" title="Reporting" module="Webkul_Helpdesk" sortOrder="22" parent="Webkul_Helpdesk::manager" resource="Webkul_Helpdesk::reporting" translate="title"/>
+
+        <add id="Webkul_Helpdesk::reportcustomer" title="Customer Report Summary" module="Webkul_Helpdesk" sortOrder="221" parent="Webkul_Helpdesk::reporting" action="helpdesk/reporting_customer" resource="Webkul_Helpdesk::reportcustomer" translate="title"/>
+        <add id="Webkul_Helpdesk::reportagent" title="Agent Report Summary" module="Webkul_Helpdesk" sortOrder="222" parent="Webkul_Helpdesk::reporting" action="helpdesk/reporting_agent" resource="Webkul_Helpdesk::reportagent" translate="title"/>
+    </menu>
+</config>

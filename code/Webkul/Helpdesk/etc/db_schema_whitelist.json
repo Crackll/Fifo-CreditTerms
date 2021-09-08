@@ -1,0 +1,382 @@
+{
+    "helpdesk_tickets": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "fullname": true,
+            "email": true,
+            "extension": true,
+            "help_topic": true,
+            "subject": true,
+            "query": true,
+            "status": true,
+            "type": true,
+            "to_agent": true,
+            "to_group": true,
+            "priority": true,
+            "answered": true,
+            "source": true,
+            "from": true,
+            "to": true,
+            "who_is": true,
+            "cc": true,
+            "bcc": true,
+            "created_at": true,
+            "is_merged": true,
+            "merge_primary_id": true,
+            "merge_tickets": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_tickets_type": {
+        "column": {
+            "entity_id": true,
+            "type_name": true,
+            "description": true,
+            "created_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_tickets_status": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "description": true,
+            "created_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_tickets_priority": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "description": true,
+            "created_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_tickets_customattributes": {
+        "column": {
+            "entity_id": true,
+            "attribute_id": true,
+            "field_dependency": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_thread": {
+        "column": {
+            "entity_id": true,
+            "ticket_id": true,
+            "sender": true,
+            "who_is": true,
+            "reply": true,
+            "source": true,
+            "attachment": true,
+            "thread_type": true,
+            "to": true,
+            "cc": true,
+            "bcc": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_notes": {
+        "column": {
+            "entity_id": true,
+            "agent_id": true,
+            "ticket_id": true,
+            "description": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_tag": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "ticket_ids": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_lock": {
+        "column": {
+            "entity_id": true,
+            "agent_id": true,
+            "ticket_id": true,
+            "lock_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_draft": {
+        "column": {
+            "entity_id": true,
+            "ticket_id": true,
+            "user_id": true,
+            "content": true,
+            "field": true,
+            "user_type": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_sla": {
+        "column": {
+            "entity_id": true,
+            "ticket_id": true,
+            "respond_time": true,
+            "resolve_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_customer": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "name": true,
+            "email": true,
+            "organizations": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_customer_organization": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "description": true,
+            "domain": true,
+            "notes": true,
+            "customers": true,
+            "customer_role": true,
+            "groups": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_agents": {
+        "column": {
+            "ticket_agent_id": true,
+            "user_id": true,
+            "ticket_scope": true,
+            "timezone": true,
+            "level": true,
+            "signature": true,
+            "group_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_agent_level": {
+        "column": {
+            "id": true,
+            "name": true,
+            "description": true,
+            "created_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_attachments": {
+        "column": {
+            "id": true,
+            "ticket_id": true,
+            "thread_id": true,
+            "filename": true,
+            "attachment_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_businesshours": {
+        "column": {
+            "businesshour_id": true,
+            "businesshour_name": true,
+            "description": true,
+            "timezone": true,
+            "hours_type": true,
+            "helpdesk_hours": true,
+            "hollyday_list": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_responses": {
+        "column": {
+            "id": true,
+            "name": true,
+            "description": true,
+            "agent_id": true,
+            "can_use": true,
+            "groups": true,
+            "actions": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_event": {
+        "column": {
+            "id": true,
+            "name": true,
+            "description": true,
+            "event": true,
+            "one_condition_check": true,
+            "all_condition_check": true,
+            "actions": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_group": {
+        "column": {
+            "group_id": true,
+            "group_name": true,
+            "agent_ids": true,
+            "businesshour_id": true,
+            "created_at": true,
+            "is_active": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_sla_policies": {
+        "column": {
+            "sla_id": true,
+            "sla_name": true,
+            "sla_description": true,
+            "sla_service_level_targets": true,
+            "one_condition_check": true,
+            "all_condition_check": true,
+            "sort_order": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_attribute_values": {
+        "column": {
+            "id": true,
+            "attribute_id": true,
+            "ticket_id": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_activity": {
+        "column": {
+            "id": true,
+            "user_id": true,
+            "performer": true,
+            "field": true,
+            "type": true,
+            "level": true,
+            "label": true,
+            "user_type": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_support_center": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "description": true,
+            "cms_id": true,
+            "created_at": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_email_template": {
+        "column": {
+            "id": true,
+            "template_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_connect_email": {
+        "column": {
+            "id": true,
+            "name": true,
+            "description": true,
+            "email": true,
+            "username": true,
+            "password": true,
+            "host_name": true,
+            "port": true,
+            "mailbox": true,
+            "protocol": true,
+            "fetch_time": true,
+            "fetch_email_limit": true,
+            "helpdesk_action": true,
+            "mailbox_folder": true,
+            "default_group": true,
+            "default_type": true,
+            "default_priority": true,
+            "status": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "helpdesk_ticket_mail_details": {
+        "column": {
+            "id": true,
+            "sender": true,
+            "thread_id": true,
+            "message_id": true,
+            "references": true,
+            "u_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,23 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x.
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x EE.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Compatible with Magento 2.3.x.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    + Allow to create multiple product labels for products. 
+	+ Allow seller to create their own labels for their products. 
+    + Seller can manage their product labels.
+    + Manage dynamic width/height for labels, separately for category and product view page.
+    + Admin can allow seller to set their own label dimensions.
+    + Admin can approve/disapprove seller's label.
+    + Seller can manage their product labels.
+    + Allow admin to create custom email templates for product label email templates.

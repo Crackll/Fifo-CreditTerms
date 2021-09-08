@@ -1,0 +1,55 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+.mainHeading {
+    margin-top: -15px;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.right-line {
+    border-right: 1px solid black;
+}
+
+.subHeading {
+    display: inline-block;
+    font-size: 16px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.alreadyRegisteredText {
+    display: table-cell;
+    vertical-align: middle;
+    height: 168px;
+    text-align: center;
+}
+
+.padding-left-right {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#trusted_device {
+    height: 16px;
+    width: 16px;
+}
+
+.hide {
+    display: none;
+}

@@ -1,0 +1,117 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpMSI
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php if (!$block->isSingleStoreMode()) { ?>
+    <?php
+        $sources = $block->getSources();
+        $stocks = $block->getSourcesBySku();
+        $productType = $block->getProductType();
+    ?>
+    <script>
+        window.sources = <?= $block->escapeJsQuote($sources) ?>;
+        window.stocks = <?= $block->escapeJsQuote($stocks) ?>
+    </script>
+    <?php if ($productType != 'bundle' && $productType != 'grouped' && $productType != 'configurable') { ?>
+        <div id="msi-container" data-bind="scope:'msi'" data-role="content" aria-labelledby="msi-start">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <script type="text/x-magento-init">
+                {
+                    "#msi-container": {
+                        "Magento_Ui/js/core/app": {
+                            "components" : {
+                                "msi": {
+                                    "component":"Webkul_MpMSI/js/assign-source",
+                                    "currentSourceStocks": <?= $block->escapeJsQuote($stocks) ?>
+                                }
+                            }
+                        }
+                    }
+                }
+            </script>
+        </div>
+        <fieldset class="fieldset msi-fieldset">
+            <div class="fields">
+                <table class="admin__dynamic-rows admin__control-table">
+                        <thead>
+                            <tr>
+                                <td><label><?=$block->escapeHtml(__("Source Code"));?></label></td>
+                                <td><label><?=$block->escapeHtml(__(" Name"));?></label></td>
+                                <td><label><?=$block->escapeHtml(__("Source Status"));?></label></td>
+                                <td><label><?=$block->escapeHtml(__("Source Item Status"));?></label></td>
+                                <td class="field _required"><label class="label">
+                                    <?=$block->escapeHtml(__(" Qty"));?>
+                                </label></td>
+                                <td><label><?=$block->escapeHtml(__("Unassign"));?></label></td>
+                            </tr>
+                        </thead>
+                        <tbody class="assinged-sources-container">
+                            
+                        </tbody>
+                </table>
+            </div>
+        </fieldset>
+    <?php } ?>
+    <script id="assigned-sources-list-template" type="text/x-magento-template">
+       
+        <% _.each(data.sources, function(item) { %> 
+            <tr>
+                <td><%= item.source_code %> <input type="hidden" value="<%= item.source_code %>" 
+                name="sources[assigned_sources][<%- item.index %>][source_code]"> </td>
+                <td><%- item.name %></td>
+                <td><%- item.enabled %></td>
+                <td>
+                    <select class="admin__control-select" name="sources[assigned_sources][<%- item.index %>][status]">
+                        <option data-title="<?= $block->escapeHtml(__(" Out of Stock")); ?>" 
+                            value="0" <%= item.status == 0?"selected='true'":'' %> >
+                            <?= $block->escapeHtml(__(" Out of Stock")); ?>
+                        </option>
+                        <option data-title="<?= $block->escapeHtml(__(" In Stock"));?>"
+                            value="1" <%= item.status == 1?"selected='true'":'' %>>
+                            <?= $block->escapeHtml(__(" In Stock"));?>
+                        </option>
+                    </select>
+                </td>
+                
+                    <td>
+                        <input class="admin__control-text required-entry validate-number" 
+                        value="<%= item.quantity?item.quantity:"" %>" type="text" 
+                        name="sources[assigned_sources][<%- item.index %>][quantity]" maxlength="255">
+                    </td>
+                
+                <td>
+                    <button data-source-code=<%= item.source_code %> type="button" class="action-delete">
+                        <span><?=$block->escapeHtml(__('Remove')) ?></span>
+                    </button>
+                </td>
+            </tr>
+        <% }); %>
+    </script>
+<?php } ?>
+<?php if (isset($productType) && $productType == 'configurable') { ?>
+    <div id="msi-container" data-bind="scope:'msi'" data-role="content" aria-labelledby="msi-start">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "#msi-container": {
+                    "Magento_Ui/js/core/app": {
+                        "components" : {
+                            "msi": {
+                                "component":"Webkul_MpMSI/js/assign-source",
+                                "currentSourceStocks": <?= $block->escapeJsQuote($stocks) ?>,
+                                "productType": "<?= /* @noEscape */ $productType ?>"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
+<?php }?>

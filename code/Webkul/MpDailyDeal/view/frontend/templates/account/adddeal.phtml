@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * Webkul_MpDailyDeal Add Deal.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$dealProduct = $block->getDealProduct();
+$currentCurrency =  $block->getCurrencySymbol();
+if ($dealProduct) { ?>
+    <form action="<?= /* @noEscape */ $block->getDealSaveAction() ?>" method="POST" 
+     id="form-customer-attr-new" data-mage-init='{"validation":{}}'>
+    <div class="wk-mp-design">
+        <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+        <?= /* @noEscape */ $block->getBlockHtml('seller.formkey') ?>
+        <fieldset class="info wk-mp-fieldset fieldset" id="associate-product">
+            <legend class="legend">
+                <span><?= /* @noEscape */ __('Add Deal On Product') ?></span>
+                <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save') ?>"
+                 type="submit" id="save-btn">
+                    <span><span><?= /* @noEscape */ __('Save Deal') ?></span></span>
+                </button>
+            </legend>            
+            <?= /* @noEscape */ $block->getBlockHtml('formkey');
+                $required = $dealProduct->getDealStatus()? 'required':'';
+                $requiredEntry = $dealProduct->getDealStatus()? 'required-entry':'';
+            ?>
+            <input type="hidden" name="time_zone" id="seller_time_zone">
+            <div class="fieldset form-list" id="cust">
+                <div class="field">
+                    <label class="label"><?= /* @noEscape */ __('Deal Status') ?> : </label>
+                    <div class="control">
+                        <select id="deal_status" class="select" title="<?= /* @noEscape */
+                         __('Deal Status') ?>" name="deal_status">
+                            <option value="0" <?= /* @noEscape */
+                            $dealProduct->getDealStatus()? '' : 'selected="selected"' ?> >
+                                <?= /* @noEscape */ __("Disable"); ?>
+                            </option>
+                            <option value="1" <?= /* @noEscape */
+                            $dealProduct->getDealStatus()? 'selected="selected"' : '' ?> >
+                                <?= /* @noEscape */ __("Enable"); ?>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label"><?= /* @noEscape */ __('Discount Type') ?> : </label>
+                    <div class="control">
+                        <select id="deal_discount_type" class="select val_required" 
+                        title="Discount Type" name="deal_discount_type">
+                            <?php if ($dealProduct->getTypeId()!='bundle') { ?>
+                                <option value="fixed" <?= /* @noEscape */
+                                $dealProduct->getDealDiscountType()=='fixed'? 'selected="selected"' : '' ?> >
+                                <?= /* @noEscape */ __("Fixed"); ?></option>
+                            <?php } ?>
+                            <option value="percent" <?= /* @noEscape */
+                            $dealProduct->getDealDiscountType()=='percent'? 'selected="selected"' : '' ?> >
+                            <?= /* @noEscape */ __("Percent"); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Deal Value') ?> : </label>
+                    <div class="control">
+                        <input type="text" value="<?= /* @noEscape */ $dealProduct->getDealValue()?>" 
+                        class="<?= /* @noEscape */ $requiredEntry ?> validate-zero-or-greater input-text" 
+                        name="deal_value" id="deal_value" />
+                    </div>
+                    <p><?= /* @noEscape */
+                     __('This field uses to fill deal price in current store currency if 
+                     deal type is Fixed or in Percent then it take deal price in %.')?></p>
+                </div>
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Date From ') ?> : </label>
+                    <div class="control">
+                        <input type="text"  value="<?= /* @noEscape */
+                        $block->getDateTimeAsLocale($dealProduct->getDealFromDate())?>" 
+                        class="<?= /* @noEscape */ $requiredEntry ?> widthinput input-text validate-required" 
+                        date="true" name="deal_from_date" id="deal_from_date" />
+                    </div>
+                </div>
+                <div class="field <?= /* @noEscape */ $required ?>">
+                    <label class="label"><?= /* @noEscape */ __('Date To ') ?> : </label>
+                    <div class="control">
+                        <input type="text" value="<?= /* @noEscape */
+                         $block->getDateTimeAsLocale($dealProduct->getDealToDate())?>" 
+                         class="<?= /* @noEscape */ $requiredEntry ?> widthinput input-text validate-required" 
+                         date="true" name="deal_to_date" id="deal_to_date" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();"
+         class="left">&laquo; <?= /* @noEscape */ __('Back') ?></a>
+    </p>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {"addDealOnProduct": {
+                "startOffset" : "<?= /* @noEscape */ $block->getUtcOffset($dealProduct->getDealFromDate()); ?>",
+                "stopOffset" : "<?= /* @noEscape */ $block->getUtcOffset($dealProduct->getDealToDate()); ?>"
+            }
+        }
+    }
+</script>
+<?php } else { ?>
+<h3><?= /* @noEscape */ __('Product not exist')?></h3>
+<?php } ?>
+

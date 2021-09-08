@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © magebig.com - All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Language switcher template
+ */
+?>
+<?php
+$langList = count($block->getStores());
+$mbHelper = $this->helper('MageBig\MbFrame\Helper\Data');
+
+?>
+<?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
+<?php if ($langList > 1) : ?>
+<div class="col-auto top-links">
+    <div class="language-topbar switcher language switcher-language" data-ui-id="language-switcher" id="switcher-language<?= /* @escapeNotVerified */ $id?>">
+<?php foreach ($block->getStores() as $_lang): ?>
+  <?php if ($_lang->getId() != $block->getCurrentStoreId()): ?>
+<a href="#" data-post='<?= /* @escapeNotVerified */ $block->getTargetStorePostData($_lang); ?>'>
+        <div class="lang-curr view-<?= $block->escapeHtml($_lang->getCode()); ?>">
+            <span class="title">
+                <span class="lang-flag <?= $block->escapeHtml($_lang->getCode()); ?>">
+<img class="media-lazy lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?= $mbHelper->getBaseMediaUrl() . 'wysiwyg/magebig/languages/' . $_lang->getCode() . '.png' ?>" alt="<?= $block->escapeHtml($_lang->getCode()); ?>" width="18" height="12" />
+            </span>
+            <span class="lang-name"><?= $block->escapeHtml($_lang->getName()) ?></span>
+          </span>
+</a>
+        </div>
+      <?php endif; ?>
+  <?php endforeach; ?>
+      <!--  <div class="lang-list">
+            <ul class="dropdown switcher-dropdown">
+
+
+                        <li class="view- switcher-option">
+
+                            <span class="lang-flag
+
+                            </span>
+
+
+                        </li>
+
+            </ul>
+        </div> -->
+    </div>
+</div>
+<?php endif; ?>

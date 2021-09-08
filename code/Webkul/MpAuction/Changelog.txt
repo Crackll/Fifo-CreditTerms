@@ -1,0 +1,50 @@
+Legend
+
++ Features
+- Bugs
+
+
+-------------------------------- Version 5.0.0 --------------------------------------
+   + Compatible with magento 2.4 and Marketplace 5.0.x
+-------------------------------- Version 3.0.2 --------------------------------------
+    - Bugs Fixed.
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    - Bugs Fixed.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	- Bugs Fixed.
+    + compatible with magento 2.3.x and marketplace 3.0.x version 
+    
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with magento 2.3.
+	- Bugs Fixed.
+
+-------------------------------- Version 2.0.5 --------------------------------------
+	+ Updated composer.json as per magento 2.2.x version.
+	+ Updated according to magento 2.2.x and marketplace 2.3.x version
+
+-------------------------------- Version 2.0.4 --------------------------------------
+    + Auction Detail Design changed
+
+-------------------------------- Version 2.0.3 --------------------------------------
+    + Compatible with Magento 2.1.*
+
+-------------------------------- Version 2.0.2 --------------------------------------
+    + Update code as MEQP2 standards
+    
+-------------------------------- Version 2.0.1 --------------------------------------
+    + This module allows the auction feature for marketplace seller’s product.
+    + Incremental Auction Available.
+    + Automatic and Reserve Auction Available.
+    + Enable or disable Email notification option to Admin, seller, outbid buyer.
+    + Enable Email Notification for Autobid to outbid autobid buyer.
+    + Enable Email Notification for Auto bid to owner from backend.
+    + Automatically notify when user bid will be outbid.
+    + Date time picker for date and time selection.
+    + Edit and delete feature for product auction.
+    + Fully admin management.
+    + Reauction on same product after one auction is completed.
+    + Seller can add Auction option.
+    + Seller can manage Auction.
+    + Multi Lingual support / All language working including RTL.

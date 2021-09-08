@@ -1,0 +1,21 @@
+{
+    "name": "webkul/module-regionupload",
+    "description": "Magento 2 Region Upload",
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": "103.0.*",
+        "magento/module-directory": "100.4.*"
+    },
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\RegionUpload\\": ""
+        }
+    }
+}

@@ -1,0 +1,124 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ImageGallery
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $myBlock = $objectManager->get(\Webkul\MpVendorAttributeManager\Block\Adminhtml\Group\Edit\Tab\Attributes::class);
+?>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'underscore',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function(jQuery, confirm, _) {
+            <?php if (is_object($myBlock) && $myBlock->getJsObjectName()): ?>
+              var checkBoxes = $H(<?= /**@noEscape */ $myBlock->getSelectedAttrJson(); ?>);
+              var warning = false;
+              if (checkBoxes.size() > 0) {
+                  warning = true;
+              }
+              jQuery('#attr_ids').val(checkBoxes.toQueryString());
+              
+              function registerGalleryImages(grid, element, checked)
+              {
+                  if (checked) {
+                      checkBoxes.set(element.value, 0);
+                  } else {
+                      checkBoxes.unset(element.value);
+                  }
+                  $('attr_ids').value = checkBoxes.toQueryString();
+                  grid.reloadParams = {'attr_ids[]':checkBoxes.keys()};
+              }
+
+              function galleryImagesRowClick(grid, event)
+              {
+                  var trElement = Event.findElement(event, 'tr');
+                  var isInput   = Event.element(event).tagName == 'INPUT';
+                  if (trElement) {
+                      var checkbox = Element.getElementsBySelector(trElement, 'input');
+                      if(checkbox[0]){
+                          var checked = isInput ? !checkbox[0].checked : checkbox[0].checked;
+                          if (checked) {
+                              checkbox[0].checked = false;
+                              checkBoxes.unset(checkbox[0].value);
+                              varienElementMethods.setHasChanges(checkbox[0]);
+                              $('attr_ids').value = checkBoxes.toQueryString();
+                              grid.reloadParams = {
+                                  'attr_ids[]': checkBoxes.keys()
+                              };
+                          } else {
+                              checkbox[0].checked = true;
+                              checkBoxes.set(checkbox[0].value, true);
+                              $('attr_ids').value = checkBoxes.toQueryString();
+                              grid.reloadParams = {
+                                  'attr_ids[]': checkBoxes.keys()
+                              };
+                          }
+                      }
+                  }
+              }
+
+              function galleryImagesRowInit(grid, row)
+              {
+                  var checkbox = $(row).getElementsByClassName('checkbox')[0];
+                  if (checkbox) {
+                      if (checkbox.checked) {
+                          checkBoxes.set(checkbox.value, checkbox.checked);
+                      } else {
+                          checkBoxes.unset(checkbox.value);
+                      }
+
+                      $('attr_ids').value = checkBoxes.toQueryString();
+                      grid.reloadParams = {'attr_ids[]':checkBoxes.keys()};
+                  }
+              }
+
+              function massSelectImages(allCheckbox) {
+                  if (!allCheckbox.checked && _.size(checkBoxes._object) > 0) {
+                      allCheckbox.checked = true;
+                      allCheckbox.checked = false;
+                      markCheckboxes(false);
+                  } else {
+                      markCheckboxes(allCheckbox.checked)
+                  }
+              }
+              function markCheckboxes(value) {
+                  <?= /**@noEscape */ $myBlock->getJsObjectName() ?>.rows.each(function(row)
+                  {
+                      $(row).getElementsByClassName('checkbox')[0].checked = value;
+                      galleryImagesRowInit(<?= /**@noEscape */ $myBlock->getJsObjectName() ?>, row);
+                  });
+              }
+              function onLoad() {
+                  if (typeof <?= /**@noEscape */ $myBlock->getJsObjectName() ?> !== 'undefined') {
+                      <?= /**@noEscape */ $myBlock->getJsObjectName() ?>.
+                      rowClickCallback = galleryImagesRowClick;
+                      <?= /**@noEscape */ $myBlock->getJsObjectName() ?>.
+                      initRowCallback = galleryImagesRowInit;
+                      <?= /**@noEscape */ $myBlock->getJsObjectName() ?>.
+                      checkboxCheckCallback = registerGalleryImages;
+                      <?= /**@noEscape */ $myBlock->getJsObjectName() ?>.
+                      checkCheckboxes = massSelectImages;
+                      <?= /**@noEscape */ $myBlock->getJsObjectName() ?>.
+                      rows.each(function (row) {
+                          galleryImagesRowInit(<?= /**@noEscape */ $myBlock->getJsObjectName() ?>, row)
+                      });
+                      $('attr_ids_old').value = $('attr_ids').value;
+                  } else {
+                      setTimeout(onLoad, 300);
+                  }
+              }
+              onLoad();
+            <?php endif; ?>
+});
+</script>

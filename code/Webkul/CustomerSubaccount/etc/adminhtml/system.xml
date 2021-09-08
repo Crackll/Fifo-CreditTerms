@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_CustomerSubaccount
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label">
+            <label>Webkul</label>
+        </tab>
+        <section id="customersubaccount" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Customer Sub-account</label>
+            <tab>webkul</tab>
+            <resource>Webkul_CustomerSubaccount::config_customersubaccount</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" >
+                <label>General Settings</label>
+                <field id="manager_email" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="1" >
+                    <label>Admin E-mail</label>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="manageable_permissions" translate="label comment" sortOrder="2" type="multiselect" showInDefault="1" showInWebsite="1" >
+                    <label>Manageable Permissions</label>
+                    <source_model>Webkul\CustomerSubaccount\Model\Config\Source\Permissions</source_model>
+                    <validate>required-entry</validate>
+                    <comment>Permissions that can a customer use for their sub-accounts.</comment>
+                </field>
+                <field id="approval_required" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Sub-account Apporval Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Sub-accounts needs to be approved by admin?</comment>
+                </field>
+                <!-- <field id="show_in_recent_orders" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Show other Orders in Recent Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show all my orders, sub account's orders and main account orders in Recent Orders section?</comment>
+                </field> -->
+                <field id="send_order_notification" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Send Order Notifications to Main Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Send Sub-account's Order Notifications to Main Account?</comment>
+                </field>
+                <field id="allow_forbidden_access" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Allow Forbidden Access Management</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The forbidden action access can only be managed by main account. It will inherit from parent account if any subaccount user create a subaccount.</comment>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Options</label>
+                <field id="order_notification_to_mainaccount" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Order Placed Notification to Main Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="mainaccount_order_notification" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Main Account's Order Placed Notification to Sub Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="subaccount_order_notification" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Sub Account's Order Placed Notification to Sub Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="subaccount_activated_notification_to_subaccount" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Sub Account Activated Notification from Admin to Sub Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="subaccount_activated_notification_to_mainaccount" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Sub Account Activated Notification from Admin to Main Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="cart_approved_notification" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Cart Approved Notification to Sub Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="subaccount_created_notification_to_admin" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Sub Account Created Notification to Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="subaccount_created_notification_to_mainaccount" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Sub Account Created Notification to Main Account</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>In case of sub-account created by another sub-account user.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

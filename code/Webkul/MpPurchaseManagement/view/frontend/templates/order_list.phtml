@@ -1,0 +1,62 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php $orderCollection = $block->getOrderCollection(); ?>
+<div class="orders-list table-wrapper">
+    <table id="order-item-table" class="data table">
+        <thead><tr>
+            <th><?= /* @noEscape */ __('Increment Id') ?></th>
+            <th><?= /* @noEscape */ __('Purchase Date') ?></th>
+            <th><?= /* @noEscape */ __('Source') ?></th>
+            <th><?= /* @noEscape */ __('Wholesaler') ?></th>
+            <th><?= /* @noEscape */ __('Grand Total') ?></th>
+            <th><?= /* @noEscape */ __('Status') ?></th>
+            <th><?= /* @noEscape */ __('Action') ?></th>
+        </tr></thead>
+        <tbody>
+            <?php
+            if (count($orderCollection) > 0) {
+                foreach ($orderCollection as $order) { ?>
+                    <tr>
+                        <td data-th="<?= /* @noEscape */ __("Increment Id")?>">
+                            <?= /* @noEscape */ $order->getIncrementId() ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __("Purchase Date")?>">
+                            <?= /* @noEscape */ $block->getDateTime($order->getCreatedAt()) ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __("Source")?>">
+                            <?= /* @noEscape */ $order->getSource() ?></td>
+                        <td data-th="<?= /* @noEscape */ __("Wholesaler")?>">
+                            <?= /* @noEscape */ $block->getWholesalerTitle($order->getWholesalerId()) ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __("Grand Total")?>">
+                            <?= /* @noEscape */ $block->getTotal($order->getEntityId()) ?></td>
+                        <td data-th="<?= /* @noEscape */ __("Status")?>" 
+                            class="wk-status-label wk-status-<?= /* @noEscape */ $order->getStatus() ?>">
+                            <?= /* @noEscape */ $block->getOrderStatusLabel($order->getStatus()) ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __("Action")?>">
+                            <a href="<?= /* @noEscape */ $block->getViewUrl($order->getEntityId()) ?>">
+                                <span><?= /* @noEscape */ __('View') ?></span>
+                            </a>
+                        </td>
+            <?php   }
+            } else { ?>
+                <tr>
+                    <td colspan="7">No Purchase Orders</td>
+                <tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <?php if ($block->getPagerHtml()) { ?>
+        <div class="order-table-toolbar toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+    <?php } ?>
+</div>

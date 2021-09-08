@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">region_view.region_view_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/add/index"/>
+                <class>primary</class>
+                <label translate="true">Add Region</label>
+            </button>
+        </buttons>
+        <spinner>wk_region_columns</spinner>
+        <deps>
+            <dep>region_view.region_view_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="region_view_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">region_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Webkul_RegionUpload::region_view</aclResource>
+        <dataProvider class="\Webkul\RegionUpload\Ui\DataProvider\RegionList" name="region_view_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>region_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters" />
+        <massaction name="listing_massaction"
+                    component="Magento_Ui/js/grid/tree-massactions" >
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="regionupload/view/delete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>region_view.region_view.wk_region_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="wk_region_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="regionupload/view/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">region_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">region_view.region_view.wk_region_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">region_view.region_view.wk_region_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>region_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="region_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Id</label>
+            </settings>
+        </column>
+        <column name="country_id" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Country Id</label>
+            </settings>
+        </column>
+        <column name="code" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Code</label>
+            </settings>
+        </column>
+        <column name="default_name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Webkul\RegionUpload\Ui\Component\Listing\Column\BlockActions">
+            <settings>
+                <indexField>region_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

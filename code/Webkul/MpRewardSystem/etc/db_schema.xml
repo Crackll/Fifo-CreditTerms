@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Webkul, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <!-- Table first -->
+  <table name="wk_mp_reward_cart" resource="default" engine="innodb" comment="Webkul Marketplace RewardSystem Reward Cart Detail Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="false" nullable="false" default="0" comment="Seller ID"/>
+    <column xsi:type="int" name="points" padding="10" unsigned="true" nullable="false" comment="Cart Points"/>
+    <column xsi:type="decimal" name="amount_from" precision="12" scale="4" unsigned="true" nullable="false" default="0.0000" comment="Total amount From"/>
+    <column xsi:type="decimal" name="amount_to" precision="12" scale="4" unsigned="true" nullable="false" default="0.0000" comment="Total amount To"/>
+    <column xsi:type="date" name="start_date" nullable="false" comment="Start Date"/>
+    <column xsi:type="date" name="end_date" nullable="false" comment="End Date"/>
+    <column xsi:type="timestamp" name="created_at" nullable="false" comment="created Time"/>
+    <column xsi:type="smallint" name="status" unsigned="false" nullable="true" default="0" comment="reward Rule Status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+
+  <!-- Table second -->
+  <table name="wk_mp_reward_products" resource="default" engine="innodb" comment="Webkul Marketplace RewardSystem Reward Product Detail Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" comment="Product Id"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="false" nullable="false" default="0" comment="Product Id"/>
+    <column xsi:type="int" name="points" padding="10" unsigned="true" nullable="false" comment="Review Points"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" default="0" comment="Reward status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+
+  </table>
+
+  <!-- Table Third -->
+  <table name="wk_mp_reward_category" resource="default" engine="innodb" comment="Webkul Marketplace RewardSystem Reward Category Detail Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="false" comment="Category Id"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="true" nullable="false" default="0" comment="Seller ID"/>
+    <column xsi:type="int" name="points" padding="10" unsigned="true" nullable="false" comment="Review Points"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" default="0" comment="Reward status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+
+  <!-- Table Forth -->
+  <table name="wk_mp_reward_record" resource="default" engine="innodb" comment="Webkul Marketplace Rewards Record Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" comment="Customer Id"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="false" nullable="false" default="0" comment="Seller ID"/>
+    <column xsi:type="decimal" name="total_reward_point" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Total Amount"/>
+    <column xsi:type="decimal" name="remaining_reward_point" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Remaining Amount"/>
+    <column xsi:type="decimal" name="used_reward_point" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Used Amount"/>
+    <column xsi:type="timestamp" name="updated_at" comment="Update Time"/>
+    <column xsi:type="decimal" name="pending_reward" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Pending rewardPoints"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+
+  <!-- Table Fifth -->
+  <table name="wk_mp_reward_details" resource="default" engine="innodb" comment="Webkul Marketplace Reward Details Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" comment="Customer Id"/>
+    <column xsi:type="int" name="seller_id" padding="10" nullable="false" default="0" comment="Seller ID"/>
+    <column xsi:type="int" name="review_id" padding="10" unsigned="true" comment="Review Id"/>
+    <column xsi:type="decimal" name="reward_point" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Reward Point"/>
+    <column xsi:type="decimal" name="amount" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Reward Point"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" default="0" comment="Transaction status"/>
+    <column xsi:type="text" name="action" nullable="true" comment="Amount Action"/>
+    <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" default="0" comment="Order Id"/>
+    <column xsi:type="text" name="item_ids" nullable="true" comment="Item Ids"/>
+    <column xsi:type="text" name="reward_type" nullable="true" comment="Reward Type"/>
+    <column xsi:type="int" name="is_revert" padding="10" unsigned="true" nullable="false" default="0" comment="Reward Revert"/>
+    <column xsi:type="timestamp" name="transaction_at" comment="Transaction At"/>
+    <column xsi:type="text" name="currency_code" nullable="true" comment="Currency Code"/>
+    <column xsi:type="decimal" name="curr_amount" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Currency Amount"/>
+    <column xsi:type="text" name="transaction_note" nullable="false" comment="Transaction Note"/>
+    <column xsi:type="decimal" name="pending_reward" unsigned="true" nullable="false" default="0.0000" precision="12" scale="4" comment="Pending rewardPoints"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+
+  <!-- Magento table alter -->
+  <table name="quote_address" resource="default" engine="innodb">
+    <column xsi:type="decimal" name="mpreward_amount" unsigned="false" nullable="false" precision="12" scale="4" comment="mp seller reward"/>
+    <column xsi:type="decimal" name="base_mpreward_amount" unsigned="false" nullable="false" precision="12" scale="4" comment="mp seller reward"/>
+  </table>
+
+  <!-- Magento table alter -->
+  <table name="sales_order" resource="default" engine="innodb">
+    <column xsi:type="decimal" name="mpreward_amount" unsigned="false" nullable="false" precision="12" scale="4" comment="mp seller reward"/>
+    <column xsi:type="decimal" name="base_mpreward_amount" unsigned="false" nullable="false" precision="12" scale="4" comment="mp seller reward"/>
+  </table>
+
+
+  <!-- Magento table alter -->
+  <table name="quote" resource="default" engine="innodb">
+    <column xsi:type="decimal" name="mpreward_amount" unsigned="false" nullable ="false" precision="12" scale="4" comment="mp seller reward"/>
+    <column xsi:type="decimal" name="base_mpreward_amount" unsigned="false" nullable ="false" precision="12" scale="4" comment="mp seller reward"/>
+  </table>
+
+  <!-- Marketplace table alter -->
+  <table name="marketplace_saleslist" resource="default" engine="innodb">
+    <column xsi:type="decimal" name="applied_reward_amount" unsigned="false" nullable="false" default="0" precision="12" scale="4" comment="applied_reward_amount"/>
+  </table>
+
+  <!-- Marketplace table alter -->
+  <table name="marketplace_orders" resource="default" engine="innodb">
+    <column xsi:type="decimal" name="reward_amount" nullable="false" default="0" precision="12" scale="4" comment="reward_amount"/>
+    <column xsi:type="decimal" name="refunded_reward_amount" nullable="false" default="0" precision="12" scale="4" comment="refunded_reward_amount"/>
+  </table>
+
+</schema>

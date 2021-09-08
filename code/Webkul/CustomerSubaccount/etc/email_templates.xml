@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+  <template id="customersubaccount_email_order_notification_to_mainaccount" label="Order Notification to Main Account" file="order_notification_to_main_account.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_mainaccount_order_notification" label="Main Account Order Notification" file="main_account_order_notification.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_subaccount_order_notification" label="Sub Account Order Notification" file="sub_account_order_notification.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_subaccount_activated_notification_to_subaccount" label="Sub Account Activated Notification from Admin" file="sub_account_activated_notification_from_admin.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_subaccount_activated_notification_to_mainaccount" label="Sub Account Activated Notification from Admin to Main Account" file="sub_account_activated_notification_from_admin_to_main_account.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_cart_approved_notification" label="Cart Approved Notification to Sub Account" file="cart_approved_notification_to_sub_account.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_subaccount_created_notification_to_admin" label="Sub Account Created Notification to Admin" file="sub_account_created_notification_to_admin.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+  <template id="customersubaccount_email_subaccount_created_notification_to_mainaccount" label="Sub Account Created Notification to Main Account" file="sub_account_created_notification_to_main_account.html" type="html" area="frontend" module="Webkul_CustomerSubaccount"/>
+</config>

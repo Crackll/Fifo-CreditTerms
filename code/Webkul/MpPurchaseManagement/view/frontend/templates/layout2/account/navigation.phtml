@@ -1,0 +1,77 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$mpHelper = $block->getMpHelper();
+$helper = $block->getMpWholeSaleHelper();
+$isPartner = $mpHelper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<nav class="wk-mp-menu wk-mp-main">
+    <ul id="wk-mp-nav">
+        <?php if ($isPartner && $helper->getModuleStatus()) { ?>
+            <?php if ($mpHelper->isAllowed('mpwholesale/product/view') ||
+                $mpHelper->isAllowed('mpwholesale/quotation/view') ||
+                $mpHelper->isAllowed('mppurchasemanagement/order/list')) { ?>
+                <li class="nav item level-0 <?= /* @noEscape */ (strpos($magentoCurrentUrl, 'mpwholesale') ||
+                strpos($magentoCurrentUrl, 'mppurchasemanagement')) ?
+                                            "current active":"";?>">
+                    <a href="#" onclick="return false;" class="">
+                        <span><?= /* @noEscape */ __('Wholesale')?></span>
+                    </a>
+                    <div class="wk-mp-submenu">
+                        <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Wholesale')?></strong>
+                        <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                        <ul>
+                            <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu parent level-1">
+                                <strong class="wk-mp-submenu-group-title">
+                                    <span><?= /* @noEscape */ __('Menu')?></span>
+                                </strong>
+                                <div class="wk-mp-submenu">
+                                    <ul>
+                                        <?php if ($mpHelper->isAllowed('mpwholesale/product/view')) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= /* @noEscape */ $block->getProductViewUrl(); ?>">
+                                                    <span><?= /* @noEscape */ __('Wholesale Product') ?></span>
+                                                </a>
+                                            </li> 
+                                        <?php } ?>
+                                        <?php if ($mpHelper->isAllowed('mpwholesale/quotation/view')) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= /* @noEscape */ $block->getQuotationViewUrl(); ?>">
+                                                    <span><?= /* @noEscape */ __('Wholesale Quotation') ?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu parent level-1">
+                                <strong class="wk-mp-submenu-group-title">
+                                    <span><?= /* @noEscape */ __('Purchase Management')?></span>
+                                </strong>
+                                <div class="wk-mp-submenu">
+                                    <ul>
+                                        <?php if ($mpHelper->isAllowed('mppurchasemanagement/order/list')) { ?>
+                                            <li class="level-2">
+                                                <a href="<?= /* @noEscape */ $block->getOrderListUrl(); ?>">
+                                                    <span><?= /* @noEscape */ __('Purchase Orders') ?></span>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php } ?>
+        <?php } ?>
+    </ul>
+</nav>

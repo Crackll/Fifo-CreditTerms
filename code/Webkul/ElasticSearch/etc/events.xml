@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software
+*
+* @category Webkul
+* @package Webkul_ElasticSearch
+* @author Webkul
+* @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_after">
+        <observer name="elastic_update_product_index" instance="Webkul\ElasticSearch\Observer\CatalogProductSaveAfter" />
+    </event>
+
+    <event name="cms_page_save_after">
+        <observer name="elastic_update_cms_page_index" instance="Webkul\ElasticSearch\Observer\CmsPageSaveAfter" />
+    </event>
+
+    <event name="catalog_category_save_after">
+        <observer name="elastic_update_category_index" instance="Webkul\ElasticSearch\Observer\CatalogCategorySaveAfter" />
+    </event>
+
+    <event name="eav_entity_attribute_load_after">
+        <observer name="elastic_update_eav_attribute_index" instance="Webkul\ElasticSearch\Observer\EavAttributeSaveAfter" />
+    </event>
+
+    <event name="model_delete_after">
+        <observer name="elastic_entity_delete" instance="Webkul\ElasticSearch\Observer\Delete" />
+    </event>
+
+    <event name="admin_system_config_changed_section_elasticsearch">
+        <observer name="elastic_admin_system_config_changed_elasticsearch_settings" instance="Webkul\ElasticSearch\Observer\ConfigChange"/>
+    </event>
+
+    <event name="controller_action_predispatch_catalogsearch_result_index">
+        <observer name="search_result_predispatch_did_you_mean" instance="Webkul\ElasticSearch\Observer\SearchResultPreDispatch"/>
+    </event>
+</config>

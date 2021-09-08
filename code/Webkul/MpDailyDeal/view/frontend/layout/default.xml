@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_MpDailyDeal default layout.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Webkul_MpDailyDeal::js/main.js"/>
+    </head>
+    <body>
+        <referenceBlock name="top.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="mpdailydeal-top-link" ifconfig="mpdailydeals/general/enable">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Daily Deals</argument>
+                    <argument name="path" xsi:type="string">mpdailydeal</argument>
+                </arguments>
+            </block>
+        </referenceBlock>        
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="mpdailydeal-link" ifconfig="mpdailydeals/general/enable">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Daily Deals</argument>
+                    <argument name="path" xsi:type="string">mpdailydeal</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="Webkul\MpDailyDeal\Block\Account\Navigation" name="deal_manager_menu" before="-" template="Webkul_MpDailyDeal::/layout2/account/navigation.phtml" />
+        </referenceContainer>
+    </body>
+</page>

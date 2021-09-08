@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_MpWholesale
+* @author Webkul
+* @license https://store.webkul.com/license.html
+*/ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="layout2_mpwholesale_account_navigation">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="helper" helper="Webkul\MpPurchaseManagement\Helper\Data::getSellerNavigationTemplate"></argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

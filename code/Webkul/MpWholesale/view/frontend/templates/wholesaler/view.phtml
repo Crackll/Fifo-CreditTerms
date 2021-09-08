@@ -1,0 +1,365 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$paramData = $block->getRequest()->getParams();
+$wholesaleHelper = $block->getWholeSaleHelper();
+$productName = $block->getProductName($paramData['id']);
+$currencySymbol = $wholesaleHelper->getCurrentCurrencyCodesymbol();
+$currentCurrencyCode = $wholesaleHelper->getCurrentCurrencyCode();
+$wholeSalerList = $block->getWholeSalerList();
+$filter = '';
+if (isset($paramData['s'])) {
+    $filter = $paramData['s'] != '' ? $paramData['s'] : '';
+}
+?>
+<div class="wk-mp-design">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span class="title"><?= /* @noEscape */ __('Wholesaler(s)'); ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <form action="<?= $block->escapeUrl($block->getFormActionUrl($paramData['id']))?>" 
+                method="get" id="form-productlist-filter" 
+                name="formProductlistFilter" data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?= /* @noEscape */ __('Wholesaler Name'); ?></span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body" id="colender-check">
+                            <tr>
+                                <td>
+                                    <input type="text" class="input-text" name="s" 
+                                    placeholder="<?= /* @noEscape */ __("Search by Wholesaler Name"); ?>" 
+                                    value="<?= $block->escapeHtml($filter); ?>"/>
+                                </td>
+                                <td>
+                                    <button class="button" title="<?= /* @noEscape */ __("Save"); ?>" type="submit">
+                                        <span>
+                                            <span>
+                                                <span><?= /* @noEscape */ __("Submit"); ?></span>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <?php if ($wholeSalerList && $wholeSalerList->getSize()): ?>
+                    <div class="table-wrapper">
+                        <table cellspacing="0" class="border wk-mp-list-table wk-mp-list-container-table table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td">
+                                        <span class="label">
+                                            <?= /* @noEscape */ __("Wholesaler Name"); ?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label">
+                                            <?= /* @noEscape */ __("Minimum Quote Quantity"); ?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label name">
+                                            <?= /* @noEscape */ __("Maximum Quote Quantity"); ?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label">
+                                            <?= /* @noEscape */ __("Production Capacity"); ?>
+                                        </span>
+                                    </th> 
+                                    <th>
+                                        <span class="label">
+                                            <?= /* @noEscape */ __("Action"); ?>
+                                        </span>
+                                    </th>           
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($wholeSalerList as $wholeSaler) {
+                                    $i++;
+                                    $durationType = $block->getDurationType($wholeSaler->getDurationType());
+                                    $wholeSalerVar = $wholeSaler->getMaxOrderQty();
+                                    $qtyLimit = $wholeSaler->getMinOrderQty().'-'.$wholeSalerVar;
+                                    $id = $wholeSaler->getId();
+                                    $productId = $wholeSaler->getProductId();
+                                    $userId = $wholeSaler->getUserId();
+                                    ?>
+                                    <tr class="wk-row-view">
+                                        <input type="hidden" 
+                                            id="product-<?= $block->escapeHtml($productId); ?>" 
+                                            value="<?= $block->escapeHtml($productName); ?>">
+                                        <input type="hidden" 
+                                            id="wholesaler-<?= $block->escapeHtml($userId); ?>" 
+                                            value="<?= $block->escapeHtml($wholeSaler->getWholesalerName()); ?>">
+                                        <td data-th="<?= /* @noEscape */ __('Wholesaler Name'); ?>" class="wk-first-td">
+                                            <span class="label">
+                                                <?= $block->escapeHtml($wholeSaler->getWholesalerName()); ?>
+                                            </span>    
+                                        </td>
+                                        <td data-th="<?= /* @noEscape */ __('Minimum Quantity'); ?>">
+                                            <span class="label">
+                                                <?= $block->escapeHtml($wholeSaler->getMinOrderQty()); ?>
+                                            </span>    
+                                        </td>
+                                        <td data-th="<?= /* @noEscape */ __('Maximum Quantity'); ?>">                 
+                                            <span class="label">
+                                                <?= $block->escapeHtml($wholeSaler->getMaxOrderQty()); ?>
+                                            </span>    
+                                        </td>
+                                        <td data-th="<?= $block->escapeHtml(__('Production Capacity')); ?>">
+                                            <span class="label price">
+                                                <?=
+                                                /* @noEscape */ $wholeSaler->getProdCapacity()."/".$durationType;
+                                                ?>
+                                            </span>    
+                                        </td>
+                                        <td data-th="<?= /* @noEscape */ __('Action'); ?>">
+                                            <div class="btn-group">
+                                                <button type="button" class="action primary wk-quote-button" 
+                                                    data-wholesaler-product-id="<?= $block->escapeHtml($id); ?>" 
+                                                    data-product-id="<?= $block->escapeHtml($productId); ?>" 
+                                                    data-wholesaler-id="<?= $block->escapeHtml($userId); ?>" 
+                                                    data-qty-limit="<?= $block->escapeHtml($qtyLimit); ?>" 
+                                                    data-toggle="tooltip" 
+                                                    title="<?= /* @noEscape */ __("Ask for quotation"); ?>">
+                                                    <?= /* @noEscape */ __("Quotation"); ?>
+                                                </button>
+                                                <button type="button" class="action primary wk-price-list-button" 
+                                                    data-wholesaler-product-id="<?= $block->escapeHtml($id) ?>" 
+                                                    data-product-id="<?= $block->escapeHtml($productId) ?>" 
+                                                    data-wholesaler-id="<?= $block->escapeHtml($userId) ?>" title="" 
+                                                    data-toggle="tooltip" 
+                                                    title="<?= /* @noEscape */ __("Price list"); ?>">
+                                                    <?= /* @noEscape */ __("Price list"); ?>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="wk-emptymsg">
+                        <?= /* @noEscape */ __('No WholeSaler Available') ?>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>    
+    </fieldset>
+</div>
+<div class="wkpricelist">
+    <div id="wk-price-list-data" style="display:none">
+        <div class="mp-modals-wrapper">
+            <aside tabindex="0" data-type="popup" data-role="modal" 
+                class="modal-popup modal-slide _inner-scroll wk-ssp-model-popup">
+                <div tabindex="0" data-role="focusable-start"></div>
+                <div data-role="focusable-scope" class="modal-inner-wrap wk_ssp_scroll">
+                    <header class="modal-header wk-attention-model-header">
+                        <h4 class="modal-title wk-attention-model-title">
+                            <?= $block->escapeHtml(__('Price List')); ?>
+                        </h4>
+                    </header>
+                    <button type="button" data-role="closeBtn" class="action-close wk-price-list-close">
+                            <span>Close</span>
+                        </button>
+                    <div class="modal-body form-list wk-mp-wholesaler-pricelist field required">
+                        <table class="wk_ssp_header_table border wk-mp-list-table wk-mp-list-container-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-list-th-display"><?= $block->escapeHtml(__('Price')); ?></th>
+                                    <th class="wk-list-th-display"><?= $block->escapeHtml(__('Unit')); ?></th>
+                                    <th class="wk-list-th-display"><?= $block->escapeHtml(__('Quantity (<=)')); ?></th>
+                                    <th class="wk-list-th-display"><?= $block->escapeHtml(__('Text')); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <span  class="wk-clear" ></span>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<script id="pricelist-template" type="text/x-magento-template">
+        <tr class="wk-row-view ">
+            <td>
+                <span><%- data.price %></sapn>
+            </td>
+            <td>
+                <span><%- data.unit %></span>
+            </td>
+            <td>
+                <span><%- data.qty %></span>
+            </td>
+            <td>
+                <span><%- data.text %></span>
+            </td>
+        </tr>
+</script>
+<div class="ask-que popover_background">
+        <div id="wk-qs-ask-data">
+                <div tabindex="0"
+                    data-type="popup"
+                    data-role="modal"
+                    class="modal-popup modal-slide _inner-scroll wk-mp-model-popup">
+                    <div tabindex="0" data-role="focusable-start"></div>
+                    <div data-role="focusable-scope" class="modal-inner-wrap wk-qs-inner-wrap">
+                        <header class="modal-header">
+                            <h4 class="modal-title">
+                                <?= $block->escapeHtml(__('Ask quotation for ')); ?>
+                                <span class="text-primary" id="module-quotation-product-name">
+                                <?= $block->escapeHtml($productName); ?></span></h4>
+                            <button type="button"
+                                data-role="closeBtn"
+                                class="popover_close action-close wk-close"
+                            >
+                                <span>Close</span>
+                            </button>
+                            <span  class="wk-clear" ></span>
+                        </header>
+                        <form id="quotation-form" method="post" class="fieldset" data-role="quotation-form" 
+                            data-mage-init='{"validation":{}}'>
+                            <div class="modal-body form-list wk-wholesaler-quotation field required">
+                            <fieldset class="fieldset info wk-mp-fieldset">                                
+                                <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey')?>
+                                <?= $block->getBlockHtml('seller.formkey')?>
+                            <input type="hidden" name="product_id" id="wk_quotation_product_id"/>
+                            <input type="hidden" name="wholesale_product_id" id="wk_quotation_wholesale_product_id"/>
+                            <input type="hidden" name="wholesaler_id" id="wk_quotation_wholesaler_id"/>
+                            <input type="hidden" name="quote_currency_code" 
+                                value="<?= $block->escapeHtml($currentCurrencyCode); ?>"/>
+                                <div class="field required">
+                                    <label class="label"><?= $block->escapeHtml(__("Product Name")); ?></label>
+                                    <div class="control">
+                                        <input type="text"
+                                            class="productname input_fields required-entry"
+                                            id="product_name"
+                                            name="product_name" value="<?= $block->escapeHtml($productName); ?>" 
+                                            readonly />
+                                    </div>
+                                </div>
+                                <div class="field required">
+                                    <label class="label"><?= $block->escapeHtml(__("Quantity")); ?> :</label>
+                                    <div class="control">
+                                        <input type="text"
+                                            class="queryquestion input_fields required-entry 
+                                            validate-digits validate-number validate-greater-than-zero 
+                                            validate-digits-range quote_qty"
+                                            id="quote_qty"
+                                            name="quote_qty" value=""
+                                        />
+                                        <span class="wk-qs-min-qty"></span>
+                                    </div>
+                                </div>
+                                <div class="field required">
+                                    <label class="label">
+                                        <?php $currencySymbolVar = "(".$currencySymbol.")" ?>
+                                        <?=
+                                        $block->escapeHtml(__("Price per Item").$currencySymbolVar); ?> :
+                                    </label>
+                                    <input type="text"
+                                        class="queryquestion wk-contact_input_fields 
+                                        validate-number required-entry validate-greater-than-zero quote_price"
+                                        name="quote_price"
+                                    />
+                                </div>
+                                <div class="field required">
+                                    <label class="label">
+                                        <?= $block->escapeHtml(__("Message")); ?> :</label>
+                                    <div class="control">
+                                        <textarea
+                                            class="queryquestion wk-contact_input_fields 
+                                            required-entry quote_description validate-no-html-tags"
+                                            id='quote_description'
+                                            name="quote_msg"
+                                            rows="10"
+                                            data-validate="{required:true}"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            </div>
+                            <div class="modal-footer wk_footer">
+                                <span class="error"></span>
+                                <span class="errormail"></span>
+                                <input type="reset"
+                                    value="<?= $block->escapeHtml(__('Reset')); ?>"
+                                    id="resetbtn"
+                                    class="wk-btn wk-btn_default wk_reset"
+                                />
+                                <input type="submit"
+                                    value="<?= $block->escapeHtml(__('Submit')); ?>"
+                                    id="askbtn"
+                                    class="submit_button wk-btn wk-btn-primary clickask"
+                                />
+                                <span class="wk-clear"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div tabindex="0" data-role="focusable-end"></div>
+                </div>
+        </div>
+    </div>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();" class="left">
+            &laquo; <?= $block->escapeHtml(__('Back')); ?>
+        </a>
+    </p>
+</div>
+<?php
+$formData = [
+    'wkPriceListButton'     =>     '.wk-price-list-button',
+    'wkQuoteButton'         =>     '.wk-quote-button',
+    'pricelistTemplate'     =>  '#pricelist-template',
+    'priceListTable'        =>  '.wk_ssp_header_table',
+    'mpAttentionData'       =>  '#wk-price-list-data',
+    'pageWrapperSelector'     =>     '.wk-mp-page-wrapper',
+    'mpAttentionPopupModel' => '.wk-ssp-model-popup',
+    'showClass'             =>     '_show',
+    'wkAttentionClose'        => '.wk-price-list-close',
+    'popoverbackgroundhtml' =>  '.popover_background',
+    'popOverclose'          =>  '.popover_close',
+    'reset'                 =>  '#resetbtn',
+    'submitButton'          =>  '.submit_button',
+    'quotationForm'         =>  '#quotation-form',
+    'quatationSaveUrl'      =>  $block->getUrl(
+        "mpwholesale/quotation/save",
+        ["_secure" => $block->getRequest()->isSecure()]
+    ),
+    'ajaxUrl'                 =>     $block->getUrl(
+        "mpwholesale/product/getPriceList",
+        ["_secure" => $block->getRequest()->isSecure()]
+    )
+];
+$serializedFormData = $wholesaleHelper->jsonEncodeData($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "wholesalerLists": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>
+

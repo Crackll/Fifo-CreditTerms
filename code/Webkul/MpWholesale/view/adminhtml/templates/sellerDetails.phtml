@@ -1,0 +1,15 @@
+<?php
+$quoteDetails = $block->getQuoteData();
+$seller = $block->getCustomerData($quoteDetails->getSellerId());
+$shippingAddressId = $seller->getDefaultShipping();
+?>
+<div class="box box-address-billing">
+<strong class="box-title">
+    <span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span>
+</strong>
+<div class="box-content">
+    <address>
+        <?= $block->getAddressHtml($block->getAddressById($shippingAddressId)); ?>
+    </address>
+</div>
+</div>

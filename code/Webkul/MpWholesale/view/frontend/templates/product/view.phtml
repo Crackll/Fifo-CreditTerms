@@ -1,0 +1,165 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+ /** @var $block \Webkul\Marketplace\Block\Product\Productlist */
+$helper = $block->getMpHelper();
+$paramData = $block->getRequest()->getParams();
+$filter = '';
+if (isset($paramData['s'])) {
+    $filter = $paramData['s'] != '' ? $paramData['s'] : '';
+}
+$productCollection = $block->getAllProducts();
+?>
+<div class="wk-mp-design">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span><?= /* @noEscape */ __('Wholesale Products') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <form action="<?= /* @noEscape */ $block->getUrl('mpwholesale/product/view', [
+                    '_secure' => $block->getRequest()->isSecure()
+                ])?>" 
+                    method="get" id="form-productlist-filter"  
+                    name="formProductlistFilter" data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?= /* @noEscape */ __('Product Name') ?></span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body" id="colender-check">
+                            <tr>
+                                <td>
+                                    <input type="text" class="input-text" name="s" 
+                                    placeholder='<?= /* @noEscape */ __('Search by product name') ?>' 
+                                    value="<?= /* @noEscape */ $filter?>"/>
+                                </td>
+                                <td>
+                                    <button class="button" title="Save" type="submit">
+                                        <span><span><span><?= /* @noEscape */ __('Submit') ?></span></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div data-bind="scope: 'product-list-component'">
+                <?php if ($productCollection->getSize()): ?>
+                        <table cellspacing="0" class="border wk-mp-list-table wk-mp-list-container-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td">
+                                        <span class="label name">
+                                        <?= /* @noEscape */ __('Product Name')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label pro-status">
+                                        <?= /* @noEscape */ __('Type')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ __('Wholesaler Information')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label">
+                                            <?= /* @noEscape */ __('Action')?>
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($block->getAllProducts() as $products) {
+                                    $product = $block->getProductData($products->getProductId());
+                                    $i++;
+                                    $image_url = $block->imageHelperObj()->init($product, 'product_page_image_small')
+                                                ->setImageFile($product->getImage())
+                                                ->getUrl();
+                                    $class = ($i == count($block->getAllProducts()))? 'wk-last_tr':''
+                                    ?>
+                                    <tr class="wk-row-view  <?= /* @noEscape */ $class; ?>">
+                                        <td class="wk-first_td">
+                                            <input type="hidden" class="hidden-id" 
+                                            value="<?= /* @noEscape */ $products->getProductId(); ?>" />
+                                            <div class="label name" title="<?= /* @noEscape */ $product->getName(); ?>">
+                                                <div class="wk-pro-divide1">
+                                                    <img src="<?= /* @noEscape */ $image_url?>" class="image" />
+                                                </div>
+                                                <div class="wk-pro-divide2">
+                                                    <div style="width:100%;">
+                                                        <?php if ($product->getStatus()==1
+                                                            &&
+                                                            $product->getVisibility()!=1
+                                                            ) { ?>
+                        <a href="<?= /* @noEscape */ $product->getProductUrl()?>" target="blank">
+                                                            <?php }?>
+                                                            <?= /* @noEscape */ $product->getName();?>
+                                            <?php if ($product->getStatus()==1 && $product->getVisibility()!=1) { ?>
+                                                </a>
+                                            <?php }?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="label pro-status">
+                                                <?= /* @noEscape */ $product->getTypeId()?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="label">
+                                                <?= /* @noEscape */ __($products['wholesaler_name']) ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="label wk-action">
+                            <a href="<?= /* @noEscape */ $block->getUrl('mpwholesale/wholesaler/view', [
+                                'id'=>$product->getId(),
+                                '_secure' => $block->getRequest()->isSecure()
+                                ]) ?>" title="<?= /* @noEscape */ __('View Wholesaler(s)')?>" 
+                                                         class="mp_wholesaler_edit" >
+                                                <?= /* @noEscape */ __("View Wholesaler(s)") ?>
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="wk-emptymsg">
+                        <?= /* @noEscape */ __('No Product Available') ?>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+        <?php endif ?>
+    </fieldset>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;" onclick="javascript: window.history.back();" 
+            class="left">&laquo; 
+            <?= /* @noEscape */ __('Back') ?>
+            </a>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ 
+#block-collapsible-nav .wkcs-nav-li::before{
+    content: "-";
+    display: block;
+    font-size: 0;
+    border-top: 1px solid #d1d1d1;
+    margin: 10px 1.8rem;
+}
+#block-collapsible-nav .wkcs-nav-li ~ .wkcs-nav-li::before{ 
+    content: "";
+    border: none;
+    margin: 0;
+}
+.wkcs-clear-both {
+    clear: both;
+}
+.wkcs-btn-right {
+    float: right;
+}
+.wkcs-main-btn-container {
+    margin-bottom: 20px;
+}
+.wkcs-left {
+    float: left;
+}
+.wkcs-right {
+    float: right;
+}
+.wkcs-popup-button {
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    color: #e54e02;
+}
+.wkcs-cartpage-button {
+    width: 100%!important;
+    padding: 15px!important;
+}
+.wkcs-filter-table th {
+    border-color: #d1cfcf;
+    border-style: solid;
+    border-width: 1px;
+    font-size: .9em;
+    font-weight: 700;
+    padding: 3px 9px;
+}
+.wkcs-filter-table td {
+    text-align: center;
+    padding: 5px 7px;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    background-color: #e3eff1;
+    border-bottom: none;
+}
+.wkcs-filter-table td:last-child {
+    border-color: #e3eff1;
+}
+.wkcs-filter-table thead tr {
+    background-color: #eee;
+}
+.wkcs-filter-table {
+    margin-bottom: 15px;
+}
+.wkc-quote-table .item-options {
+    margin-top: 20px;
+}
+.wkc-quote-table .item-options:before, .wkc-quote-table .item-options:after {
+    content: '';
+    display: table;
+}
+.wkc-quote-table .item-options dt {
+    clear: left;
+    float: left;
+    margin: 0 10px 5px 0;
+}
+.wkc-quote-table .item-options dt:after {
+    content: ': ';
+}
+.wkc-quote-table .item-options dd {
+    display: inline-block;
+    float: left;
+    margin: 0 0 5px;
+}
+.wkc-quote-table .links.item-options dd {
+    float: none;
+}
+body.wkcs-order-view a.print.action,
+body.wkcs-order-shipment a.print.action,
+body.wkcs-order-invoice a.print.action,
+body.wkcs-order-creditmemo a.print.action
+{
+    display: none;
+}
+body.wkcs-subaccount-edit .wkcs-main-btn-container {
+    margin-top: -5px;
+}
+body.wkcs-subaccount-edit .wkcs-main-btn-container > button {
+    margin-top: 5px;
+}
+@media only screen and (max-width: 639px) {
+    body.wkcs-subaccount-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th,
+    body.wkcs-mycarts-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th,
+    body.wkcs-mainorder-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th,
+    body.wkcs-subaccountorder-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th,
+    body.wkcs-mergecarts-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th,
+    body.wkcs-quote-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th,
+    body.wkcs-approvecarts-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > thead > tr > th 
+    {
+        display: table-cell;
+    }
+    body.wkcs-subaccount-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th,
+    body.wkcs-mycarts-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th,
+    body.wkcs-mainorder-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th,
+    body.wkcs-subaccountorder-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th,
+    body.wkcs-mergecarts-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th,
+    body.wkcs-quote-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th,
+    body.wkcs-approvecarts-index .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr td, .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) > tbody > tr th 
+    {
+        display: table-cell;
+    }
+}
+body.wkcs-subaccount-index table > tbody > tr > td,
+body.wkcs-mycarts-index table > tbody > tr > td,
+body.wkcs-mainorder-index table > tbody > tr > td,
+body.wkcs-subaccountorder-index table > tbody > tr > td,
+body.wkcs-mergecarts-index table > tbody > tr > td,
+body.wkcs-approvecarts-index table > tbody > tr > td
+{
+    border-top: 1px solid #cccccc;
+}
+
+.wkc-view-cart-popup{
+    z-index: 999 !important;
+}

@@ -1,0 +1,27 @@
+Legend
+
++ Features
+
+-------------------------------- Version 5.0.0 --------------------------------------
+	+ Version upgrade for Magento 2.4.x
+
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ Supported Magento Version 2.4.x
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Supported Magento Version 2.3.x
+	+ Admin can enable the unrecognized login notification.
+	+ Master Password feature to block all sub-users account.
+	+ Allow admin to get each file upload notification in system.
+	+ Admin can prevent file types to be upload.
+	+ Admin can ban user to login into admin panel on the basis of country.
+	+ Admin can prevent admin panel from Brute Force attack.
+	+ Brute force logs available to admin.
+	+ Admin blacklist/whitelist ips.
+	+ AbuseDB integrated to block and report ip.
+	+ Mailboxlayer integrated to validate emails for customers.
+	+ Admin can enable real time email validation for customers.
+	+ Admin is allowed to create a custom email templates for each actions.
+	+ Admin can enable Google 2 Factor Authentication for frontend.
+	+ Then Customer can enable/disable Google 2FA from his/her account.
+	+ Admin can scan all directories/file permission based on his selection.

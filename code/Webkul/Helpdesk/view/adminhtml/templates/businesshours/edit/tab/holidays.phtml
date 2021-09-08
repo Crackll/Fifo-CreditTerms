@@ -1,0 +1,122 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+$id = $block->getRequest()->getParam("entity_id");
+$businessHour = $block->getCurrentBusinessHours($id);
+$holidays = [];
+if (!empty($businessHour->getHollydayList())) {
+    $holidays = $block->getSerializer()->unserialize($businessHour->getHollydayList());
+}
+$months = $block->getMonths();
+?>
+<div class="entry-edit">
+    <div id="holidays_form" class="fieldset">
+        <div class="hor-scroll">
+            <table style="width:100%;float:left" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="value">
+                            <ul class="holiday-list-container">
+                                <li class="holidaylist-head">
+                                    <span class="date-selection">
+                                        <input 
+                                        type="hidden" 
+                                        value="<?= /**@noescape */ date('Y') ?>" 
+                                        name="current_year" class="current_year">
+                                        <select class="months" id="months" onchange="updateMonth(this.value, 'days');">
+                                            <?php foreach ($months as $key => $month): ?>
+                                                <option 
+                                                value="<?= $block->escapeHtml($key) ?>">
+                                                    <?= $block->escapeHtml($month) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <select class="days" id="days">
+                                            <?php for ($i = 1; $i <= 31; $i++): ?>
+                                                <option 
+                                                value="<?= $block->escapeHtml($i) ?>">
+                                                <?= $block->escapeHtml($i) ?>
+                                                </option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </span>
+                                    <span class="holiday-name-block">
+                                        <input id="holiday_name" type="text" size="30" placeholder="Holiday name">
+                                        <b id="HolidayValidation" class="text_red" style="display: none;">
+                                        <?=
+                                            $block->escapeHtml(__('Holiday already added'))
+                                        ?></b>
+                                        <b id="InvalidHoliday" class="text_red" style="display: none;">
+                                        <?= $block->escapeHtml(__('Invalid holiday added')) ?></b>
+                                    </span>
+                                    <span class="add-holiday-button-set">
+                                        <button class="btn" type="button">
+                                            <?= $block->escapeHtml(__('Add Holiday')) ?>
+                                        </button>
+                                    </span>
+                                </li>
+                                <?php if (is_array($holidays)): ?>
+                                    <?php foreach ($holidays as $holiday): ?>
+                                    <li class="holidaylist-row">
+                                        <span class="delete-icon"></span>
+                                        <span class="holiday-date">
+                                            <label>
+                                            <?=
+                                                $block->escapeHtml(
+                                                    $months[$holiday['month']]
+                                                )."".$block->escapeHtml($holiday['day'])
+                                            ?>
+                                            </label>
+                                            <input type="hidden" name="holiday[month][]" 
+                                            value="<?= /** @noEscape  */
+                                            array_search($months[$holiday['month']], $months)
+                                            ?>">
+                                            <input 
+                                            type="hidden" name="holiday[day][]" 
+                                            value="<?=
+                                            $block->escapeHtml($holiday['day'])
+                                            ?>">
+                                        </span>
+                                        <span class="holiday-name">
+                                            <?= $block->escapeHtml($holiday['name']) ?>
+                                            <input type="hidden" name="holiday[name][]" 
+                                            value="<?= $block->escapeHtml($holiday['name'])?>">
+                                        </span>
+                                    </li>
+                                    <?php endforeach; ?>
+                                <?php endif;?>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script class="holidaylist" type="text/x-jquery-tmpl">
+    <li class="holidaylist-row">
+        <span class="delete-icon"></span>
+        <span class="holiday-date">
+            <label><%- data.date %></label>
+            <input type="hidden" name="holiday[month][]" value="<%- data.month %>">
+            <input type="hidden" name="holiday[day][]" value="<%- data.day %>">
+        </span>
+        <span class="holiday-name">
+            <%- data.name %>
+            <input type="hidden" name="holiday[name][]" value="<%- data.name %>">
+        </span>
+    </li>
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "holidays": {}
+        }
+    }
+</script>

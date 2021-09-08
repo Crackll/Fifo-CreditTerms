@@ -1,0 +1,46 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+
+    + Compatible with Magento 2.4.* and Marketplace 5.0.x
+
+-------------------------------- Version 4.0.0 --------------------------------------
+
+    + Compatible with EE and Marketplace version 4.0.x
+    
+-------------------------------- Version 3.0.1 --------------------------------------
+    - Bugs Fixed
+    + Version upgrade
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    - Bugs Fixed
+    + compatible with magento 2.3.x and marketplace 3.0.x version
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Compatible with Magento 2.3.* 
+    - Bugs Fixed
+
+-------------------------------- Version 2.0.2 --------------------------------------
+    + Deal design changed
+    + uninstallation command added
+    + Updated according to magento 2.2.x and marketplace 2.3.x version
+    
+-------------------------------- Version 2.0.1 --------------------------------------
+    + Compatible with Magento 2.1.*
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    + Fully open source and easy to manage from admin.
+    + separate page for deals products.
+    + Top selling deals and top viewed deals block.
+    + interactive time counter.
+    + By using this module sellers can apply deal on their products.
+    + Can Add/Edit/delete daily deal product from seller’s account.
+    + Admin can also manage deal.
+    + Date time picker for date and time selection.
+    + Countdown timer for seller’s product deal.
+    + Customer can see all deal and seller’s deal product collection.
+    + Multi Lingual support / All language working including RTL.
+    + Compatible with Multi store.

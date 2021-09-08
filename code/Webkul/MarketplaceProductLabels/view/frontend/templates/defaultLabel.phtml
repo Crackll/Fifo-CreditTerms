@@ -1,0 +1,21 @@
+<!-- /**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_MarketplaceProductLabels
+* @author    Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/  -->
+<script type="text/x-magento-init">
+    {
+        "*":{
+            "Webkul_MarketplaceProductLabels/js/defaultPageLabelJS":{
+                "imageTag": {
+                    "url": "<?= /* @noEscape */ $block->getUrl('mplabels/check/categorylabel') ; ?>",
+                    "base":"<?= /* @noEscape */ $block->getBaseUrl().'mplabel/label/' ; ?>"
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_MpDailyDeal collection layout.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeal
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+   		<css src="Webkul_MpDailyDeal::css/style.css"/>
+	</head>
+    <body>
+        <attribute name="class" value="page-products"/>
+        <referenceContainer name="content">
+            <block class="Webkul\MpDailyDeal\Block\Product\ListProduct" name="deals.products.list" as="deals_product_list" template="Magento_Catalog::product/list.phtml">
+                <container name="category.product.list.additional" as="additional" />
+                <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                    <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+                </block>
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                        name="category.product.addto.compare" as="compare"
+                        template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                </block>
+                <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setToolbarBlockName">
+                    <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                </action>
+            </block>
+            <block class="Magento\Framework\View\Element\Template" name="category.vew.deals.products" as="deal_product_list" template="Webkul_MpDailyDeal::viewoncategory.phtml" ></block>
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block class="Webkul\MpDailyDeal\Block\Product\ListProduct" name="deals.of.day" as="top_deals_of_day" before="-" template="Webkul_MpDailyDeal::product/dealsofday.phtml" />
+            <block class="Webkul\MpDailyDeal\Block\Product\ListProduct" name="deals.topsale.list" 
+                as="deals_topsale_products" after="top_deals_of_day" template="Webkul_MpDailyDeal::product/topviewdeals.phtml"/>
+            <block class="Webkul\MpDailyDeal\Block\Product\ListProduct" name="deals.topsale.list" as="deals_topsale_products" before="-" template="Webkul_MpDailyDeal::product/topsales.phtml"/>
+        	<referenceBlock remove="true" name="catalog.compare.sidebar" />
+            <referenceBlock remove="true" name="sale.reorder.sidebar"/>
+            <referenceBlock remove="true" name="wishlist"/>
+        </referenceContainer>
+    </body>
+</page>

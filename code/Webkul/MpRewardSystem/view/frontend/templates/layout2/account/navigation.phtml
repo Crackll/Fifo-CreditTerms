@@ -1,0 +1,91 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRewardSystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+// $block->escapeUrl(
+$_helper = $block->getMpHelper();
+$helper = $block->getDataByKey("curHelper");
+$isPartner= $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+?>
+<nav class="wk-mp-menu wk-mp-main">
+    <ul id="wk-mp-nav">
+        <?php
+        if ($isPartner && $helper->getMpRewardEnabled()) {
+            if (($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/account/index'))
+            || ($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/account/cartrecord'))
+            || ($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/product/index'))
+            || ($isSellerGroup && $_helper->isAllowedAction('mprewardsystem/category/index')) || !$isSellerGroup) {
+                ?>
+            <li class="nav item level-0 <?=/* @noEscape */
+            strpos($magentoCurrentUrl, 'mprewardsystem')? "current active":"";?>">
+                <a href="#" onclick="return false;" class="">
+                    <span><?=/* @noEscape */ __('Rewards Manager')?></span>
+                </a>
+                <div class="wk-mp-submenu">
+                  <strong class="wk-mp-submenu-title"><?=/* @noEscape */ __('Rewards Manager')?></strong>
+                  <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                  <ul>
+                      <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu  parent  level-1">
+                          <strong class="wk-mp-submenu-group-title">
+                              <span><?=/* @noEscape */ __('Menu')?></span>
+                          </strong>
+                          <div class="wk-mp-submenu">
+                              <ul>
+                                  <?php if (($isSellerGroup && $_helper
+                                     ->isAllowedAction('mprewardsystem/account/index')) || !$isSellerGroup) { ?>
+                                      <li class="level-2">
+                                          <a href="<?=$block->escapeUrl($block
+                                             ->getUrl('mprewardsystem/account/index', ['_secure' => $block
+                                             ->getRequest()->isSecure()])); ?>">
+                                              <span><?=/* @noEscape */ __('Manage Rewards') ?></span>
+                                          </a>
+                                      </li>
+                                    <?php } ?>
+                                  <?php if (($isSellerGroup && $_helper
+                                     ->isAllowedAction('mprewardsystem/account/cartrecord')) || !$isSellerGroup) { ?>
+                                      <li class="level-2">
+                                          <a href="<?=$block->escapeUrl($block
+                                             ->getUrl('mprewardsystem/account/cartrecord', ['_secure' => $block
+                                             ->getRequest()->isSecure()])); ?>">
+                                              <span><?=/* @noEscape */ __('Manage Cart Reward') ?></span>
+                                          </a>
+                                      </li>
+                                    <?php } ?>
+                                  <?php if (($isSellerGroup && $_helper
+                                      ->isAllowedAction('mprewardsystem/product/index')) || !$isSellerGroup) { ?>
+                                      <li class="level-2">
+                                          <a href="<?=$block->escapeUrl($block
+                                             ->getUrl('mprewardsystem/product/index', ['_secure' => $block
+                                             ->getRequest()->isSecure()])); ?>">
+                                              <span><?=/* @noEscape */ __('Manage Product Reward') ?></span>
+                                          </a>
+                                      </li>
+                                    <?php } ?>
+                                  <?php if (($isSellerGroup && $_helper
+                                     ->isAllowedAction('mprewardsystem/category/index')) || !$isSellerGroup) { ?>
+                                      <li class="level-2">
+                                          <a href="<?=$block->escapeUrl($block
+                                            ->getUrl('mprewardsystem/category/index', ['_secure' => $block
+                                            ->getRequest()->isSecure()])); ?>">
+                                              <span><?=/* @noEscape */ __('Manage Category Reward') ?></span>
+                                          </a>
+                                      </li>
+                                    <?php } ?>
+                              </ul>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+            </li>
+            <?php }
+        } ?>
+    </ul>
+</nav>

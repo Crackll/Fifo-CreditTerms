@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table comment="Admin login attempts Table" engine="innodb" name="webkul_adminlogin_attempt" resource="default">
+        <column comment="Entity Id" identity="true" name="entity_id" nullable="false" padding="6" unsigned="false" xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="entity_id"/>
+        </constraint>
+        <column length="40" name="username" nullable="true" xsi:type="varchar"/>
+        <column length="128" name="email" nullable="true" xsi:type="varchar"/>
+        <column length="100" name="ip" nullable="true" xsi:type="varchar" comment="Login Ip"/>
+        <column length="50" name="city" nullable="true" xsi:type="varchar"/>
+        <column length="50" name="region" nullable="true" xsi:type="varchar"/>
+        <column length="4" name="region_code" nullable="true" xsi:type="varchar"/>
+        <column length="55" name="country_name" nullable="true" xsi:type="varchar"/>
+        <column length="128" name="latitude" nullable="true" xsi:type="varchar"/>
+        <column length="128" name="longitude" nullable="true" xsi:type="varchar"/>
+        <column length="128" name="timezone" nullable="true" xsi:type="varchar"/>
+        <column name="org" nullable="true" xsi:type="text"/>
+        <column name="browser" nullable="true" xsi:type="text"/>
+        <column name="login_at" nullable="true" xsi:type="timestamp" default="CURRENT_TIMESTAMP" />
+        <column name="is_trusted" nullable="true" xsi:type="smallint" default="0" comment="Is Trusted Login attempt"/>
+        <column default="0" name="login_attempt" nullable="true" xsi:type="smallint"/>
+		<column default="0" name="reported_unknown" nullable="true" xsi:type="smallint"/>
+        <column length="20" name="device_type" nullable="true" xsi:type="varchar"/>
+		<column length="50" name="platform" nullable="true" xsi:type="varchar"/>
+		<column name="device_uuid" nullable="true" xsi:type="text"/>
+    </table>
+    <table comment="Webkul WAF Security Login Table" engine="innodb" name="webkul_waf_securitylogin" resource="default">
+		<column comment="Entity Id" identity="true" name="entity_id" nullable="false" padding="6" unsigned="false" xsi:type="smallint"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="entity_id"/>
+		</constraint>
+		<column name="username" nullable="true" xsi:type="text"/>
+		<column name="password" nullable="true" xsi:type="text"/>
+		<column name="ip" nullable="true" xsi:type="text"/>
+		<column name="browser_agent" nullable="true" xsi:type="text"/>
+		<column name="url" nullable="true" xsi:type="text"/>
+		<column name="referer_url" nullable="true" xsi:type="text"/>
+		<column name="login_status" nullable="true" xsi:type="boolean"/>
+		<column name="is_sent_mail" nullable="true" xsi:type="boolean"/>
+		<column name="time" nullable="true" xsi:type="timestamp"/>
+        <column name="is_brute_force" nullable="true" xsi:type="boolean"/>
+	</table>
+    <table name="admin_user" resource="default">
+        <column name="require_password_reset" nullable="true" xsi:type="smallint" default="0" comment="Is Require Password Reset"/>
+    </table>
+    <table comment="Webkul WAF Security Directory" engine="innodb" name="webkul_waf_directories_scan" resource="default">
+		<column comment="Entity Id" identity="true" name="entity_id" nullable="false" padding="6" unsigned="false" xsi:type="smallint"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="entity_id"/>
+		</constraint>
+		<column name="path" nullable="true" xsi:type="text"/>
+		<column name="permission" nullable="true" xsi:type="text"/>
+		<column name="is_new" nullable="true" xsi:type="boolean"/>
+        <column name="modified_at" nullable="true" xsi:type="timestamp" default="CURRENT_TIMESTAMP" />
+	</table>
+
+    <!-- ====================== Start Code Added ===================== -->
+    <table comment="Frontend Two Step Auth" engine="innodb" name="webkul_frontend_two_step_auth" resource="default">
+        <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true"/>
+        <column xsi:type="int" name="customer_id" nullable="false"/>
+        <column xsi:type="boolean" name="is_auth_enabled" default="0"/>
+        <column xsi:type="varchar" name="customer_email" nullable="true" length="128"/>
+        <column xsi:type="text" name="secret_key" nullable="true"/>
+        <column xsi:type="text" name="devices_data" nullable="true"/>
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <!-- ====================== End Code Added ===================== -->
+    <table comment="Webkul WAF Security Integrations" engine="innodb" name="webkul_waf_integration" resource="default">
+		<column comment="Integrations code" name="code" nullable="false" length="50" xsi:type="varchar"/>
+		<column name="validation_type" nullable="true" xsi:type="varchar"/>
+        <column name="validated_value" nullable="true" xsi:type="text"/>
+        <constraint xsi:type="unique" referenceId="WAF_INTGR_UNI_ID_CODE">
+            <column name="code"/>
+        </constraint>
+	</table>
+
+</schema>

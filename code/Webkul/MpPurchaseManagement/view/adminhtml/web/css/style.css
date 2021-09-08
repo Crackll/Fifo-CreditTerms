@@ -1,0 +1,23 @@
+/**
+ * MpPurchaseManagement
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+#popup_background label {
+    margin-left: 10px;
+}
+
+#popup_background .control {
+    display: inline-block;
+    width: 80%;
+    float: right;
+}
+
+.control input {
+    width: inherit !important;
+}

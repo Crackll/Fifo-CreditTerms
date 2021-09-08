@@ -1,0 +1,16 @@
+{
+    "marketplace_advanced_commision_rules": {
+        "column": {
+            "rule_id": true,
+            "price_from": true,
+            "price_to": true,
+            "commission_type": true,
+            "amount": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

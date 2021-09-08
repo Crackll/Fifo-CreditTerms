@@ -1,0 +1,24 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpMSI
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+if (!$block->isSingleStoreMode()) {
+    ?>
+<tr>
+    <td>
+        <label><?= $block->escapeHtml(__("Choose source For quantity deduction")); ?></label>
+        <select name="sourceCode" class="select required-entry">
+            <option value=''><?=  $block->escapeHtml(__("Select Source")) ?></option>
+           <?php foreach ($block->getSourcesForOrder() as $key => $value) { ?>
+                <option value="<?=  $block->escapeHtml($key) ?>"><?=  $block->escapeHtml($value); ?></option>    
+            <?php } ?>
+        </select>
+    </td>
+</tr>
+<?php } ?>

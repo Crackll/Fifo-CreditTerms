@@ -1,0 +1,39 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$mpLabelBlock = $block->getLayout()->createBlock(\Webkul\MarketplaceProductLabels\Block\Label\Labellist::class);
+$_helper = $mpLabelBlock->getHelperObject('marketplaceHelper');
+$isPartner = $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+if ($isPartner) { ?>
+    <li class="mp-custom-label nav item <?= /* @noEscape */
+    strpos($magentoCurrentUrl, 'mplabels/label/labellist')? "current":"";
+    echo strpos($magentoCurrentUrl, 'mplabels/label/newlabel')? "current":"";?>">  
+        <a>
+            <?= /* @noEscape */ __('Custom Product Label') ?>
+        </a>          
+        <ul class="nav items">
+            <li class="nav item">
+                <a href="<?= /* @noEscape */
+                $block->getUrl('mplabels/label/newlabel', ['_secure' => $block->getRequest()->isSecure()]); ?>">
+                    <?= /* @noEscape */ __('Add New Label') ?>
+                </a>
+            </li>
+            <li class="nav item">
+                <a href="<?= /* @noEscape */
+                $block->getUrl('mplabels/label/labellist', ['_secure' => $block->getRequest()->isSecure()]); ?>">
+                    <?= /* @noEscape */ __('Product Label List') ?>
+                </a> 
+            </li>
+        </ul>   
+    </li>
+<?php } ?>
+
+

@@ -1,0 +1,72 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?= $block->getChildHtml('addrulesonproducts.grid.container');?>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'underscore',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function($, confirm, _) {
+        var oldProductIds = $('#pricelist_rule_products').val();
+        if (oldProductIds!= undefined) {
+            var showSelected = oldProductIds.split(',');
+            $( document ).ajaxComplete(function() {
+                $.each(showSelected, function(i,val){
+                    setTimeout(function () {
+                        if ($("#productIdscheck"+val).prop("checked") == false) {
+                            $("#productIdscheck"+val).trigger("click");
+                        }
+                    },1000);
+                });
+            });
+        }
+        var productIdArray = [];
+        $(document).on('click',"input[type='checkbox']",function(){
+            if ($('#productIdscheck'+$(this).val()).is(':checked')){
+                productIdArray.push($(this).val()); 
+            }else {
+                if ((index = productIdArray.indexOf($(this).val())) !== -1) {
+                    productIdArray.splice(index, 1);
+                }
+            }
+                $("#pricelist_rule_products").val(productIdArray);
+        });
+        $(document).on('click',"ul[class='action-menu']  li span",function(){
+            if($(this).text() == 'Select All') {
+                $("input[type='checkbox']").each(function( index ) {
+                    productIdArray.push($(this).val());
+                });
+            }
+            if($(this).text() == 'Deselect All') {
+                productIdArray = [];
+            }
+            $("#pricelist_rule_products").val(productIdArray);
+        });
+        $(document).on(
+            'click',
+            "th.data-grid-multicheck-cell div.action-multicheck-wrap input.admin__control-checkbox",
+            function(){
+            if ($("th.data-grid-multicheck-cell div.action-multicheck-wrap input.admin__control-checkbox")
+            .is(':checked')){
+                $("input[type='checkbox']").each(function( index ) {
+                    productIdArray.push($(this).val());
+                    $("#pricelist_rule_products").val(productIdArray);
+                });
+            } else {
+                productIdArray = [];
+            }
+            $("#pricelist_rule_products").val(productIdArray);
+        });
+});
+</script>

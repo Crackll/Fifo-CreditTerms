@@ -1,0 +1,28 @@
+"Test Mail Send","Test Mail Send"
+"Select SMTP Provider","Select SMTP Provider"
+Zimbra,Zimbra
+Gmail,Gmail
+"Amazon SES","Amazon SES"
+Hotmail,Hotmail
+Yahoo,Yahoo
+Gmx,Gmx
+Mail,Mail
+"Spark Post","Spark Post"
+SendGrid,SendGrid
+Zoho,Zoho
+Custom,Custom
+Attention,Attention
+Webkul,Webkul
+"SMTP Setting","SMTP Setting"
+"General Settings","General Settings"
+Enable,Enable
+Host,Host
+"Host Url","Host Url"
+Port,Port
+"User Name","User Name"
+Password,Password
+"If 2 step authentication On in your gmail account please fill 16-character App Password. For cretae app password check this one : https://support.google.com/accounts/answer/185833","If 2 step authentication On in your gmail account please fill 16-character App Password. For cretae app password check this one : https://support.google.com/accounts/answer/185833"
+"Test Mail","Test Mail"
+"Email From","Email From"
+"Email To","Email To"
+Content,Content

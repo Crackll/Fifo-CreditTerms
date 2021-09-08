@@ -1,0 +1,17 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+    + Regions can now be added for different Locale.
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4.*
+    + Fixed some minor bugs.    
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Compatible with Magento 2.3.*
+    + Functionality of adding the regions for the countries of which not provided by Magento.
+    + Allow to add the Regions through form and CSV.
+    + Buyer can select the address at checkout through Google map.
+    + Admin can update the Regions.

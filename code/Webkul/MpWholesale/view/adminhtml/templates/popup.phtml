@@ -1,0 +1,109 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $adminName = strip_tags($block->getName());
+    $adminEmail = strip_tags($block->getEmail());
+?>
+<div class="popup_background" id="popup_background" style="display:none">
+    <form method="POST" id="lead_mail_form" 
+        action="<?= $block->escapeUrl($block->getUrl('mpwholesale/leads/sendEmail'));?>">
+        <div class="admin__field _required">
+            <input type="hidden" name="lead_id" id="leadId" value=<?= $block->escapeHtml($block->getLeadId());?>>
+            <input name="form_key" type="hidden" value="<?= $block->escapeHtml($block->getFormKey()) ?>" />
+            <label class="admin__field-label">
+                <span><?= $block->escapeHtml(__('Wholesaler Name in Email')); ?></span>
+            </label>
+            <div class="admin__field-control">
+                <input id="adminName" value="<?= $block->escapeHtml($adminName); ?>"class="admin__control-text" 
+                type="text" name="adminName" maxlength="255" required>
+            </div>
+        </div>
+        <div class="admin__field _required">
+            <label class="admin__field-label">
+                <span ><?= $block->escapeHtml(__('Wholesaler Email')); ?></span>
+            </label>
+            <div class="admin__field-control">
+                <input id="adminEmail" value="<?= $block->escapeHtml($adminEmail); ?>" 
+                class="admin__control-text" type="email" name="adminEmail" maxlength="255" required>
+            </div>
+        </div>
+        <div class="admin__field _required">
+            <label class="admin__field-label">
+                <span><?= $block->escapeHtml(__('Mail body')); ?></span>
+            </label>
+            <div class="admin__field-control">
+                <textarea name="mailBody" id="mailBody" rows="4" value="" cols="126" required></textarea>
+            </div>
+            <p style="display:none; color:red; float:left" class="wk-required-warning">
+                <?= $block->escapeHtml(__('This is a required field'));?>
+        </div>
+        <button type="submit" class="primary" id="submit_mail"><?= $block->escapeHtml(__('Send Mail')); ?></button>
+        <button type="reset" class="primary" id="reset_popup" style="margin-right:10px">
+            <?= $block->escapeHtml(__('Reset')); ?>
+        </button>
+    </form>
+</div>
+<script>
+require([
+    'jquery',
+    'Magento_Ui/js/modal/modal'
+    ],
+    function($,modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: 'Contact to Seller',
+            required: true
+        };
+        var popup = modal(options, $('#popup_background'));
+        $('#leadsMail').click(function () {
+            $('#popup_background').modal('openModal');
+            $("#popup_background").show();
+            $("#mailBody").prop('required',true);
+            $('#submit_mail').removeAttr("disabled");
+        });
+
+        $('#submit_mail').click(function (e) {
+            var content = $("#mailBody").val();
+            var length = content.trim().length;
+            if (!length) {
+                $("#mailBody_tbl").css('border', '1px solid red');
+                $(".wk-required-warning").show();
+                return false;
+            }
+            $('#submit_mail').attr("disabled","disabled");
+            $('#lead_mail_form').submit();
+        });
+        var adminName = "<?= $block->escapeHtml($adminName); ?>";
+        var adminEmail = "<?= $block->escapeHtml($adminEmail); ?>";
+        $('#reset_popup').click(function (e) {
+            $('#adminName').val(adminName);
+            $('#adminEmail').val(adminEmail);
+        });
+    }
+);
+</script>
+<style>
+#mailBody_tbl{
+    width:100% !important;
+}
+.required > .admin__field-label > span:after, ._required > .admin__field-label > span:after {
+    position:inherit !important;
+}
+.modal-footer{
+    display:none
+}
+.primary{
+    margin-top:10px;
+    float: right;
+}
+</style>

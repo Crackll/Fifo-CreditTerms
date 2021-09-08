@@ -1,0 +1,126 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$helper = $block->getMpPurchaseHelper();
+$order = $block->getOrder();
+$orderItemCollection = $block->getItemCollection();
+$wholesalerDetails = $block->getWholesalerDetails($order->getWholesalerId());
+$packageWeight = 0;
+$grandTotal = 0;
+?>
+<div class="wk-po-header">
+    <div class="order-date">
+        <date><?= /* @noEscape */ $block->formatDate($order->getCreatedAt(), \IntlDateFormatter::MEDIUM); ?></date>
+    </div>
+    <div align="right" class="order-actions">
+        <?php if ($order->getStatus()==\Webkul\MpPurchaseManagement\Model\Order::STATUS_SHIPPED
+                &&
+                $helper->isSellerShipmentAllowed()
+                ) { ?>
+            <a href="<?= /* @noEscape */ $block->getPrintShipmentUrl() ?>">
+                <button class="action secondary"><?= /* @noEscape */ __('Print Shipment') ?></button>
+            </a>
+            <a href="<?= /* @noEscape */ $block->getReceiveShipmentUrl() ?>">
+                <button class="action secondary"><?= /* @noEscape */ __('Receive Shipment') ?></button>
+            </a>
+        <?php } ?>
+        <?php if ($order->getStatus()==\Webkul\MpPurchaseManagement\Model\Order::STATUS_COMPLETE
+                &&
+                $helper->isSellerShipmentAllowed()
+                ) { ?>
+            <a href="<?= /* @noEscape */ $block->getPrintShipmentUrl() ?>">
+                <button class="action secondary"><?= /* @noEscape */ __('Print Shipment') ?></button>
+            </a>
+        <?php } ?>
+        <?php if ($order->getStatus()==\Webkul\MpPurchaseManagement\Model\Order::STATUS_NEW) { ?>
+            <a href="<?= /* @noEscape */ $block->getCancelUrl() ?>">
+                <button class="action secondary"><?= /* @noEscape */ __('Cancel') ?></button>
+            </a>
+        <?php } ?>
+    </div>
+</div>
+<div class="order-items">
+    <div class="block-title">
+        <strong><?= /* @noEscape */ __('Items Ordered') ?></strong>
+    </div>
+    <table id="order-item-table">
+        <thead><tr>
+            <th><?= /* @noEscape */ __('Product Name') ?></th>
+            <th><?= /* @noEscape */ __('SKU') ?></th>
+            <th><?= /* @noEscape */ __('Quote Price') ?></th>
+            <th><?= /* @noEscape */ __('Qty') ?></th>
+            <th><?= /* @noEscape */ __('Subtotal') ?></th>
+        </tr></thead>
+        <tbody>
+            <?php foreach ($orderItemCollection as $item) { ?>
+                <tr>
+                    <td><?= /* @noEscape */ $block->getProductName($item->getProductId()); ?></td>
+                    <td><?= /* @noEscape */ $item->getSku(); ?></td>
+                    <td><?= /* @noEscape */ $item->getPrice(); ?></td>
+                    <td>
+                        <strong><?= /* @noEscape */ __('Ordered').': '; ?>
+                        </strong><?= /* @noEscape */ $item->getQuantity(); ?>
+                    <br>
+                        <strong><?= /* @noEscape */ __('Received').': '; ?>
+                        </strong><?= /* @noEscape */ $item->getReceivedQty(); ?>
+                    </td>
+                    <td><?= /* @noEscape */ $item->getQuantity()*$item->getPrice(); ?></td>
+                </tr>
+                <?php $packageWeight = $packageWeight+$item->getWeight();
+                  $grandTotal = $grandTotal + $item->getQuantity()*$item->getPrice();
+            } ?>
+            <tfoot><tr>
+                <td colspan="4" class="align-right"><strong><?= /* @noEscape */ __('Grand Total') ?></strong></td>
+                <td><?= /* @noEscape */ $grandTotal; ?></td>
+            </tr></tfoot>
+        </tbody>
+    </table>
+</div>
+<div class="order-info">
+    <div class="block-title">
+        <strong><?= /* @noEscape */ __('Order Information') ?></strong>
+    </div>
+    <p>
+        <strong><?= /* @noEscape */ __('Status').': ' ?></strong>
+        <span class="wk-status-label wk-status-<?= /* @noEscape */ $order->getStatus(); ?>">
+            <?= /* @noEscape */ $block->getOrderStatusLabel($order->getStatus()); ?>
+        </span>
+    </p>
+    <p>
+        <strong><?= /* @noEscape */ __('Source').': ' ?></strong>
+        <?= /* @noEscape */ $order->getSource(); ?>
+    </p>
+    <p>
+        <strong><?= /* @noEscape */ __('Package Weight').': ' ?></strong>
+        <?= /* @noEscape */ $packageWeight; ?></p>
+    <p>
+        <strong><?= /* @noEscape */ __('Origin Address').': ' ?></strong>
+        <?= /* @noEscape */ $wholesalerDetails->getAddress(); ?>
+    </p>
+</div>
+<div class="wholesaler-details">
+    <div class="block-title">
+        <strong><?= /* @noEscape */ __('Wholesaler Details') ?></strong>
+    </div>
+    <p>
+        <strong><?= /* @noEscape */ __('Wholesaler Title').': ' ?></strong>
+        <?= /* @noEscape */ $wholesalerDetails->getTitle(); ?>
+    </p>
+    <p>
+        <strong><?= /* @noEscape */ __('Wholesaler Description').': ' ?></strong>
+        <?= /* @noEscape */ $wholesalerDetails->getDescription(); ?>
+    </p>
+    <p>
+        <strong><?= /* @noEscape */ __('Wholesaler Address').': ' ?></strong>
+        <?= /* @noEscape */ $wholesalerDetails->getAddress(); ?>
+    </p>
+</div>

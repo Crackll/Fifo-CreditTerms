@@ -1,0 +1,110 @@
+"Label deleted succesfully.","Label deleted succesfully."
+"Error occurred while deleting label.","Error occurred while deleting label."
+"Item does not exists.","Item does not exists."
+"Edit Product Label %1","Edit Product Label %1"
+"Add New Product Label","Add New Product Label"
+"Marketplace Product Label List","Marketplace Product Label List"
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Something went wrong","Something went wrong"
+"Product Label saved successfully","Product Label saved successfully"
+"Edit Product Label","Edit Product Label"
+"This label not associated with current seller.","This label not associated with current seller."
+"Product Label List","Product Label List"
+"Invalid image type","Invalid image type"
+"Please select a valid image","Please select a valid image"
+"Label saved successfully","Label saved successfully"
+"I would like to inform you that recently I have updated a product label in the store.","I would like to inform you that recently I have updated a product label in the store."
+"I would like to inform you that recently I have added a new product label in the store.","I would like to inform you that recently I have added a new product label in the store."
+"Something went wrong while saving the file(s).","Something went wrong while saving the file(s)."
+"File can not be saved to the destination folder.","File can not be saved to the destination folder."
+Disapproved,Disapproved
+Approved,Approved
+Top-Left,Top-Left
+Top-Right,Top-Right
+Bottom-Left,Bottom-Left
+Bottom-Right,Bottom-Right
+Select,Select
+Pending,Pending
+Disabled,Disabled
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.label_name }""","Delete ""${ $.$data.label_name }"""
+"Are you sure you wan't to delete a ""${ $.$data.label_name }"" record?","Are you sure you wan't to delete a ""${ $.$data.label_name }"" record?"
+"Select Label Image","Select Label Image"
+"Image Label","Image Label"
+Name,Name
+Position,Position
+"No Selection","No Selection"
+"Label Information","Label Information"
+Save,Save
+"Label Title","Label Title"
+Status,Status
+Enabled,Enabled
+"Label Width For Product Page","Label Width For Product Page"
+"Should be integer value like 30, value calculated in percentage.","Should be integer value like 30, value calculated in percentage."
+"Label Height For Product Page","Label Height For Product Page"
+"Label Width For Category Page","Label Width For Category Page"
+"Label Height For Category Page","Label Height For Category Page"
+"Upload Image","Upload Image"
+"Allowed Image Extensions are : ","Allowed Image Extensions are : "
+"Custom Product Label","Custom Product Label"
+"Product Label","Product Label"
+Menu,Menu
+"Add New Label","Add New Label"
+"Label Name","Label Name"
+"Search label by label name","Search label by label name"
+Submit,Submit
+"Delete Product Labels","Delete Product Labels"
+Label,Label
+Action,Action
+empty,empty
+"Product Label Image","Product Label Image"
+"Select Product Label Image","Select Product Label Image"
+"%customer_name,","%customer_name,"
+"I would like to inform you that your product label %label_name has been approved.","I would like to inform you that your product label %label_name has been approved."
+%seller_message,%seller_message
+"Product Label Name","Product Label Name"
+"Please approve the product label as soon as possible.","Please approve the product label as soon as possible."
+"Thank you","Thank you"
+"I would like to inform you that your product label %label_name has been disapproved.","I would like to inform you that your product label %label_name has been disapproved."
+" Are you sure you want to edit this label ? "," Are you sure you want to edit this label ? "
+" No Checkbox is checked "," No Checkbox is checked "
+" Are you sure you want to delete product labels? "," Are you sure you want to delete product labels? "
+" Are you sure you want to edit this product label ? "," Are you sure you want to edit this product label ? "
+"Custom Product Labels","Custom Product Labels"
+"Manage Product Label","Manage Product Label"
+Webkul,Webkul
+"General Settings","General Settings"
+"Allow Seller To Manage Product Label","Allow Seller To Manage Product Label"
+"Label Approval Required","Label Approval Required"
+"Label Edit Approval Required","Label Edit Approval Required"
+"Allowed Extensions For Image","Allowed Extensions For Image"
+"Enter File type separated by comma(,) like png,jpg","Enter File type separated by comma(,) like png,jpg"
+"Allow Seller To Manage Label Dimensions","Allow Seller To Manage Label Dimensions"
+"Allow sellers to set width and height for the label.","Allow sellers to set width and height for the label."
+"Default Label Width For Product Page","Default Label Width For Product Page"
+"Default Label Height For Product Page","Default Label Height For Product Page"
+"Default Label Width For Category Page","Default Label Width For Category Page"
+"Default Label Height For Category Page","Default Label Height For Category Page"
+"Product Label Transactional Emails","Product Label Transactional Emails"
+"Label Approval Request To Admin Template","Label Approval Request To Admin Template"
+"Label Edit Approval Request To Admin Template","Label Edit Approval Request To Admin Template"
+"Label Approval Mail To Seller Template","Label Approval Mail To Seller Template"
+"Label Disapproval Mail To Seller Template","Label Disapproval Mail To Seller Template"
+Back,Back
+"Save Product Label","Save Product Label"
+"Label Details","Label Details"
+"Label Image","Label Image"
+"Add Product Label","Add Product Label"
+"Do you want to delete selected Product Label?","Do you want to delete selected Product Label?"
+Disapprove,Disapprove
+"Are you sure you want to disapprove selected items?","Are you sure you want to disapprove selected items?"
+Approve,Approve
+"Are you sure you want to approve selected items?","Are you sure you want to approve selected items?"
+"Label Id","Label Id"
+Thumbnail,Thumbnail
+Title,Title
+"Seller Name","Seller Name"
+"Delete ""%1""","Delete ""%1"""
+"Are you sure you wan't to delete a %1 record?","Are you sure you wan't to delete a %1 record?"

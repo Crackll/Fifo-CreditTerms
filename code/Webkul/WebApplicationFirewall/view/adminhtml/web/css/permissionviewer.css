@@ -1,0 +1,93 @@
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+#directoryPath {
+    width: 100%;
+    padding: 6px;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.permission-table {
+    width: 100%;
+    text-align: center;
+}
+
+.permission-table tr th, .permission-table tr td{
+    padding: 8px;
+}
+
+.permission-table [type='checkbox'] {
+    height: 16px;
+    width: 16px;
+}
+
+.directory-text {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.permission-table tbody tr:nth-child(odd) {
+    background-color: #efefef;
+}
+
+tr.directory-row {
+    transition: .5s;
+}
+
+tr.directory-row:hover {
+    background-color: #d4d4d4!important;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.darkgreen {
+    color: darkgreen;
+}
+
+.padding-16 {
+    padding: 16px;
+}
+
+#hosting-selector {
+    background: transparent;
+    padding: 6px;
+
+}
+
+.dashed-line {
+    border-top: 1px dashed lightgray;
+}
+
+#directoryPath {
+    border-radius: 16px;
+    border: 1px solid lightgray;
+}
+
+.fa-check {
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.fa-exclamation-triangle {
+    color: #ff9800;
+    font-weight: bold;
+    cursor: help;
+}

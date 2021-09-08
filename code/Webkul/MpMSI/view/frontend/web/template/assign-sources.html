@@ -1,0 +1,14 @@
+<div class="bb-button-group">
+  
+    <div class="bb-button-child">
+        <button class="button primary" type="button" data-bind="click: initCollectionButton"><span data-bind="text: buttonTitle"></button>
+    </div>
+</div>
+<div class="bb-hidden-items">
+    <input type="hidden" name="sourcesIds" data-bind="textInput: sourcesIds" />
+</div>
+<div class="bb-products-grid-popup-container">
+    <!-- ko foreach: getRegion('component-grid') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+</div>

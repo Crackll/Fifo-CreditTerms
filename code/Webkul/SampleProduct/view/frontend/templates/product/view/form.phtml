@@ -1,0 +1,108 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getSampleProductHelper();
+?>
+<?php $_helper = $viewModel->getCatalogHelper(); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $sampleproduct = $viewModel->getSampleProduct($_product->getId()); ?>
+
+<div class="product-add-form">
+    <?php if ($sampleproduct->getId()) { ?>
+        <div class="wk-sampleproduct-add-form">
+            <form data-product-sku="<?= /* @noEscape */ $sampleproduct->getSku() ?>"
+                action="<?= /* @noEscape */ $block->getSubmitUrl($sampleproduct) ?>" 
+                method="post"
+                id="wk_sampleproduct_addtocart_form"
+                <?php if ($sampleproduct->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                <input type="hidden" name="product" value="<?= /* @noEscape */ $sampleproduct->getId() ?>" />
+                <input type="hidden" name="qty" value="1" />
+                <input type="hidden" name="selected_configurable_option" value="" />
+                <input type="hidden" name="related_product" value="" />
+                <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+                <?= /* @noEscape */ $block->getChildHtml('sample_form_top') ?>
+                <div class="wk-sampleproduct-price-block ">
+                    <span class="wk-sampleproduct-title">
+                        <?= /* @noEscape */ __('Sample Product') ?>
+                    </span>
+                    <?php if ($sampleproduct->getPrice() == '0.0000') { ?>
+                        <span class="wk-sampleproduct-price action primary">
+                            <?= /* @noEscape */ __("Free") ?>
+                        </span>
+                    <?php } else { ?>
+                        <span class="wk-sampleproduct-price action primary">
+                            <?php
+                            $price = $viewModel->getFormattedPrice($sampleproduct->getPrice());
+                            ?>
+                            <?= /* @noEscape */ __("Pay %1", $price) ?>
+                        </span>
+                    <?php } ?>
+                </div>
+                <div class="wk-sampleproduct-name">
+                    <?= /* @noEscape */ $sampleproduct->getName() ?>
+                </div>
+                <?= $block->getChildHtml('sample_form_bottom') ?>
+                <div class="actions wk-sampleproduct-btn">
+                    <button type="submit" title="<?= /* @noEscape */ __('Get a Sample')?>" 
+                        class="action primary tocart" 
+                        id="wk-sampleproduct-addtocart-button">
+                        <span><?= /* @noEscape */ __('Get Sample')?></span>
+                    </button> 
+                </div>
+            </form>
+        </div>
+    <?php } ?>
+    <form data-product-sku="<?= /* @noEscape */ $_product->getSku() ?>"
+        action="<?= /* @noEscape */ $block->getSubmitUrl($_product) ?>" method="post"
+        id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <input type="hidden" name="product" value="<?= /* @noEscape */ $_product->getId() ?>" />
+        <input type="hidden" name="selected_configurable_option" value="" />
+        <input type="hidden" name="related_product" id="related-products-field" value="" />
+        <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+        <?= /* @noEscape */ $block->getChildHtml('form_top') ?>
+        <?php if (!$block->hasOptions()):?>
+            <?= $block->getChildHtml('product_info_form_content') ?>
+        <?php else:?>
+            <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1'):?>
+                <?= $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+        <?php endif; ?>
+
+        <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2'):?>
+            <?= $block->getChildChildHtml('options_container') ?>
+        <?php endif;?>
+        <?= $block->getChildHtml('form_bottom') ?>
+    </form>
+
+</div>
+<script>
+    require([
+        'jquery',
+        'priceBox'
+    ], function($){
+        var dataPriceBoxSelector = '[data-role=priceBox]',
+            dataProductIdSelector = '[data-product-id=<?= $block->escapeHtml($_product->getId()) ?>]',
+            priceBoxes = $(dataPriceBoxSelector + dataProductIdSelector);
+
+        priceBoxes = priceBoxes.filter(function(index, elem){
+            return !$(elem).find('.price-from').length;
+        });
+
+        priceBoxes.priceBox({'priceConfig': <?= /* @noEscape */  $block->getJsonConfig() ?>});
+    });
+</script>

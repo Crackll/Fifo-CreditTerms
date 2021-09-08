@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul MpWholesale Config
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mpwholsale>
+            <general_settings>
+              <status>1</status>
+              <name>admin</name>
+              <adminemail>test@owner.com</adminemail>
+              <wholesaler_approval>0</wholesaler_approval>
+              <wholeseller_product_approval>0</wholeseller_product_approval>
+            </general_settings>
+            <email>
+                <new_account_notification>mpwholsale_email_new_account_notification</new_account_notification>
+                <new_quote>mpwholsale_email_new_quote</new_quote>
+                <quote_message>mpwholsale_email_quote_message</quote_message>
+                <custom_email>mpwholsale_email_custom_email</custom_email>
+                <quote_status>mpwholsale_email_quote_status</quote_status>
+                <new_product>mpwholsale_email_new_product</new_product>
+                <product_approve>mpwholsale_email_product_approve</product_approve>
+                <product_unapprove>mpwholsale_email_product_unapprove</product_unapprove>
+                <wholesaler_approve>mpwholsale_email_wholesaler_approve</wholesaler_approve>
+                <wholesaler_inactive>mpwholsale_email_wholesaler_inactive</wholesaler_inactive>
+                <become_wholesaler_request>mpwholsale_email_become_wholesaler_request</become_wholesaler_request>
+            </email>
+        </mpwholsale>
+    </default>
+</config>

@@ -1,0 +1,747 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+$ticketsHelper = $block->getTicketHelper();
+$helper = $block->getDataHelper();
+$ticketId = $block->getRequest()->getParam("id");
+$ticket = $block->getCurrentTicket();
+$dateFormat = $helper->getDateFormate();
+$customerCanDeleteticket = $helper->getConfigCustomerDeleteTicket();
+$customerCanCloseticket = $helper->getConfigCustomerCloseTicket();
+$openStatus = $helper->getConfigOpenStatus();
+$closeStatus = $helper->getConfigCloseStatus();
+$spamStatus = $helper->getConfigSpamstatus();
+$mediaUrl = $helper->getMediaUrl();
+$mediaDirpath = $helper->getMediaPath();
+$customerCanAddCc = $helper->getConfigCustomerCanAddCc();
+$threadLimit = $helper->getThreadLimit();
+$totalThread = $ticketsHelper->getTotalThreads($ticketId);
+$imgExtensions = explode(",", $helper->getConfigAllowedextensions());
+?>
+<div class="wk_ts_thread_container">
+    <div style="width:70%;padding:1%;box-sizing: content-box;float:left;">
+        <h1>
+            <?= $block->escapeHtml(__("Tickets ")) ?>#<?= $block->escapeHtml($ticketId); ?>
+            <a href="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/mytickets')) ?>">
+                <button class="action_button reply" style="float:right">
+                    <i class="fa fa-reply"></i>
+                </button>
+            </a>
+        </h1>
+        <div class="wk_ts_thread_header">
+            <div class="wk_ts_ticket_detail_box">
+                <div style="float: left;">
+                    <h2>
+                        <?php
+                        if (strlen($ticket->getSubject()) > 30) {
+                            echo $block->escapeHtml(substr($ticket->getSubject(), 0, 30))."..";
+                        } else {
+                            echo $block->escapeHtml($ticket->getSubject());
+                        }
+                        ?>
+                    </h2>
+                    <div class="wk_ts_ticket_created_date">
+                        <i class="fa fa-clock-o"></i>
+                        <h4><?= $block->escapeHtml(__("Created On - ")) ?></h4>
+                        <label><?= /* @noEscape */ date($dateFormat, strtotime($ticket->getCreatedAt())); ?></label>
+                    </div>
+                </div>
+            </div>
+            <div class="wk_ts_ticket_action_box">
+                <strong><?= $block->escapeHtml(__("Priority : ")) ?></strong>
+                <span class="wk_ticket_property wk_primary" style="float:none;">
+                    <?= $block->escapeHtml($ticketsHelper->getTicketPriorityName($ticketId)); ?>
+                </span>
+                <strong><?= $block->escapeHtml(__("Status : ")) ?></strong>
+                <?php if ($closeStatus == $ticket->getStatus()): ?>
+                    <span class="wk_ticket_property wk_warning" style="float:none">
+                <?php elseif ($openStatus == $ticket->getStatus()): ?>
+                    <span class="wk_ticket_property wk_success" style="float:none">
+                <?php elseif ($spamStatus == $ticket->getStatus()): ?>
+                    <span class="wk_ticket_property wk_faliure" style="float:none">
+                <?php else: ?>
+                    <span class="wk_ticket_property" style="float:none">
+                <?php endif; ?>
+                <?= $block->escapeHtml($ticketsHelper->getTicketStatusName($ticketId)); ?>
+                </span>
+                <strong><?= $block->escapeHtml(__("Type : ")) ?></strong>
+                <span class="wk_ticket_property" style="float:none">
+                    <?= $block->escapeHtml($ticketsHelper->getTicketTypeName($ticketId)); ?>
+                </span>
+            </div>
+        </div>
+        <div class="wk_ts_button_action_box">
+            <div class="content">
+                <button class="action_button reply" href="#wk_ts_reply_container">
+                    <i class="fa fa-reply"></i>
+                    <?= $block->escapeHtml(__("Reply")) ?>
+                </button>
+                <?php if ($customerCanCloseticket): ?>
+                    <?php if ($closeStatus == $ticket->getStatus()) { ?> 
+                        <button style="float:left;margin:5px" class="action_button close mark_spam 
+                        <?php if ($closeStatus == $ticket->getStatus()) {
+                            echo 'wk_disabled'; } ?>" <?php if ($closeStatus ==
+                            $ticket->getStatus()) { echo $block->escapeHtml("disabled='disabled'"); } ?>>
+                            <i class="fa fa-check-square-o"></i>
+                            <?= $block->escapeHtml(__("Close")) ?>
+                        </button>
+                    <?php } else{?>
+                    <a href="<?= $block->escapeUrl($block->getUrl(
+                        'helpdesk/ticket/close',
+                        ['id'=>$ticketId]
+                    )) ?>" style="float:left;margin:5px">
+                        <button style="float:none" class="action_button close mark_spam 
+                        <?php if ($closeStatus == $ticket->getStatus()) {
+                            echo 'wk_disabled'; } ?>" <?php if ($closeStatus ==
+                            $ticket->getStatus()) { echo $block->escapeHtml("disabled='disabled'"); } ?>>
+                            <i class="fa fa-check-square-o"></i>
+                            <?= $block->escapeHtml(__("Close")) ?>
+                        </button>
+                    </a>
+                <?php } endif; ?>
+                <?php if ($customerCanDeleteticket): ?>
+                    <button class="action_button delete">
+                        <i class="fa fa-trash-o"></i>
+                        <?= $block->escapeHtml(__("Delete")) ?>
+                    </button>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <?php $createTread = $ticketsHelper->getCreateTypeTreadDetails($ticketId);?>
+        <div class="wk_ts_create_thread  <?php if ($createTread->getWhoIs() == 'customer') {
+            echo 'customer'; } ?>" style="margin-top:10px;">
+            <div class="wk_ts_one_thread_heading">
+                <div class="wk_ts_pannel_heading  <?php if ($createTread->getWhoIs() ==
+                'customer') { echo $block->escapeHtml('customer'); } ?>">
+                    <span><?= $block->escapeHtml(substr($createTread->getSender(), 0, 1)) ?>
+                    </span>
+                </div>
+            </div>
+            <div class="wk_ts_one_thread_content">
+                <div class="wk_ts_header_user_details">
+                    <div class="wk_ts_ticket_customer_detail">
+                        <i class="fa fa-user"></i>
+                        <h4><?= $block->escapeHtml($createTread->getSender()) ?></h4>
+                    </div>
+                    <div class="wk_ts_ticket_created_date">
+                        <i class="fa fa-clock-o"></i>
+                        <h4><?= $block->escapeHtml(__("Created On - ")) ?></h4>
+                        <label><?= $block->escapeHtml(date(
+                            $dateFormat,
+                            strtotime(
+                                $createTread->getCreatedAt()
+                            )
+                        )); ?></label>
+                    </div>
+                </div>
+                <div class="wk_ts_one_thread_body <?php if ($createTread->getWhoIs() == 'admin') { echo 'admin'; } ?>">
+                    <div class="content">
+                        <h2><?= $block->escapeHtml(($ticket->getSubject())) ?></h2>
+                        <?=
+                        $block->escapeHtml(strip_tags(htmlspecialchars_decode(stripslashes($ticket->getReply())))); ?>
+                        <?php if ($createTread->getSource() == "email"): ?>
+                            <?php
+                                $mailDetails = $ticketsHelper->getMailFetchCollection($createTread->getEntityId());
+                            ?>
+                            <div class="wk_ts_one_thread_attachments_holder">
+                                <?php
+                                $emailAttachmentPath = $mediaDirpath."/helpdesk/
+                                mailattachment/".$mailDetails->getUId(). '/'; ?>
+                                <?php if ($block->filexists($emailAttachmentPath)): ?>
+                                    <?php foreach (new DirectoryIterator(
+                                        $emailAttachmentPath
+                                    ) as $fileInfo): ?>
+                                        <?php if ($fileInfo->isDot() || $fileInfo->isDir()) { continue;}
+                                        if ($fileInfo->isFile()): ?>
+                                            <span class="wk_ts_attachment_block">
+                                                <?php $url = $mediaUrl.'/helpdesk/
+                                                mailattachment/'.
+                                                $mailDetails->getUId().'/'.$fileInfo; ?>
+                                                <?php if (in_array($fileInfo->getExtension(), $imgExtensions)): ?>
+                                                    <?php if (in_array(
+                                                        $fileInfo->getExtension(),
+                                                        ['doc','docx','xls','csv']
+                                                    )
+                                                    ) {
+                                                        $src = $block->docFileUrl();
+                                                    } elseif (in_array($fileInfo->getExtension(), ['pdf'])) {
+                                                        $src = $block->pdfFileUrl();
+                                                    } else {
+                                                        $src =  $url;
+                                                    }?>
+                                                <img src="<?= /* @noEscape*/ $src ?>" 
+                                                title="<?= $block->escapeHtml($fileInfo) ?>"/>
+                                                <?php else: ?>
+                                                    <span class="wk_ts_file_extension">
+                                                        <?=
+                                                        $block->escapeHtml(
+                                                            $fileInfo->getExtension()
+                                                        )
+                                                        ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <a class="image-hover-a hide" 
+                                                target="_blank" 
+                                                href="<?= $block->escapeUrl($url) ?>">
+                                                <i class="fa fa-download"></i></a>
+                                            </span>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php else: ?>
+                             <?php if ($createTread->getAttachment() == 1):   ?>
+                                <div class="wk_ts_one_thread_attachments_holder">
+                                    <?php
+                                    $emailAttachmentPath = $mediaDirpath."/helpdesk/
+                                    websiteattachment/".$createTread->getEntityId(). '/'; ?>
+                                    <?php if ($block->filexists($emailAttachmentPath)): ?>
+                                        <?php foreach (new DirectoryIterator($emailAttachmentPath) as $fileInfo): ?>
+                                            <?php if ($fileInfo->isDot() || $fileInfo->isDir()) { continue;}
+                                            if ($fileInfo->isFile()): ?>
+                                                <span class="wk_ts_attachment_block">
+                                                    <?php
+                                                    $url = $mediaUrl.'/helpdesk/
+                                                    websiteattachment/
+                                                    '.$createTread->getEntityId().'/
+                                                    '.$fileInfo; ?>
+                                                    <?php if (in_array(
+                                                        $fileInfo->getExtension(),
+                                                        $imgExtensions
+                                                    )): ?>
+                                                        <?php if (in_array(
+                                                            $fileInfo->getExtension(),
+                                                            ['doc','docx','xls','csv']
+                                                        )) {
+                                                            $src = $block->docFileUrl();
+                                                        } elseif (in_array($fileInfo->getExtension(), ['pdf'])) {
+                                                            $src = $block->pdfFileUrl();
+                                                        } else {
+                                                            $src =  $url;
+                                                        }?>
+                                                        <img src="<?= /* @noEscape*/ $src ?>" 
+                                                        title="<?=
+                                                        $block->escapeHtml($fileInfo)
+                                                        ?>"/>
+                                                    <?php else: ?>
+                                                        <span class="wk_ts_file_extension">
+                                                        <?= $block->escapeHtml(
+                                                            $fileInfo->getExtension()
+                                                        ) ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    <a class="image-hover-a hide" 
+                                                    target="_blank" 
+                                                    href="<?= /* @noEscape*/ $url ?>">
+                                                    <i class="fa fa-download"></i></a>
+                                                </span>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wk_ts_view_more_box">
+            <div class="wk_ts_more_expand_link" data-next-page="2" 
+            data-max-pages="<?= $block->escapeHtml($ticketsHelper->getMaxPages($threadLimit, $ticketId)) ?>">
+                <?php $remianingThread = $totalThread - $threadLimit; ?>
+                <?php if ($remianingThread > 0): ?>
+                    <span class="thread_count"><?= $block->escapeHtml($remianingThread);  ?>
+                    </span>
+                    <?= $block->escapeHtml(__("More Expand")) ?>
+                <?php else: ?>
+                    <?= $block->escapeHtml(__("All Displayed")) ?>
+                <?php endif; ?>
+                <i class="fa fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <div class="wk_ts_thread_container_box">
+            <?php $data = $block->getCollection($threadLimit, $ticketId)->toArray(); ?>
+            <?php $data = array_reverse($data['items']) ?>
+            <?php foreach ($data as $thread): ?>
+                <div class="wk_ts_one_thread <?php if ($thread['who_is'] == 'customer') {
+                    echo 'customer'; } ?>">
+                    <div class="wk_ts_one_thread_heading">
+                        <div class="wk_ts_pannel_heading <?php if ($thread['who_is'] ==
+                        'customer') { echo $block->escapeHtml('customer'); } ?>">
+                            <?= $block->escapeHtml(substr($thread['sender'], 0, 1)) ?>
+                        </div>
+                    </div>
+                    <div class="wk_ts_one_thread_content">
+                        <div class="wk_ts_header_user_details">
+                            <div class="wk_ts_ticket_customer_detail">
+                                <i class="fa fa-user"></i>
+                                <h4><?= $block->escapeHtml($thread['sender']) ?></h4>
+                            </div>
+                            <div class="wk_ts_ticket_created_date">
+                                <span class="fa"><?= $block->escapeHtml(__("Id")) ?></span>
+                                <?= $block->escapeHtml($thread['entity_id']) ?>
+                                <?php if ($thread['to'] != ""): ?>
+                                    <?= "<strong style='margin-left:5px'>".$block->escapeHtml(__("To")).
+                                    "</strong> : ".$block->escapeHtml($thread['to']); ?>
+                                <?php endif; ?>
+                                <?php if ($thread['cc'] != ""): ?>
+                                    <?= "<strong style='margin-left:5px'>".$block->escapeHtml(__("Cc")).
+                                    "</strong> : ".$block->escapeHtml($thread['cc']); ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="wk_ts_notes_msg">
+                            <i>
+                            <?=
+                                $block->escapeHtml($thread['sender'])
+                            ?> 
+                            <span class="reply"><?= $block->escapeHtml(__("replied")) ?>
+                            </span> 
+                            on 
+                            <?= /* @noEscape*/ date($dateFormat, strtotime($thread
+                            ['created_at'])); ?></i>
+                        </div>
+                        <div class="wk_ts_one_thread_body <?php if ($thread['who_is'] ==
+                        'admin') { echo 'admin'; } ?>">
+                            <div class="content">
+                                <?php if (($customerCanDeleteticket) && $thread['who_is'] ==
+                                'customer'): ?>
+                                    <button class="deletethread" 
+                                    data-id="<?= $block->escapeHtml($thread['entity_id']) ?>">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                <?php endif; ?>
+                                <?=
+                                $block->escapeHtml(
+                                    strip_tags(
+                                        htmlspecialchars_decode(
+                                            stripslashes(
+                                                $thread['reply']
+                                            )
+                                        )
+                                    ),
+                                    "<br><p>"
+                                ); ?>
+                                <?php if ($thread['source'] == "email"): ?>
+                                    <?php
+                                        $mailDetails =
+                                        $ticketsHelper->getMailFetchCollection(
+                                            $createTread->getEntityId()
+                                        );
+                                    ?>
+                                    <div class="wk_ts_one_thread_attachments_holder">
+                                        <?php
+                                        $emailAttachmentPath = $mediaDirpath."/helpdesk/
+                                        mailattachment/".$mailDetails->getUId(). '/'; ?>
+                                        <?php if ($block->filexists($emailAttachmentPath)): ?>
+                                            <?php foreach (new DirectoryIterator(
+                                                $emailAttachmentPath
+                                            )
+ as $fileInfo): ?>
+                                                <?php if ($fileInfo->isDot() ||
+                                                $fileInfo->isDir()) { continue;}
+if ($fileInfo->isFile()): ?>
+                                                    <span class="wk_ts_attachment_block">
+                                                        <?php
+                                                        $url = $mediaUrl.'/helpdesk/
+                                                        mailattachment/'.
+                                                        $mailDetails->getUId().'/'.$fileInfo;
+                                                        ?>
+                                                        <?php if (in_array(
+                                                            $fileInfo->getExtension(),
+                                                            $imgExtensions
+                                                        )): ?>
+                                                            <img 
+                                                            src="<?= $block->escapeUrl($url) ?>" 
+                                                            title="<?=
+                                                                $block->escapeHtml($fileInfo)
+                                                            ?>"/>
+                                                        <?php else: ?>
+                                                            <span 
+                                                            class="wk_ts_file_extension">
+                                                            <?=
+                                                            $block->escapeHtml(
+                                                                $fileInfo->getExtension()
+                                                            )
+                                                            ?>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <a class="image-hover-a hide" 
+                                                        target="_blank" href="<?=
+                                                        $block->escapeUrl($url) ?>"><i 
+                                                        class="fa fa-download"></i></a>
+                                                    </span>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <?php if ($thread['attachment'] == 1):  ?>
+                                        <div class="wk_ts_one_thread_attachments_holder">
+                                            <?php $emailAttachmentPath =
+                                            $mediaDirpath."helpdesk/websiteattachment/".$thread['entity_id']
+                                            . '/';
+                                            ?>
+
+                                            <?php if ($block->filexists($emailAttachmentPath)): ?>
+                                                <?php foreach (new DirectoryIterator(
+                                                    $emailAttachmentPath
+                                                )
+ as $fileInfo): ?>
+                                                    <?php if ($fileInfo->isDot() ||
+                                                    $fileInfo->isDir()) { continue;}
+if ($fileInfo->isFile()): ?>
+                                                        <span class="wk_ts_attachment_block">
+                                                            <?php
+                                                            $url =
+                                                            $mediaUrl.
+                                                            '/helpdesk/websiteattachment/'
+                                                            .$thread
+                                                            ['entity_id'].'/'.$fileInfo; ?>
+                                                            <?php if (in_array(
+                                                                $fileInfo->getExtension(),
+                                                                $imgExtensions
+                                                            )): ?>
+                                                                <?php
+                                                                if (in_array(
+                                                                    $fileInfo->getExtension(),
+                                                                    ['doc','docx','xls',
+                                                                    'csv']
+                                                                )) {
+                                                                    $src =
+                                                                    $block->docFileUrl();
+                                                                } elseif (in_array(
+                                                                    $fileInfo->getExtension(),
+                                                                    ['pdf']
+                                                                )) {
+                                                                    $src =
+                                                                    $block->pdfFileUrl();
+                                                                } else {
+                                                                    $src =  $url;
+                                                                }?>
+                                                                <img src="<?= /* @noEscape*/
+                                                                $src ?>" title="<?=
+                                                                $block->escapeHtml($fileInfo)
+?>"/>
+                                                            <?php else: ?>
+                                                                <span 
+                                                                class="wk_ts_file_extension">
+                                                                <?=
+                                                                $block->escapeHtml(
+                                                                    $fileInfo->getExtension()
+                                                                )
+                                                                ?>
+                                                                </span>
+                                                            <?php endif; ?>
+                                                            <a class="image-hover-a hide" 
+                                                            target="_blank" 
+                                                            href="<?= /* @noEscape*/ $url
+                                                            ?>">
+                                                            <i class="fa fa-download"></i></a>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="wk_ts_header_user_details"></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php if ($ticket->getMergePrimaryId() == '1' || $ticket->getIsMerged() == 0) {?>
+        <div class="wk_ts_one_thread ">
+            <?php $customer = $ticketsHelper->getHelpdeskCustomerById($ticket->getCustomerId()); ?>
+            <div class="wk_ts_one_thread_heading">
+                <div class="wk_ts_pannel_heading customer">
+                    <?= $block->escapeHtml(substr($customer->getName(), 0, 1)) ?>
+                </div>
+            </div>
+            <div class="wk_ts_one_thread_content">
+                <div class="wk_ts_header_user_details">
+                    <div class="wk_ts_ticket_customer_detail">
+                        <i class="fa fa-user"></i>
+                        <h4><?= $block->escapeHtml($customer->getName()) ?></h4>
+                        <span id="draft_msg_box" 
+                        style="color: #75a74d;font-size:13px;float:left;width:100%;
+                        font-style: italic;">
+                            <?php if ($ticketsHelper->getDraftContent("reply", $ticketId) != ""): ?>
+                                <?= $block->escapeHtml(__("Draft Saved")); ?>
+                            <?php endif; ?>
+                        </span>
+                        <strong style="float:left;width:100%;font-style: italic;">
+                        <?= $block->escapeHtml(__("Ask Query")); ?>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="wk_ts_forms_container">
+            <li class="wk_ts_reply_container" id="wk_ts_reply_container">
+                <form id="wk_ts_reply_form" method="post" 
+                action="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/userreply/'));
+                ?>" enctype="multipart/form-data">
+                    <ul>
+                        <?php if ($customerCanAddCc): ?>
+                            <li>
+                                <input name="cc" type="text" class="wk_cc_input_text" 
+                                placeholder="<?= $block->escapeHtml(__('Cc , separated')) ?>"
+                                />
+                                <span id="cc-err" style="color:red;display:none">
+                                <?= $block->escapeHtml(__("Please enter valid email!")) ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        <li>
+                            <?= $block->getBlockHtml('formkey')?>
+                            <input type="hidden" name="wk_ts_id" value="<?= $block->escapeHtml($ticketId); ?>"/>
+                            <input name="thread_type" type="hidden" value="reply" />
+                            <textarea class="required-entry" id="wk_reply_text_field" 
+                            style="width:100%;height:200px" name="query"><?=
+                            $block->escapeHtml($ticketsHelper->getDraftContent(
+                                "reply",
+                                $ticketId
+                            )) ?></textarea>
+                        </li>
+                        <li style="padding: 15px 0px;">
+                            <label class="upload_btn" 
+                            for="wk_ts_file"><?= $block->escapeHtml(__("Upload")) ?></label>
+                            <input id="wk_ts_file" type="file" "gif|jpg" multiple="multiple" 
+                            style="display:none;" name="fupld">
+                            <!-- Fix:To show uploaded file name on upload -->
+                            <span id="uploaded-file-id" style="margin:10px"></span>
+                            <button class="msg_submit_btn reply-button">
+                                <i class="fa fa-reply"></i>
+                                <?= $block->escapeHtml(__("Reply")) ?>
+                            </button>
+                        </li>
+                    </ul>
+                </form>
+            </li>
+        </ul>
+        <?php } ?>
+    </div>
+    <div style="width:20%;padding:0px 10px;float:right;box-sizing: content-box;">
+    <?php if (count($ticketsHelper->getTicketAttributeDetails($ticketId))): ?>
+                <form 
+                action="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/
+                saveattributevalue/', ["id"=>$ticketId])); ?>" method="post">
+                    <input name="form_key" type="hidden" 
+                    value="<?= /* @noEscape*/ $block->getFormKey() ?>" />
+                    <input type="hidden" name="ticket_id" 
+                    value="<?= $block->escapeHtml($ticketId); ?>"/>
+                    <h3><?= $block->escapeHtml(__("Custom Field")) ?></h3>
+                    <?php foreach ($ticketsHelper->getTicketAttributeDetails($ticketId) as $attributeValue): ?>
+                        <?php $attribute = $block->getAttributeData($attributeValue['attribute_id']); ?>
+                        <div class="form-group">
+                            <h4><?= $block->escapeHtml($attribute['frontend_label']);  ?></h4>
+                            <div class="form-col">
+                                <?php if ($attribute['frontend_input'] == 'select' ||
+                                $attribute['frontend_input']=='multiselect' || $attribute
+                                ['frontend_input']=='boolean') {
+                                    $fix = "";
+                                    $multiselect = "";
+    if ($attribute['frontend_input'] == 'multiselect') {
+        $fix = "[]";
+        $multiselect = "multiple";
+    }
+
+    ?>
+                                    <select class="myinput-text <?php if ($attribute
+                                    ['is_required']) {echo $block->escapeHtml('required-entry'); } ?> 
+                                    input-text" name="custom[<?= $block->escapeHtml($attribute
+                                    ['attribute_code'])?>]<?= $block->escapeHtml($fix) ?>" 
+                                    <?= $block->escapeHtml($multiselect);?>>
+                                        <?php $attributeOptions =
+                                        $attribute->getSource()->getAllOptions();
+                                        foreach ($attributeOptions as $each) {
+                                            if ($each["value"] == "") { ?>
+                                                <option value="">Please select</option>
+                                            <?php } else {
+                                                $values=explode(',', $attributeValue['value'])
+                                                ;
+                                                $selected="";
+                                                if (in_array($each["value"], $values)) {
+                                                    $selected= "selected=='selected'";
+                                                } ?>
+                                          <option <?= $block->escapeHtml($selected); ?> 
+                                          value="<?= $block->escapeHtml($each["value"]);
+                                            ?>"><?= $block->escapeHtml($each["label"]);  ?>
+                                          </option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'text') { ?>
+                                    <input class="<?php if ($attribute['is_required']) {echo
+                                        $block->escapeHtml('required-entry'); } ?> 
+                                        input-text" type="text" 
+                                        value="<?=
+                                        $block->escapeHtml($attributeValue['value']) ?>" 
+                                        name="custom[<?=
+                                        $block->escapeHtml($attribute['attribute_code']);?>]" 
+                                        />
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'date') { ?>
+                                    <input class="<?php if ($attribute['is_required']) {echo
+                                        'required-entry'; } ?> input-text datetype" 
+                                        type="text" value="
+                                        <?= $block->escapeHtml($attributeValue['value']) ?>" 
+                                        name="custom[<?= $block->escapeHtml($attribute
+                                        ['attribute_code']);?>]" />
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'textarea') { ?>
+                                    <textarea class="<?php
+                                    if ($attribute['is_required']) {
+                                        echo 'required-entry';
+                                    } ?> input-text" rows="5" 
+                                    cols="75" id="textar" name="custom[<?=
+                                    $block->escapeHtml($attribute
+                                    ['attribute_code']);?>]" />
+                                    <?= $block->escapeHtml($attributeValue['value']) ?>
+                                    </textarea>
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'image') { ?>
+                                    <?php if ($attributeValue['value']): ?>
+                                        <div class="wk_ts_one_thread_attachments_holder">
+                                            <span class="wk_ts_attachment_block">
+                                                <?php
+                                                $url =
+                                                $mediaUrl.'helpdesk/attributeattachment/
+                                                '.$ticketId.'/'.$attributeValue['value']
+                                                ?>
+                                                <?php
+                                                    $file = explode('.', $attributeValue['value']);
+                                                    $ext = $file[count($file) - 1];
+                                                ?>
+                                                <?php if (in_array($ext, $imgExtensions)): ?>
+                                                    <img src="<?= $block->escapeHtml($url)
+                                                    ?>" title="<?=
+                                                    $block->escapeHtml($attributeValue
+                                                    ['value'])
+                                                                ?>"/>
+                                                <?php else: ?>
+                                                    <span class="wk_ts_file_extension"><?=
+                                                        $block->escapeHtml($ext) ?></span>
+                                                <?php endif; ?>
+                                                <a class="image-hover-a" 
+                                                target="_blank" 
+                                                href="<?= $block->escapeHtml($url) ?>">
+                                                <i class="fa fa-download"></i></a>
+                                            </span>
+                                        </div>
+                                    <?php else: ?>
+                                        <input class="<?php
+                                        if ($attribute['is_required']) {
+                                            echo $block->escapeHtml('required-entry');
+                                        } ?> 
+                                        input-text" type="file" 
+                                        name="custom[<?= $block->escapeHtml($attribute
+                                        ['attribute_code']);?>]" />
+                                    <?php endif; ?>
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'file') { ?>
+                                    <?php if ($attributeValue['value']): ?>
+                                        <div class="wk_ts_one_thread_attachments_holder">
+                                            <span class="wk_ts_attachment_block">
+                                                <?php $url = $mediaUrl.'helpdesk/
+                                                attributeattachment/'.$ticketId.'/
+                                                '.$attributeValue['value'] ?>
+                                                <?php
+                                                    $file =
+                                                    explode('.', $attributeValue['value']);
+                                                    $ext = $file[count($file) - 1];
+                                                ?>
+                                                <?php if (in_array($ext, $imgExtensions)): ?>
+                                                    <img 
+                                                    src="<?= $block->escapeUrl($url) ?>" 
+                                                    title="<?=
+                                                    $block->escapeHtml($attributeValue
+                                                    ['value']) ?>"
+                                                    />
+                                                <?php else: ?>
+                                                    <span class="wk_ts_file_extension">
+                                                    <?= $block->escapeHtml($ext) ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <a class="image-hover-a" 
+                                                target="_blank" 
+                                                href="<?= $block->escapeHtml($url) ?>">
+                                                <i class="fa fa-download"></i></a>
+                                            </span>
+                                        </div>
+                                    <?php else: ?>
+                                        <input 
+                                        class="<?php if ($attribute['is_required']) {echo
+                                            'required-entry'; } ?> input-text" type="file" 
+                                        name="custom[<?= $block->escapeHtml($attribute
+                                        ['attribute_code']);?>]" />
+                                    <?php endif; ?>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <button class="save_attribute_btn" type="submit">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </form>
+            <?php endif; ?>
+    </div>
+</div>
+<div class="ticketsLoader text-info hide">
+    <i class="fa fa-spin fa-spinner fa-5x"></i>
+</div>
+<div class="required-field-error-msg">
+    <i class="fa fa-exclamation-circle"></i>
+    <?= $block->escapeHtml(__("Please write somthing.")) ?>
+    <label class="wk_close_msg">X</label>
+</div>
+<div class="ajax-success-msg">
+    <i class="fa fa-exclamation-circle"></i>
+    <span class="msg"></span>
+    <label class="wk_close_msg">X</label>
+</div>
+<div class="ajax-draft-save-msg">
+    <i class="fa fa-exclamation-circle"></i>
+    <?= $block->escapeHtml(__("Success !  message has been save in draft.")) ?>
+    <label class="wk_close_msg">X</label>
+</div>
+<?php
+$formData = [
+    'wysiwygConfig' => $block->getWysiwygConfig(),
+    'draftsavetime' => $helper->getConfigDraftsavetime(),
+    'allowedextensions' => $helper->getConfigAllowedextensions(),
+    'remianingThread' => $totalThread - $threadLimit,
+    'threadLimit' => $threadLimit,
+    'totalThread' => $totalThread,
+    'expandthreadsUrl' => $block->getUrl('helpdesk/ticket/expandthreads'),
+    'ticketId' => $ticketId,
+    'ticketdeleteUrl' => $block->getUrl('helpdesk/ticket/delete'),
+    'deletethreadUrl' => $block->getUrl('helpdesk/ticket/deletethread'),
+    'formkey' => $block->getFormKey(),
+    'saveindraftUrl' => $block->getUrl('helpdesk/ticket/saveindraft'),
+    'numAllowFile' => $helper->getConfigNumAllowFile(),
+    'alloweditor' => $helper->getConfigAllowEditor()
+];
+$serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "viewticket": <?= /* @noEscape */  $serializedFormData; ?>
+        }
+    }
+</script>

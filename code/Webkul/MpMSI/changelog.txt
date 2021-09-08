@@ -1,0 +1,24 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 -------------------------------
+    + Compatible with Magento 2.4.x.
+
+-------------------------------- Version 3.0.0 -------------------------------
+    + added Quantity Per Source and Salable Quantity in the Marketplace admin product grid.
+
+-------------------------------- Version 2.0.2 -------------------------------
+    + added seller can change shipping quantity of product from multiple sources at the time of shipment.
+    
+-------------------------------- Version 2.0.1 -------------------------------
+    + added quantity per source and salable quantity in seller product list
+    + added source detail on shipment view page on seller end
+    + added translation file
+
+-------------------------------- Version 2.0.0 -------------------------------
+    + adds MSI feature in seller section
+    + seller can choose sources and set the quantities
+    + seller can chosse source while creating the shipment.
+
+

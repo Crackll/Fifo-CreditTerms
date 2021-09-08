@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="controller_action_predispatch_checkout_index_index">
+    <observer name="webkul_customersubaccount_checkoutindexpredispatch_observer" instance="Webkul\CustomerSubaccount\Observer\CheckoutIndexPredispatch"/>
+  </event>
+  <event name="controller_action_predispatch_multishipping_checkout_addresses">
+    <observer name="webkul_customersubaccount_multishippingcheckoutaddresses_observer" instance="Webkul\CustomerSubaccount\Observer\MultishippingCheckoutPredispatch"/>
+  </event>
+  <event name="controller_action_predispatch_multishipping_checkout_address_newShipping">
+    <observer name="webkul_customersubaccount_multishippingcheckoutaddressnewShipping_observer" instance="Webkul\CustomerSubaccount\Observer\MultishippingCheckoutPredispatch"/>
+  </event>
+  <event name="checkout_submit_all_after">
+    <observer name="webkul_customersubaccount_SalesOrderPlaceAfterObserver_observer" instance="Webkul\CustomerSubaccount\Observer\SalesOrderPlaceAfterObserver" />
+  </event>
+  <event name="checkout_onepage_controller_success_action">
+      <observer name="webkul_customersubaccount_SalesOrderSuccessObserver_observer" instance="Webkul\CustomerSubaccount\Observer\SalesOrderSuccessObserver" />
+  </event>
+  <event name="controller_action_predispatch">
+    <observer name="webkul_customersubaccount_controllerpredispatch_observer" instance="Webkul\CustomerSubaccount\Observer\ControllerPredispatch"/>
+  </event>
+</config>

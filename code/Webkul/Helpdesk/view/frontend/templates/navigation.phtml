@@ -1,0 +1,189 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+
+$collection = $block->getSupportCenterData();
+$url = $block->getUrl();
+?>
+<div class="wk_ts_nav_wrapper">
+    <div class="wk_ts_nav">
+        <ul class="wk_ts_nav_left support_information_block">
+            <li><h4><a href="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/')) ?>">
+            <?= $block->escapeHtml(__("Support Center")) ?></a></h4></li>
+            <?php if (count($collection)): ?>
+                <li style="position:relative;" class="dropdown">
+                    <?= $block->escapeHtml(__("Support Category")) ?>
+                    <span class="caret"></span>
+                    <ul class="dropdown-content">
+                    <?php foreach ($collection as $item): ?>
+                        <li>
+                            <?php
+                            if (!strpos('newticket', $url)===false || !strpos('view', $url)
+                            ===false || !strpos('login', $url)===false): ?>
+                                    <a title="<?= $block->escapeHtml($item->getName()) ?>"  
+                                    href="#support_id_<?= $block->escapeHtml($item->getId())
+                                    ?>">
+                                    <?= $block->escapeHtml(substr($item->getName(), 0, 30))
+                                    ?></a>
+                            <?php else: ?>
+                                    <a title="<?= $block->escapeHtml($item->getName()) ?>" 
+                                    href="<?=
+                                    $block->escapeUrl($block->getUrl('helpdesk/ticket'))
+                                    ?>#support_id_<?= $block->escapeHtml($item->getId())
+?>">
+                                    <?= $block->escapeHtml(substr($item->getName(), 0, 30))
+                                    ?></a>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                </li>
+            <?php endif; ?>
+        </ul>
+        <ul class="wk_ts_nav_right">
+            <li style="position:relative" class="search_information">
+            <form method=get autoComplete="off">
+                <input type="text" name="search" class="ticket_search" 
+                placeholder="<?= $block->escapeHtml(__('Search')) ?>"/>
+                <ul class="dropdown-menu inforrmation">
+                    <?php
+                        $codes = "";
+                    foreach ($block->getCmsPages() as $value) {
+                        $codes = $codes.$value->getCmsId().",";
+                    }
+                        $indentifiers = array_unique(array_filter(explode(',', $codes)));
+                    ?>
+                    <?php foreach ($indentifiers as $cmsId):  ?>
+                        <li>
+                            <?php $cms = $block->getCmsPage($cmsId, 'identifier');
+                            ?>
+                            <a href="<?=
+                            $block->escapeUrl($block->getUrl($cms->getIdentifier()))
+                            ?>">
+                            <?= $block->escapeHtml($cms->getTitle()) ?></a>
+                        </li>
+                    <?php endforeach;?>
+                    <li class="no-results" style="display: none;">
+                    <?= $block->escapeHtml(__("No Results Found.")) ?>
+                    </li>
+                </ul>
+                <button type="submit" class="wk_search_btn"><i class="fa fa-search"></i></button>
+            </form>
+            </li>
+      
+            <li style="position:relative" class="dropdown">
+                <?= $block->escapeHtml(__("Ticket(s)")) ?>
+                <span class="caret"></span>
+                <ul class="dropdown-content" >
+                    <li>
+                        <a href="<?=
+                        $block->escapeUrl($block->getUrl('helpdesk/ticket/newticket'))
+                        ?>">
+                            <?= $block->escapeHtml(__("Generate Ticket")) ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=
+                        $block->escapeUrl($block->getUrl('helpdesk/ticket/mytickets'))
+                        ?>">
+                            <?= $block->escapeHtml(__("Ticket(s) Status")) ?>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="wk_ts_skip_nav">
+        <div class="wk_ts_skip_nav_header">
+            <h4>
+                <a href="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/')) ?>">
+                    <?= $block->escapeHtml(__("Support Center")) ?>
+                </a>
+            </h4>
+            <i class="fa fa-bars"></i>
+        </div>
+        <ul class="wk_dropdown_nav">
+            <?php if (count($collection)): ?>
+                <li data-flag="0">
+                    <?= $block->escapeHtml(__("Support Category")) ?>
+                    <i class="fa fa-plus"></i>
+                    <ul class="wk_dropdown_list">
+                    <?php foreach ($collection as $item): ?>
+                        <li>
+                            <a href="#support_id_<?= $block->escapeHtml($item->getId()) ?>">
+                            <?= $block->escapeHtml($item->getName()) ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                </li>
+            <?php endif; ?>
+            <li data-flag="0">
+                <?= $block->escapeHtml(__("Ticket(s)")) ?>
+                <i class="fa fa-plus"></i>
+                <ul class="wk_dropdown_list">
+                    <li>
+                        <a href="<?=
+                        $block->escapeUrl($block->getUrl('helpdesk/ticket/newticket'))
+                        ?>">
+                        <?= $block->escapeHtml(__("Generate Ticket")) ?></a>
+                    </li>
+                    <li>
+                        <a href="<?=
+                        $block->escapeUrl($block->getUrl('helpdesk/ticket/mytickets'))
+                        ?>">
+                        <?= $block->escapeHtml(__("Ticket(s) Status")) ?>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="search_information"  data-flag="0">
+                <?= $block->escapeHtml(__("Search")) ?>
+                <i class="fa fa-plus"></i>
+                <ul class="wk_dropdown_list">
+                    <li style="position: relative;">
+                        <input type="text" name="serach" class="ticket_search" 
+                        placeholder="<?= $block->escapeHtml(__('Search')) ?>"/>
+                        <button class="wk_search_btn"><i class="fa fa-search" 
+                        style="float:none"></i></button>
+                        <ul class="dropdown-menu">
+                            <?php
+                                $codes = "";
+                            foreach ($collection as $value) {
+                                $codes = $codes.$value->getCmsId().",";
+                            }
+
+                                $indentifiers =
+                                array_unique(array_filter(explode(',', $codes)));
+                            ?>
+                            <?php foreach ($indentifiers as $cmsId):  ?>
+                                <li>
+                                    <?php $cms = $block->getCmsPage($cmsId, 'identifier'); ?>
+                                    <a 
+                                    href="<?=
+                                    $block->escapeUrl($block->getUrl($cms->getIdentifier()))
+                                    ?>"><?= $block->escapeHtml($cms->getTitle()) ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                            <li class="no-results" style="display: none;">
+                            <?= $block->escapeHtml(__("No Results Found.")) ?>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "navigation": {}
+        }
+    }
+</script>

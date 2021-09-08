@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerApproval
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="wk_customer_approval">
+                <settings>
+                    <type>wk_customer_approval</type>
+                    <label translate="true">Customer Approval</label>
+                    <actions class="Webkul\CustomerApproval\Ui\Component\MassAction\Status\Options"/>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+    <columns name="customer_columns" class="Magento\Customer\Ui\Component\Listing\Columns">
+        <column name="wk_customer_approval" class="Webkul\CustomerApproval\Ui\Component\Listing\Column\ShowIsApproved">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortable" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Status</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Is Approved</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

@@ -1,0 +1,63 @@
+<?php
+/**
+ * Webkul_MpAuction Navigation.
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$mpLabelBlock = $block->getLayout()->createBlock(\Webkul\MarketplaceProductLabels\Block\Label\Labellist::class);
+$_helper = $mpLabelBlock->getHelperObject('marketplaceHelper');
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isPartner = $_helper->isSeller();
+if ($isPartner) { ?>
+    <style type="text/css">
+        @media only screen and (max-width: 767px){
+
+            .block-collapsible-nav.wk-mp-main{
+                top: 20px;
+            }
+        }
+    </style>
+    <li class="level-0 <?= /* @noEscape */
+        strpos($magentoCurrentUrl, 'mplabels/label/newlabel')? "current active":"";?>">
+        <a href="#">
+            <span><?= /* @noEscape */ __('Custom Product Label')?></span>
+        </a>
+        <div class="wk-mp-submenu">
+            <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Product Label')?></strong>
+            <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+            <ul>
+                <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu  parent  level-1">
+                    <strong class="wk-mp-submenu-group-title">
+                        <span><?= /* @noEscape */ __('Menu')?></span>
+                    </strong>
+                    <div class="wk-mp-submenu">
+                        <ul>
+                            <li class="level-2">
+                                <?php // @codingStandardsIgnoreStart ?>
+                                <a href="<?= /* @noEscape */
+                                $block->getUrl('mplabels/label/newlabel', ['_secure' => $block->getRequest()->isSecure()])?>
+                                ">
+                                    <span><?= /* @noEscape */ __('Add New Label') ?></span>
+                                </a>
+                                <?php // @codingStandardsIgnoreEnd ?>
+                            </li>
+                            <li class="level-2">
+                                <?php // @codingStandardsIgnoreStart ?>
+                                <a href="<?= /* @noEscape */
+                                $block->getUrl('mplabels/label/labellist', ['_secure' => $block->getRequest()->isSecure()])?>
+                                ">
+                                    <span><?= /* @noEscape */ __('Product Label List') ?></span>
+                                </a>
+                                <?php // @codingStandardsIgnoreEnd ?>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </li>
+<?php } ?>

@@ -1,0 +1,71 @@
+
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('microsite_details', 'getChildHtml')):?>
+    <div class="wk-mp-design">
+        <label class="button wk-mp-btn pricelist-main-btn-submit wk-mp-save" id= "test" for="submit">
+            <?= $block->escapeHtml(__('Save'));?>
+        </label>
+    </div>
+    <div class="wk-mp-design">
+    <?php if ($detailedInfoGroup[0] == 'mppricelist_pricelist_editpricelist') {?>
+        <a href="<?= $block->escapeHtml($block->geturl())?>mppricelist/sellerpricelist/managepricelist">
+            <button class="button wk-mp-btn pricelist-main-btn-submit" for="submit">
+                <?= $block->escapeHtml(__('Back'));?>
+            </button>
+        </a>
+    <?php } elseif ($detailedInfoGroup[0] == 'mppricelist_pricelist_addpricerules') {?>
+        <a href="<?= $block->escapeHtml($block->geturl())?>mppricelist/pricerules/manageruleslist">
+            <button class="button wk-mp-btn pricelist-main-btn-submit" for="submit">
+                <?= $block->escapeHtml(__('Back'));?>
+            </button>
+        </a>
+    <?php } elseif ($detailedInfoGroup[0] == 'mppricelist.pricelist.add') {?>
+        <a href="<?= $block->escapeHtml($block->geturl())?>mppricelist/sellerpricelist/managepricelist">
+            <button class="button wk-mp-btn pricelist-main-btn-submit" for="submit">
+                <?= $block->escapeHtml(__('Back'));?>
+            </button>
+        </a>
+    <?php }?>
+    </div>
+    <div class="product info detailed wk-supplier-tabs">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                    $html = $layout->renderElement($name);
+                if (!trim($html)) {
+                    continue;
+                }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                ?>
+                <div class="data item title"
+                     aria-labeledby="tab-label-<?= $block->escapeHtml($alias) ?>-title"
+                     data-role="collapsible" id="tab-label-<?= $block->escapeHtml($alias) ?>">
+                    <a class="data switch"
+                       tabindex="-1"
+                       data-toggle="switch"
+                       href="#<?= $block->escapeHtml($alias) ?>"
+                       id="tab-label-<?= $block->escapeHtml($alias) ?>-title">
+                        <?= $block->escapeHtml($label) ?>
+                    </a>
+                </div>
+                <div class="data item content wk-display-none"
+                    id="<?= $block->escapeHtml($alias) ?>"
+                    data-role="content">
+                    <?= /* @noEscape */ $html ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+<?php endif; ?>

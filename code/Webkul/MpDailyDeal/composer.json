@@ -1,0 +1,20 @@
+{
+    "name": "webkul/marketplace-daily-deal",
+    "description": "Webkul Magento2 Marketplace Daily Deal module",
+    "require": {
+        "webkul/module-marketplace": "5.0.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\MpDailyDeal\\": ""
+        }
+    }
+}

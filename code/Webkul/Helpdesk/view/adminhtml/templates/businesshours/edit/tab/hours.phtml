@@ -1,0 +1,343 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+$id = $block->getRequest()->getParam("entity_id");
+$businessHour = $block->getCurrentBusinessHours($id);
+$helpdeskHours = [];
+if (!empty($businessHour->getHelpdeskHours())) {
+    $helpdeskHours = $block->getSerializer()->unserialize($businessHour->getHelpdeskHours());
+}
+$days = $block->getDays();
+$time = $block->getTimeInterval();
+?>
+<div class="entry-edit">
+    <div id="businesshours_hours_form" class="fieldset">
+        <div class="hor-scroll">
+            <table style="width:100%;float:left" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="value">
+                            <ul style="width:100%;float:left">
+                                <li class="fullweek_toggle">
+                                    <div class="radio">
+                                        <label class="radio">
+                                            <?= $escaper->escapeHtml(__('Select working days/hours')) ?>
+                                        </label>
+                                        <?php if (!$id): ?>
+                                            <ul style="display: block;" class="working-days">
+                                                <?php $i = 1; ?>
+                                                <?php foreach ($days as $key => $day): ?>
+                                                    <li 
+                                                    class="timerange <?= $escaper->escapeHtml($day); ?>_block">
+                                                        <div class="label">
+                                                            <label 
+                                                            class="business_days 
+                                                            <?php if ($i < 6) {
+                                                                echo "active";
+                                                            } ?>">
+                                                                <input 
+                                                                type="checkbox" 
+                                                                value="<?=
+                                                                $escaper->escapeHtml($day);
+                                                                ?>" 
+                                                                <?php if ($i < 6) {
+                                                                    echo "checked";
+                                                                }  ?> 
+                                                                name="business_hours[<?=
+                                                                $escaper->escapeHtml($day); ?>]" 
+                                                                id="<?=
+                                                                $escaper->escapeHtml($day); ?>">
+                                                                <?=
+                                                                $escaper->escapeHtml(__($day))
+                                                                ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="content">
+                                                            <select name="business_hours[morning_<?=
+                                                            $escaper->escapeHtml($day);
+                                                            ?>]" 
+                                                            class="morning_time" 
+                                                            <?php if ($i > 5) {
+                                                                 echo "disabled";
+                                                            } ?> >
+                                                                <?= $block->getTimeOptionHtml('8:00'); ?>
+                                                            </select>
+                                                            <select 
+                                                            name="business_hours[morning_cycle_<?=
+                                                            $escaper->escapeHtml($day); ?>]" 
+                                                            class="morning_cycle" 
+                                                            <?php if ($i > 5) {
+                                                                echo "disabled"; } ?> 
+                                                            >
+                                                                <option value="am" selected="selected">
+                                                                <?=
+                                                                $escaper->escapeHtml(__("am"))
+                                                                ?>
+                                                                </option>
+                                                                <option value="pm">
+                                                                <?=
+                                                                $escaper->escapeHtml(__("pm"))
+                                                                ?>
+                                                                </option>
+                                                            </select>
+                                                            to
+                                                            <select 
+                                                            name="business_hours[evening_<?=
+                                                            $escaper->escapeHtml($day); ?>]" 
+                                                            class="evening_time" 
+                                                            <?php if ($i > 5) {
+                                                                echo "disabled";
+                                                            } ?> >
+                                                                <?= $block->getTimeOptionHtml('5:00'); ?>
+                                                            </select>
+                                                            <select 
+                                                            name="business_hours[evening_cycle_<?=
+                                                            $escaper->escapeHtml($day); ?>]" 
+                                                            class="evening_cycle" 
+                                                            <?php if ($i > 5) { echo "disabled"; } ?> >
+                                                                <option value="am">
+                                                                <?=
+                                                                $escaper->escapeHtml(__("am"))
+                                                                ?>
+                                                                </option>
+                                                                <option value="pm" selected="selected">
+                                                                <?=
+                                                                $escaper->escapeHtml(__("pm")) ?>
+                                                                </option>
+                                                            </select>
+                                                            <label class="duration">
+                                                                <span class="hours-duration">
+                                                                    <span class="hours-num">9</span>
+                                                                    <span 
+                                                                    class="houres-label"> 
+                                                                    <?=
+                                                                    $escaper->escapeHtml(__('hrs')) ?>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="minutes-duration">
+                                                                    <span class="hours-num">30 </span>
+                                                                    <span 
+                                                                    class="houres-label">
+                                                                    <?=
+                                                                    $escaper->escapeHtml(__("mins"))
+                                                                    ?>
+                                                                    </span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <?php $i++; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php else: ?>
+                                            <ul 
+                                            <?php if ($businessHour->getHoursType()): ?> 
+                                            <?php endif; ?> class="working-days">
+                                                <?php $i = 1; ?>
+                                                <?php foreach ($days as $day): ?>
+                                                    <li class="timerange" 
+                                                    class="<?= $escaper->escapeHtml($day); ?>_block">
+                                                        <div class="label">
+                                                            <label 
+                                                            class="business_days 
+                                                            <?php
+                                                            if (isset($helpdeskHours[$day])) { echo "active"; }
+                                                            ?>">
+                                                                <input 
+                                                                type="checkbox" 
+                                                                value="<?= $escaper->escapeHtml($day); ?>" 
+                                                                <?php
+                                                                if (isset($helpdeskHours[$day])) {
+                                                                    echo "checked";
+                                                                }
+                                                                ?>
+                                                                name="business_hours[<?= $escaper->escapeHtml($day); ?>]" 
+                                                                id="<?= $escaper->escapeHtml($day); ?>">
+                                                                <?=
+                                                                $escaper->escapeHtml(__($day)) ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="content">
+                                                            <select 
+                                                            name="business_hours[morning_<?= $escaper->escapeHtml($day);
+                                                            ?>]" 
+                                                            class="morning_time" 
+                                                            <?php if (!isset($helpdeskHours[$day])) { echo "disabled"; }
+                                                            ?> >
+                                                                <?php if (isset($helpdeskHours[$day])): ?>
+                                                                    <?php foreach ($time as $value): ?>
+                                                                        <option 
+                                                                        <?php
+                                                                        if ($value ==
+                                                                        $helpdeskHours[$day]['morning_'.$day]
+                                                                            ) {
+                                                                               echo "selected";
+                                                                        } ?> 
+                                                                            value="<?= $escaper->escapeHtml($value) ?>">
+                                                                            <?=
+                                                                            $escaper->escapeHtml($value)
+                                                                            ?>
+                                                                            </option>
+                                                                    <?php endforeach; ?>
+                                                                <?php else: ?>
+                                                                    <?= $block->getTimeOptionHtml('8:00'); ?>
+                                                                <?php endif; ?>
+                                                            </select>
+                                                            <select 
+                                                            name=
+                                                            "business_hours[morning_cycle_<?=
+                                                            $escaper->escapeHtml($day); ?>]" 
+                                                            class="morning_cycle" 
+                                                            <?php
+                                                            if (!isset($helpdeskHours[$day])) { echo "disabled"; }
+                                                            ?> >
+                                                                <option 
+                                                                value="am" 
+                                                                <?php
+                                                                if (isset(
+                                                                    $helpdeskHours[$day]
+                                                                )
+                                                                    &&
+                                                                    "am"
+                                                                    == $helpdeskHours[$day]['morning_cycle_'.$day]) {
+                                                                         echo "selected";
+                                                                } ?>
+                                                                    >
+                                                                    <?=
+                                                                    $escaper->escapeHtml(__("am")) ?>
+                                                                    </option>
+                                                                <option 
+                                                                value="pm" 
+                                                                <?php if (isset($helpdeskHours[$day])
+                                                                    &&
+                                                                    "pm" ==
+                                                                    $helpdeskHours[$day]['morning_cycle_'.$day]) {
+                                                                                       echo "selected";
+                                                                } ?>
+                                                                    >
+                                                                    <?=
+                                                                        $escaper->escapeHtml(__("pm"))
+                                                                    ?>
+                                                                    </option>
+                                                            </select>
+                                                            to
+                                                            <select 
+                                                            name="business_hours[evening_<?=
+                                                            $escaper->escapeHtml($day);
+                                                            ?>]" 
+                                                            class="evening_time" 
+                                                            <?php if (!isset($helpdeskHours[$day])) { echo "disabled"; }
+                                                            ?> >
+                                                                <?php if (isset($helpdeskHours[$day])): ?>
+                                                                    <?php foreach ($time as $value): ?>
+                                                                        <option 
+                                                                        <?php
+                                                                        if ($value ==
+                                                                            $helpdeskHours[$day]['evening_'.$day]
+                                                                        ) {
+                                                                            echo "selected";
+                                                                        } ?> 
+                                                                        value=
+                                                                        "<?= $escaper->escapeHtml($value) ?>"
+                                                                        >
+                                                                            <?= $escaper->escapeHtml($value) ?>
+                                                                        </option>
+                                                                    <?php endforeach; ?>
+                                                                <?php else: ?>
+                                                                    <?= $block->getTimeOptionHtml('5:00'); ?>
+                                                                <?php endif; ?>
+                                                            </select>
+                                                            <select 
+                                                            name=
+                                                            "business_hours[evening_cycle_<?=
+                                                            $escaper->escapeHtml($day);
+                                                            ?>]" 
+                                                            class="evening_cycle" 
+                                                            <?php
+                                                            if (!isset($helpdeskHours[$day])) { echo "disabled"; } ?> >
+                                                                <option 
+                                                                value="am" 
+                                                                <?php
+                                                                if (isset(
+                                                                    $helpdeskHours[$day]
+                                                                )
+                                                                    &&
+                                                                    "am" == $helpdeskHours[$day]['evening_cycle_'.$day]
+                                                                    ) {
+                                                                        echo "selected";
+                                                                } ?>>
+                                                                    <?=
+                                                                        $escaper->escapeHtml(__("am")) ?>
+                                                                    </option>
+                                                                <option 
+                                                                value="pm"  
+                                                                <?php
+                                                                if (isset(
+                                                                    $helpdeskHours[$day]
+                                                                )
+                                                                        &&
+                                                                        "pm" ==
+                                                                        $helpdeskHours[$day]['evening_cycle_'.$day]
+                                                                    ) {
+                                                                        echo "selected";
+                                                                } ?>>
+                                                                        <?=
+                                                                        $escaper->escapeHtml(__("pm"))
+                                                                        ?>
+                                                                        </option>
+
+                                                            </select>
+                                                            <label 
+                                                            class="duration" 
+                                                            <?php if (!isset($helpdeskHours[$day])): ?> 
+                                                            style="display:none" 
+                                                            <?php endif; ?>>
+                                                                <span class="hours-duration">
+                                                                    <span class="hours-num">9</span>
+                                                                    <span class="houres-label"> <?=
+                                                                        $escaper->escapeHtml(__('hrs'))
+                                                                    ?>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="minutes-duration" style="display:none">
+                                                                    <span class="hours-num">30</span>
+                                                                    <span class="houres-label">
+                                                                    <?= $escaper->escapeHtml(__("mins")) ?>
+                                                                    </span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <?php $i++; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php
+$formData = [
+    'firstdate' => '01/01/'.date('Y')." "
+];
+$serializedFormData = $block->getJsonData()->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "hours": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

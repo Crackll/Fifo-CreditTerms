@@ -1,0 +1,58 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.wk-sampleproduct-add-form {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 10px;
+}
+.wk-sampleproduct-price-block {
+    padding: 10px;
+}
+.wk-sampleproduct-name {
+    padding: 10px;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #929eaa;
+}
+.wk-sampleproduct-btn {
+    padding: 10px;
+}
+#wk-sampleproduct-addtocart-button {
+    background: #e8e8e8;
+    border-color: #d1d1d1;
+    color: #47525d;
+}
+span.wk-sampleproduct-title {
+    font-weight: 600;
+}
+span.wk-sampleproduct-price {
+    padding: 2px 10px!important;
+    color: #fff;
+    background: #006bb4;
+    border-radius: 5px;
+}
+
+.wk-sampleproduct-addttocart-btn {
+    box-shadow: none;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    color: #006bb4;
+    font-size: 1.3rem;
+    opacity: 1!important;
+}
+.wk-sampleproduct-addttocart-btn:focus,
+.wk-sampleproduct-addttocart-btn:active,
+.wk-sampleproduct-addttocart-btn:hover {
+    box-shadow: none!important;
+    background: none!important;
+    border: none!important;
+}

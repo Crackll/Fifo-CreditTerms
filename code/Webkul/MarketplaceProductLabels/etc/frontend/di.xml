@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Webkul_LabelPlugin" type="Webkul\MarketplaceProductLabels\Plugin\LabelPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Related">
+        <plugin name="Webkul_RelatedProductsPlugin" type="Webkul\MarketplaceProductLabels\Plugin\RelatedProductsPlugin"/>
+    </type>    
+    <type name="Magento\Catalog\Block\Product\ProductList\Upsell">
+        <plugin name="Webkul_RelatedProductsPlugin" type="Webkul\MarketplaceProductLabels\Plugin\UpsellProductsPlugin"/>
+    </type>    
+    <type name="Magento\Checkout\Block\Cart\Crosssell">
+        <plugin name="Webkul_CrosssellProductsPlugin" type="Webkul\MarketplaceProductLabels\Plugin\CrosssellProductsPlugin"/>
+    </type>
+    <type name="Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="Webkul_MpCatalogWidgetPlugin"
+                type="Webkul\MarketplaceProductLabels\Plugin\Catalog\Widget\WidgetLabelPlugin"/>
+    </type> 
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+            <item name="marketplace_label_listing_data_source" xsi:type="string">Webkul\MarketplaceProductLabels\Ui\DataProvider\LabelListDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MarketplaceProductLabels\Ui\DataProvider\LabelListDataProvider">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_marketplace_product_label</argument>
+            <argument name="eventPrefix" xsi:type="string">marketplace_label_listing_dataprovider</argument>
+            <argument name="eventObject" xsi:type="string">label_listing_dataprovider</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MarketplaceProductLabels\Model\ResourceModel\Label</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ElasticSearch
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\ElasticSearch\Api\Data\IndexerInterface" 
+                type="Webkul\ElasticSearch\Model\Indexer" />
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="elastic_index" xsi:type="object">Webkul\ElasticSearch\Console\Command\Reindex</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="elastic_indexer_list_data_source" xsi:type="string">Webkul\ElasticSearch\Model\ResourceModel\Indexer\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\ElasticSearch\Model\ResourceModel\Indexer\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_elastic_index</argument>
+            <argument name="eventPrefix" xsi:type="string">wk_elastic_index</argument>
+            <argument name="eventObject" xsi:type="string">wk_elastic_index</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\ElasticSearch\Model\ResourceModel\Indexer</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\ElasticSearch\Logger\Debug">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\ElasticSearch\Logger\Elastic">
+        <arguments>
+            <argument name="name" xsi:type="string">elasticLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\ElasticSearch\Logger\Debug</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\ElasticSearch\Helper\Data">
+        <arguments>
+            <argument name="logger" xsi:type="object">Webkul\ElasticSearch\Logger\Elastic</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\ElasticSearch\Controller\Adminhtml\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexPool" xsi:type="array">
+                <item name="product" xsi:type="object">\Webkul\ElasticSearch\Model\Indexer\Reindex\Product</item>
+                <item name="category" xsi:type="object">\Webkul\ElasticSearch\Model\Indexer\Reindex\Category</item>
+                <item name="pages" xsi:type="object">\Webkul\ElasticSearch\Model\Indexer\Reindex\Pages</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\ElasticSearch\Model\Command\Indexer">
+        <arguments>
+            <argument name="indexPool" xsi:type="array">
+                <item name="product" xsi:type="object">\Webkul\ElasticSearch\Model\Indexer\Reindex\Product</item>
+                <item name="category" xsi:type="object">\Webkul\ElasticSearch\Model\Indexer\Reindex\Category</item>
+                <item name="pages" xsi:type="object">\Webkul\ElasticSearch\Model\Indexer\Reindex\Pages</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\Adminhtml\System\Config\Source\Engine">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic" xsi:type="string">Webkul Elasticsearch</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic" xsi:type="string">Webkul\ElasticSearch\Model\ResourceModel\Engine</item>
+            </argument>
+        </arguments>
+    </type> 
+    <type name="Magento\CatalogSearch\Model\Indexer\IndexerHandlerFactory">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="elastic" xsi:type="string">Webkul\ElasticSearch\Model\Indexer\IndexHandler</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <!-- Magento2.3.x compatiblity -->
+     <virtualType name="elasticsearchSearchCriteriaResolverFactory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection\SearchCriteriaResolverFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\SearchCriteriaResolver</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="elasticsearchSearchResultApplier\Factory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection\SearchResultApplierFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\SearchResultApplier</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="elasticsearchTotalRecordsResolver\Factory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection\TotalRecordsResolverFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\TotalRecordsResolver</argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Magento\AdvancedSearch\Model\SuggestedQueries">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="elastic" xsi:type="string">Magento\Elasticsearch6\Model\DataProvider\Suggestions</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="elasticsearchLayerSearchItemCollectionProvider" type="Magento\Elasticsearch\Model\Layer\Search\ItemCollectionProvider">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="elastic" xsi:type="object">Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="elasticsearchCategoryCollection" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">catalog_view_container</argument>
+            <argument name="searchCriteriaResolverFactory" xsi:type="object">elasticsearchSearchCriteriaResolverFactory</argument>
+            <argument name="searchResultApplierFactory" xsi:type="object">elasticsearchSearchResultApplier\Factory</argument>
+            <argument name="totalRecordsResolverFactory" xsi:type="object">elasticsearchTotalRecordsResolver\Factory</argument>
+            <argument name="defaultFilterStrategyApplyChecker" xsi:type="object">Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\DefaultFilterStrategyApplyChecker</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="elasticsearchCategoryCollectionFactory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">elasticsearchCategoryCollection</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="elasticsearchLayerCategoryItemCollectionProvider" type="Magento\Elasticsearch\Model\Layer\Category\ItemCollectionProvider">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="elastic" xsi:type="object">elasticsearchCategoryCollectionFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
+    
+     <virtualType name="Webkul\ElasticSearch\Model\Layer\Search\Context" type="Magento\Catalog\Model\Layer\Search\Context">
+        <arguments>
+            <argument name="collectionProvider" xsi:type="object">elasticsearchLayerSearchItemCollectionProvider</argument>
+            <argument name="stateKey" xsi:type="object">Magento\CatalogSearch\Model\Layer\Search\StateKey</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Model\Layer\Search">
+        <arguments>
+            <argument name="context" xsi:type="object">Webkul\ElasticSearch\Model\Layer\Search\Context</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="elasticsearchFulltextSearchCollection" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">quick_search_container</argument>
+            <argument name="searchCriteriaResolverFactory" xsi:type="object">elasticsearchSearchCriteriaResolverFactory</argument>
+            <argument name="searchResultApplierFactory" xsi:type="object">elasticsearchSearchResultApplier\Factory</argument>
+            <argument name="totalRecordsResolverFactory" xsi:type="object">elasticsearchTotalRecordsResolver\Factory</argument>
+            <argument name="defaultFilterStrategyApplyChecker" xsi:type="object">Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\DefaultFilterStrategyApplyChecker</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="elasticsearchFulltextSearchCollectionFactory" type="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">elasticsearchFulltextSearchCollection</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="elasticsearchLayerSearchItemCollectionProvider" type="Magento\Elasticsearch\Model\Layer\Search\ItemCollectionProvider">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="elastic" xsi:type="object">elasticsearchFulltextSearchCollectionFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="elasticsearchAdvancedCollection" type="Magento\CatalogSearch\Model\ResourceModel\Advanced\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">advanced_search_container</argument>
+            <argument name="searchCriteriaResolverFactory" xsi:type="object">elasticsearchSearchCriteriaResolverFactory</argument>
+            <argument name="searchResultApplierFactory" xsi:type="object">elasticsearchSearchResultApplier\Factory</argument>
+            <argument name="totalRecordsResolverFactory" xsi:type="object">elasticsearchTotalRecordsResolver\Factory</argument>
+            <argument name="defaultFilterStrategyApplyChecker" xsi:type="object">Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\DefaultFilterStrategyApplyChecker</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="elasticsearchAdvancedCollectionFactory" type="Magento\CatalogSearch\Model\ResourceModel\Advanced\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">elasticsearchAdvancedCollection</argument>
+        </arguments>
+    </virtualType>
+
+     <type name="Magento\CatalogSearch\Model\Search\ItemCollectionProvider">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="elastic" xsi:type="object">elasticsearchAdvancedCollectionFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    
+    <type name="Magento\Search\Model\AdapterFactory">
+        <arguments>
+            <argument name="adapters" xsi:type="array">
+                <item name="elastic" xsi:type="string">Webkul\ElasticSearch\Model\SearchAdapter\Adapter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\EngineResolver">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic" xsi:type="string">elastic</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

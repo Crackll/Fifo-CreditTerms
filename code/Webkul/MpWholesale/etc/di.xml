@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\MpWholesale\Api\Data\WholeSaleUserInterface" type="Webkul\MpWholesale\Model\WholeSaleUser"/>
+    <preference for="Webkul\MpWholesale\Api\WholeSaleUserRepositoryInterface" type="Webkul\MpWholesale\Model\WholeSaleUserRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\WholeSalerUnitInterface" type="Webkul\MpWholesale\Model\WholeSalerUnit"/>
+    <preference for="Webkul\MpWholesale\Api\WholeSalerUnitRepositoryInterface" type="Webkul\MpWholesale\Model\WholeSalerUnitRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\PriceRuleInterface" type="Webkul\MpWholesale\Model\PriceRule"/>
+    <preference for="Webkul\MpWholesale\Api\PriceRuleRepositoryInterface" type="Webkul\MpWholesale\Model\PriceRuleRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\UnitMappingInterface" type="Webkul\MpWholesale\Model\UnitMapping"/>
+    <preference for="Webkul\MpWholesale\Api\UnitMappingRepositoryInterface" type="Webkul\MpWholesale\Model\UnitMappingRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\ProductInterface" type="Webkul\MpWholesale\Model\Product"/>
+    <preference for="Webkul\MpWholesale\Api\ProductRepositoryInterface" type="Webkul\MpWholesale\Model\ProductRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\QuoteInterface" type="Webkul\MpWholesale\Model\Quotes"/>
+    <preference for="Webkul\MpWholesale\Api\QuoteRepositoryInterface" type="Webkul\MpWholesale\Model\QuoteRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\QuoteConversationInterface" type="Webkul\MpWholesale\Model\Quoteconversation"/>
+    <preference for="Webkul\MpWholesale\Api\QuoteConRepositoryInterface" type="Webkul\MpWholesale\Model\QuoteConRepository"/>
+    <preference for="Webkul\MpWholesale\Api\Data\LeadInterface" type="Webkul\MpWholesale\Model\Leads"/>
+    <preference for="Webkul\MpWholesale\Api\LeadRepositoryInterface" type="Webkul\MpWholesale\Model\LeadRepository"/>
+    <preference for="Magento\Integration\Model\AdminTokenService" type="Webkul\MpWholesale\Model\Rewrite\AdminTokenService"/>
+    <preference for="Magento\Backend\Block\Menu" type="Webkul\MpWholesale\Block\Rewrite\Menu"/>
+    <type name="Magento\User\Model\ResourceModel\User">
+        <plugin name="remove-wholesale-user" type="Webkul\MpWholesale\Plugin\Model\User" />
+    </type>
+    <type name="Magento\User\Model\User">
+        <plugin name="activationMailtoActiveWholesalers" type="Webkul\MpWholesale\Plugin\Model\AdminUser" />
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\WholeSalerUnitInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mpwholesale_unit_list</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\WholeSaleUserInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mpwholesale_userdata</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\PriceRuleInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mpwholesale_price_rules</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\UnitMappingInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mpwholesale_unit_mapping</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\ProductInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mpwholesale_product_details</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\QuoteInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">wholesaler_quotes</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\QuoteConversationInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">wholesaler_quotes_conversation</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Webkul\MpWholesale\Api\Data\LeadInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">wholesaler_product_leads</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpWholesale\Model\ResourceModel\WholeSaleUser\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mpwholesale_userdata</argument>
+            <argument name="eventPrefix" xsi:type="string">webkul_mpwholesale_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">webkul_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\WholeSaleUser</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wholesale_user_listing_data_source" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\WholeSaleUser\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wholesale_unit_listing_data_source" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\WholeSalerUnit\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpwholesale_pricerule_list_data_source" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\PriceRule\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wholesale_product_listing_data_source" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\Product\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wholesale_quotation_listing_data_source" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\Quotes\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wholesale_leads_listing_data_source" xsi:type="string">Webkul\MpWholesale\Model\ResourceModel\Leads\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpWholesale\Model\ResourceModel\Leads\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wholesaler_product_leads</argument>
+            <argument name="eventPrefix" xsi:type="string">webkul_wholesaleleads_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">wholesaleleads_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpWholesale\Model\Resource\Leads</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpWholesale\Model\ResourceModel\Quotes\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wholesaler_quotes</argument>
+            <argument name="eventPrefix" xsi:type="string">webkul_wholesalequote_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">wholesalequote_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpWholesale\Model\Resource\Quotes</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpWholesale\Model\ResourceModel\WholeSalerUnit\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mpwholesale_unit_list</argument>
+            <argument name="eventPrefix" xsi:type="string">webkul_wholesaleunit_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">wholesaleunit_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpWholesale\Model\Resource\WholeSalerUnit</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpWholesale\Model\ResourceModel\PriceRule\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mpwholesale_price_rules</argument>
+            <argument name="eventPrefix" xsi:type="string">webkul_wholesaleprice_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">wholesaleprice_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpWholesale\Model\Resource\PriceRule</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpWholesale\Model\ResourceModel\Product\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mpwholesale_product_details</argument>
+            <argument name="eventPrefix" xsi:type="string">webkul_wholesaleproduct_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">wholesaleproduct_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpWholesale\Model\Resource\Product</argument>
+        </arguments>
+    </type>
+    <virtualType name="wholeSalerQuoteGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpWholesale\Model\ResourceModel\Quotes\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">wholeSalerQuoteGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="wholeSalerProductGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpWholesale\Model\ResourceModel\Product\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">wholeSalerProductGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="wholeSalerUnitGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpWholesale\Model\ResourceModel\WholeSalerUnit\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">wholeSalerUnitGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="wholesaleGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpWholesale\Model\ResourceModel\WholeSaleUser\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">MpWholesaleGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="wholeSalerLeadGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpWholesale\Model\ResourceModel\Leads\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">wholeSalerLeadGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\MpWholesale\Ui\Component\MassAction\Product\MassAction">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">mpwholesale/product/massaction</item>
+                <item name="paramName" xsi:type="string">id</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Options</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure to you want to perform this action on selected Product(s)?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

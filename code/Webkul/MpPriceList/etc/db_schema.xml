@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_mp_pricelist_list" resource="default" engine="innodb" comment="Marketplace Pricelist List Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="11" identity="true" comment="Id"/>
+        <column xsi:type="int" name="seller_id" nullable="false" padding="11" comment="Seller Id"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Title"/>
+        <column xsi:type="int" name="priority" nullable="false" padding="11" comment="Priority"/>
+        <column xsi:type="int" name="status" nullable="false" padding="11" comment="Status"/>
+        <column xsi:type="date" name="start_date" nullable="true" comment="Start Date"/>
+        <column xsi:type="date" name="end_date" nullable="true" comment="End Date"/>
+        <column xsi:type="datetime" name="date" nullable="true" comment="Created Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="wk_mp_pricelist_rule" resource="default" engine="innodb" comment="Marketplace Pricelist Rules Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="11" identity="true" comment="Id"/>
+        <column xsi:type="int" name="seller_id" nullable="false" padding="11" comment="Seller Id"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Title"/>
+        <column xsi:type="int" name="priority" nullable="false" padding="11" comment="Priority"/>
+        <column xsi:type="int" name="status" nullable="false" padding="11" comment="Status"/>
+        <column xsi:type="int" name="calculation_type" nullable="false" padding="11" comment="Calculation Type"/>
+        <column xsi:type="int" name="price_type" nullable="false" padding="11" comment="Price Type"/>
+        <column xsi:type="int" name="apply_on" nullable="false" padding="11" comment="Applicable On"/>
+        <column xsi:type="int" name="rule_type" nullable="false" padding="11" comment="Rule Type"/>
+        <column xsi:type="int" name="is_combination" nullable="false" padding="11" comment="Is Combination"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="12" nullable="false" comment="Amount"/>
+        <column xsi:type="decimal" name="store_currency_amount" scale="4" precision="12" nullable="false" comment="Store Currency Amount"/>
+        <column xsi:type="text" name="base_currency_code" nullable="true" comment="Base Currency Code"/>
+        <column xsi:type="text" name="store_currency_code" nullable="true" comment="Current Store Currency Code"/>
+        <column xsi:type="decimal" name="currency_rates" scale="4" precision="12" nullable="false" comment="Currency Rates"/>
+        <column xsi:type="decimal" name="total" scale="4" precision="12" nullable="false" comment="Total Product Price"/>
+        <column xsi:type="decimal" name="store_currency_total" scale="4" precision="12" nullable="false" comment="Total product price store currency"/>
+        <column xsi:type="int" name="qty" nullable="false" padding="11" comment="Quantity"/>
+        <column xsi:type="datetime" name="date" nullable="true" comment="Created Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="wk_mp_pricelist_assigned_rule" resource="default" engine="innodb" comment="Marketplace Pricelist List Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="11" identity="true" comment="Id"/>
+        <column xsi:type="int" name="pricelist_id" nullable="false" padding="11" comment="Pricelist Id"/>
+        <column xsi:type="int" name="rule_id" nullable="false" padding="11" comment="Rule Id"/>
+        <column xsi:type="timestamp" name="date" nullable="false" comment="Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="wk_mp_pricelist_rule_items" resource="default" engine="innodb" comment="Marketplace Pricelist Rule Items Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="11" identity="true" comment="Id"/>
+        <column xsi:type="int" name="entity_type" nullable="false" padding="11" comment="Entity Type"/>
+        <column xsi:type="int" name="parent_id" nullable="false" padding="11" comment="Rule Id"/>
+        <column xsi:type="varchar" name="entity_value" length="255" nullable="false" comment="Entity Value"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="wk_mp_pricelist_user_details" resource="default" engine="innodb" comment="Marketplace Pricelist User Details Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="11" identity="true" comment="Id"/>
+        <column xsi:type="int" name="pricelist_id" nullable="false" padding="11" comment="Pricelist Id"/>
+        <column xsi:type="int" name="type" nullable="false" padding="11" comment="User Type"/>
+        <column xsi:type="int" name="user_id" nullable="false" padding="11" comment="User Id"/>
+        <column xsi:type="timestamp" name="date" nullable="false" comment="Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

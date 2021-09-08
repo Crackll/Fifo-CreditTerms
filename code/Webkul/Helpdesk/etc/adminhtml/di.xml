@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Webkul\Helpdesk\Ui\Component\Ticket\MassAction\Status">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">helpdesk/ticketsmanagement_tickets/changestatus</item>
+                <item name="paramName" xsi:type="string">status</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Change Status</item>
+                    <item name="message" xsi:type="string" translate="true">Do you want to change status?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Helpdesk\Ui\Component\Ticket\MassAction\Type">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">helpdesk/ticketsmanagement_tickets/changetype</item>
+                <item name="paramName" xsi:type="string">type</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Change Type</item>
+                    <item name="message" xsi:type="string" translate="true">Do you want to change type?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Helpdesk\Ui\Component\Ticket\MassAction\Priority">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">helpdesk/ticketsmanagement_tickets/changepriority</item>
+                <item name="paramName" xsi:type="string">priority</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Change Priority</item>
+                    <item name="message" xsi:type="string" translate="true">Do you want to change priority?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Helpdesk\Ui\Component\Ticket\MassAction\Group">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">helpdesk/ticketsmanagement_tickets/changegroup</item>
+                <item name="paramName" xsi:type="string">group</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Change Group</item>
+                    <item name="message" xsi:type="string" translate="true">Do you want to change group?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Helpdesk\Ui\Component\Ticket\MassAction\Agent">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">helpdesk/ticketsmanagement_tickets/changeagent</item>
+                <item name="paramName" xsi:type="string">agent</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Change Agent</item>
+                    <item name="message" xsi:type="string" translate="true">Do you want to change agent?</item>
+                </item>
+            </argument>
+
+        </arguments>
+    </type>
+</config>

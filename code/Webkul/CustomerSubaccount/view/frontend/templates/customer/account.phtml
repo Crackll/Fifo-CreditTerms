@@ -1,0 +1,38 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/**
+ * Customer Account
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+
+$cartUpdate = $block->getRequest()->getParam('cart');
+$loginUpdate = $block->getRequest()->getParam('login');
+if ($cartUpdate=='update' && $loginUpdate!='subaccount') {
+    ?>
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "cartupdate": ""
+    }
+}
+</script>
+    <?php
+} elseif ($loginUpdate=='subaccount') { ?>
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "cartupdate": {"newcustomer":true}
+    }
+}
+</script>
+<?php }
+?>

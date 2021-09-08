@@ -1,0 +1,77 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div id ='wk-mp-pricelist-customer-grid'>
+<?= $block->getChildHtml('customer.grid.container');?>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'underscore',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function($, confirm, _) {
+        var oldCustomersIds = $('#pricelist_customers').val();
+        if(oldCustomersIds != undefined) {
+            var showCustomerSelected = oldCustomersIds.split(',');
+            $( document ).ajaxComplete(function (event, request, settings) {
+                var currentAjaxUrl = settings.url;
+                if (showCustomerSelected.length >0) {
+                    setTimeout(function () {
+                        $.each(showCustomerSelected, function(i,val){
+                            if ($("#customerIdscheck"+val).prop("checked") == false) {
+                                $("#customerIdscheck"+val).trigger("click")
+                            }
+                    }); 
+                    },1000);
+                }
+            });
+        }
+        var customerIdArray = [];
+        $(document).on('click',"#wk-mp-pricelist-customer-grid input[type='checkbox']",function(){
+            if ($('#customerIdscheck'+$(this).val()).is(':checked')){
+                customerIdArray.push($(this).val()); 
+            }else {
+                if ((index = customerIdArray.indexOf($(this).val())) !== -1) {
+                    customerIdArray.splice(index, 1);
+                }
+            }
+                $('#pricelist_customers').val(customerIdArray);
+        });
+        $(document).on('click',"ul[class='action-menu']  li span",function(){
+            if($(this).text() == 'Select All') {
+                $("#wk-mp-pricelist-customer-grid input[type='checkbox']").each(function( index ) {
+                    customerIdArray.push($(this).val());
+                });
+            }
+            if($(this).text() == 'Deselect All') {
+                customerIdArray = [];
+            }
+            $("#pricelist_customers").val(customerIdArray);
+        });
+        $(document).on(
+            'click',
+            "th.data-grid-multicheck-cell div.action-multicheck-wrap input.admin__control-checkbox",
+            function(){
+            if ($("th.data-grid-multicheck-cell div.action-multicheck-wrap input.admin__control-checkbox")
+            .is(':checked') == true){
+                $("#wk-mp-pricelist-customer-grid input[type='checkbox']").each(function( index ) {
+                    customerIdArray.push($(this).val());
+                });
+            } else {
+                customerIdArray = [];
+            }
+            $("#pricelist_customers").val(customerIdArray);
+        });
+}); 
+</script>

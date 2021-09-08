@@ -1,0 +1,29 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div class="wk-mpsellercategory-container">
+    <div class="page-main-actions">
+        <div class="page-actions-placeholder"></div>
+        <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+            <div class="page-actions-inner" data-title='<?= /* @noEscape */ __("New Category"); ?>'>
+                <div class="page-actions-buttons">
+                    <button id="add" title='<?= /* @noEscape */ __("New Category"); ?>' type="button" 
+                    class="action- scalable primary wk-ui-grid-btn wk-ui-grid-btn-primary" 
+                    onclick="location.href = '<?= /* @noEscape */ $block->getUrl('mpsellercategory/category/new')?>';" 
+                    data-ui-id="add-button">
+                        <span><?= /* @noEscape */ __("New Category"); ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?= /* @noEscape */ $block->getChildHtml(); ?>
+</div>

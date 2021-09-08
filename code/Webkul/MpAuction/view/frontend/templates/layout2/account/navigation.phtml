@@ -1,0 +1,63 @@
+<?php
+/**
+ * Webkul_MpAuction Navigation.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$mpAuctionViewModel = $block->getMpAuctionViewmodel();
+$helper = $mpAuctionViewModel->getMarketplaceHelper();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+if ($helper->isSeller() && $block->isAuctionEnable() &&
+(
+    (($isSellerGroup && $helper->isAllowedAction('mpauction/account/index')) || !$isSellerGroup)
+)
+) { ?>
+    <?php if (($isSellerGroup && $helper->isAllowedAction('mpauction/account/index')) || !$isSellerGroup) { ?>
+<style type="text/css">
+    @media only screen and (max-width: 767px){
+
+        .block-collapsible-nav.wk-mp-main{
+            top: 20px;
+        }
+    }
+</style>
+<li class="level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpauction/account')? "current active":"";?>">
+    <a href="#" onclick="return false;" class="">
+        <span><?= /* @noEscape */ __('Auction')?></span>
+    </a>
+    <div class="wk-mp-submenu">
+        <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Auction')?></strong>
+        <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+        <ul>
+            <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu  parent  level-1">
+                <strong class="wk-mp-submenu-group-title">
+                    <span><?= /* @noEscape */ __('Menu')?></span>
+                </strong>
+                <div class="wk-mp-submenu">
+                    <ul>
+                        <?php if (($isSellerGroup && $helper->isAllowedAction('mpauction/account/index')) || !$isSellerGroup) { ?>
+                            <li class="level-2">
+                                <a href="<?= /* @noEscape */ $block->getUrl('mpauction/account/index', ['_secure' => $block->getRequest()->isSecure()]); ?>">
+                                    <span><?= /* @noEscape */ __('Add Auction') ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (($isSellerGroup && $helper->isAllowedAction('mpauction/account/auctionlist')) || !$isSellerGroup) { ?>
+                            <li class="level-2">
+                                <a href="<?= /* @noEscape */ $block->getUrl('mpauction/account/auctionlist', ['_secure' => $block->getRequest()->isSecure()]); ?>">
+                                    <span><?= /* @noEscape */ __('Auction Product List') ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</li>
+    <?php } ?>
+<?php }?>

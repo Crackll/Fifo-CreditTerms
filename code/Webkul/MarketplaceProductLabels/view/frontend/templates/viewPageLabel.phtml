@@ -1,0 +1,57 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+    $value = $block->getProductLabelIdAttr();
+    $productId = $block->getProductId();
+    $imagePath = "";
+    $label=$block->getProductLabels();
+    $imgWidth = $label['label_width_productpage'];
+    $imgHeight = $label['label_height_productpage'];
+    
+    $right='';
+    $left='';
+    $bottom='';
+    $top='';
+
+if ($label['position']==(\Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_LEFT)) {
+    $left='0%';
+    $top='2%';
+} elseif ($label['position']==(\Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_RIGHT)) {
+    $right='0%';
+    $top='2%';
+} elseif ($label['position']==(\Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_LEFT)) {
+    $bottom='17%';
+    $left='0%';
+} elseif ($label['position']==(\Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_RIGHT)) {
+    $bottom='17%';
+    $right='0%';
+}
+if ($label['image_name'] && $label['status'] == (\Webkul\MarketplaceProductLabels\Model\Label::STATUS_ENABLE)) {
+    // @codingStandardsIgnoreLineStart
+    $imagePath = "<img class=productLabels  style='right:".$right.";left:".$left.";top:".$top.";bottom:".$bottom.";height:".$imgHeight."%;max-height:81%;' width=$imgWidth% alt=".$label['label_name']." out title=".$label['label_name']." out src=".$block->getBaseUrl().'mplabel/label/'.$label['image_name'].">";
+    // @codingStandardsIgnoreLineEnd
+} else {
+    $imagePath='';
+}
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*":{
+            "Webkul_MarketplaceProductLabels/js/viewPageLabelJs":{
+                "imageTag": {
+                  "imagePath": "<?= /* @noEscape */ $imagePath ; ?>"
+                }
+            }
+        }
+    }
+</script>
+

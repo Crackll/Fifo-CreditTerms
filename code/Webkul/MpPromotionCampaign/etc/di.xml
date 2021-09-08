@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="mppromotion-offers-menu" type="Webkul\MpPromotionCampaign\Block\Plugin\Topmenu"/>
+    </type>
+    <virtualType name="Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign\Admin\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mppromotioncampaign_campaigns</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign</argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign\Admin\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mppromotioncampaign_campaigns</argument>
+            <argument name="eventPrefix" xsi:type="string">mppromotioncampaign_campaigns_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mppromotioncampaign_campaigns_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mppromotioncampaign_campaigns_list_data_source" xsi:type="string">Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign\Admin\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpPromotionCampaign\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpPromotionCampaign\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\MpPromotionCampaign\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Webkul_MpPromotionCampaign::productlist"
+                type="Webkul\MpPromotionCampaign\Block\Plugin\ProductListUpdateForDeals"
+                sortOrder="10" />
+    </type>
+    <!-- for updating special_from_date and special_to_date for campaign products on product save -->
+    <type name="Magento\Eav\Model\Entity\Attribute\Backend\Datetime">
+        <plugin name="Webkul_MpPromotionCampaign::datetimeAfterBeforeSave"
+                type="Webkul\MpPromotionCampaign\Plugin\Model\Eav\Entity\Attribute\Backend\Datetime"
+                sortOrder="10" />
+    </type>
+    <virtualType name="Magento\CatalogSearch\Block\SearchResult\ListProduct">
+        <plugin name="Webkul_MpPromotionCampaign::searchproductlist"
+                type="Webkul\MpPromotionCampaign\Block\Plugin\ProductListUpdateForDeals" />
+    </virtualType> 
+    <preference for="Magento\Catalog\Model\Layer\ContextInterface" type="Magento\Catalog\Model\Layer\Context" />
+    <preference for="Magento\Catalog\Model\Layer\ItemCollectionProviderInterface" type="Magento\Catalog\Model\Layer\Category\ItemCollectionProvider" />
+    <preference for="Magento\Catalog\Model\Layer\StateKeyInterface" type="Magento\Catalog\Model\Layer\Category\StateKey" />
+    <preference for="Magento\Catalog\Model\Layer\CollectionFilterInterface" type="Magento\Catalog\Model\Layer\Category\CollectionFilter" />
+    <preference for="Magento\Catalog\Model\Layer\FilterableAttributeListInterface" type="Magento\Catalog\Model\Layer\Category\FilterableAttributeList" />
+    <preference for="Magento\Catalog\Model\Layer\AvailabilityFlagInterface" type="Magento\Catalog\Model\Layer\Category\AvailabilityFlag" />
+    <preference for="Magento\Catalog\Model\ResourceModel\Layer\Filter\Price" type="Webkul\MpPromotionCampaign\Model\ResourceModel\Layer\Filter\Price" />
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="exampleDisablepromotion" xsi:type="object">Webkul\MpPromotionCampaign\Console\Command\DisablePromotion</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Webkul\MpPromotionCampaign\ImageUpload" type="Webkul\MpPromotionCampaign\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">mppromotioncampaign/tmp</argument>
+            <argument name="basePath" xsi:type="string">mppromotioncampaign</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="gif" xsi:type="string">gif</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\MpPromotionCampaign\Controller\Adminhtml\Campaign\Banner\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Webkul\MpPromotionCampaign\ImageUpload</argument>
+        </arguments>
+    </type>
+</config>

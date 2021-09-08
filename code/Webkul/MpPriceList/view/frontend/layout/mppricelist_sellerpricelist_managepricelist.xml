@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+     <head>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/product.css"/>
+        <css src="Webkul_Marketplace::css/layout.css"/>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+        <css src="Webkul_MpPriceList::css/mppricelist.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+                <block class="Magento\Framework\View\Element\Template" name="mppricelist_seller_pricelist" template="Webkul_MpPriceList::pricelist/managepricelist.phtml" cacheable="false"/>
+        </referenceContainer>
+        <referenceContainer name="mppricelist_seller_pricelist">
+            <uiComponent name="mppricelist_sellerpricelist_list"/>
+        </referenceContainer>
+    </body>
+</page>

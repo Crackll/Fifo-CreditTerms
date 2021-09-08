@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="connect-src">
+            <values>
+                <value id="wk-fcm-google-subscribe" type="host">https://fcm.googleapis.com/fcm/connect/subscribe</value>
+                <value id="wk-fcm-google-unsubscribe" type="host">https://fcm.googleapis.com/fcm/connect/unsubscribe</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

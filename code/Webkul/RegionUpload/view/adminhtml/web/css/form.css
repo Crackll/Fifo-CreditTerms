@@ -1,0 +1,22 @@
+/* .wk_error{
+    display: inline-block;
+    width: 48%;
+    margin-left: 27%;
+    border: 1px solid red;
+    padding: 5px;
+    margin-top: 1px;
+    background: #fffbbb;
+} */
+
+.regionupload-add-index label.admin__field-label:after {
+    color: #e22626;
+    content: '*';
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-left: 10px;
+    margin-top: .2rem;
+    position: absolute;
+    z-index: 1;
+}

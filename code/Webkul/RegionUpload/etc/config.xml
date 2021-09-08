@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <wk_region_upload>
+            <wk_regionupload_enable_google_map_pin>
+                <wk_regionupload_enable_google_pin>0</wk_regionupload_enable_google_pin>
+            </wk_regionupload_enable_google_map_pin>
+        </wk_region_upload>
+        <csp>
+            <mode>
+                <storefront>
+                    <report_uri>http://csp-reporting-service.com/my-project/endpoint</report_uri>
+                </storefront>
+                <admin>
+                    <report_uri>http://csp-reporting-service.com/my-project/endpoint</report_uri>
+                </admin>
+            </mode>
+        </csp>
+    </default>
+</config>

@@ -1,0 +1,308 @@
+/**
+ * Webkul_MpDailyDeals css.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeals
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.wk-daily-deal .save-box{
+    margin-left:1%;
+}
+.deal-collection .products-grid .product-item{
+    width: 24.4%;
+    min-width: 175px;
+}
+.deal-collection .product-item-info{
+    width: 240px;
+    max-width: 100%;
+}
+.clear-left{
+    clear: left;
+}
+.block-topdeals .product-image-container{
+    width: 50px;
+}
+.block-topdeals .product-image-container .product-image-wrapper{
+    padding-bottom: 100%;
+}
+.block-topdeals .product-image-container .product-image-photo{
+    width: 50px;
+    height: 50px;
+}
+
+.mp-daily-deal{
+    position: relative;
+}
+.mp-daily-deal ul.nav{
+    display:none;
+    top: 0px;
+    position: absolute;
+    background-color: #f5f5f5;
+    margin-left: 35%;
+    border: 1px solid rgb(204, 204, 204);
+}
+.mp-daily-deal:hover ul.nav{
+    display:block;
+    z-index: 999;
+}
+.block-collapsible-nav .mp-daily-deal.current .item a {
+    font-weight: normal;
+    border-left:none;
+}
+.product-info-main .product-info-stock-sku {
+    text-align: left;
+    /* padding-left: 15%; */
+}
+/* .product-info-main .stock.available, .product-info-main .stock.unavailable {
+    float: left;
+} */
+/* .product-info-main .product.attribute.sku {
+    float: right;
+} */
+.clear {
+    clear: both;
+}
+.deal-collection .product-item-info{
+    width: 240px;
+    max-width: 100%;
+}
+.clear-left{
+    clear: left;
+}
+.wk_cat_count_clock.notavilable{
+    display: inline-block;
+    margin-left: 10%;
+}
+.catalog-product-view .wk-daily-deal.hide{
+    display :none;
+}
+.catalog-product-view .wk-daily-deal{
+    display: block;
+    vertical-align: top;
+    width: 100%;
+    padding-bottom: 10px;
+}
+.catalog-category-view .wk-daily-deal, .catalogsearch-result-index .wk-daily-deal, .catalogsearch-advanced-result .wk-daily-deal, .mpdailydeal-index-index .wk-daily-deal, .mpdailydeal-collection-deal .wk-daily-deal, .marketplace-seller-collection .wk-daily-deal{
+    display: inline-block;
+    width: 100%;
+}
+.catalog-category-view .wk-deal-ends-label, .catalogsearch-result-index .wk-deal-ends-label, .catalogsearch-advanced-result .wk-deal-ends-label, .mpdailydeal-index-index .wk-deal-ends-label,
+.mpdailydeal-collection-deal .wk-deal-ends-label, .marketplace-seller-collection .wk-deal-ends-label{
+    float: left;
+}
+.catalog-category-view .wk-deal-font-weight-600, .catalogsearch-result-index .wk-deal-font-weight-600, .catalogsearch-advanced-result .wk-deal-font-weight-600, .mpdailydeal-index-index .wk-deal-font-weight-600,.mpdailydeal-collection-deal .wk-deal-font-weight-600, .marketplace-seller-collection .wk-deal-font-weight-600{
+    font-weight: 600;
+}
+.catalog-category-view .deal-price-label, .catalogsearch-result-index .deal-price-label, .catalogsearch-advanced-result .deal-price-label, .mpdailydeal-index-index .deal-price-label,
+.mpdailydeal-collection-deal .deal-price-label, .marketplace-seller-collection .deal-price-label {
+    color: white;
+    background: #4caa52;
+    padding: 3px 5px;
+    font-weight: 700;
+    display: inline-block;
+    box-sizing: border-box;
+}
+.catalog-category-view .grid .wk-deal-off-box, .catalogsearch-result-index .grid .wk-deal-off-box, .catalogsearch-advanced-result .grid .wk-deal-off-box, .mpdailydeal-index-index .grid .wk-deal-off-box, .mpdailydeal-collection-deal .grid .wk-deal-off-box, .marketplace-seller-collection .grid .wk-deal-off-box{
+    position: absolute;
+    z-index: 2;
+    /* bottom: 350px; */
+    top: 50px;
+    left: 2px;
+}
+.catalog-category-view .products-list .wk-deal-off-box, .catalogsearch-result-index .products-list .wk-deal-off-box, .catalogsearch-advanced-result .products-list .wk-deal-off-box, .mpdailydeal-index-index .products-list .wk-deal-off-box, .mpdailydeal-collection-deal .products-list .wk-deal-off-box, .marketplace-seller-collection .products-list .wk-deal-off-box{
+    position: absolute;
+    left: 21%;
+    z-index: 1;
+}
+.catalog-category-view .wk-deal-left-border, .catalogsearch-result-index .wk-deal-left-border, .catalogsearch-advanced-result .wk-deal-left-border, .mpdailydeal-index-index .column.main .wk-deal-left-border, .mpdailydeal-collection-deal .wk-deal-left-border, .marketplace-seller-collection .wk-deal-left-border{
+    height: 36px;
+    width: 1px;
+    background: #4caa52;
+    display: inline-block;
+    top: -5px;
+    position: absolute;
+}
+.product-item:hover + .wk-daily-deal{
+    position: unset;
+}
+.catalog-category-view .grid .wk-daily-deal, .catalogsearch-result-index .grid .wk-daily-deal, .catalogsearch-advanced-result .grid .wk-daily-deal, .mpdailydeal-index-index .grid .wk-daily-deal, .mpdailydeal-collection-deal .grid .wk-daily-deal, .marketplace-seller-collection .grid .wk-daily-deal{
+    /* position: relative; */
+    position: unset!important;
+}
+.mpdailydeal-collection-deal .wk_mp_design .block-account {
+    display: inline-block;
+    width: 100%;
+}
+.wk_front_dd_set_time {
+    width: 52px;
+    display: inline-block;
+}
+.wk_front_dd_set_time_days {
+    width: 70px;
+    display: inline-block;
+}
+.wk-deal-clock-span {
+    font-size: 3rem;
+}
+.wk-deal-clock-label-dd {
+    float:left;
+    padding-left: 5%;
+    font-size: 1.3rem;
+}
+.wk-deal-clock-label-hr {
+    float:left;
+    padding-left: 14%;
+    font-size: 1.3rem;
+}
+.wk-deal-clock-label-mi {
+    float:left;
+    padding-left: 14%;
+    font-size: 1.3rem;
+}
+.wk-deal-clock-label-sec {
+    float:left;
+    padding-left: 14%;
+    font-size: 1.3rem;
+}
+.product-info-main .wk-deal-off, .bundle-options-wrapper .wk-deal-off {
+    color: white;
+    background: #4caa52;
+    padding: 3px;
+    font-weight: 700;
+}
+.bundle-options-wrapper .wk-bundle-deal {
+    margin-top: 10px;;
+}
+.bundle-options-wrapper .wk-deal-timer {
+    margin-bottom: 5px;
+}
+@media  screen and (max-width: 768px) and (min-width:0px){
+    .toolbar-amount {
+        position: static;
+    }
+}
+@media  screen and (max-width: 1145px) and (min-width:767px){
+    .wk-deal-clock-span {
+        font-size: 2rem;
+    }
+    .wk-deal-clock-label-dd {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk-deal-clock-label-hr {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk-deal-clock-label-mi {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk-deal-clock-label-sec {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk_front_dd_set_time_days{
+         width: 50px;
+    }
+    .wk_front_dd_set_time {
+        width: 45px;
+    }
+    .wk-daily-deal .save-box {
+        margin-left: 2%;
+    }
+    .catalog-product-view .save-label {
+        font-size: 10px;
+    }
+}
+@media  screen and (max-width: 470px) and (min-width:0px){
+    .wk-deal-clock-span {
+        font-size: 2rem;
+    }
+    .wk-deal-clock-label-dd {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk-deal-clock-label-hr {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk-deal-clock-label-mi {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk-deal-clock-label-sec {
+        float:left;
+        font-size: 0.9rem;
+    }
+    .wk_front_dd_set_time_days{
+         width: 45px;
+    }
+    .wk_front_dd_set_time {
+        width: 36px;
+    }
+    .wk-daily-deal .save-box {
+        margin-left: 2%;
+    }
+    .catalog-product-view .save-label {
+        font-size: 10px;
+    }
+    .catalog-category-view .grid .wk-deal-off-box, .catalogsearch-result-index .grid .wk-deal-off-box, .catalogsearch-advanced-result .grid .wk-deal-off-box, .dailydeals-index-index .grid .wk-deal-off-box {
+        bottom: 310px;
+    }
+}
+.product-info-main .product-info-price .special-price .price-label:after {
+    content: unset;
+}
+.wk-deal-timer {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+}
+.mpdailydeal-collection-deal .page-title-wrapper {
+    display:none;
+}
+.deal-price-label {
+    max-width: 115px!important;
+}
+.catalog-category-view .products-list.list .wk-deal-off-box, .catalogsearch-result-index .products-list.list .wk-deal-off-box, .catalogsearch-advanced-result .products-list.list .wk-deal-off-box, .mpdailydeal-index-index .products-list.list .wk-deal-off-box, .mpdailydeal-collection-deal .products-list.list .wk-deal-off-box, .marketplace-seller-collection .products-list.list .wk-deal-off-box {
+    left: 0;
+    top: 10px;
+}
+.catalog-category-view .products-list.list li.product, .catalogsearch-result-index .products-list.list li.product, .catalogsearch-advanced-result .products-list.list li.product, .mpdailydeal-index-index .products-list.list li.product, .mpdailydeal-collection-deal .products-list.list li.product, .marketplace-seller-collection .products-list.list li.product  {
+    position: relative;
+}
+@media  screen and (max-width: 767px){
+    .compare.wrapper, [class*='block-compare'] {
+        display: block;
+    }
+    .mpdailydeal-index-index .block-compare .product-item .product-item-name {
+        margin-left: 0px;
+    }    
+}
+.deal-collection.mpdailydeal-collection-deal .wk-mp-seller-profile-box.wk-mp-profile-icon-wrapper{
+    text-align: center;
+    border: 1px solid #ccc;
+    border-bottom: 3px solid #fff;
+    border-top: none;
+    box-sizing: content-box;
+    margin-bottom: -1px;
+    line-height: 74px!important;
+}
+.page-products .products-grid .product-item {
+    position: relative!important;
+}
+.wk-deal-clock-label-hr span, 
+.wk-deal-clock-label-mi span, 
+.wk-deal-clock-label-sec span,
+.wk-deal-clock-label-dd span {
+    white-space: nowrap;     
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    width: 58px; 
+    display: inline-block;
+}
+
+.mpdailydeal-index-index .block-compare .product-item .product-item-name {
+    margin-left: 0px;
+}

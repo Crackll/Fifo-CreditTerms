@@ -1,0 +1,19 @@
+{
+  "wk_marketplace_product_label": {
+      "column": {
+          "id": true,
+          "image_name": true,
+          "label_name": true,
+          "label_width_productpage": true,
+          "label_height_productpage": true,
+          "label_width_categorypage": true,
+          "label_height_categoryage": true,
+          "position": true,
+          "status": true,
+          "seller_id": true
+      },
+      "constraint": {
+          "PRIMARY": true
+      }
+  }
+}

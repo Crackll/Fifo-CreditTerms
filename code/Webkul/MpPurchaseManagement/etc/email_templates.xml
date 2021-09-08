@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul MpPurchaseManagement Email Templates xml
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="mpwholsale_mp_purchase_management_new_order" label="New Purchase Order Mail to Seller" file="new_purchase_order.html" type="html" module="Webkul_MpPurchaseManagement" area="frontend"/>
+    <template id="mpwholsale_mp_purchase_management_update_status" label="Order Status Update mail" file="update_status.html" type="html" module="Webkul_MpPurchaseManagement" area="frontend"/>
+</config>

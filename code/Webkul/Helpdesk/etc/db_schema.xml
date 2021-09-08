@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="helpdesk_tickets" resource="default" engine="innodb" comment="Helpdesk Tickets Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" comment="User Id"/>
+    <column xsi:type="varchar" name="fullname" nullable="true" length="255" comment="fullname"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <column xsi:type="int" name="extension" padding="11" unsigned="false" nullable="true" identity="false" comment="file extension"/>
+    <column xsi:type="int" name="help_topic" padding="11" unsigned="false" nullable="true" identity="false" comment="help topic"/>
+    <column xsi:type="varchar" name="subject" nullable="true" length="255" comment="subject"/>
+    <column xsi:type="text" name="query" nullable="true" comment="query"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="status"/>
+    <column xsi:type="int" name="type" padding="11" unsigned="false" nullable="true" identity="false" comment="type"/>
+    <column xsi:type="int" name="to_agent" padding="11" unsigned="false" nullable="true" identity="false" comment="To Agent"/>
+    <column xsi:type="int" name="to_group" padding="11" unsigned="false" nullable="true" identity="false" comment="To Group"/>
+    <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="true" identity="false" comment="priority"/>
+    <column xsi:type="int" name="answered" padding="11" unsigned="false" nullable="true" identity="false" comment="answered"/>
+    <column xsi:type="text" name="source" nullable="true" comment="source"/>
+    <column xsi:type="text" name="from" nullable="true" comment="from"/>
+    <column xsi:type="text" name="to" nullable="true" comment="to"/>
+    <column xsi:type="text" name="who_is" nullable="true" comment="who_is"/>
+    <column xsi:type="text" name="cc" nullable="true" comment="cc"/>
+    <column xsi:type="text" name="bcc" nullable="true" comment="bcc"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="ticket created date"/>
+    <column xsi:type="boolean" name="is_merged" nullable="false" comment="Is Merged"/>
+    <column xsi:type="boolean" name="merge_primary_id" nullable="false" comment="Is Primary"/>
+    <column xsi:type="text" name="merge_tickets" nullable="false" comment="Merge Tickets"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_tickets_type" resource="default" engine="innodb" comment="Helpdesk Tickets Type">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="varchar" name="type_name" nullable="true" length="255" comment="Type Name"/>
+    <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="ticket created date"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_tickets_status" resource="default" engine="innodb" comment="Helpdesk Tickets Stats">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="created date"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_tickets_priority" resource="default" engine="innodb" comment="Helpdesk Tickets Priority">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="created date"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_tickets_customattributes" resource="default" engine="innodb" comment="Helpdesk Tickets Priority">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Attribute Id"/>
+    <column xsi:type="int" name="field_dependency" padding="11" unsigned="false" nullable="true" identity="false" comment="Field Dependency"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_thread" resource="default" engine="innodb" comment="Helpdesk Tickets Thread Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Thread Id"/>
+    <column xsi:type="int" name="ticket_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Ticket Id"/>
+    <column xsi:type="varchar" name="sender" nullable="true" length="255" comment="Sender"/>
+    <column xsi:type="varchar" name="who_is" nullable="true" length="255" comment="Who is"/>
+    <column xsi:type="text" name="reply" nullable="false" comment="Reply" onCreate="migrateDataFrom(reply)"/>
+    <column xsi:type="varchar" name="source" nullable="true" length="255" comment="source"/>
+    <column xsi:type="int" name="attachment" padding="11" unsigned="false" nullable="true" identity="false" comment="attachment"/>
+    <column xsi:type="text" name="thread_type" nullable="true" comment="Thread Type"/>
+    <column xsi:type="text" name="to" nullable="true" comment="to"/>
+    <column xsi:type="text" name="cc" nullable="true" comment="cc"/>
+    <column xsi:type="text" name="bcc" nullable="true" comment="bcc"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="ticket created date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_notes" resource="default" engine="innodb" comment="Helpdesk Tickets Notes">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Notes Id"/>
+    <column xsi:type="int" name="agent_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Agent Id"/>
+    <column xsi:type="int" name="ticket_id" padding="11" unsigned="false" nullable="true" identity="false" comment="ticket Id"/>
+    <column xsi:type="text" name="description" nullable="true" comment="description"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_tag" resource="default" engine="innodb" comment="Helpdesk Tickets Tag">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Tag Id"/>
+    <column xsi:type="text" name="name" nullable="true" comment="tag name"/>
+    <column xsi:type="text" name="ticket_ids" nullable="true" comment="ticket Id"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="ticket created date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_lock" resource="default" engine="innodb" comment="Helpdesk Tickets Lock">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="lock Id"/>
+    <column xsi:type="int" name="agent_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Agent Id"/>
+    <column xsi:type="int" name="ticket_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Ticket Id"/>
+    <column xsi:type="timestamp" name="lock_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="lock time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_draft" resource="default" engine="innodb" comment="Helpdesk Tickets Draft">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Draft Id"/>
+    <column xsi:type="int" name="ticket_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Ticket Id"/>
+    <column xsi:type="int" name="user_id" padding="11" unsigned="false" nullable="true" identity="false" comment="User Id"/>
+    <column xsi:type="text" name="content" nullable="true" comment="Content"/>
+    <column xsi:type="varchar" name="field" nullable="true" length="255" comment="Field"/>
+    <column xsi:type="varchar" name="user_type" nullable="true" length="255" comment="User Type"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_sla" resource="default" engine="innodb" comment="Helpdesk Tickets SLA">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="ticket_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Ticket Id"/>
+    <column xsi:type="timestamp" name="respond_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Respond Time"/>
+    <column xsi:type="timestamp" name="resolve_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Resolve Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_customer" resource="default" engine="innodb" comment="Helpdesk Customer">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="customer_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Customer Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <column xsi:type="int" name="organizations" padding="11" unsigned="false" nullable="true" identity="false" comment="Organization id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_customer_organization" resource="default" engine="innodb" comment="Helpdesk Customer Organizations">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="description" nullable="true" length="255" comment="Description"/>
+    <column xsi:type="varchar" name="domain" nullable="true" length="255" comment="Domain"/>
+    <column xsi:type="varchar" name="notes" nullable="true" length="255" comment="notes"/>
+    <column xsi:type="varchar" name="customers" nullable="true" length="255" comment="Customers"/>
+    <column xsi:type="int" name="customer_role" padding="11" unsigned="false" nullable="true" identity="false" comment="Customer Role"/>
+    <column xsi:type="varchar" name="groups" nullable="true" length="255" comment="Groups"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_agents" resource="default" engine="innodb" comment="Helpdesk Tickets Agents">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="entity_id"/>
+    <column xsi:type="int" name="user_id" padding="11" unsigned="false" nullable="true" identity="false" comment="User Id"/>
+    <column xsi:type="int" name="ticket_scope" padding="11" unsigned="false" nullable="true" identity="false" comment="Ticket Scope"/>
+    <column xsi:type="varchar" name="timezone" nullable="true" length="255" comment="timezone"/>
+    <column xsi:type="int" name="level" padding="11" unsigned="false" nullable="true" identity="false" comment="level Scope"/>
+    <column xsi:type="text" name="signature" nullable="true" comment="signature"/>
+    <column xsi:type="int" name="group_id" padding="11" unsigned="false" nullable="true" identity="false" comment="group_id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_agent_level" resource="default" engine="innodb" comment="Helpdesk Ticket Agent level">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="255" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_attachments" resource="default" engine="innodb" comment="Helpdesk Ticket Attachment">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="id"/>
+    <column xsi:type="int" name="ticket_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Ticket Id"/>
+    <column xsi:type="int" name="thread_id" padding="11" unsigned="false" nullable="true" identity="false" comment="thread Id"/>
+    <column xsi:type="varchar" name="filename" nullable="true" length="255" comment="File Name"/>
+    <column xsi:type="varchar" name="attachment_id" nullable="true" length="255" comment="Attachment id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_businesshours" resource="default" engine="innodb" comment="Helpdesk Ticket businesshours">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Business hour Id"/>
+    <column xsi:type="varchar" name="businesshour_name" nullable="true" length="255" comment="Business hour Name"/>
+    <column xsi:type="varchar" name="description" nullable="true" length="255" comment="description"/>
+    <column xsi:type="varchar" name="timezone" nullable="true" length="255" comment="timezone"/>
+    <column xsi:type="varchar" name="hours_type" nullable="true" length="255" comment="hours type"/>
+    <column xsi:type="text" name="helpdesk_hours" nullable="true" comment="helpdesk hours"/>
+    <column xsi:type="text" name="hollyday_list" nullable="true" comment="hollyday list"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_responses" resource="default" engine="innodb" comment="Helpdesk Ticket Responses">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="description" nullable="true" length="255" comment="description"/>
+    <column xsi:type="varchar" name="agent_id" nullable="true" length="255" comment="Agent Id"/>
+    <column xsi:type="varchar" name="can_use" nullable="true" length="255" comment="can_use"/>
+    <column xsi:type="varchar" name="groups" nullable="true" length="255" comment="groups"/>
+    <column xsi:type="text" name="actions" nullable="true" comment="actions"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="255" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_event" resource="default" engine="innodb" comment="Helpdesk Ticket Events">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="description" nullable="true" length="255" comment="description"/>
+    <column xsi:type="text" name="event" nullable="true" comment="event"/>
+    <column xsi:type="text" name="one_condition_check" nullable="true" comment="one_condition_check"/>
+    <column xsi:type="text" name="all_condition_check" nullable="true" comment="all_condition_check"/>
+    <column xsi:type="text" name="actions" nullable="true" comment="actions"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="255" comment="status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_group" resource="default" engine="innodb" comment="Helpdesk Ticket Group">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Group Id"/>
+    <column xsi:type="varchar" name="group_name" nullable="true" length="255" comment="Group Name"/>
+    <column xsi:type="varchar" name="agent_ids" nullable="true" length="255" comment="Agent Ids"/>
+    <column xsi:type="int" name="businesshour_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Businesshour Id"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="int" name="is_active" padding="11" unsigned="false" nullable="true" identity="false" comment="Is Active"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_sla_policies" resource="default" engine="innodb" comment="Helpdesk Ticket SLA Policies">
+    <column xsi:type="int" name="sla_id" padding="10" unsigned="true" nullable="false" identity="true" comment="SLA Id"/>
+    <column xsi:type="varchar" name="sla_name" nullable="true" length="255" comment="SLA Name"/>
+    <column xsi:type="text" name="sla_description" nullable="true" comment="SLA description"/>
+    <column xsi:type="text" name="sla_service_level_targets" nullable="true" comment="sla_service_level_targets"/>
+    <column xsi:type="text" name="one_condition_check" nullable="true" comment="one_condition_check"/>
+    <column xsi:type="text" name="all_condition_check" nullable="true" comment="all_condition_check"/>
+    <column xsi:type="int" name="sort_order" padding="11" unsigned="false" nullable="true" identity="false" comment="sort_order"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="sla_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_attribute_values" resource="default" engine="innodb" comment="Helpdesk Ticket Attribute Values">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Attribute Id"/>
+    <column xsi:type="int" name="ticket_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Ticket Id"/>
+    <column xsi:type="text" name="value" nullable="true" comment="value"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_activity" resource="default" engine="innodb" comment="Helpdesk Ticket Activity">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="user_id" padding="11" unsigned="false" nullable="true" identity="false" comment="User Id"/>
+    <column xsi:type="varchar" name="performer" nullable="true" length="255" comment="performer"/>
+    <column xsi:type="varchar" name="field" nullable="true" length="255" comment="field"/>
+    <column xsi:type="varchar" name="type" nullable="true" length="255" comment="type"/>
+    <column xsi:type="varchar" name="level" nullable="true" length="255" comment="level"/>
+    <column xsi:type="text" name="label" nullable="true" comment="label"/>
+    <column xsi:type="varchar" name="user_type" nullable="true" length="255" comment="user type"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_support_center" resource="default" engine="innodb" comment="Helpdesk Ticket Support Center">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="varchar" name="cms_id" nullable="true" length="255" comment="CMS Id"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="Status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_email_template" resource="default" engine="innodb" comment="Helpdesk Ticket Email Template">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="template_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Template Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_connect_email" resource="default" engine="innodb" comment="Helpdesk Ticket Connect Email">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <column xsi:type="varchar" name="username" nullable="true" length="255" comment="User Name"/>
+    <column xsi:type="varchar" name="password" nullable="true" length="255" comment="Password"/>
+    <column xsi:type="varchar" name="host_name" nullable="true" length="255" comment="Host Name"/>
+    <column xsi:type="int" name="port" padding="11" unsigned="false" nullable="true" identity="false" comment="Port"/>
+    <column xsi:type="varchar" name="mailbox" nullable="true" length="255" comment="Mail box"/>
+    <column xsi:type="varchar" name="protocol" nullable="true" length="255" comment="Protocol"/>
+    <column xsi:type="int" name="fetch_time" padding="11" unsigned="false" nullable="true" identity="false" comment="Fetch Time"/>
+    <column xsi:type="int" name="fetch_email_limit" padding="11" unsigned="false" nullable="true" identity="false" comment="Fetch Email Limit"/>
+    <column xsi:type="int" name="count" padding="11" unsigned="false" nullable="true" identity="false" comment="Count"/>
+    <column xsi:type="int" name="helpdesk_action" padding="11" unsigned="false" nullable="true" identity="false" comment="Helpdesk Action"/>
+    <column xsi:type="varchar" name="mailbox_folder" nullable="true" length="255" comment="Mailbox Folder"/>
+    <column xsi:type="int" name="default_group" padding="11" unsigned="false" nullable="true" identity="false" comment="Default Group"/>
+    <column xsi:type="int" name="default_type" padding="11" unsigned="false" nullable="true" identity="false" comment="Default Type"/>
+    <column xsi:type="int" name="default_priority" padding="11" unsigned="false" nullable="true" identity="false" comment="Default Priority"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="Status"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="helpdesk_ticket_mail_details" resource="default" engine="innodb" comment="Helpdesk Ticket Mail Details">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="sender" nullable="true" length="255" comment="sender"/>
+    <column xsi:type="int" name="thread_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Thread Id"/>
+    <column xsi:type="varchar" name="message_id" nullable="true" length="255" comment="Message Id"/>
+    <column xsi:type="varchar" name="references" nullable="true" length="255" comment="references"/>
+    <column xsi:type="int" name="u_id" padding="11" unsigned="false" nullable="true" identity="false" comment="u_id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

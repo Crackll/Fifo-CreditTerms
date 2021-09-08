@@ -1,0 +1,363 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+$mpBlock =  $block->getLayout()->createBlock(
+    \Webkul\Marketplace\Block\Profile::class
+);
+ 
+$partner = $block->getProfileDetail();
+if ($partner['shop_url']) {
+    $helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $b2bHelper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\Data::class);
+    $sellerId = $partner->getSellerId();
+    $supplierInfo = $b2bHelper->getSupplierInfoById($sellerId);
+    $bannerpic = $partner->getBannerPic()!=''?$partner->getBannerPic():"banner-image.png";
+    $bannerpic = $helper->getMediaUrl().'avatar/'.$bannerpic;
+    
+    $logo = $partner->getLogoPic()!=''?$partner->getLogoPic():"noimage.png";
+    $logo = $helper->getMediaUrl().'avatar/'.$logo;
+
+    $shopUrl = $block->escapeHtml($partner['shop_url']);
+    $shoptitle = $block->escapeHtml($partner->getShopTitle());
+    if (!$shoptitle) {
+        $shoptitle = $shopUrl;
+    }
+    $defaultAddress = $b2bHelper->getAddressById($partner->getDefaultAddressId());
+    if ($defaultAddress) {
+        $locsearch = implode(', ', $defaultAddress->getStreet()).", ".
+        $defaultAddress->getCity().", ".$defaultAddress->getRegion().", ".
+        $b2bHelper->getCountryName($defaultAddress->getCountryId()).", ".
+        $defaultAddress->getPostcode();
+    } else {
+        $locsearch = $block->escapeHtml($partner['company_locality']);
+    }
+
+    $flagReasons = $mpBlock->getSellerFlagReasons();
+    ?>
+    <div class="wk-supplier-banner wk-supplier-margin-bottom">
+        <?php if ($helper->isSellerSliderModuleInstalled()) {
+            echo $block->getChildHtml("marketplace_seller_slider_block");
+        } ?>
+        <img class="wk-supplier-banner-image" src="<?= $block->escapeHtml($bannerpic);?>">
+        <?php if ($bannerContent = $supplierInfo->getWkSupplierBannerContent()) { ?>
+            <div class="wk-list-container wk-supplier-header">
+                <div class="wk-supplier-header-container">
+                    <?= $block->escapeHtml($bannerContent)?>
+                </div>
+            </div>
+            <?php
+        } ?>
+    </div>
+    <div class="wk-supplier-collection-header-box wk-supplier-margin-bottom">
+        <div class="wk-supplier-collection-title-container">
+            <a class="wk-supplier-logo-container" href="<?= $block
+            ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+            $shopUrl));?>" >
+                <img class="wk-supplier-collection-logo" src="<?= $block->escapeHtml($logo);?>" />
+            </a>
+            <div style="display:inline-block;">
+                <a class="wk-supplier-collection-title" href="<?= $block
+                ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+                $shopUrl));?>">
+                    <?= $block->escapeHtml($shoptitle)?>
+                </a>
+            </div>
+            <?= $block->getChildHtml('seller_badges_top') ?>
+            <div class="wk-supplier-collection-header-txt">
+                <a class="wk-supplier-collection-title-desc" href="<?= $block
+                ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+                $shopUrl));?>">
+                    <?= $block->escapeHtml($supplierInfo->getWkSupplierCompanyTagline())?>
+                </a>
+            </div>
+            <div class="wk-supplier-rating-summary">
+                <?php
+                $feedData = $helper->getFeedTotal($sellerId);
+                $totalRating = (
+                    $feedData['price'] + $feedData['value'] + $feedData['quality']
+                ) / 60;
+                $rating = round($totalRating, 1, PHP_ROUND_HALF_UP);
+                $ratingPercent = $rating*20;
+                ?>
+                <span class="product-reviews-summary short">
+                    <div class="rating-summary">
+                        <div class="rating-result" title="<?= $block->escapeHtml($ratingPercent)?>%">
+                            <span style="width:<?= $block->escapeHtml($ratingPercent)?>%">
+                                <span><?= $block->escapeHtml($ratingPercent)?>%</span>
+                            </span>
+                        </div>
+                    </div>
+                </span>
+                <a class="wk-supplier-rating-container" 
+                href="<?= $block->escapeHtml($helper->getRewriteUrl('marketplace/seller/feedback/shop/'.
+                $shopUrl))?>" title="<?= $block->escapeHtml(__('Make a Review'))?>">
+                    <span class="wk-supplier-rating-avg"><?= $block->escapeHtml($rating); ?> - </span>
+                </a>
+                <span class="wk-supplier-rating-total wk-supplier-collection-header-txt">
+                    <?= $block->escapeHtml(__('%1 Ratings', $feedData['feedcount']))?>
+                </span>
+            </div>
+            <div>
+                <?php if ($locsearch) { ?>
+                    <a title="<?= $block->escapeHtml(__('Search')) ?>" href="<?= /* @noEscape */
+                    $block->escapeHtml($helper->getRewriteUrl('marketplace/seller/location/shop/'.
+                    $shopUrl))?>" target="_blank">
+                        <span class="wk-supplier-collection-location wk-supplier-collection-header-txt">
+                            <?= $block->escapeHtml(__($locsearch)); ?>
+                        </span>
+                    </a>
+                <?php } ?>
+                <?php if ($supplierInfo->getWkIsVerifiedSupplier()) { ?>
+                    <span class="wk-supplier-verified"><?= $block->escapeHtml(__('Verified'))?></span>
+                    <?php
+                } ?>
+                <?php if ($supplierInfo->getWkIsPremiumSupplier()) { ?>
+                    <span class="wk-supplier-premium"><?= $block->escapeHtml(__('Premium Supplier'))?></span>
+                    <?php
+                } ?>
+            </div>
+            <?php if ($helper->getSellerFlagStatus() && (
+              ($flagReasons->getSize() && $helper->getSellerFlagData('reason')) || $helper->getSellerFlagData('other_reason'))
+            ) { ?>
+                <div style="padding: 10px 0px 5px 0px;" class="wk-mp-collection-seller-title">
+                    <span class="wk-report-flag-link"><a id="reportflag"><?= $helper->getSellerFlagData('seller_flag_label') ?></a></span>
+                </div>
+            <?php } ?>
+
+        </div>
+        <div class="wk-supplier-container-right">
+            <div class="wk-supplier-msg-container">
+                <button class="askque"><span><?= $block->escapeHtml(__('Message Supplier'))?></span></button>
+            </div>
+            <div class="wk-supplier-info-wrapper">
+                <div class="wk-supplier-collection-header-txt"><?= $block->escapeHtml(__('Supplier Info'))?></div>
+                <div>
+                    <div class="wk-supplier-info-container">
+                        <a class="wk-supplier-minilogo-container" href="<?= $block
+                        ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+                        $shopUrl));?>" >
+                            <img class="wk-supplier-collection-minilogo" src="<?= $block->escapeHtml($logo); ?>" />
+                        </a>
+                        <div class="wk-supplier-info-title-container">
+                            <div class="wk-supplier-info-row">
+                                <?= $block->escapeHtml($supplierInfo->getName());?>
+                            </div>
+                            <div class="wk-supplier-collection-header-txt">
+                                <?= $block->escapeHtml($supplierInfo->getWkSupplierRole())?>
+                            </div>
+                        </div>
+                        <?php
+                        $responseTime = $supplierInfo->getWkSupplierResponseTime();
+                        $responseTimeUnit = $supplierInfo->getWkSupplierResponseTimeUnit();
+                        $responseRate = $b2bHelper->getResponseRate(
+                            $sellerId,
+                            $responseTime,
+                            $responseTimeUnit
+                        );
+                        if ($responseRate) { ?>
+                            <div class="wk-supplier-response-rate-container">
+                                <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                    <?= $block->escapeHtml(__('Response Rate'))?>
+                                </div>
+                                <div><?= $block->escapeHtml($responseRate)?>%</div>
+                            </div>
+                            <?php
+                        } ?>
+                        <?php if ($responseTime = $supplierInfo->getWkSupplierResponseTime()) {
+                            if (!$supplierInfo->getWkSupplierResponseTimeUnit()) {
+                                $timeUnit = __('Hour(s)');
+                            } else {
+                                if ($supplierInfo->getWkSupplierResponseTimeUnit() == 'day') {
+                                    $timeUnit = __('Day(s)');
+                                } else {
+                                    $timeUnit = __('Hour(s)');
+                                }
+                            }
+                            ?>
+                            <div class="wk-supplier-response-time-container">
+                                <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                    <?= $block->escapeHtml(__('Response Time'))?>
+                                </div>
+                                <div><?= $block->escapeHtml($responseTime." ".$timeUnit)?></div>
+                            </div>
+                            <?php
+                        } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <?php if ($helper->getSellerFlagStatus()): ?>
+      <div class="seller-flag">
+          <div id="wk-mp-flag-data">
+              <div class="wk-mp-modals-wrapper">
+                  <aside tabindex="0" data-type="popup" data-role="modal" class="modal-popup modal-slide _inner-scroll wk-mp-model-flag-popup">
+                      <div tabindex="0" data-role="focusable-start"></div>
+                      <div data-role="focusable-scope" class="modal-inner-wrap">
+                          <header class="modal-header">
+                              <h4 class="modal-title"><?= $helper->getSellerFlagData('seller_flag_label') ?></h4>
+                              <button type="button" data-role="closeBtn" class="action-close wk-seller-flag-close">
+                                  <span><? __('Close')?></span>
+                              </button>
+                              <span class="wk-seller-flag-clear"></span>
+                          </header>
+                          <?php
+                            if ($helper->isCustomerLoggedIn()) {
+                                $readonly = "readonly='readonly'";
+                                $customer = $helper->getCustomerData();
+                                $reporterName = $customer->getName();
+                                $reporterEmail = $customer->getEmail();
+                            } else {
+                                $readonly = '';
+                                $reporterName = '';
+                                $reporterEmail = '';
+                            }
+                            ?>
+                          <form id="flag-form" method="post" action="#" class="fieldset">
+                              <div class="modal-body form-list wk-flag-form field required">
+                                  <label class="label"><?= $escaper->escapeHtml(__('Your Name')) ?> :</label>
+                                  <input type="text" name="name" class="queryemail wk-contact_input_fields required-entry" value="<?= $escaper->escapeHtml($reporterName)?>" <?= /* @noEscape */ $readonly?>/>
+                                  <label class="label"><?= $escaper->escapeHtml(__('Your Email')) ?> :</label>
+                                  <input type="text" name="email" class="queryemail required-entry validate-email wk-contact_input_fields" value="<?= $escaper->escapeHtml($reporterEmail)?>" <?= /* @noEscape */ $readonly?>/>
+                                  <?php if ($helper->getProductFlagData('reason')):
+                                        ?>
+                                    <label class="label"><?= $escaper->escapeHtml(__('Choose an appropriate reason to flag')) ?> :</label>
+                                        <?php foreach ($flagReasons as $flagReason): ?>
+                                      <div class="wk-flagreasons">
+                                        <input type="radio" name="reason" id="<?= $flagReason->getId() ?>" class="flag-reason required-entry" value="<?= $flagReason->getReason()?>" >
+                                        <label for="<?= $flagReason->getId() ?>"><?= $flagReason->getReason() ?></label>
+                                      </div>
+                                    <?php endforeach; ?>
+                                        <?php if ($helper->getProductFlagData('other_reason')): ?>
+                                      <div class="wk-flagreasons">
+                                        <input type="radio" name="reason" id="reason_other" class="flag-reason required-entry" value="other_value" checked>
+                                        <label for="reason_other"><?= $helper->getProductFlagData('other_reason_label') ?></label>
+                                      </div>
+                                      <textarea name="flag_other_reason" placeholder="Write a reason to flag this seller" class="wk-full-width wk-flag-other-reason required-entry"></textarea>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                  <input type="hidden" name="seller_id" value="<?= $escaper->escapeHtml($sellerId);?>"/>
+                                  <input type="hidden" name="seller_name" value="<?= $escaper->escapeHtml($shoptitle);?>" />
+                              </div>
+                              <div class="modal-footer">
+                                  <span class="error"></span>
+                                  <span class="errormail"></span>
+                                  <input type="reset" value="<?= $escaper->escapeHtml(__('Reset')) ?>" id="resetflagbtn" class="wk-btn wk-btn-seller-flag_default"/>
+                                  <input type="submit" value="<?= $escaper->escapeHtml(__('Submit')) ?>" id="flagbtn" class="wk-btn wk-btn-seller-flag-primary clickflag"/>
+                                  <span class="wk-seller-flag-clear"></span>
+                              </div>
+                          </form>
+                      </div>
+                      <div tabindex="0" data-role="focusable-end"></div>
+                  </aside>
+              </div>
+          </div>
+      </div>
+      <div class="wk-alert-modal-content">
+        <div class="wk-flag-status-content">
+          <p><?= $escaper->escapeHtml(__('Thank you.'))?></p>
+          <p><?= $escaper->escapeHtml(__('Your report against '))?><b><?= $escaper->escapeHtml($shoptitle);?></b><?= $escaper->escapeHtml(__(' has been submitted.'))?></p>
+          <p><?= $escaper->escapeHtml(__('We will re-verify the seller Information and see if it violates any of our policy or selling guidelines.'))?></p>
+        </div>
+      </div>
+    <?php endif;?>
+
+
+    <?= /* @escapeNotVerified */ $block->getChildHtml("marketplace_seller_profile_contact");?>
+    <?= /* @escapeNotVerified */ $block->getChildHtml("marketplace_seller_profile_menu")?>
+<?php }  ?>
+
+
+<script>
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/alert",
+        "mage/mage"
+    ], function($, alert) {
+        var flagDataForm = $('#flag-form');
+        flagDataForm.mage('validation', {});
+        $('body').append($('#wk-mp-flag-data'));
+        $('#reportflag').click(function() {
+            $('#flag-form input,#flag-form textarea').removeClass('mage-error');
+            $('.page-wrapper').css('opacity','0.4');
+            $('.wk-mp-model-flag-popup').addClass('_show');
+            $('#wk-mp-flag-data').show();
+        });
+        $('.wk-seller-flag-close').click(function() {
+            $('.page-wrapper').css('opacity','1');
+            $('#resetflagbtn').trigger('click');
+            $('#wk-mp-flag-data').hide();
+            $('#flag-form .validation-failed').each(function() {
+                $(this).removeClass('validation-failed');
+            });
+            $('#flag-form .validation-advice').each(function() {
+                $(this).remove();
+            });
+        });
+        $('.flag-reason').on('change',function(e) {
+          if($(this).val() == "other_value") {
+            $('.wk-flag-other-reason').show();
+            $('.wk-flag-other-reason').addClass('required-entry');
+          } else {
+            $('.wk-flag-other-reason').hide();
+            $('.wk-flag-other-reason').removeClass('required-entry');
+          }
+        });
+        $('#resetflagbtn').on('click', function(e) {
+          $('.wk-flag-other-reason').show();
+          $('.wk-flag-other-reason').addClass('required-entry');
+        });
+        $('#flagbtn').click(function() {
+            if (flagDataForm.valid()!=false) {
+                var thisthis = $(this);
+                if (thisthis.hasClass("clickflag")) {
+                    thisthis.removeClass('clickflag');
+                    $('#wk-mp-flag-data').addClass('mail-procss');
+                    $.ajax({
+                        url:'<?= $escaper->escapeUrl($block->getUrl("marketplace/seller/reportflag", ["_secure" => $this->getRequest()->isSecure()])) ?>',
+                        data:$('#flag-form').serialize(),
+                        type:'post',
+                        dataType:'json',
+                        success:function(content) {
+                            var messageContent = $('.wk-alert-modal-content').html();
+                            thisthis.addClass('clickflag');
+                            $('#wk-mp-flag-data').removeClass('mail-procss')
+                              alert({
+                                  title: $.mage.__('Report Seller'),
+                                  content: $('.wk-flag-status-content'),
+                                  actions: {
+                                      always: function(){
+                                        $('.wk-seller-flag-close,#resetflagbtn').trigger('click');
+                                        $('.wk-flag-other-reason').show();
+                                        $('.wk-flag-other-reason').addClass('required-entry');
+                                      }
+                                  },
+                                  buttons: [{
+                                      text: $.mage.__('Close'),
+                                      class: 'action primary close',
+                                      click: function () {
+                                          this.closeModal(true);
+                                      }
+                                  }]
+                              });
+                              $('.wk-alert-modal-content').append(messageContent);
+                        }
+                    });
+                }
+                return false;
+            }
+        });
+    });
+</script>

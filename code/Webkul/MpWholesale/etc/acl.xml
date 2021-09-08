@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- /**
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Webkul_MpWholesale::manager" title="Wholesale Manager" sortOrder="11">
+                    <resource id="Webkul_MpWholesale::user" title="Wholesale Users" sortOrder="15">
+                    </resource>
+                    <resource id="Webkul_MpWholesale::unit" title="Units" sortOrder="16">
+                    </resource>
+                    <resource id="Webkul_MpWholesale::pricerule" title="Price Rules" sortOrder="17">
+                    </resource>
+                    <resource id="Webkul_MpWholesale::quotation" title="Products Quotation" sortOrder="18">
+                    </resource>
+                    <resource id="Webkul_MpWholesale::leads" title="Leads" sortOrder="19">
+                    </resource>
+                    <resource id="Webkul_MpWholesale::productlist" title="Product List" sortOrder="20">
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Webkul_MpWholesale::config_mpwholesale" title="Marketplace Wholesale Configuration Section" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

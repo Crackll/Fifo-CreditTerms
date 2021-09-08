@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- <head>
+        <css src="Webkul_MpWholesale::css/styles.css"/>
+    </head> -->
+    <body>
+      <referenceContainer name="left">
+          <block class="Webkul\MpWholesale\Block\Adminhtml\Pricerule\Edit\Tabs" name="pricerules_edit_tabs">
+              <container label="Main" name="main">
+                  <block class="Webkul\MpWholesale\Block\Adminhtml\Pricerule\Edit\Tab\Main" name="main.base" as="base"/>
+                  <block class="Webkul\MpWholesale\Block\Adminhtml\Pricerule\Edit\Units\Options" name="main.advanced" as="units"/>
+              </container>
+          </block>
+      </referenceContainer>
+      <referenceContainer name="content">
+          <block class="Webkul\MpWholesale\Block\Adminhtml\Pricerule\Edit" name="pricerules_edit_content"/>
+      </referenceContainer>
+    </body>
+</page>

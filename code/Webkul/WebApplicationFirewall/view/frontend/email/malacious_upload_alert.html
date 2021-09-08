@@ -1,0 +1,22 @@
+<!--@subject {{trans "%store_name - Malacious File Upload Alert" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var store.getFrontendName()":"Store Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+{{inlinecss file="css/email-inline.css"}}
+<table>
+    <tr class="email-summary">
+        <td>
+            <h3>{{trans "Malacious File Upload Alert"}}</h3>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <p style="font-size: 12px;">{{trans "Some one trying to uploaded %type file in your Magento." type=$fileData.type}}</p>
+            <p style="font-size: 12px;">{{trans "We have successfully blocked the upload."}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

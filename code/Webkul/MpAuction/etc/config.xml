@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul MpAuction Config
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <wk_mpauction>
+            <emails>
+                <enable_admin_email_template>dropship_email_order_approve_notification</enable_admin_email_template>
+                <enable_submit_bid_email>1</enable_submit_bid_email>
+                <bidder_notify_email_template>wk_mpauction_emails_bidder_notify_email_template</bidder_notify_email_template>
+                <autobidder_notify_email_template>wk_mpauction_emails_autobidder_notify_email_template</autobidder_notify_email_template>
+                <admin_email_address>admin@example.com</admin_email_address>
+            </emails>
+            <general_settings>
+            	<enable>0</enable>
+                <show_winner_msg><![CDATA[Congratulations!
+You're the winner!!]]></show_winner_msg>
+                <auction_rule>This is auction rule.</auction_rule>
+            </general_settings>
+            <auto>
+            <show_auto_outbid_msg>You are outbid!!!</show_auto_outbid_msg>
+          </auto>
+        </wk_mpauction>
+    </default>
+</config>

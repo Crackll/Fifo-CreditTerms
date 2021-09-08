@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Webkul_CustomerSubaccount::css/style.css" />
+    </head>
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-subaccount-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/subaccount</argument>
+                    <argument name="label" xsi:type="string" translate="true">Sub Accounts</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-approvecart-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/approveCarts</argument>
+                    <argument name="label" xsi:type="string" translate="true">Approve Carts</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-mergecart-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/mergeCarts</argument>
+                    <argument name="label" xsi:type="string" translate="true">Merge Carts</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-mycart-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/myCarts</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Cart Requests</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-wish-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/wishList</argument>
+                    <argument name="label" xsi:type="string" translate="true">Main Wish List</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-main-order-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/mainOrder</argument>
+                    <argument name="label" xsi:type="string" translate="true">Main Account Orders</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\CustomerSubaccount\Block\ViewElement\HtmlLink" name="customer-account-wkcs-subaccount-order-list">
+                <arguments>
+                    <argument name="path" xsi:type="string">wkcs/subaccountOrder</argument>
+                    <argument name="label" xsi:type="string" translate="true">Sub Account Orders</argument>
+                </arguments>
+            </block>
+
+        </referenceBlock>
+    </body>
+</page>

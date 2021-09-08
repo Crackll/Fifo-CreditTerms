@@ -1,0 +1,46 @@
+A total of %1 record(s) were updated.,A total of %1 record(s) were updated.
+Registration Successful.,Registration Successful.
+Account Approved.,Account Approved.
+Account Disapproved.,Account Disapproved.
+Customer Approval Required,Customer Approval Required
+Customer Status can't be set to pending,Customer Status can't be set to pending
+Bad request.,Bad request.
+This confirmation key is invalid or has expired.,This confirmation key is invalid or has expired.
+There was an error confirming the account,There was an error confirming the account
+Pending,Pending
+Approved,Approved
+Rejected,Rejected
+Approve,Approve
+Reject,Reject
+"Admin,","Admin,"
+Name,Name
+Email,Email
+"Registration successful, you will be notified when your account get approved.","Registration successful, you will be notified when your account get approved."
+Email:,Email:
+"%customer_name,","%customer_name,"
+"Account approval in process, you will be notified when your account gets approved.","Account approval in process, you will be notified when your account gets approved."
+"Your account has been approved. Click <a href=""%login_url"">here</a> to login.","Your account has been approved. Click <a href=""%login_url"">here</a> to login."
+Your account has been Disapproved by Admin.,Your account has been Disapproved by Admin.
+Webkul,Webkul
+Customer Approval,Customer Approval
+General Settings,General Settings
+Enable Auto Approval for customers,Enable Auto Approval for customers
+Account not approved message after Login,Account not approved message after Login
+Account not approved message after Registration,Account not approved message after Registration
+Email Templates,Email Templates
+Customer Account Approval Email Template,Customer Account Approval Email Template
+Customer Account Disapproval Email Template,Customer Account Disapproval Email Template
+After Registration Email to Customer Template,After Registration Email to Customer Template
+Admin Notification Email Template on Customer Registration,Admin Notification Email Template on Customer Registration
+Customer Approve,Customer Approve
+Are you sure you want to update status of selected Customers?,Are you sure you want to update status of selected Customers?
+Customer Status,Customer Status
+Is Approved,Is Approved
+Customer Approved Email Template,Customer Approved Email Template
+Customer Approval After Registration Email Template,Customer Approval After Registration Email Template
+Customer Disapproved Email Template,Customer Disapproved Email Template
+Admin Notification Email Template,Admin Notification Email Template
+Account not approved.,Account not approved.
+Admin Notification, Admin Notification
+Update Customer Status,Update Customer Status
+Mail does Not Send,Mail does Not Send

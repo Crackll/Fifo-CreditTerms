@@ -1,0 +1,178 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+$editImage = $block->getViewFileUrl('Webkul_Marketplace::images/icon-edit.png');
+$wholesaleHelper = $block->getWholeSaleHelper();
+?>
+<div class="wk_mp_design">
+    <div class="fieldset wk_mp_fieldset">
+        <div class="table-wrapper">
+        <?php if (count($block->getQuotesCollection())==0) {
+            ?>       
+            <div class="fieldset wk_mp_fieldset">
+                <div class="wk_emptymsg">
+                <?= /* @noEscape */ __('No Quotes Available') ?>
+                </div>
+            </div>
+        <?php } else { ?>
+            <form action="#" method="post" id="formmassdelete" name="formmassdelete">
+                <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+                <table cellspacing="0" class="data table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="col proname">
+                                <span class="label quote_id">
+                                <?= /* @noEscape */ __('Quote Id')?>
+                                </span>
+                            </th>
+                            <th scope="col" class="col proname">
+                                <span class="label name">
+                                <?= /* @noEscape */ __('Product Name')?>
+                                </span>
+                            </th>
+                            <th scope="col" class="col quote_qty">
+                                <span class="label qty">
+                                <?= /* @noEscape */ __('Quantity')?>
+                                </span>
+                            </th>
+                            <th scope="col" class="col quote_price">
+                                <span class="label qty">
+                                <?= /* @noEscape */ __('Quote Price')?>
+                                </span>
+                            </th>
+                            <th scope="col" class="col status">
+                                <span class="label">
+                                <?= /* @noEscape */ __('Status')?>
+                                </span>
+                            </th>
+                            <th scope="col" class="col created_at">
+                                <span class="label">
+                                <?= /* @noEscape */ __('Created At')?>
+                                </span>
+                            </th>
+                            <th scope="col" class="col action">
+                                <span class="label">
+                                <?= /* @noEscape */ __('Action')?>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 0;
+                    foreach ($block->getQuotesCollection() as $quote) { ?>
+                        <tr 
+                            class="<?= /* @noEscape */ $class = ($i == count(
+                                $block->getQuotesCollection()
+                            ))? 'wk_last_tr':''?>">
+                            <input 
+                                type="hidden"
+                                class="id"
+                                value="<?= /* @noEscape */ $quote->getId(); ?>"
+                            >
+                                <td data-th="<?= /* @noEscape */ __("ID")?>" class="col ">
+                                    <span>
+                                    <?= /* @noEscape */ $quote->getId(); ?>
+                                    </span>
+                                </td>
+                                <td data-th="<?= /* @noEscape */ __("Product Name")?>" class="col proname">
+                                    <span class="label">
+                                    <?php
+                                    $product = $wholesaleHelper->getProduct($quote->getProductId());
+                                    if ($product->getStatus()==1 && $product->getVisibility()!=1) { ?>
+                                            <a href="<?= /* @noEscape */ $product->getProductUrl()?>" target="blank">
+                                        <?php }?>
+                                        <?= /* @noEscape */ $product->getName();?>
+                                        <?php if ($product->getStatus()==1 && $product->getVisibility()!=1) { ?>
+                                            </a>
+                                        <?php }?>
+                                    </span>
+                                </td>
+                                <td data-th="<?= /* @noEscape */ __("Quantity")?>" class="col quote_qty">
+                                    <span class="label qty">
+                                    <?= /* @noEscape */ $quote->getQuoteQty(); ?>
+                                    </span>
+                                </td>
+                                <td data-th="<?= /* @noEscape */ __("Quote Price")?>" class="col quote_price">
+                                    <span class="label">
+                                        <input type="hidden" 
+                                        class="wk_qs_quote_price"
+                                        value="<?= /* @noEscape */ $quote->getQuotePrice(); ?>">
+                                        <?= /* @noEscape */ $wholesaleHelper->getformattedPrice(
+                                            $quote->getQuotePrice()
+                                        ); ?>
+                                    </span> 
+                                </td>
+                                <td data-th="<?= /* @noEscape */ __("Status")?>" class="col status">        
+                                    <span class="label pro_status">
+                                    <?php $unapproveStatus = \Webkul\MpWholesale\Model\Quotes::STATUS_UNAPPROVED;
+                                    $approveStatus = \Webkul\MpWholesale\Model\Quotes::STATUS_APPROVED;
+                                    ?>
+                                        <?php if ($quote->getStatus() == $unapproveStatus) { ?>
+                                            <span class="label wk_ws_status_pending">
+                                            <?= /* @noEscape */ __('Pending')?>
+                                            </span>
+                                        <?php } elseif ($quote->getStatus() == $approveStatus) { ?>
+                                            <span class="label wk_ws_status_approved">
+                                            <?= /* @noEscape */ __('Approved')?>
+                                            </span>
+                                        <?php } else { ?>
+                                            <span class="label wk_ws_status_decline">
+                                            <?= /* @noEscape */ __('Declined')?>
+                                            </span>
+                                        <?php } ?>
+                                    </span>
+                                </td>
+                                <td data-th="<?= /* @noEscape */ __("Created At")?>" class="col created_at">
+                                    <span class="label">
+                                    <?= /* @noEscape */ $quote->getCreatedAt(); ?>
+                                    </span> 
+                                </td>                                   
+                                <td data-th="<?= /* @noEscape */ __("Action")?>" class="col action">
+                    <span class="label wk_action">
+                        <img src="<?= /* @noEscape */ $editImage?>"
+                        data-id="<?= /* @noEscape */ $quote->getId();?>" 
+                        alt="<?= /* @noEscape */ __('Edit')?>" 
+                        data-url = "<?= /* @noEscape */ $block->getUrl('mpwholesale/quotation/edit/', [
+                                'id'=>$quote->getEntityId(),
+                                '_secure' => $block->getIsSecure()
+                            ]) ?>"
+                            title="<?= /* @noEscape */ __('Edit')?>" 
+                                    class="ws_quote_edit"/>
+                    </span> 
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </form>
+        <?php }?>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+        <?php endif ?>
+    </div>
+</div>
+<?php
+$formData = [
+    'wsquoteedit' => '.ws_quote_edit'
+];
+$serializedFormData = $wholesaleHelper->jsonEncodeData($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkWsQuotes": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>
+

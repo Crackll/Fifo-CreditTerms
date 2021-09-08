@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_MpWholesale::manager" title="Wholesale Management" module="Webkul_MpWholesale" sortOrder="11" resource="Webkul_MpWholesale::manager" dependsOnConfig="mpwholsale/general_settings/status"/>
+        <add id="Webkul_MpWholesale::user" title="Users" module="Webkul_MpWholesale" sortOrder="4" parent="Webkul_MpWholesale::manager" action="mpwholesale/user" resource="Webkul_MpWholesale::user" dependsOnConfig="mpwholsale/general_settings/status"/>
+        <add id="Webkul_MpWholesale::unit" title="Units" module="Webkul_MpWholesale" sortOrder="5" parent="Webkul_MpWholesale::manager" action="mpwholesale/unit" resource="Webkul_MpWholesale::unit" dependsOnConfig="mpwholsale/general_settings/status"/>
+        <add id="Webkul_MpWholesale::pricerule" title="Price Rules" module="Webkul_MpWholesale" sortOrder="6" parent="Webkul_MpWholesale::manager" action="mpwholesale/pricerule" resource="Webkul_MpWholesale::pricerule" dependsOnConfig="mpwholsale/general_settings/status"/>
+        <add id="Webkul_MpWholesale::quotation" title="Products Quotation" module="Webkul_MpWholesale" sortOrder="7" parent="Webkul_MpWholesale::manager" action="mpwholesale/quotation" resource="Webkul_MpWholesale::quotation" dependsOnConfig="mpwholsale/general_settings/status"/>
+        <add id="Webkul_MpWholesale::leads" title="Leads" module="Webkul_MpWholesale" sortOrder="8" parent="Webkul_MpWholesale::manager" action="mpwholesale/leads" resource="Webkul_MpWholesale::leads" dependsOnConfig="mpwholsale/general_settings/status"/>
+        <add id="Webkul_MpWholesale::productlist" title="Product List" module="Webkul_MpWholesale" sortOrder="9" parent="Webkul_MpWholesale::manager" action="mpwholesale/product" resource="Webkul_MpWholesale::productlist" dependsOnConfig="mpwholsale/general_settings/status"/>
+    </menu>
+</config>

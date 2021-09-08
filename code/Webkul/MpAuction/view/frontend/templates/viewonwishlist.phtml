@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Webkul_MpAuction Wishlist.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$item = $block->getItem();
+$auctiondetails = $block->getAutionDetails($item->getProductId());
+
+?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "viewonwishlist": 
+                {
+                    "buyItNow": "<?= /* @noEscape */ __('Buy it now')?>",
+                    "auctionType" : "<?= /* @noEscape */ $block->getProAuctionType($item->getProductId())?>",
+                    "viewDetail" : "<?= /* @noEscape */ __('View Detail') ?>"
+                }
+        }
+    }
+</script>

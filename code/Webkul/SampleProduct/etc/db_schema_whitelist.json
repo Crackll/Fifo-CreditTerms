@@ -1,0 +1,31 @@
+{
+    "wk_sample_product": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "sample_product_id": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_SAMPLE_PRODUCT_PRODUCT_ID": true,
+            "WK_SAMPLE_PRODUCT_SAMPLE_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_SAMPLE_PRODUCT_PRODUCT_ID_CATALOG_PRODUCT_ENTITY": true,
+            "WK_SAMPLE_PRODUCT_SAMPLE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY": true
+        }
+    },
+    "wk_sample_product_order": {
+        "column": {
+            "entity_id": true,
+            "sample_id": true,
+            "order_id": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        }
+    }
+}

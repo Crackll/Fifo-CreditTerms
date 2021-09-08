@@ -1,0 +1,249 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$totalWeight = 0;
+$order = $block->getOrder();
+$itemCollection = $block->getItemCollection();
+$wholesaler = $block->getWholesalerUser($order->getWholesalerId());
+$wholesalerDetail = $block->getWholesalerDetails($order->getWholesalerId()); ?>
+<div id="sales_order_view_tabs_order_info_content">
+    <section class="admin__page-section order-view-account-information">
+        <div class="admin__page-section-title">
+            <span class="title"><?= /* @noEscape */ __('Order & Account Information') ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="box-left admin__page-section-item order-information">
+                <!--Order Information-->
+                <div class="entry-edit">
+                    <div class="entry-edit-head admin__page-section-item-title">
+                        <span class="icon-head head-account title"> <?= /* @noEscape */ __('Order Info'); ?></span>
+                    </div>
+                </div>
+                <div class="custom-fieldset admin__page-section-item-content">
+                    <table cellspacing="0" class="form-list admin__table-secondary order-information-table">
+                        <tbody>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Order Date'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $block->formatDate(
+                                        $order->getCreatedAt(),
+                                        \IntlDateFormatter::MEDIUM,
+                                        true
+                                    ); ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Status'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $block->getOrderStatusLabel($order->getStatus()) ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Source Document'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $order->getSource(); ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-right admin__page-section-item order-account-information">
+                <!--Account Information-->
+                <div class="entry-edit">
+                    <div class="entry-edit-head admin__page-section-item-title">
+                        <span class="icon-head head-account title"> 
+                            <?= /* @noEscape */ __('Account Information'); ?>
+                        </span>
+                    </div>
+                </div>
+                <div class="fieldset admin__page-section-item-content">
+                    <table cellspacing="0" class="form-list admin__table-secondary order-information-table">
+                        <tbody>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Wholesaler Name'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $wholesaler->getName() ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Email'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $wholesaler->getEmail() ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="admin__page-section">
+        <!-- Items Ordered -->
+        <div class="entry-edit">
+            <div class="entry-edit-head admin__page-section-title">
+                <span class="icon-head head-products title">
+                    <?= /* @noEscape */ __('Items Ordered') ?>
+                </span>
+            </div>
+        </div>
+        <div class="admin__table-wrapper">
+            <table class="data-order-table admin__table-primary edit-order-table" style="margin-bottom:0px;">
+                <thead><tr>
+                    <th><?= /* @noEscape */ __('Product Name') ?></th>
+                    <th><?= /* @noEscape */ __('SKU') ?></th>
+                    <th><?= /* @noEscape */ __('Quote Price') ?></th>
+                    <th><?= /* @noEscape */ __('Qty') ?></th>
+                    <th><?= /* @noEscape */ __('Subtotal') ?></th>
+                </tr></thead>
+                <tbody>
+                    <?php foreach ($itemCollection as $item) { ?>
+                        <tr>
+                            <td><?= /* @noEscape */ $block->getProductName($item->getProductId()) ?></td>
+                            <td><?= /* @noEscape */ $item->getSku() ?></td>
+                            <td><?= /* @noEscape */ $item->getPrice() ?></td>
+                            <td>
+                                <strong><?= /* @noEscape */ __('Ordered').': '; ?>
+                                </strong><?= /* @noEscape */ $item->getQuantity(); ?>
+                                <br>
+                                <strong><?= /* @noEscape */ __('Received').': '; ?>
+                                </strong><?= /* @noEscape */ $item->getReceivedQty(); ?>
+                            </td>
+                            <td>
+                                <?= /* @noEscape */ $item->getQuantity()*$item->getPrice(); ?>
+                            </td>
+                        </tr>
+                        <?php $totalWeight = $totalWeight+$item->getWeight();
+                    } ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="admin__page-section">
+        <div class="entry-edit-head admin__page-section-title">
+            <span class="icon-head head-products title">
+                <?= /* @noEscape */ __('Shipping & Order Total') ?>
+            </span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="box-left admin__page-section-item order-information">
+                <!--Shipment Details-->
+                <div class="entry-edit">
+                    <div class="entry-edit-head admin__page-section-item-title">
+                        <span class="icon-head head-account title"> 
+                            <?= /* @noEscape */ __('Shipment Details'); ?>
+                        </span>
+                    </div>
+                </div>
+                <div class="custom-fieldset admin__page-section-item-content">
+                    <table cellspacing="0" class="form-list admin__table-secondary order-information-table">
+                        <tbody>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Origin Address'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $wholesalerDetail->getAddress() ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Total Incoming Shipments'); ?></label>
+                                </td>
+                                <td class="value">
+                                    <?= /* @noEscape */ $itemCollection->getSize() ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Total Package Weight'); ?></label>
+                                </td>
+                                <td class="value"><?= /* @noEscape */ $totalWeight ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-right admin__page-section-item order-account-information">
+                <!--Order Total-->
+                <div class="entry-edit">
+                    <div class="entry-edit-head admin__page-section-item-title">
+                        <span class="icon-head head-account title"> <?= /* @noEscape */ __('Order Total'); ?></span>
+                    </div>
+                </div>
+                <div class="custom-fieldset admin__page-section-item-content">
+                    <table class="data-custom-table admin__table-secondary order-subtotal-table">
+                        <tbody>
+                            <tr>
+                                <td class="custom-label"><label><?= /* @noEscape */ __('Subtotal'); ?></label></td>
+                                <td class="value"><?= /* @noEscape */ $order->getGrandTotal() ?></td>
+                            </tr>
+                            <tr>
+                                <td class="custom-label">
+                                    <label><?= /* @noEscape */ __('Shipping & Handling'); ?></label>
+                                </td>
+                                <td class="value">0</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="custom-label"><strong><?= /* @noEscape */ __('Grand Total'); ?></strong></td>
+                                <td class="value"><strong><?= /* @noEscape */ $order->getGrandTotal() ?></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- modal popup for shipment -->
+<div class="popup_background" id="popup_background">
+    <form action="<?= /* @noEscape */ $block->getShipmentUrl() ?>" 
+        method="get" id="wk-shipment" enctype="multipart/form-data">
+        <div class="admin__field field required _required">
+            <label class="label admin__field-label" for="scheduled-date">
+                <span><?= /* @noEscape */ __('Scheduled Date') ?></span>
+            </label>
+            <div class="admin__field-control control">
+                <input id="scheduled-date" type="text" 
+                    readonly="readonly" title="<?= /* @noEscape */ __('Scheduled Date Required') ?>" 
+                    name="date" class=" input-text admin__control-text required-entry _required">
+            </div>
+        </div>
+    </form>
+</div>
+
+<?php
+$formData = [
+    'button_id' =>  '#wk-po-ship'
+];
+$serializedFormData = $block->getMpPurchaseHelper()->jsonEncodeData($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "shipment": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

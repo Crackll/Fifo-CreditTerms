@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ 
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="wkcs_order_info_links"/>
+    <update handle="sales_order_shipment_renderers"/>
+    <head>
+        <css src="Webkul_CustomerSubaccount::css/style.css" />
+	</head>
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\Sales\Block\Order\Info" name="order.status" template="Magento_Sales::order/order_status.phtml"/>
+            <block class="Magento\Sales\Block\Order\Info" name="order.date" template="Magento_Sales::order/order_date.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Shipping\Block\Order\Shipment" name="sales.order.shipment" cacheable="false" after="sales.order.info.links">
+                <block class="Magento\Shipping\Block\Items" name="shipment_items" template="Magento_Shipping::items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.order.shipment.renderers" as="renderer.list"/>
+                    <block class="Magento\Shipping\Block\Tracking\Link" name="track-all-link" template="Magento_Shipping::tracking/link.phtml">
+                        <arguments>
+                            <argument name="label" xsi:type="string" translate="true">Track All Shipments</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Sales\Block\Order\Comments" name="shipment_comments" template="Magento_Sales::order/comments.phtml"/>
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Order\Info" as="info" name="sales.order.info" after="sales.order.shipment"/>
+        </referenceContainer>
+        <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
+    </body>
+</page>

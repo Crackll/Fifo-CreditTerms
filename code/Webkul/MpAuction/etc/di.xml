@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul MpAuction DI
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="\Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Webkul_MpAuction::productlist"
+                type="Webkul\MpAuction\Block\Plugin\ProductListUpdateForAuction"
+                sortOrder="10" />
+    </type>
+    <type name="\Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Webkul_MpAuction::comparelist"
+                type="Webkul\MpAuction\Block\Plugin\CompareListForAuction"
+                sortOrder="11" />
+    </type>
+    <type name="\Magento\Wishlist\Block\Customer\Sidebar">
+        <plugin name="Webkul_MpAuction::wishlistsidebar"
+                type="Webkul\MpAuction\Block\Plugin\WishlistSidebarForAuction"
+                sortOrder="12" />
+    </type>
+    <virtualType name="Magento\CatalogSearch\Block\SearchResult\ListProduct">
+        <plugin name="Webkul_MpAuction::searchproductlist"
+                type="Webkul\MpAuction\Block\Plugin\ProductListUpdateForAuction" />
+    </virtualType>
+	<virtualType name="Webkul\MpAuction\Model\ResourceModel\Product\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_mpauction_product</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpAuction\Model\ResourceModel\Product</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="auction_product_grid_list_data_source" xsi:type="string">Webkul\MpAuction\Model\ResourceModel\Product\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Webkul\MpAuction\Model\ResourceModel\Amount\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_mpauction_amount</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpAuction\Model\ResourceModel\Amount</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="auction_product_customer_bid_list_data_source" xsi:type="string">Webkul\MpAuction\Model\ResourceModel\Amount\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Webkul\MpAuction\Model\ResourceModel\AutoAuction\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_mpauto_auction</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpAuction\Model\ResourceModel\AutoAuction</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="auction_product_customer_auto_bid_list_data_source" xsi:type="string">Webkul\MpAuction\Model\ResourceModel\AutoAuction\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="disable_mpauction" xsi:type="object">Webkul\MpAuction\Console\Command\DisableMpAuction</item>
+            </argument>
+        </arguments>
+    </type>
+     <!--Plugin to throw Exception when click on reorder -->
+    <type name="Magento\Sales\Controller\AbstractController\Reorder">
+      <plugin name="ReorderHistory" type="Webkul\MpAuction\Model\Plugin\Reorder" sortOrder="1" />
+    </type>
+    <!-- curreny switch -->
+    <type name="Magento\Directory\Controller\Currency\SwitchAction">
+        <plugin name="webkul_mpauction_directory_currency_switch_plugin" type="Webkul\MpAuction\Plugin\Currency\SwitchAction" sortOrder="10" disabled="false"/>
+    </type>
+     <!-- logger -->
+     <type name="Webkul\MpAuction\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpAuction\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customMpAuctionLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\MpAuction\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+     <!--overwrite wise list-->
+    <preference for="Magento\Catalog\Pricing\Render" type="Webkul\MpAuction\Rewrite\WishList" />
+</config>

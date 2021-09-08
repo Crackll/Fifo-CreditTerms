@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Webkul_MpAuction Detail Page.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+?>
+<?php $auctionDetails = $block->getAuctionDetails(); ?>
+<?= /* @noEscape */ $block->getChildHtml('info'); ?>
+<?php if ($auctionDetails && count($auctionDetails)): ?>
+    <div class="table-wrapper ">
+        <table class="data table" id="my-auction-bid-table">
+            <caption class="table-caption"><?= /* @noEscape */ __('Auctions Bid') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Product Name') ?></th>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Bidding Price') ?></th>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Bid Status') ?></th>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Winning Status') ?></th>
+                    <!--th scope="col" class="col">&nbsp;</th-->
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($auctionDetails as $auctionData): ?>
+                    <tr>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Product Name ')) ?>" class="col">
+                            <?php $pro = $block->getProductDetail($auctionData->getProductId()); ?>
+                            <a href="<?= /* @noEscape */ $pro['url'] ?>" target="_blank" class="action view">
+                                <span><?= /* @noEscape */ $pro['name'] ?></span>
+                            </a>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Bidding Price')) ?>" class="col">
+                            <?= /* @noEscape */ $block->formatPrice($auctionData->getAuctionAmount()) ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Bid Status')) ?>" class="col"><?= /* @noEscape */ $block->status($auctionData->getStatus()) ?></td>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Winning Status')) ?>" class="col"><?= /* @noEscape */ $block->winningStatus($auctionData) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?= /* @noEscape */ __('You have no bid records.'); ?></span></div>
+<?php endif ?>
+

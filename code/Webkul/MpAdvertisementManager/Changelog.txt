@@ -1,0 +1,49 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+
+    + updated comoposer.json
+    + Compatible with Magento Community Edition ver 2.4.x.
+
+-------------------------------- Version 4.0.0 --------------------------------------
+
+    + updated comoposer.json
+    + Compatible with Magento Enterprise Edition ver 2.4.x.
+
+-------------------------------- Version 3.0.0 -------------------------------------
+	+ compatible with Marketpalce 3.0.x
+	- fixed issue of block not showing on checkout page, translation
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    	+ Updated according to magento 2.3.x and marketplace 2.2.x version.
+-------------------------------- Version 2.0.4 --------------------------------------
+    	+ separate the purchased advertisement view block information in separate table
+    	- Fix the issue of not updating the remaining ads count after cancel the order.
+
+-------------------------------- Version 2.0.3 --------------------------------------
+    	- Implement the by default image upload of advertisement product at the time of installation of module.
+
+-------------------------------- Version 2.0.2 --------------------------------------
+    	+ Updated according to magento 2.2.x and marketplace 2.1.x version.
+
+-------------------------------- Version 2.0.1 ------------------------------
+	+ Implemented the new grid in admin panel for ads purchase details where admin can handle the ads
+ 	- Fixed the issue of showing the remaining ads to purchase for a particular block to seller.
+	- Fixed the issue of adding more the one ads for pop up block and randomly show only one ad after relaod page.
+	- Fixed the issue of adding product quantity for advertisement product on cart edit page.
+	- Fixed the issue of the disable of the save button during addition of block's price in admin panel.
+
+-------------------------------- Version 2.0.0 ------------------------------
+	+ multiple positions on the frontend to show ads
+ 	+ admin can set valid days for ads, width, height, and number of ads that can be added at one position .
+	+ admin can set price of all the ads.
+	+ seller can see all the ads positions available to sold
+	+ seller can book ads if it is available
+	+ seller can create and edit ad block to show on the ads position.
+	+ seller can enable ads demo on frontend to view all the available ads position and availability
+	+ ads will get start showing on there positions after the order invoice is generated
+	+ ads will be automatically dissappear from the frontend once the ads validity expires.
+

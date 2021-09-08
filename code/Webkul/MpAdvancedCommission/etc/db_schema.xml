@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   Webkul
+ * @package    Webkul_MpAdvancedCommission
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="marketplace_advanced_commision_rules" resource="default" engine="innodb" comment="Marketplace Advance Commision Rules Table">
+        <column xsi:type="int" name="rule_id" unsigned="true" nullable="false" padding="11" identity="true" comment="Rule ID"/>
+        <column xsi:type="decimal" name="price_from" scale="4" precision="12" default="0.0000" nullable="false" comment="Price From"/>
+        <column xsi:type="decimal" name="price_to" scale="4" precision="12" default="0.0000" nullable="false" comment="Price To"/>
+        <column xsi:type="varchar" name="commission_type" length="255" nullable="false" comment="Commission Type"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="12" default="0.0000" nullable="false" comment="Commission Amount"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+        </constraint>
+    </table>
+</schema>

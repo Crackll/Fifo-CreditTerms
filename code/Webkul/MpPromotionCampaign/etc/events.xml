@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_before">
+        <observer name="webkul_mppromotioncampaign_sales_order_place_before_observer" instance="Webkul\MpPromotionCampaign\Observer\SalesOrderPlaceBeforeObserver"/>
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="webkul_mppromotioncampaign_sales_order_place_after_observer" instance="Webkul\MpPromotionCampaign\Observer\SalesOrderPlaceAfterObserver"/>
+    </event>
+</config>

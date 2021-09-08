@@ -1,0 +1,31 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$_item = $block->getItem();
+$product = $_item->getProduct();
+if ($product->getTypeId() == "sample") { ?>
+    <?php $parentProduct = $block->getSampleParentProduct($product->getId()); ?>
+    <?php if ($parentProduct->getId()) { ?>
+        <div class="wk-seller-block wk-block" id="wk-sampleproduct-checkout-block">
+            <div>
+                <span class="wk-block-title-css">
+                    <a href="<?= $escaper->escapeUrl($parentProduct->getProductUrl());?>" 
+                        title="<?= /* @noEscape */ $parentProduct->getName() ?>" 
+                        id="wk-sampleproduct-main-product">
+                        <?= /* @noEscape */ __('View Product')?>
+                    </a>
+                </span>
+            </div>
+        </div>
+    <?php } ?>
+    <?php
+} ?>

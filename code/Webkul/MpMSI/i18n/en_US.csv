@@ -1,0 +1,128 @@
+"Step 3: Bulk Images, Price, and Quantity","Step 3: Bulk Images, Price, and Quantity"
+"Based on your selections <span class=""new-products-count"" data-bind=""text:countVariations""></span>
+        new products will be created. Use this step to customize images and price for your new products.","Based on your selections <span class=""new-products-count"" data-bind=""text:countVariations""></span>
+        new products will be created. Use this step to customize images and price for your new products."
+Images,Images
+"Apply single set of images to all SKUs","Apply single set of images to all SKUs"
+"Apply unique images by attribute to each SKU","Apply unique images by attribute to each SKU"
+"Skip image uploading at this time","Skip image uploading at this time"
+"Browse Files...","Browse Files..."
+"Browse to find or drag image here","Browse to find or drag image here"
+"Remove image","Remove image"
+"Edit role","Edit role"
+Hidden,Hidden
+"Alt Text","Alt Text"
+Role,Role
+"Hide from Product Page","Hide from Product Page"
+"Select attribute","Select attribute"
+Select,Select
+Price,Price
+"Apply single price to all SKUs","Apply single price to all SKUs"
+"Apply unique prices by attribute to each SKU","Apply unique prices by attribute to each SKU"
+"Skip price at this time","Skip price at this time"
+"Apply single quantity to each SKUs","Apply single quantity to each SKUs"
+"Apply unique quantity by attribute to each SKU","Apply unique quantity by attribute to each SKU"
+"Skip quantity at this time","Skip quantity at this time"
+"Step 4: Summary","Step 4: Summary"
+"Current Variations","Current Variations"
+Image,Image
+Name,Name
+SKU,SKU
+Weight,Weight
+Actions,Actions
+Quantity,Quantity
+"Upload Image","Upload Image"
+"Upload image","Upload image"
+"No Image","No Image"
+"Remove Product","Remove Product"
+"Create Product Configurations","Create Product Configurations"
+"Choose source For quantity deduction","Choose source For quantity deduction"
+"Select Source","Select Source"
+"Shipment #%1","Shipment #%1"
+"<span class=""label"">Order Date:</span> %1","<span class=""label"">Order Date:</span> %1"
+"Are you sure you want to send shipment email to customer?","Are you sure you want to send shipment email to customer?"
+"Send Email To Customer","Send Email To Customer"
+"Send Tracking Information","Send Tracking Information"
+"Shipment Slip","Shipment Slip"
+"Print Shipment","Print Shipment"
+"Order Information","Order Information"
+"Order # %1","Order # %1"
+"Order Status","Order Status"
+"Order Date","Order Date"
+"Buyer Information","Buyer Information"
+"Customer Name","Customer Name"
+Email,Email
+"Address Information","Address Information"
+"Billing Address","Billing Address"
+"Shipping Address","Shipping Address"
+"Payment & Shipping Method","Payment & Shipping Method"
+"Payment Information","Payment Information"
+"Shipping and Tracking Information","Shipping and Tracking Information"
+"No shipping information available","No shipping information available"
+"Track this shipment","Track this shipment"
+Carrier,Carrier
+Title,Title
+Number,Number
+Action,Action
+Add,Add
+Delete,Delete
+Inventory,Inventory
+Source,Source
+"Items Shipped","Items Shipped"
+"Back To My Orders","Back To My Orders"
+"To Become Seller Please Contact to Admin.","To Become Seller Please Contact to Admin."
+Approved,Approved
+Pending,Pending
+Enabled,Enabled
+Disabled,Disabled
+"Product List","Product List"
+"Product Name","Product Name"
+Date,Date
+"Product Status","Product Status"
+"Search by product name","Search by product name"
+"From: ","From: "
+"To: ","To: "
+All,All
+Submit,Submit
+"Delete Products","Delete Products"
+Product,Product
+Type,Type
+Status,Status
+"Quantity Per Source","Quantity Per Source"
+"Salable Quantity","Salable Quantity"
+"Qty. Confirmed","Qty. Confirmed"
+"Qty. Pending","Qty. Pending"
+"Qty. Sold","Qty. Sold"
+"Earned Amount","Earned Amount"
+Edit,Edit
+"No Product Available","No Product Available"
+Back,Back
+"Source Code","Source Code"
+" Name"," Name"
+"Source Status","Source Status"
+"Source Item Status","Source Item Status"
+" Qty"," Qty"
+Unassign,Unassign
+" Out of Stock"," Out of Stock"
+" In Stock"," In Stock"
+Remove,Remove
+Code,Code
+"We couldn't find any records","We couldn't find any records"
+ Qty, Qty
+"New Product Review","New Product Review"
+"Here are the products you're about to create.","Here are the products you're about to create."
+"Associated Products","Associated Products"
+"You created these products for this configuration.","You created these products for this configuration."
+"Disassociated Products","Disassociated Products"
+"These products are not associated.","These products are not associated."
+"Disable Product","Disable Product"
+"Enable Product","Enable Product"
+"Assign Stock","Assign Stock"
+Assign Sources,Assign Sources
+Enable,Enable
+Disable,Disable
+"Please, select attribute for the section ","Please, select attribute for the section "
+"Please fill in the values for the section ","Please fill in the values for the section "
+"Please, fill correct values","Please, fill correct values"
+"Please fill-in correct values.","Please fill-in correct values."
+"Done","Done"

@@ -1,0 +1,425 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+$ticketsHelper = $block->getTicketHelper();
+$helper = $block->getDataHelper();
+$dateFormat = $helper->getDateFormate();
+$tickettypeArr = $block->getTicketTypeArray();
+$priorityArr = $block->getTicketPriorityArray();
+$groupArr = $block->getTicketGroupArray();
+$ticketStatusArr = $block->getTicketStatusArray();
+$priorityEnable = $helper->getConfigTicketCreationPriority();
+$statusEnable = $helper->getConfigTicketCreationStatus();
+$groupEnable = $helper->getConfigTicketCreationGroup();
+$customerCanDeleteticket = $helper->getConfigCustomerDeleteTicket();
+$openStatus = $helper->getConfigOpenStatus();
+$closeStatus = $helper->getConfigCloseStatus();
+$spamStatus = $helper->getConfigSpamstatus();
+?>
+<div class="wk_ts_tickets_container">
+    <div class="wk_ts_content" style="width:98%;padding:1%;float:left;box-sizing: content-box;">
+        <div class="container_ajax">
+            <h1>
+                <?= $block->escapeHtml(__("Tickets")) ?>
+                <button class="wk_ts_clear wk_btn_warning action_button" data-href="<?=
+                $block->escapeUrl($block->getUrl('helpdesk/ticket/filter', ["sort"=>"clear"]))
+                ?>"><?= $block->escapeHtml(__("Clear")) ?></button>
+            </h1>
+            <p><?= $block->escapeHtml(__("These are generated ticket(s) by your account."))
+            ?></p>
+            <?php
+                $statusFilter = $block->getRequest()->getParam('status')!=""?
+                $block->getRequest()->getParam('status'):"";
+                $priorityFilter = $block->getRequest()->getParam('priority')!=""?
+                $block->getRequest()->getParam('priority'):"";
+                $sortFilter = $block->getRequest()->getParam('sort')!=""?$block->getRequest()
+                ->getParam('sort'):"";
+                $orderFilter = $block->getRequest()->getParam('order')!=""?$block->getRequest(
+                )->getParam('order'):"";
+                ?>
+            <form action="<?= $block->escapeUrl($block->getUrl('helpdesk/ticket/massdelete'))
+            ?>" method="post" 
+            id="formmassdelete" name="formmassdelete">
+                <?= $block->getBlockHtml('formkey')?>
+                <table class="wk_ts_ticket_table">
+                    <thead>
+                        <tr class="wk_ts_ticket_table_row head">
+                            <?php if ($customerCanDeleteticket) { ?>
+                                <th class="wk_ts_ticket_table_head mark">
+                                    <input type="checkbox" class="wk_ts_mark_all tscheckbox"/>
+                                </th>
+                            <?php } ?>
+                            <th class="wk_ts_ticket_table_head detail"  colspan="2">
+                                <div style="position:relative;display:inline-block;">
+                                    <label class="wk_ts_status wk_grey_btn action_button 
+                                    mydropdown">
+                                        <i class="fa fa-check"></i>
+                                        <?= $block->escapeHtml(__("Status")) ?>
+                                    </label>
+                                    <ul class="dropdown-menu" style="left:0">
+                                        <?php foreach ($ticketStatusArr as $status): ?>
+                                            <li class="<?php if ($statusFilter == $status['value']) {
+                                                 echo 'active';
+                                                       } ?>" data-href="<?=
+                                                       $block->escapeUrl($block->getUrl(
+                                                           'helpdesk/ticket/filter',
+                                                           ["status"=>$status['value']]
+                                                       )) ?>">
+                                                <span class="text"><?= $block->escapeHtml($status['label']) ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <div style="position:relative;display:inline-block;">
+                                    <label class="wk_ts_priority wk_grey_btn action_button mydropdown">
+                                        <i class="fa fa-check"></i>
+                                        <?= $block->escapeHtml(__("Priority")) ?>
+                                    </label>
+                                    <ul class="dropdown-menu" style="left:0">
+                                        <?php foreach ($priorityArr as $priority): ?>
+                                            <li class="<?php if ($priorityFilter == $priority['value']) {
+                                                echo /* @noEscape*/ 'active';
+                                                       } ?>" 
+                                                       data-href="
+                                                       <?=
+                                                        $block->escapeUrl(
+                                                            $block->getUrl(
+                                                                'helpdesk/ticket/filter',
+                                                                ["priority"=>$priority
+                                                                ['value']]
+                                                            )
+                                                        )
+                                                        ?>">
+                                                <span class="text"><?= $block->escapeHtml($priority['label']) ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <div style="position:relative;display:inline-block;">
+                                    <label class="wk_ts_sorting wk_btn_warning action_button 
+                                    mydropdown">
+                                        <?= $block->escapeHtml(__("Sorting")) ?>
+                                    </label>
+                                    <ul class="dropdown-menu" style="left:0">
+                                        <?php
+                                            $orderFilter =
+                                            $block->getRequest()->getParam('sort')=="ticket"?
+                                            $block->getRequest()->getParam('order'):"";
+                                        if ($orderFilter == '') {
+                                            $orderFilter = "asc";
+                                        } elseif ($orderFilter == "asc") {
+                                            $orderFilter = "desc";
+                                        } elseif ($orderFilter == "desc") {
+                                            $orderFilter = "asc";
+                                        }
+                                        ?>
+                                        <li class="<?php if ($sortFilter == 'ticket') {
+                                            echo /* @noEscape*/ 'active ';
+                                                   } echo $orderFilter; ?>" data-href="<?=
+                                                   $block->escapeUrl($block->getUrl('helpdesk/
+                                                   ticket/filter', ["sort"=>"ticket",
+                                                   "order"=>$orderFilter])) ?>">
+                                            <span class="text"><?= $block->escapeHtml(__("Ticket Id")) ?></span>
+                                            <?php if ($orderFilter == "asc"): ?>
+                                                <i class="fa fa-angle-down" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php else: ?>
+                                                <i class="fa fa-angle-up" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php endif; ?>
+                                        </li>
+                                        <?php
+                                            $orderFilter =
+                                            $block->getRequest()->getParam('sort')=="subject"?
+                                            $block->getRequest()->getParam('order'):"";
+                                        if ($orderFilter == '') {
+                                            $orderFilter = "asc";
+                                        } elseif ($orderFilter == "asc") {
+                                            $orderFilter = "desc";
+                                        } elseif ($orderFilter == "desc") {
+                                            $orderFilter = "asc";
+                                        }
+                                        ?>
+                                        <li class="<?php if ($sortFilter == 'subject') {
+                                            echo 'active ';
+                                                   } echo $block->escapeHtml($orderFilter);
+                                                    ?>" data-href="<?= $block->escapeUrl($block->getUrl(
+                                                        'helpdesk/ticket/filter',
+                                                        ["sort"=>"subject",
+                                                        "order"=>$orderFilter]
+                                                    )) ?>">
+                                            <span class="text"><?= $block->escapeHtml(__("Subject")) ?></span>
+                                            <?php if ($orderFilter == "asc"): ?>
+                                                <i class="fa fa-angle-down" style="position:absolute;right:10px;"></i>
+                                            <?php else: ?>
+                                                <i class="fa fa-angle-up" style="position:absolute;right:10px;"></i>
+                                            <?php endif; ?>
+                                        </li>
+                                        <?php
+                                            $orderFilter =
+                                            $block->getRequest()->getParam('sort')=="type"?
+                                            $block->getRequest()->getParam('order'):"";
+                                        if ($orderFilter == '') {
+                                            $orderFilter = "asc";
+                                        } elseif ($orderFilter == "asc") {
+                                            $orderFilter = "desc";
+                                        } elseif ($orderFilter == "desc") {
+                                            $orderFilter = "asc";
+                                        }
+                                        ?>
+                                        <li class="<?php if ($sortFilter == 'type') {
+                                            echo /* @noEscape*/ 'active ';
+                                                   } echo $orderFilter; ?>" data-href="<?=
+                                                   $block->escapeUrl(
+                                                       $block->getUrl(
+                                                           'helpdesk/ticket/filter',
+                                                           ["sort"=>"type","order"=>$orderFilter]
+                                                       )
+                                                   )
+?>">
+                                            <span class="text"><?= $block->escapeHtml(__("Type")) ?></span>
+                                            <?php if ($orderFilter == "asc"): ?>
+                                                <i class="fa fa-angle-down" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php else: ?>
+                                                <i class="fa fa-angle-up" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php endif; ?>
+
+                                        </li>
+                                        <?php
+                                            $orderFilter =
+                                            $block->getRequest()->getParam('sort')
+                                            =="priority"?$block->getRequest()
+                                            ->getParam('order'):"";
+                                        if ($orderFilter == '') {
+                                            $orderFilter = "asc";
+                                        } elseif ($orderFilter == "asc") {
+                                            $orderFilter = "desc";
+                                        } elseif ($orderFilter == "desc") {
+                                            $orderFilter = "asc";
+                                        }
+                                        ?>
+                                        <li class="<?php if ($sortFilter == 'priority') {
+                                            echo /* @noEscape*/ 'active ';
+                                                   } echo $orderFilter; ?>" data-href="<?=
+                                                   $block->escapeUrl(
+                                                       $block->getUrl(
+                                                           'helpdesk/ticket/filter',
+                                                           ["sort"=>"priority","order"=>$orderFilter]
+                                                       )
+                                                   )
+?>">
+                                            <span class="text">
+                                                <?= $block->escapeHtml(__("Priority")) ?>
+                                            </span>
+                                            <?php if ($orderFilter == "asc"): ?>
+                                                <i class="fa fa-angle-down" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php else: ?>
+                                                <i class="fa fa-angle-up" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php endif; ?>
+                                        </li>
+                                        <?php
+                                            $orderFilter =
+                                            $block->getRequest()->getParam('sort')=="status"?
+                                            $block->getRequest()->getParam('order'):"";
+                                        if ($orderFilter == '') {
+                                            $orderFilter = "asc";
+                                        } elseif ($orderFilter == "asc") {
+                                            $orderFilter = "desc";
+                                        } elseif ($orderFilter == "desc") {
+                                            $orderFilter = "asc";
+                                        }
+                                        ?>
+                                        <li class="<?php if ($sortFilter == 'status') {
+                                            echo /* @noEscape*/ 'active ';
+                                                   } echo $orderFilter; ?>" data-href="<?=
+                                                    $block->escapeUrl(
+                                                        $block->getUrl(
+                                                            'helpdesk/ticket/filter',
+                                                            ["sort"=>"status","order"=>$orderFilter]
+                                                        )
+                                                    )
+?>">
+                                            <span class="text"><?= $block->escapeHtml(__("Status")) ?></span>
+                                            <?php if ($orderFilter == "asc"): ?>
+                                                <i class="fa fa-angle-down" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php else: ?>
+                                                <i class="fa fa-angle-up" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php endif; ?>
+                                        </li>
+                                        <?php
+                                            $orderFilter =
+                                            $block->getRequest()->getParam('sort')=="date"?
+                                            $block->getRequest()->getParam('order'):"";
+                                        if ($orderFilter == '') {
+                                            $orderFilter = "asc";
+                                        } elseif ($orderFilter == "asc") {
+                                            $orderFilter = "desc";
+                                        } elseif ($orderFilter == "desc") {
+                                            $orderFilter = "asc";
+                                        }
+                                        ?>
+                                        <li class="<?php if ($sortFilter == 'date') {
+                                            echo 'active ';
+                                                   } echo $block->escapeHtml($orderFilter); ?>" data-href="<?=
+                                                   $block->escapeUrl(
+                                                       $block->getUrl(
+                                                           'helpdesk/ticket/filter',
+                                                           ["sort"=>"date","order"=>$orderFilter]
+                                                       )
+                                                   )
+?>">
+                                            <span class="text"><?= $block->escapeHtml(__("Date Added")) ?></span>
+                                            <?php if ($orderFilter == "asc"): ?>
+                                                <i class="fa fa-angle-down" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php else: ?>
+                                                <i class="fa fa-angle-up" 
+                                                style="position:absolute;right:10px;"></i>
+                                            <?php endif; ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <?php if ($customerCanDeleteticket): ?>
+                                    <button type="submit" class="wk_ts_delete delete 
+                                    action_button wk_disabled">
+                                        <i class="fa fa-trash-o"></i>
+                                        <?= $block->escapeHtml(__("Delete")) ?>
+                                    </button>
+                                <?php endif; ?>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (count($block->getCollection()) == 0): ?>
+                            <tr class="wk_ts_ticket_table_row">
+                                <td class="wk_ts_ticket_table_data" style="text-align: center;
+                                width: 100%; float: left;">
+                                    <?= $block->escapeHtml(__("No Results Found !!")) ?>
+                                <td>
+                            </tr>
+                        <?php else: ?>
+                            <?php $count = 0; ?>
+                            <?php foreach ($block->getCollection() as $ticket): ?>
+                                <?php
+                                    $count++;
+                                    $customer =
+                                    $ticketsHelper->getHelpdeskCustomerById(
+                                        $ticket->getCustomerId()
+                                    );
+                                ?>
+                                <tr class="wk_ts_ticket_table_row <?php if ($count ==
+                                count($block->getCollection())) {
+                                    echo "last";
+                                                                  } ?>">
+                                    <?php if ($customerCanDeleteticket) { ?>
+                                        <td class="wk_ts_ticket_table_data mark">
+                                            <input type="checkbox" name="mass_delete[]" 
+                                            class="tscheckbox" value="<?= $block->escapeHtml($ticket->getId())
+                                            ?>"/>
+                                        </td>
+                                    <?php } ?>
+                                    <td class="wk_ts_ticket_table_data detail">
+                                        <span class="email">
+                                            <?= $block->escapeHtml($customer->getEmail()) ?>
+                                        </span>
+                                        <span class="date">
+                                            <?= /* @noEscape*/ date($dateFormat, strtotime($ticket->getCreatedAt())); ?>
+                                        </span>
+                                        <span class="query">
+                                            <span class="fa">Q</span>
+                                            <?= $block->escapeHtml($ticket->getSubject()) ?>
+                                        </span>
+                                    </td>
+                                    <td class="wk_ts_ticket_table_data status">
+                                        <span class="wk_ticket_property">
+                                            <strong><?= $block->escapeHtml(__("Id : ")) ?>
+                                            </strong>
+                                            <?= $block->escapeHtml($ticket->getId()) ?>
+                                        </span>
+                                        <?php if ($ticket->getToAgent() != 0): ?>
+                                            <span class="wk_ticket_property">
+                                                <strong><?= $block->escapeHtml(__("Assign To 
+                                                Agent : ")) ?></strong>
+                                                <?=
+                                                $block->escapeHtml(
+                                                    $ticketsHelper->getTicketAgentName($ticket->getId())
+                                                )
+                                                ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="wk_ticket_property wk_faliure">
+                                                <strong><?= $block->escapeHtml(__("UnAssigned")) ?></strong>
+                                            </span>
+                                        <?php endif; ?>
+                                        <span class="wk_ticket_property">
+                                            <strong><?= $block->escapeHtml(__("Priority : "))
+                                            ?></strong>
+                                            <?=
+                                            $block->escapeHtml(
+                                                $ticketsHelper->getTicketPriorityName($ticket->getId())
+                                            )
+                                            ?>
+                                        </span>
+                                        <?php if ($closeStatus == $ticket->getStatus()): ?>
+                                            <span class="wk_ticket_property wk_warning">
+                                        <?php elseif ($openStatus == $ticket->getStatus()): ?>
+                                            <span class="wk_ticket_property wk_success">
+                                        <?php elseif ($spamStatus == $ticket->getStatus()): ?>
+                                            <span class="wk_ticket_property wk_faliure">
+                                        <?php else: ?>
+                                            <span class="wk_ticket_property">
+                                        <?php endif; ?>
+                                            <strong><?= $block->escapeHtml(__("Status : "))
+                                            ?></strong>
+                                            <?=
+                                            $block->escapeHtml($ticketsHelper->getTicketStatusName($ticket->getId())) ?>
+                                        </span>
+                                        <span class="wk_ticket_property">
+                                            <strong><?= $block->escapeHtml(__("Type : ")) ?>
+                                            </strong>
+                                            <?= $block->escapeHtml($ticketsHelper->getTicketTypeName($ticket->getId(
+                                            ))); ?>
+                                        </span>
+                                    </td>
+                                    <td class="wk_ts_ticket_table_data action">
+                                        <a class="wk_ts_edit_ticket" href="
+                                        <?= /** @noEscape */
+                                        $block->getUrl(
+                                            'helpdesk/ticket/view',
+                                            ['id'=>$ticket->getId()]
+                                        ) ?>">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </form>
+            <?= /* @noEscape */$block->getPagerHtml(); ?>
+        </div>
+    </div>
+</div>
+<div class="ticketsLoader text-info hide">
+    <i class="fa fa-spin fa-spinner fa-5x"></i>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "mytickets": {}
+        }
+    }
+</script>

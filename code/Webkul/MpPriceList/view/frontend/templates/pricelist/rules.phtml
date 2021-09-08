@@ -1,0 +1,78 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div id ='wk-mp-pricelist-rules'>
+<?= $block->getChildHtml('pricerules.list.container');?>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'underscore',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function($, confirm, _) {
+        var oldRulesIds = $('#pricelist_rules').val();
+        if(oldRulesIds != undefined) {
+            var showSelected = oldRulesIds.split(',');
+            $( document ).ajaxComplete(function (event, request, settings) {
+                var currentAjaxUrl = settings.url;
+                if (showSelected.length >0) {
+                    setTimeout(function () {
+                        $.each(showSelected, function(i,val){
+                            if ($("#idscheck"+val).prop("checked") == false) {
+                                $("#idscheck"+val).trigger("click")
+                            }
+                    }); 
+                    },500);
+                }
+            });
+        }
+        var rulesIdArray = [];
+        $(document).on('click',"#wk-mp-pricelist-rules input[type='checkbox']",function(){
+            if ($('#idscheck'+$(this).val()).is(':checked')){
+                rulesIdArray.push($(this).val()); 
+            }else {
+                if ((index = rulesIdArray.indexOf($(this).val())) !== -1) {
+                    rulesIdArray.splice(index, 1);
+                }
+            }
+          
+                $('#pricelist_rules').val(rulesIdArray);
+        });
+        $(document).on('click',"ul[class='action-menu']  li span",function(){
+            if($(this).text() == 'Select All') {
+                $("#wk-mp-pricelist-rules input[type='checkbox']").each(function( index ) {
+                    rulesIdArray.push($(this).val());
+                });
+            }
+            if($(this).text() == 'Deselect All') {
+                rulesIdArray = [];
+            }
+            $("#pricelist_rules").val(rulesIdArray);
+        });
+        $(document).on(
+            'click',
+            "th.data-grid-multicheck-cell div.action-multicheck-wrap input.admin__control-checkbox",
+            function(){
+            if ($("th.data-grid-multicheck-cell div.action-multicheck-wrap input.admin__control-checkbox")
+            .prop("checked") == true){
+                $("#wk-mp-pricelist-rules input[type='checkbox']").each(function( index ) {
+                    rulesIdArray.push($(this).val());
+                });
+            } else {
+                rulesIdArray = [];
+            }
+            $("#pricelist_rules").val(rulesIdArray);
+        });
+}); 
+</script>

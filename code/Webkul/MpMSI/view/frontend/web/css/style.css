@@ -1,0 +1,56 @@
+.msi-button-child .button.primary.action-basic {
+    float: right;
+    margin: 5px 0;
+}
+
+.msi-button-group .admin__field-label {
+    float: left;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.bulk-attribute-values .fieldset {
+    width:100%;
+}
+.wk-content th {
+    border-left: 1px solid #ccc;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    vertical-align: middle;
+    text-align: center;
+}
+.wk-row-view td {
+    border-left: 1px solid #ccc;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    vertical-align: middle;
+    text-align: center;
+}
+.wk-check-first-td{
+    border-left: none;
+    border-right: 1px solid #ccc;
+}
+.wk-first-td{
+    width: 20%;
+    border-left: none;
+}
+.wk-status-td{
+    width: 15%;
+    border-left: none;
+}
+td.msi-empty-msg {
+    text-align: center;
+    font-size: 1.6rem;
+    padding: 3rem;
+}
+input.wk-inputcheck {
+    margin: 2px 5px 0 10px !important;
+    position: relative;
+    top: 2px;
+}
+body.account.marketplace-product-add {
+    overflow: unset !important;
+}
+body.marketplace-product-edit {
+    overflow: unset !important;
+}

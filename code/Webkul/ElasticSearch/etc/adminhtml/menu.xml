@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ElasticSearch
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>      
+        <add id="Webkul_ElasticSearch::elastic" title="Elastic Search" module="Webkul_ElasticSearch" sortOrder="20" resource="Webkul_ElasticSearch::elastic"/>
+        <add id="Webkul_ElasticSearch::indexer" title="Index Management" module="Webkul_ElasticSearch" sortOrder="21" parent="Webkul_ElasticSearch::elastic" action="elastic/indexer/index" resource="Webkul_ElasticSearch::indexer"/>
+    </menu>
+</config>

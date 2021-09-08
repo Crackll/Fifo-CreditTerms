@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Webkul_MarketplaceProductLabels::label" translate="title" title="Custom Product Labels" module="Webkul_MarketplaceProductLabels" sortOrder="10" resource="Webkul_MarketplaceProductLabels::label" parent="Webkul_Marketplace::marketplace"/>
+        <add id="Webkul_MarketplaceProductLabels::sellerlabel" translate="title" title="Manage Product Label" module="Webkul_MarketplaceProductLabels" sortOrder="1" parent="Webkul_MarketplaceProductLabels::label" action="mplabels/label/index" resource="Webkul_MarketplaceProductLabels::seller_label_grid"/>
+    </menu>
+</config>

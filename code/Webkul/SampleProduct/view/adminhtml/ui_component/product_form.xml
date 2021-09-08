@@ -1,0 +1,31 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <htmlContent name="sampleproduct.form.sample.content">
+        <argument name="data" xsi:type="array">
+            <item name="wrapper" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="canShow" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">4</item>
+                <item name="label" xsi:type="string" translate="true">Sample</item>
+            </item>
+        </argument>
+        <settings>
+            <wrapper>
+                <canShow>true</canShow>
+                <componentType>fieldset</componentType>
+            </wrapper>
+        </settings>
+        <block name="sampleproduct.form.sample.block" class="Webkul\SampleProduct\Block\Adminhtml\Product\Edit\Tab\Sample" template="Webkul_SampleProduct::catalog/product/edit/sample.phtml" as="sampleproduct_sample" ifconfig="sampleproduct/settings/enable"/>
+    </htmlContent>
+</form>

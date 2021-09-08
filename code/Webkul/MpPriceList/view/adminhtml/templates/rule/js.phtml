@@ -1,0 +1,58 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            $(document).ready(function (){
+                manageTabs($(".wk-apply select"));
+                $("body").on("change", ".wk-apply select", function() {
+                    manageTabs($(this));
+                });
+            });
+
+            function manageTabs(select)
+            {
+                setTimeout(function() {
+                    if (select.val() == 1) {
+                        $("#tab_rule_product").parent().show();
+                        $("#tab_rule_category").parent().hide();
+                        $(".wk-qty").hide();
+                        $(".wk-total").hide();
+                    } else if (select.val() == 2) {
+                        $("#tab_rule_product").parent().hide();
+                        $("#tab_rule_category").parent().show();
+                        $(".wk-qty").hide();
+                        $(".wk-total").hide();
+                    } else if (select.val() == 3) {
+                        $("#tab_rule_product").parent().hide();
+                        $("#tab_rule_category").parent().hide();
+                        $(".wk-qty").show();
+                        $(".wk-total").hide();
+                    } else {
+                        $("#tab_rule_product").parent().hide();
+                        $("#tab_rule_category").parent().hide();
+                        $(".wk-qty").hide();
+                        $(".wk-total").show();
+                    }
+                }, 1);
+            }
+        }
+    );
+</script>
+

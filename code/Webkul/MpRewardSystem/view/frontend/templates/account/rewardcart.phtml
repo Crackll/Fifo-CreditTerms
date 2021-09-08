@@ -1,0 +1,426 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+/**
+ * Manage rewardcart template
+ *
+ * @var $block \Webkul\MpRewardSystem\Block\Account\RewardCart
+ */
+// $block->escapeHtml(
+ $helper = $block->getMarketplaceHelper();
+ $mpRewardHelper = $block->getRewardHelper();
+ $isPartner = $helper->isSeller();
+ $currencyCode = $mpRewardHelper->getBaseCurrencyCode();
+ $paramData = $block->getRequest()->getParams();
+ $filterType = '';
+ $filterPriceFrom = '';
+ $filterPriceTo = '';
+ $filterDateFrom = '';
+ $filterDateTo = '';
+if (isset($paramData['type'])) {
+    $filterType = $paramData['type'] != '' ? $paramData['type'] : '';
+}
+if (isset($paramData['from_date'])) {
+    $filterDateFrom = $paramData['from_date'] != '' ? $paramData['from_date'] : '';
+}
+if (isset($paramData['to_date'])) {
+    $filterDateTo = $paramData['to_date'] != '' ? $paramData['to_date'] : '';
+}
+if (isset($paramData['price_from'])) {
+    $filterPriceFrom = $paramData['price_from'] != '' ? $paramData['price_from'] : '';
+}
+if (isset($paramData['price_to'])) {
+    $filterPriceTo = $paramData['price_to'] != '' ? $paramData['price_to'] : '';
+}
+ $_cartRule_coll = $block->getCartRuleCollection();
+if ($isPartner == 1) {
+    ?>
+<div class="page-title-wrapper"><h1 class="page-title"></h1></div>
+<form class="form" action="<?=$block->escapeUrl($block->getUrl('mprewardsystem/account/savecartrecords')) ?>" 
+method="post" id="form-validate" data-mage-init='{"validation":{}}' 
+enctype="multipart/form-data" data-hasrequired="<?=/* @noEscape */ __('* Required Fields') ?>" autocomplete="off">
+    <fieldset class="fieldset info">
+       <?=/* @noEscape */ $block->getBlockHtml('formkey')?>
+       <?=/* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+        <legend class="legend"><span><?=/* @noEscape */ __('Manage Rewards') ?></span>
+            <button type="submit" class="button wk-mp-btn action save primary">
+                <span><span><?=/* @noEscape */ __('Save') ?></span></span>
+            </button>
+            <button type="reset" class="button wk-mp-btn action cancel primary">
+                <span><span><?=/* @noEscape */ __('Reset') ?></span></span>
+            </button>
+        </legend><br>
+        <div class="field required">
+            <label class="label"><span><?=/* @noEscape */ __("Amount From"); ?></span></label>
+            <div class="control">
+                <input id="amount_from" type="text" name="amount_from" placeholder="Amount From" 
+                data-validate="{required:true,'validate-greater-than-zero':true}" />
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label"><span><?=/* @noEscape */ __("Amount To"); ?></span></label>
+            <div class="control">
+                <input id="amount_to" type="text" name="amount_to" placeholder="Amount To" 
+                data-validate="{required:true,'validate-greater-than-zero':true}" />
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label"><span><?=/* @noEscape */ __("Reward Point"); ?></span></label>
+            <div class="control">
+                <input id="points" type="text" name="points" placeholder="Points" 
+                data-validate="{required:true,'validate-greater-than-zero':true}" />
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label"><span><?=/* @noEscape */ __("Start From Date"); ?></span></label>
+            <div class="control">
+                <input id="start_date" type="text" name="start_date" placeholder="yyyy-mm-dd" 
+                value data-validate="{required:true}" />
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label"><span><?=/* @noEscape */ __("End Date"); ?></span></label>
+            <div class="control">
+                <input id="end_date" type="text" name="end_date" placeholder="yyyy-mm-dd" 
+                value data-validate="{required:true}" />
+            </div>
+        </div>
+        <div class="field required">
+          <label class="label"><span><?=/* @noEscape */ __("Rule Status"); ?></span></label>
+          <div class="control">
+              <select class="required-entry select" data-validate="{required:true}" 
+              title="<?=/* @noEscape */ __('Rule Status'); ?>" name="status" id="status">
+                  <option value="1"><?=/* @noEscape */ __('Enabled') ?></option>
+                  <option value="0"><?=/* @noEscape */ __('Disabled') ?></option>
+              </select>
+          </div>
+        </div>
+    </fieldset>
+</form>
+<div class="wk-mp-design wk_cartrule">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span><?=/* @noEscape */ __('Cart Rule List') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <form action="<?=$block->escapeUrl($block
+                    ->getUrl('mprewardsystem/account/cartrecord', ['_secure' => $block
+                    ->getRequest()->isSecure()]))?>" method="get" id="form-cartrulelist-filter"  
+                    name="formCartRulelistFilter" data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?=/* @noEscape */ __('Price Range') ?></span></th>
+                                <th><span><?=/* @noEscape */ __('Date') ?></span></th>
+                                <th><span><?=/* @noEscape */ __('Status') ?></span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <tr>
+                                <td>
+                                  <span class="wk-mp-td-span">
+                                     <?=/* @noEscape */ __('From: ') ?>
+                                      <input name="price_from" id="price-from" class="input-text" 
+                                      value="<?= $block->escapeHtml($filterPriceFrom)?>" />
+                                  </span>
+                                  <span class="wk-mp-td-span">
+                                     <?=/* @noEscape */ __('To: ') ?>
+                                      <input name="price_to" id="price-to" class="input-text" 
+                                      value="<?= $block->escapeHtml($filterPriceTo)?>" />
+                                  </span>
+                                </td>
+                                <td>
+                                  <span class="wk-mp-td-span">
+                                     <?=/* @noEscape */ __('From: ') ?>
+                                      <input name="from_date" id="special-from-date" class="input-text" 
+                                      value="<?= $block->escapeHtml($filterDateFrom)?>" />
+                                  </span>
+                                  <span class="wk-mp-td-span">
+                                     <?=/* @noEscape */ __('To: ') ?>
+                                      <input name="to_date" id="special-to-date" class="input-text" 
+                                      value="<?= $block->escapeHtml($filterDateTo)?>" />
+                                  </span>
+                                </td>
+                                <td>
+                                    <select name="type" class="input-text">
+                                        <option value=""><?=/* @noEscape */ __('All') ?></option>
+                                        <option value="1" <?php if ($filterType === 1) {
+                                            echo 'selected="selected"'; }?>>
+                                           <?=/* @noEscape */ __('Enabled') ?>
+                                        </option>
+                                        <option value="0" <?php if ($filterType === 0) {
+                                            echo 'selected="selected"'; }?>>
+                                           <?=/* @noEscape */ __('Disabled') ?>
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="button" title="Save" type="submit">
+                                        <span><span><span><?=/* @noEscape */ __('Submit') ?></span></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+               <?php if ($_cartRule_coll && $_cartRule_coll->getSize()): ?>
+                    <form action="<?=$block->escapeUrl($block
+                        ->getUrl('mprewardsystem/account/massdelete', ['_secure' => $block
+                        ->getRequest()->isSecure()])) ?>" method="post" id="form-cartrulelist-massdelete" 
+                        name="formCartrulelistMassdelete" data-mage-init='{"validation":{}}'>
+                        <?=/* @noEscape */ $block->getBlockHtml('formkey')?>
+                        <?=/* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+                        <button class="button" title="<?=/* @noEscape */ __('Delete Cart Rule') ?>" 
+                        type="submit" style="float: left;padding: 5px 5px 5px 0;"  id="mass-delete-butn">
+                            <span><span><?=/* @noEscape */ __('Delete Cart Rule') ?></span></span>
+                        </button>
+                        <table cellspacing="0" class="border wk-mp-list-table wk-mp-list-container-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-check-first-td">
+                                        <span>
+                                            <input type="checkbox" name="mpselecctall" value="all" id="mpselecctall" 
+                                            autocomplete="off"/>
+                                        </span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name">
+                                            <?=/* @noEscape */ __('Amount From')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label pro-status">
+                                            <?=/* @noEscape */ __('Amount To')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label pro-status">
+                                            <?=/* @noEscape */ __('Reward Points')?>
+                                        </span>
+                                    </th>
+                                    <th class="wk-list-th-display">
+                                        <span class="label qty">
+                                            <?=/* @noEscape */ __('Start Date')?>
+                                        </span>
+                                    </th>
+                                    <th class="wk-list-th-display">
+                                        <span class="label qty">
+                                            <?=/* @noEscape */ __('End Date')?>
+                                        </span>
+                                    </th>
+                                    <th class="wk-list-th-display">
+                                        <span class="label qty">
+                                            <?=/* @noEscape */ __('Status')?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label">
+                                            <?=/* @noEscape */ __('Action')?>
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($_cartRule_coll as $cartRule) {
+                                    $data['amount_from']= $cartRule->getAmountFrom();
+                                    $data['amount_to']  = $cartRule->getAmountTo();
+                                    $data['points']     = $cartRule->getPoints();
+                                    $data['start_date'] = $cartRule->getStartDate();
+                                    $data['end_date']   = $cartRule->getEndDate();
+                                    $data['status']     = $cartRule->getStatus();
+                                    $cartInfo=$mpRewardHelper->jsonHelperFunction()->jsonEncode($data);
+                                    $i++;
+                                    ?>
+                                    <tr class="wk-row-view wk_row_list <?=/* @noEscape */$class = ($i == $_cartRule_coll
+                                    ->getSize())? 'wk-last_tr':''?>">
+                                        <td class="wk-check-first-td">
+                                            <span>
+                                                <input type="checkbox" name="cartrule_mass_delete[]" class="mpcheckbox" 
+                                                value="<?=$block->escapeHtml($cartRule->getEntityId()); ?>"/>
+                                            </span>
+                                        </td>
+                                        <td class="wk-first_td">
+                                            <input type="hidden" class="hidden-id" value="<?= $block
+                                            ->escapeHtml($cartRule->getEntityId()); ?>" />
+                                            <span class="label pro-status">
+                                                <?=$block->escapeHtml($cartRule->getAmountFrom())?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="label pro-status">
+                                                <?=$block->escapeHtml($cartRule->getAmountTo())?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="label pro-status">
+                                                <?=$block->escapeHtml($cartRule->getPoints())?>
+                                            </span>
+                                        </td>
+                                        <td class="wk-list-th-display">
+                                            <span class="label qty">
+                                                <?=$block->escapeHtml($cartRule->getStartDate())?>
+                                            </span>
+                                        </td>
+                                        <td class="wk-list-th-display1">
+                                            <span class="label qty">
+                                                <?=$block->escapeHtml($cartRule->getEndDate())?>
+                                            </span>
+                                        </td>
+                                        <td class="wk-list-th-display1">
+                                            <span class="label qty">
+                                                <?php if ($cartRule->getStatus()) { echo "Enabled";
+                                                } else { echo "disabled";}?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                          <input type="hidden" class="data" 
+                                          value='<?=$block->escapeHtml($cartInfo) ?>' />
+                                            <span class="label wk_action">
+                                                <img src="<?=$block->escapeUrl($block
+                                                ->getViewFileUrl('Webkul_Marketplace::images/icon-edit.png')); ?>" 
+                                                alt="edit" title="edit" class="mprewardCart_edit"/>
+                                                <img src="<?=$block->escapeUrl($block
+                                                ->getViewFileUrl('Webkul_Marketplace::images/icon-trash.png')); ?>" 
+                                                alt="delete" title="delete" class="mprewardCart_delete"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }?>
+                            </tbody>
+                        </table>
+                    </form>
+                <?php else: ?>
+                    <div class="wk-emptymsg">
+                        <?=/* @noEscape */ __('No Cart Rule Available') ?>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="wk_cart_rule_wrapper" style="display:none">
+    <div class="wk_mp_design wk_mp_rewardCartRule">
+    <span class="wk_close_wrapper">x</span>
+            <div class="block block-account">
+                <div class="block-title">
+                    <strong><span><h4><?=/* @noEscape */ __('Edit Reward Cart Rule') ?></h4></span></strong>
+                </div>
+            </div>
+            <form
+                action="<?=$block->escapeUrl($block
+                ->getUrl('mprewardsystem/account/updatecartrule', ['_secure' => $block
+                ->getRequest()->isSecure()]))?>"
+                method="post"
+                id="editRule"
+                data-mage-init='{"validation":{}}'
+            >
+                <?=/* @noEscape */ $block->getBlockHtml('formkey')?>
+                <?=/* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+                <ul class="form-list" id="wk_bodymain">
+                    <li>
+                        <label><?=/* @noEscape */ __('Amount From') ?>:</label>
+                        <div class="input-box">
+                            <input type="text" name="amount_from" id="amountfrom" value="" 
+                            class="required-entry validate-not-negative-number" />
+                        </div>
+                    </li>
+                    <li>
+                        <label><?=/* @noEscape */ __('Amount To') ?>:</label>
+                        <div class="input-box">
+                            <input type="text"
+                                class="required-entry validate-not-negative-number input-text"
+                                name="amount_to"
+                                value=""
+                                id="amountto"
+                            />
+                        </div>
+                    </li>
+                    <li>
+                        <label><?=/* @noEscape */ __('Reward Point') ?>:</label>
+                        <div class="input-box">
+                          <input type="text"
+                              class="required-entry validate-not-negative-number input-text"
+                              name="points"
+                              value=""
+                              id="reward_points"
+                          />
+                        </div>
+                    </li>
+                    <li>
+                        <label><?=/* @noEscape */ __('Start Date') ?>:</label>
+                        <div class="input-box">
+                            <input type="text"
+                                class="required-entry input-text"
+                                name="start_date"
+                                value=""
+                                id="startdate"
+                            />
+                        </div>
+                    </li>
+                    <li>
+                        <label><?=/* @noEscape */ __('End Date') ?>:</label>
+                        <div class="input-box">
+                            <input type="text"
+                                class="required-entry input-text"
+                                name="end_date"
+                                value=""
+                                id="enddate"
+                            />
+                        </div>
+                    </li>
+                    <li>
+                        <label><?=/* @noEscape */ __('Rule Status') ?>:</label>
+                        <div class="input-box">
+                          <select name="status" id="reward_status" class="required-entry">
+                            <option value="1"><?=/* @noEscape */ __("Enabled") ?></option>
+                            <option value="0"><?=/* @noEscape */ __("Disabled") ?></option>
+                          </select>
+                        </div>
+                    </li>
+                    <button class="button wk_mp_btn" title="<?=/* @noEscape */ __('Update') ?>" 
+                    type="submit" id="save_butn">
+                        <span><span><?=/* @noEscape */ __('Update') ?></span></span>
+                    </button>
+                </ul>
+            </form>
+    </div>
+</div>
+    <?php
+    $formData = [
+    "formvalidate" => "#form-validate",
+    "end_date" => "#end_date",
+    "start_date" => "#start_date",
+    "deleteSetRate" => ".mprewardCart_delete",
+    "wkCloseWrap" => ".wk_close_wrapper",
+    "wkRuleWrap" => ".wk_cart_rule_wrapper",
+    "editUrl" => $block->getUrl(
+        'mprewardsystem/account/updatecartrule/',
+        ['_secure' => true]
+    ),
+    "deleteUrl" => $block->getUrl(
+        'mprewardsystem/account/deletecartrule/',
+        ['_secure' => true]
+    ),
+    ];
+    $serializedFormData = $block->getJsonData()->jsonEncode($formData);
+    ?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "mprewardcartrule": <?=/* @noEscape */ $serializedFormData; ?>
+    }
+}
+</script>
+<?php } ?>

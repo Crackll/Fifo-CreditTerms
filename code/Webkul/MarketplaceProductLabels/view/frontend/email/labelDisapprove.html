@@ -1,0 +1,23 @@
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+{{template config_path="design/email/header_template"}}
+<!--@subject Product Label Disapproved Notification  @-->
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%customer_name," customer_name=$myvar2}}</p>
+            <p>
+                {{trans "I would like to inform you that your product label %label_name has been disapproved." label_name=$myvar1}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

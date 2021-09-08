@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRewardSystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software protected Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/carts/mine/rewards/:rewardData" method="GET">
+        <service class="Webkul\MpRewardSystem\Api\RewardRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/carts/mine/rewards/:rewardData" method="PUT">
+        <service class="Webkul\MpRewardSystem\Api\RewardRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+</routes>

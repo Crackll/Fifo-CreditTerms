@@ -1,0 +1,132 @@
+"Purchase Order","Purchase Order"
+Item,Item
+Seller,Seller
+"Shipping Status","Shipping Status"
+"Schedule Date","Schedule Date"
+Information,Information
+Shipments,Shipments
+Cancel,Cancel
+Confirm,Confirm
+"Print Shipment","Print Shipment"
+Ship,Ship
+"Receive Shipment","Receive Shipment"
+"Are you sure you received the items in this order?","Are you sure you received the items in this order?"
+"Purchase Orders","Purchase Orders"
+"%1 order(s) Cancelled","%1 order(s) Cancelled"
+"%1 order(s) could not be Cancelled","%1 order(s) could not be Cancelled"
+"Purchase Order %1 has been cancelled by Admin.","Purchase Order %1 has been cancelled by Admin."
+"Purchase Order Cancelled","Purchase Order Cancelled"
+"%1 order(s) Confirmed","%1 order(s) Confirmed"
+"%1 order(s) could not be Confirmed","%1 order(s) could not be Confirmed"
+"New purchase order %1 has been approved by Admin.
+                                 Please login into your account to check the order details.","New purchase order %1 has been approved by Admin.
+                                 Please login into your account to check the order details."
+"Purchase Order Approved","Purchase Order Approved"
+"Order(s) could not be Merged","Order(s) could not be Merged"
+"%1 Purchase Orders successfully merged","%1 Purchase Orders successfully merged"
+"New merged Purchase Order %1 has been created by Admin and
+                                     your old purchase order has been cancelled now.","New merged Purchase Order %1 has been created by Admin and
+                                     your old purchase order has been cancelled now."
+"Purchase Order Merged","Purchase Order Merged"
+"Some error occured, Please try again","Some error occured, Please try again"
+"Purchase Order Shipment can not be printed","Purchase Order Shipment can not be printed"
+"Purchase Order items successfully received","Purchase Order items successfully received"
+"Purchase Order items can not be received","Purchase Order items can not be received"
+"Invalid Date","Invalid Date"
+"Purchase Order items successfully shipped","Purchase Order items successfully shipped"
+"Purchase Order items can not be shipped","Purchase Order items can not be shipped"
+"Items of purchase order %1 has been shipped by the wholesaler.","Items of purchase order %1 has been shipped by the wholesaler."
+"Purchase Order Items Shipped","Purchase Order Items Shipped"
+Admin,Admin
+"Purchase Order status successfully updated","Purchase Order status successfully updated"
+"Purchase Order status cannot be updated","Purchase Order status cannot be updated"
+"This order no longer exists","This order no longer exists"
+"Module is disabled by admin, Please contact to admin!""","Module is disabled by admin, Please contact to admin!"""
+"Purchase Order successfully cancelled","Purchase Order successfully cancelled"
+"This order cannot be cancelled","This order cannot be cancelled"
+"Please add default shipping address to create purchase order","Please add default shipping address to create purchase order"
+"Purchase Order successfully created","Purchase Order successfully created"
+"The quote is not approved by the Wholesaler","The quote is not approved by the Wholesaler"
+"Purchase order is already created for this quote","Purchase order is already created for this quote"
+"Quote product does not exist or disabled","Quote product does not exist or disabled"
+"Admin has not allowed Seller to print shipments","Admin has not allowed Seller to print shipments"
+"Purchase Order Shipments successfully received","Purchase Order Shipments successfully received"
+"Admin has not allowed Seller to receive shipments","Admin has not allowed Seller to receive shipments"
+"Order %1","Order %1"
+"You are not authorized to access this order","You are not authorized to access this order"
+"Order Item with id ""%1"" does not exist.","Order Item with id ""%1"" does not exist."
+"Order with id ""%1"" does not exist.","Order with id ""%1"" does not exist."
+"Purchase Order ","Purchase Order "
+"Order Date: ","Order Date: "
+"Wholesaler Details:","Wholesaler Details:"
+"Ship To:","Ship To:"
+Products,Products
+Qty,Qty
+SKU,SKU
+Cancelled,Cancelled
+New,New
+Processing,Processing
+Shipped,Shipped
+Complete,Complete
+Received,Received
+View,View
+"Order & Account Information","Order & Account Information"
+"Order Info","Order Info"
+"Order Date","Order Date"
+Status,Status
+"Source Document","Source Document"
+"Account Information","Account Information"
+"Wholesaler Name","Wholesaler Name"
+Email,Email
+"Items Ordered","Items Ordered"
+"Product Name","Product Name"
+"Quote Price","Quote Price"
+Subtotal,Subtotal
+Ordered,Ordered
+"Shipping & Order Total","Shipping & Order Total"
+"Shipment Details","Shipment Details"
+"Origin Address","Origin Address"
+"Total Incoming Shipments","Total Incoming Shipments"
+"Total Package Weight","Total Package Weight"
+"Order Total","Order Total"
+"Shipping & Handling","Shipping & Handling"
+"Grand Total","Grand Total"
+"Scheduled Date","Scheduled Date"
+"Scheduled Date Required","Scheduled Date Required"
+Wholesale,Wholesale
+"Wholesale Product","Wholesale Product"
+"Wholesale Quotation","Wholesale Quotation"
+Menu,Menu
+"Purchase Management","Purchase Management"
+"Increment Id","Increment Id"
+"Purchase Date","Purchase Date"
+Source,Source
+Wholesaler,Wholesaler
+Action,Action
+"Order Information","Order Information"
+"Package Weight","Package Weight"
+"Wholesaler Details","Wholesaler Details"
+"Wholesaler Title","Wholesaler Title"
+"Wholesaler Description","Wholesaler Description"
+"Wholesaler Address","Wholesaler Address"
+"Create Purchase Order","Create Purchase Order"
+"New Purchase Order","New Purchase Order"
+"Hello %name","Hello %name"
+Price,Price
+"Grand Total:","Grand Total:"
+"Thank you","Thank you"
+"Order Shipment","Order Shipment"
+"Marketplace Purchase Management","Marketplace Purchase Management"
+Enable,Enable
+"Default Prefix","Default Prefix"
+"Prefix used during quotation increment number generation.","Prefix used during quotation increment number generation."
+"Default Padding","Default Padding"
+"Padding for quotation/purchase order increment number generation.","Padding for quotation/purchase order increment number generation."
+"Allow seller to receive shipment","Allow seller to receive shipment"
+"Order Approval Required","Order Approval Required"
+"New Purchase Order Mail to Seller","New Purchase Order Mail to Seller"
+"Order Status Update mail","Order Status Update mail"
+"Are you sure you want to Confirm selected orders?","Are you sure you want to Confirm selected orders?"
+Merge,Merge
+"Are you sure you want to merge selected orders?","Are you sure you want to merge selected orders?"
+"Are you sure you want to Cancel selected orders?","Are you sure you want to Cancel selected orders?"

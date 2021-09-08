@@ -1,0 +1,49 @@
+<?php
+    $ajaxUrl = $block->getAjaxUrl();
+?>
+<?php /* @escapeNotVerified */ echo $block->getButtonHtml() ?>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/alert',
+            'Magento_Ui/js/modal/confirm',
+            'mage/translate'
+        ],
+        function($, alert, confirm, $t) {
+
+            var makeAjaxCall = function() {
+                $.ajax({
+                    url: '<?php echo $ajaxUrl;  ?>',
+                    type: 'POST',
+                    data: {
+                        form_key: window.FORM_KEY
+                    },
+                    showLoader: true,
+                    dataType: 'json',
+                    success: function(response) {
+                        alert({content: response.message});
+                        //window.location.reload();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            };
+            $("body").on("click", "#elastic_connection_reset", function() {
+                confirm({
+                    title: $t('Confirm Reset'),
+                    content: $t('Are you sure you want to reset all the indexes and data at elastic server, please take proper backup before performing this action'),
+                    actions: {
+                        confirm: function(){makeAjaxCall();},
+                        cancel: function(){},
+                        always: function(){}
+                    }
+                });
+                
+            });
+
+        }
+    );
+</script>

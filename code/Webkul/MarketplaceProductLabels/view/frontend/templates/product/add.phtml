@@ -1,0 +1,72 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+    $position = [
+        \Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_LEFT =>__('Top-Left'),
+        \Webkul\MarketplaceProductLabels\Model\Label::POSITION_TOP_RIGHT =>__('Top-Right'),
+        \Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_LEFT => __('Bottom-Left'),
+        \Webkul\MarketplaceProductLabels\Model\Label::POSITION_BOTTOM_RIGHT => __('Bottom-Right')
+    ];
+    ?>
+<legend class="legend">
+    <span><?= /* @noEscape */ __('Product Label Image') ?></span>
+</legend>
+<table  class="data-grid mpproduct-data-grid" border="1">
+    <thead>
+        <caption class="admin__control-support-text"><?= /* @noEscape */ __('Select Product Label Image') ?></caption>
+        <tr>
+            <th class="data-grid-th"><?= /* @noEscape */ __('Image Label') ?></th>
+            <th class="data-grid-th"><?= /* @noEscape */ __('Name') ?></th>
+            <th class="data-grid-th"><?= /* @noEscape */ __('Position') ?></th>
+            <th class="data-grid-th"><?= /* @noEscape */ __('Select') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($block->getLabelList() as $label) {
+            if ($label['status']) { ?>
+                    <tr class="data-row">
+                        <td>
+                            <img src='<?= /* @noEscape */
+                            $block->getMediaUrl($label['image_name']); ?>' alt="image-icon" width="60" height="60">
+                        </td>
+                        <td>
+                            <label><?= /* @noEscape */ $label['label_name']; ?></label>
+                        </td>
+                        <td>
+                            <?php foreach ($position as $var => $data) {
+                                if ($var == $label['position']) {
+                                    /* @noEscape */ echo __($data);
+                                }
+                            }?>
+                        </td>
+                        <td>
+                            <input type="radio" name="product[product_label_id]" 
+                            value=<?= /* @noEscape */ $label['id']; ?>>
+                        </td>
+                    </tr> 
+                <?php }
+        }?>
+        <tr class="data-row">
+            <td>
+            <label><?= /* @noEscape */ __('No Selection') ; ?></label>
+            </td>
+            <td>
+                <label><?= /* @noEscape */ __('No Selection') ; ?></label>
+            </td>
+            <td>
+                <label><?= /* @noEscape */ __('No Selection') ; ?></label>
+            </td>
+            <td>
+            <input type="radio" name="product[product_label_id]" value="0"/>
+            </td>
+        </tr>        
+    </tbody> 
+</table>

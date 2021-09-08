@@ -1,0 +1,235 @@
+<?php
+/**
+ * Webkul_MpDailyDeals View On Product template.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeals
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$dealDetail = $block->getCurrentProductDealDetail();
+$product = $block->getCurrentProduct();
+$type = $product->getTypeId();
+$dealststus = 0;
+if ($type != "configurable") {
+    if ($dealDetail && $dealDetail['deal_status']
+    && isset($dealDetail['diff_timestamp'])) { $dealststus = 1; ?>
+        <div class="deal wk-daily-deal clear"
+         data-deal-id="<?= /* @noEscape */ $dealDetail['deal_id'] ?>">
+        <div class="wk-deal-timer">
+            <span class="deal-ens-in">
+                    <?= /* @noEscape */ __('Deals Ends in');?>
+            </span>
+            <p class="wk_cat_count_clock" data-stoptime="<?= /* @noEscape */
+             $dealDetail['stoptime'] ?>" 
+                data-diff-timestamp ="<?= /* @noEscape */ $dealDetail['diff_timestamp'] ?>">
+            </p>
+        </div>
+            <?php if (!count($product->getOptions()) || $product->getTypeId() == 'booking') { ?>
+            <span class="wk-deal-off">
+                 <?= /* @noEscape */ $dealDetail['discount-percent'] ."% ". __('Off');?>
+            </span>
+        <?php } ?>
+        
+            <?php if (isset($dealDetail['saved-amount'])) { ?>
+            <span class="save-box ">
+            <b class="save-label">
+                <?= /* @noEscape */ __('Save On Deal') ." ".$dealDetail['saved-amount'] ?></b>
+            </span>
+        <?php } ?>
+    </div>
+
+    <?php }
+}
+
+if ($type == "configurable") { ?>
+        <?php
+        $associatedProducts = $block->getAllAssociatedProducts();
+        $alreadyOneMax = true;
+        $maxVal = -99999999;
+        foreach ($associatedProducts as $key => $value) {
+            $dealDetail = $block->getChildProductDealDetail($value);
+            if (isset($dealDetail['saved-amount-raw']) &&
+            $dealDetail['saved-amount-raw'] && $dealDetail['saved-amount-raw']>=$maxVal) {
+                $maxVal = $dealDetail['saved-amount-raw'];
+            }
+        }
+        foreach ($associatedProducts as $key => $value) {
+            $dealDetail = $block->getChildProductDealDetail($value);
+            if (isset($dealDetail['saved-amount-raw']) &&
+            $dealDetail['saved-amount-raw'] == $maxVal && $alreadyOneMax) {
+                $alreadyOneMax = false;
+                if ($dealDetail && $dealDetail['deal_status']
+                && isset($dealDetail['diff_timestamp'])) { $dealststus = 1;?>
+                <div class="deal wk-daily-deal max-deal-amount" 
+                data-deal-id="<?= /* @noEscape */ $value ?>" 
+                id="deal<?= /* @noEscape */ $value; ?>" >
+                    <div class="wk-deal-timer">
+                        <span class="deal-ens-in">
+                                <?= /* @noEscape */ __('Deals Ends in');?>
+                        </span>
+                        <p class="wk_cat_count_clock" 
+                        data-stoptime="<?= /* @noEscape */
+                        $dealDetail['stoptime'] ?>" 
+                            data-diff-timestamp ="<?= /* @noEscape */
+                             $dealDetail['diff_timestamp'] ?>">
+                        </p>
+                    </div>
+                        <?php if (!count($product->getOptions()) ||
+                         $product->getTypeId() == 'booking') { ?>
+                        <span class="wk-deal-off">
+                            <?= /* @noEscape */
+                            $dealDetail['discount-percent']?>% 
+                            <?= /* @noEscape */ __('Off'); ?>
+                        </span>
+                    <?php } ?>
+                    
+                        <?php if (isset($dealDetail['saved-amount'])) { ?>
+                        <span class="save-box ">
+                            <b class="save-label"><?= /* @noEscape */
+                            __('Max Save On Deal') ." ".$dealDetail['saved-amount']  ?> </b>
+                        </span>
+                    <?php } ?>
+                </div>
+            <?php }
+            } elseif ($dealDetail && $dealDetail['deal_status']
+            && isset($dealDetail['diff_timestamp'])) { $dealststus = 1;?>
+            <div class="deal wk-daily-deal" data-deal-id="<?= /* @noEscape */ $value ?>" 
+            id="deal<?= /* @noEscape */ $value; ?>" >
+                <div class="wk-deal-timer">
+                    <span class="deal-ens-in">
+                            <?= /* @noEscape */ __('Deals Ends in');?>
+                    </span>
+                    <p class="wk_cat_count_clock" data-stoptime="<?= /* @noEscape */
+                     $dealDetail['stoptime'] ?>" 
+                        data-diff-timestamp ="<?= /* @noEscape */
+                        $dealDetail['diff_timestamp'] ?>">
+                    </p>
+                </div>
+                    <?php if (!count($product->getOptions()) ||
+                    $product->getTypeId() == 'booking') { ?>
+                    <span class="wk-deal-off">
+                            <?= /* @noEscape */
+                            $dealDetail['discount-percent']?>% <?= /* @noEscape */ __('Off'); ?>
+                    </span>
+                <?php } ?>
+                
+                    <?php if (isset($dealDetail['saved-amount'])) { ?>
+                    <span class="save-box ">
+                        <b class="save-label"><?= /* @noEscape */
+                         __('Save On Deal') ." ".$dealDetail['saved-amount']  ?> </b>
+                    </span>
+                <?php } ?>
+            </div>
+        <?php }
+        }}?>
+<?php if ($type == "grouped") { ?>
+    
+    <?php
+    $associatedProducts = $block->getAllGroupedAssociatedProducts();
+    foreach ($associatedProducts as $key => $value) {
+        $dealDetail = $block->getChildProductDealDetail($value);
+        if ($dealDetail && $dealDetail['deal_status']
+        && isset($dealDetail['diff_timestamp'])) { $dealststus = 1;?>
+            <div class="deal wk-daily-deal wk-grouped-deal" 
+            data-deal-id="<?= /* @noEscape */ $value ?>" 
+            id="grouped<?= /* @noEscape */ $value; ?>" 
+            data-id="<?= /* @noEscape */ $value; ?>" >
+                <div class="wk-deal-timer">
+                    <span class="deal-ens-in">
+                        <?= /* @noEscape */ __('Deals Ends in');?>
+                    </span>
+                    <p class="wk_cat_count_clock"
+                     data-stoptime="<?= /* @noEscape */ $dealDetail['stoptime'] ?>" 
+                        data-diff-timestamp ="<?= /* @noEscape */
+                         $dealDetail['diff_timestamp'] ?>">
+                    </p>
+                </div>
+                <?php if (!count($product->getOptions()) ||
+                $product->getTypeId() == 'booking') { ?>
+                    <span class="wk-deal-off">
+                                        <?= /* @noEscape */
+                                        $dealDetail['discount-percent']?>% <?= /* @noEscape */ __('Off'); ?>
+                    </span>
+                <?php } ?>
+                
+                <?php if (isset($dealDetail['saved-amount'])) { ?>
+                    <span class="save-box ">
+                        <b class="save-label"><?= /* @noEscape */
+                        __('Save On Deal') ." ".$dealDetail['saved-amount'] ?></b>
+                    </span>
+                <?php } ?>
+            </div>
+    <?php }
+
+    }}?>
+<?php if ($type == "bundle" && !$product->getPriceType()) {
+    $bundleProductOptions = $block->getBundleProductOptions();
+    ?>
+    <div class="wk-dd-selection-container" style="display:none">
+        <?php
+        foreach ($bundleProductOptions as $key => $value) {
+            ?>
+            <div class="wk-dd-bundle-selection" data-selection="<?= /* @noEscape */ $key?>">
+            <?php
+            foreach ($value as $key1 => $value1) {
+                ?>
+                <?php
+                $dealDetail = $block->getChildProductDealDetail($value1['selection_product_id']);
+                if ($dealDetail && $dealDetail['deal_status']
+                && isset($dealDetail['diff_timestamp'])) { $dealststus = 1;?>
+                    <div class="deal wk-daily-deal wk-bundle-deal" 
+                    data-deal-id="<?= /* @noEscape */ $value1['selection_product_id'] ?>"
+                     data-id="<?= /* @noEscape */ $value1['selection_product_id']; ?>" >
+                        <div class="wk-deal-timer">
+                            <span class="deal-ens-in">
+                                <?= /* @noEscape */
+                                 '<b>'.$value1['selection_product_name'].'</b><br> '.__('Deals Ends in');?>
+                            </span>
+                            <p class="wk_cat_count_clock" 
+                            data-stoptime="<?= /* @noEscape */ $dealDetail['stoptime'] ?>" 
+                                data-diff-timestamp ="<?= /* @noEscape */ $dealDetail['diff_timestamp'] ?>">
+                            </p>
+                        </div>
+                        <?php if (!count($product->getOptions()) ||
+                        $product->getTypeId() == 'booking') { ?>
+                            <span class="wk-deal-off">
+                                                <?= /* @noEscape */
+                                                $dealDetail['discount-percent']?>% <?= /* @noEscape */ __('Off'); ?>
+                            </span>
+                        <?php } ?>
+                        
+                        <?php if (isset($dealDetail['saved-amount'])) { ?>
+                            <span class="save-box ">
+                                <b class="save-label"><?= /* @noEscape */
+                                __('Save On Deal') ." ".$dealDetail['saved-amount'];  ?></b>
+                            </span>
+                        <?php } ?>
+                    </div>
+            <?php }
+            }?>
+        </div>
+    <?php }
+        ?>
+    </div>
+<?php } ?>
+<script>window.Mpdailyurl = '<?= /* @noEscape */
+$block->getUrl("mpdailydeal/index/gettimes") ?>';</script>
+<script type="text/x-magento-init">
+    {
+        "body": {"viewondealproduct": { "dealstatus" : <?= /* @noEscape */ $dealststus?> }}
+    }
+</script>
+<?php if ($dealststus) { ?>
+    <style>
+        .product-info-main .product-info-price .price-box .price-container > span {
+            height: unset;
+            width: unset;
+            position: unset;
+        }
+        .product-info-main .product-info-price .price-box
+        {
+            display:table-cell;
+        }
+    </style>
+<?php } ?>

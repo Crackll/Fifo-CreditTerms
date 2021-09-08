@@ -1,0 +1,23 @@
+{
+    "name": "webkul/abandoned-cart",
+    "description": "abandoned cart",
+    "require": {
+        "magento/module-config": "101.2.*",
+        "magento/framework": "103.0.*",
+        "magento/module-eav": "102.1.*",
+        "magento/module-ui": "101.2.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\AbandonedCart\\": ""
+        }
+    }
+}

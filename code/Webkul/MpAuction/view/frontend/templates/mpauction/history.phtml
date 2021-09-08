@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * Webkul_MpAuction Detail Page.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+    $auctionData = $block->getAuctionDetail();
+    $auctionBidDetails = $block->getAuctionAmtDetails();
+    $auctionConfig = $block->getAuctionConfig();
+    echo $block->getChildHtml('info');
+?>
+<?php if ($auctionBidDetails && count($auctionBidDetails)>0): ?>
+    <h1><?= /* @noEscape */ __('Normal Bid Details') ?></h1>
+    <div class="table-wrapper ">
+        <table class="data table" id="my-auction-bid-table">
+            <thead class="wk-auction-bid-table-header">
+                <tr>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Bidder Name') ?></th>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Bid Amount') ?></th>
+                    <th scope="col" class="col"><?= /* @noEscape */ __('Time Stamp') ?></th>
+                </tr>
+            </thead>
+            <tbody class="wk-auction-bid-table-body">
+                <?php foreach ($auctionBidDetails as $auction): ?>
+                    <tr>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Bidder Name ')) ?>" class="col">
+                            <?= /* @noEscape */ $block->getCustomerName($auction->getCustomerId()); ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Bid Amount')) ?>" class="col">
+                            <?= /* @noEscape */ $block->formatPrice($auction->getAuctionAmount()) ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ $block->escapeHtml(__('Time Stamp')) ?>" class="col">
+                        <?= /* @noEscape */ $auction->getCreatedAt(); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom" style="margin-top:10px;"><?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty" style="display:block;"><span><?= /* @noEscape */ __('You have no bid records.'); ?></span></div>
+<?php endif ?>
+
+<?= /* @noEscape */ $block->getChildHtml('auto-bid');
+?>

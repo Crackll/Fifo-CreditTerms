@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPushNotification
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mp_pushnotification_users_token" resource="default" engine="innodb" comment="MpPushNotification mp_pushnotification_users_token Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="token" nullable="false" comment="user token"/>
+        <column xsi:type="text" name="browser" nullable="false" comment="browser"/>
+        <column xsi:type="text" name="name" nullable="false" comment="name"/>
+        <column xsi:type="int" name="template_id" nullable="false" comment="template id"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" comment="created at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="mp_pushnotification_templates" resource="default" engine="innodb" comment="MpPushNotification mp_pushnotification_templates Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="title" nullable="false" comment="title"/>
+        <column xsi:type="text" name="message" nullable="false" comment="message"/>
+        <column xsi:type="text" name="url" nullable="false" comment="redirect url"/>
+        <column xsi:type="text" name="logo" nullable="false" comment="logo"/>
+        <column xsi:type="text" name="logo_url" nullable="false" comment="logo_url"/>
+        <column xsi:type="text" name="tags" nullable="false" comment="tags"/>
+        <column xsi:type="int" name="seller_id" nullable="false" comment="seller_id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" comment="Creation Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

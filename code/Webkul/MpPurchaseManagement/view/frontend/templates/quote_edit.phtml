@@ -1,0 +1,18 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPurchaseManagement
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php if ($block->isShowButton()) { ?>
+    <div class="wk-po-container">
+        <a href="<?= $block->escapeHtml($block->getOrderUrl()) ?>">
+            <button class="action primary"><?= /* @noEscape */ __('Create Purchase Order') ?></button>
+        </a>
+    </div>
+<?php } ?>

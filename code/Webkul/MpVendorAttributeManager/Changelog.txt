@@ -1,0 +1,46 @@
+Legend
+
++ Features
+
+-------------------------------- Version 5.0.0 --------------------------------------
+	- Compatible with Magento 2.4.x
+	+ Compatible with B2BMarketplace module
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	- Fixed minor bugs
+-------------------------------- Version 2.2.0 --------------------------------------
+	- Fixed layout issue with magento2.3.3
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible With Magento2.3.x and Marketplace 2.2.x
+
+-------------------------------- Version 2.0.4 --------------------------------------
+	+ Compatible With Magento2.2 and Marketplace 2.1.*
+	+ Admin can assign attributes for Customer, Seller and Both.
+	- Bugs Fixed.
+
+-------------------------------- Version 2.0.3 --------------------------------------
+	+ Compatible with Magento E.E and C.E .
+	- Fixed Minor Bugs
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	- Fixed issues
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+	+ Admin can enable Terms & Conditions and Privacy & cookie Policy on vendor registration page.
+	+ Admin can set animation type for Terms & Conditions and Privacy & cookie Policy window.
+	+ Admin can change the background color of Terms & Conditions and Privacy & cookie Policy window.
+	+ Admin can save content store wise for Terms & Conditions and Privacy & cookie Policy.
+	+ Admin can can assign vendor attributes group wise.
+	+ Admin have choice to display vendor fields group wise or not.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+	+ Admin can create or update Vendor’s/Seller’s custom attributes.
+	+ Vendor’s/Seller’s custom attributes visibility depends on Admin.
+    + Admin can create different types of custom attributes for Vendor/seller.
+    + Admin can allow which Vendor custom attributes will display on vendor profile page.
+    + Ability to show custom attributes on the registration page and profile page.
+	+ Ability to set allowed extensions for images and file.
+	+ Vendor/Seller can update these custom attributes very easily.

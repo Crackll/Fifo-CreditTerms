@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerApproval
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customerapproval>
+            <general_settings>
+                <auto_approval>1</auto_approval>
+                <not_approved_afterlogin>Account not approved.</not_approved_afterlogin>
+                <not_approved_afterregistration>Registration successful, you will be notified when your account get approved.</not_approved_afterregistration>
+            </general_settings>
+            <email>
+                <customer_approval_template>customerapproval_email_customer_approval_template</customer_approval_template>
+                <customer_disapproval_template>customerapproval_email_customer_disapproval_template</customer_disapproval_template>
+                <customer_registration_after_template>customerapproval_email_customer_registration_after_template</customer_registration_after_template>
+                <admin_notification_template>customerapproval_email_admin_notification_template</admin_notification_template>
+            </email>
+            <admin_notificatin>
+                <admin_name>Admin</admin_name>
+                <admin_email>admin@example.com</admin_email>
+            </admin_notificatin>
+        </customerapproval>
+    </default>
+</config>

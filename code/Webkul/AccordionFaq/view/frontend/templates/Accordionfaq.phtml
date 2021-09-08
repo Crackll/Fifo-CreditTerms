@@ -1,0 +1,53 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AccordionFaq
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+if ($block->getModuleEnabled()) {
+    if ($block->getEnableValue()) {
+        $groupCode = $block->getGroupCode();
+        $data = $block->getFaqIdsFromGroupCode($groupCode);
+        if ($data && count($data)) {
+            $Width=$block->getWidth($groupCode);
+            $faq=$block->getSelectedFaqCollection($data);
+            $bannerData = $faq->getData();
+            ?>
+        <div style="max-width:<?= $escaper->escapeHtml($Width); ?>px; display: none" class="wk_accordion">
+        <div class="accordion<?= $escaper->escapeHtml($groupCode); ?>">
+            <?php
+            foreach ($bannerData as $faq) {  ?>  
+            <h3>
+                <a style="outline:0 none;" href="#"><?= $escaper->escapeHtml($faq['faq']); ?></a>
+            </h3>
+            <div>
+                <?php $html = $block->getCmsFilterContent($faq['body']); ?>
+                <p>
+                        <?= /* @noEscape */ $html ?>
+                </p>
+            </div>      
+            <?php } ?>
+            </div>
+        </div>
+            <?php
+            $formData = [
+                'group' => $groupCode
+            ];
+            $serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+            ?>
+        <script type="text/x-magento-init">
+        {
+            "*": {
+                "wk_accordionfaq": <?= /* @noEscape */ $serializedFormData; ?>
+            }
+        }
+        </script>
+            <?php
+        }
+    }
+}
+    

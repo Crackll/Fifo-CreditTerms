@@ -1,0 +1,148 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<form class="form create account form-create-account" 
+    action="<?= $block->escapeUrl($block->getRegisterUrl()) ?>" 
+    method="post" id="form-validate" enctype="multipart/form-data" 
+    autocomplete="off" data-mage-init='{"validation":{}}'>
+    <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+  <fieldset class="fieldset create info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Personal Information')) ?></span></legend><br>
+        <div class="field firstname required">
+            <label for="user_firstname" class="label"><span><?= $block->escapeHtml(__('First Name')) ?></span></label>
+            <div class="control">
+                <input type="text" id="user_firstname" name="firstname" 
+                title="<?= $block->escapeHtmlAttr(__('First Name')) ?>" class="input-text required-entry" >
+            </div>
+        </div>
+        <div class="field lastname required">
+            <label for="user_lastname" class="label"><span><?= $block->escapeHtml(__('Last Name')) ?></span></label>
+            <div class="control">
+                <input type="text" id="user_lastname" name="lastname" 
+                title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"
+                 class="input-text required-entry" >
+            </div>
+        </div>
+      </fieldset>
+      <fieldset class="fieldset address">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Wholesaler Address Information')) ?></span></legend><br>
+        <div class="field title required">
+            <label for="user_title" class="label"><span><?= $block->escapeHtml(__('Wholesaler Title')) ?></span></label>
+            <div class="control">
+                <input type="text" id="user_title" name="title" 
+                title="<?= $block->escapeHtmlAttr(__('Wholesaler Title')) ?>" class="input-text required-entry" >
+            </div>
+        </div>
+        <div class="field description required">
+            <label for="user_description" class="label">
+                <span><?= $block->escapeHtml(__('Description')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" id="user_description" name="description" 
+                title="<?= $block->escapeHtmlAttr(__('Description')) ?>" class="input-text required-entry" >
+            </div>
+        </div>
+        <div class="field address required">
+            <label for="user_address" class="label">
+                <span><?= $block->escapeHtml(__('Complete Address')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" id="user_address" name="address" 
+                title="<?= $block->escapeHtmlAttr(__('Complete Address')) ?>" class="input-text required-entry" >
+            </div>
+        </div>
+      </fieldset>
+      <fieldset class="fieldset create account" 
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Sign-in Information')) ?></span></legend><br>
+        <div class="field username required" data-role="wk-mp-become-wholesaler-box-wrapper">
+            <label for="user_username" class="label"><span><?= $block->escapeHtml(__('User Name')) ?></span></label>
+            <div class="control">
+                <input type="text" id="user_username" name="username" 
+                title="<?= $block->escapeHtmlAttr(__('User Name')) ?>" data-role="user-name" 
+                class="input-text required-entry" >
+            </div>
+        </div>
+        <div class="field email required">
+            <label for="user_email" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="text" id="user_email" name="email" 
+                title="<?= $block->escapeHtmlAttr(__('Email')) ?>" 
+                class="input-text required-entry validate-email" >
+            </div>
+        </div>
+        <div class="field password required">
+            <label for="password" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+            <div class="control">
+                <input type="password" name="password" id="password"
+                       title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                       class="input-text"
+                       data-password-min-length="7"
+                       data-validate="{required:true, 'validate-admin-password':true}"
+                       autocomplete="off">
+            </div>
+        </div>
+        <div class="field confirmation required">
+            <label for="password-confirmation" class="label">
+                <span><?= $block->escapeHtml(__('Confirm Password')) ?></span>
+            </label>
+            <div class="control">
+                <input type="password" name="password_confirmation" 
+                title="<?= $block->escapeHtmlAttr(__('Confirm Password')) ?>" 
+                id="password-confirmation" class="input-text" 
+                data-validate="{required:true, equalTo:'#password'}" autocomplete="off">
+            </div>
+        </div>
+        <div class="field required">
+            <input type="checkbox" value="1" class="checkbox required-entry" 
+            id="wholesaler-confirmation" title="<?= $block->escapeHtml(__('Wholesaler Privacy Policy'));?>" 
+            name="wholesaler_conf" aria-required="true" data-validate="{required:true}" />
+            <span>
+                <?= $block->escapeHtml(__('I have read and agree to the'));?>
+                <div id="wholesaler-term" style="display:none;">
+                    <?= /* @noEscape */ $block->getWholeSalerRegistrationTerms(); ?>
+                </div>
+                <a id="wholesaler_term_light" href="#" data-terms="" class="font-bold">
+                <?= $block->escapeHtml(__('Privacy Policy')); ?> </a>
+            </span>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary" 
+            title="<?= $block->escapeHtmlAttr(__('Create an Account')) ?>">
+                <span><?= $block->escapeHtml(__('Create an Account')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<?php
+$formData = [
+    'ajaxSaveUrl' => $block->getUrl(
+        "mpwholesale/account/usernameverify",
+        ["_secure" => $block->getRequest()->isSecure()]
+    ),
+    'successMessage' => __("Congratulations! User name is available."),
+    'errorMessage' => __("Sorry! the User Name is not available, please set another User Name."),
+    'loaderImage' => $block->getViewFileUrl('Webkul_Marketplace::images/ajax-loader-tr.gif'),
+    'button' => 'button.submit',
+    'headingData' => $block->getPolicyHeading()
+];
+$serializedFormData = $block->jsonEncodeData($formData);
+?>
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "verifyUserName": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

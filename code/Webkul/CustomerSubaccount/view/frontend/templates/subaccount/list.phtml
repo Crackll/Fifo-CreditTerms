@@ -1,0 +1,148 @@
+
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/**
+ * Subaccount Account List
+ *
+ * @var \Webkul\CustomerSubaccount\Block\Subaccount\Lists
+ */
+
+$subaccounts = $block->getCollection();
+$helper = $block->getHelper();
+?>
+<?php
+if ($helper->canCreateSubAccounts()) {
+    ?>
+<div class="wkcs-main-btn-container">
+    <button title='<?= /* @noEscape */ __("Add New Sub Account"); ?>' type="button" class="action scalable primary wkcs-btn-right" onclick="location.href = '<?= /* @noEscape */ $block->getUrl('wkcs/subaccount/add')?>';">
+        <span> <?= /* @noEscape */ __("Add New Sub Account"); ?></span>
+    </button>
+    <div class='wkcs-clear-both'></div>
+</div>
+    <?php
+}?>
+<form action="<?= /* @noEscape */ $block->getUrl('wkcs/subaccount/index')?>" method="get" id="form-cartlist-filter" name="formCartlistFilter" autocomplete="off" data-mage-init='{"validation": {}}'>
+    <table cellspacing="0" class="wkcs-filter-table">
+        <thead>
+            <tr>
+                <th><span><?= /* @noEscape */ __('Customer Name')?></span></th>
+                <th><span><?= /* @noEscape */ __('Customer Email')?></span></th>
+                <th><span><?= /* @noEscape */ __('Status')?></span></th>
+                <th><span>&nbsp;</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="input-text validate-no-html-tags" name="qn" placeholder="<?= /* @noEscape */ __('Search by Name')?>" value="<?= /* @noEscape */ $block->getRequest()->getParam('qn')?>">
+                </td>
+                <td>
+                    <input type="text" class="input-text validate-no-html-tags" name="qe" placeholder="<?= /* @noEscape */ __('Search by Email')?>" value="<?= /* @noEscape */ $block->getRequest()->getParam('qe')?>">
+                </td>
+                <td>
+                    <select name="qs">
+                        <option value=""><?= /* @noEscape */ '' ?></option>
+                        <option value="1" <?= /* @noEscape */ $block->getRequest()->getParam('qs')==1?'selected':'' ?>><?= /* @noEscape */ __('Active') ?></option>
+                        <option value="0" <?= /* @noEscape */ $block->getRequest()->getParam('qs')!=='' && $block->getRequest()->getParam('qs')!==null && $block->getRequest()->getParam('qs')==0?'selected':'' ?>><?= /* @noEscape */ __('Inactive') ?></option>
+                    </select>
+                </td>
+                <td><button class="button" title="<?= /* @noEscape */ __('Save')?>" type="submit"><span><span><span><?= /* @noEscape */ __('Submit')?></span></span></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<?php if ($subaccounts && count($subaccounts)): ?>
+    <div class="table-wrapper">
+        <table class="data" id="subaccount-list">
+            <thead>
+                <tr>
+                    <th scope="col" class="col customer-name"><?= /* @noEscape */ __('Customer Name') ?></th>
+                    <th scope="col" class="col customer-email"><?= /* @noEscape */ __('Customer Email') ?></th>
+                    <th scope="col" class="col status"><?= /* @noEscape */ __('Status') ?></th>
+                    <th scope="col" class="col permissions"><?= /* @noEscape */ __('Permissions') ?></th>
+                    <?php if ($helper->getAllowForbiddenAccessManagement()) { ?>
+                    <th scope="col" class="col forbidden"><?= /* @noEscape */ __('Forbidden') ?></th>
+                    <?php }?>
+                    <th scope="col" class="col parent-account"><?= /* @noEscape */ __('Parent Account') ?></th>
+                    <th scope="col" class="col main-account"><?= /* @noEscape */ __('Main Account') ?></th>
+                    <?php if ($helper->canEditSubAccounts() || $helper->canDeleteSubAccounts() || $helper->canLoginToSubAccounts()) { ?>
+                        <th scope="col" class="col edit-action"><?= /* @noEscape */ __('Action') ?></th> 
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $allPermissionTypes = array_intersect_key(
+                    $helper->getAllPermissions(),
+                    array_flip($helper->getManageablePermissions())
+                );
+                foreach ($subaccounts as $subaccount):
+                        $customer = $helper->getCustomerById($subaccount->getCustomerId());
+                        $parentCustomer = $helper->getCustomerById($subaccount->getParentAccountId());
+                        $mainCustomer = $helper->getCustomerById($subaccount->getMainAccountId());
+                        $status = __('Inactive');
+                    if ($subaccount->getStatus()) {
+                        $status = __('Active');
+                    }
+                        $availablePermissions = array_intersect_key(
+                            $allPermissionTypes,
+                            array_flip(explode(',', $subaccount->getAvailablePermissions()))
+                        );
+                    ?>
+                    <tr>
+                        <td class="col customer-name"><?= /* @noEscape */ $subaccount->getName() ?></td>
+                        <td class="col customer-email"><?= /* @noEscape */ $subaccount->getEmail() ?></td>
+                        <td class="col status"><?= /* @noEscape */ $status ?></td>
+                        <td class="col permissions">
+                            <span class='wkcs-popup-button' data-popup-title="<?= /* @noEscape */ __('Available Permissions')?>" data-popup-data="<?= /* @noEscape */ implode(',', $availablePermissions)?>"><?= /* @noEscape */ __('View') ?></span>
+                        </td>
+                        <?php if ($helper->getAllowForbiddenAccessManagement()) { ?>
+                        <td class="col forbidden">
+                            <span class='wkcs-popup-button' data-popup-title="<?= /* @noEscape */ __('Forbidden Access')?>" data-popup-data="<?= /* @noEscape */ $subaccount->getForbiddenAccess()?>"><?= /* @noEscape */ __('View') ?></span>
+                        </td>
+                        <?php }?>
+                        <td class="col parent-account"><?= /* @noEscape */ $parentCustomer->getFirstname().' '.$parentCustomer->getLastname() ?></td>
+                        <td class="col main-account"><?= /* @noEscape */ $mainCustomer->getFirstname().' '.$mainCustomer->getLastname() ?></td>
+                        <?php if ($helper->canEditSubAccounts() || $helper->canDeleteSubAccounts() || $helper->canLoginToSubAccounts()) { ?>
+                            <td class="col edit-action">
+                                <?php if ($helper->canLoginToSubAccounts()) { ?>
+                                    <a onclick="return confirm('<?= /* @noEscape */ __('Are you sure?')?>')" href="<?= /* @noEscape */ $block->getUrl('wkcs/subaccount/login', ['id'=>$subaccount->getId()]) ?>"><?= /* @noEscape */ __('Login') ?></a>
+                                    <br>
+                                <?php } ?>
+                                <?php if ($helper->canEditSubAccounts()) { ?>
+                                    <a href="<?= /* @noEscape */ $block->getUrl('wkcs/subaccount/edit', ['id'=>$subaccount->getId()]) ?>"><?= /* @noEscape */ __('Edit') ?></a>
+                                    <br>
+                                <?php } ?>
+                                <?php if ($helper->canDeleteSubAccounts()) { ?>
+                                    <a onclick="return confirm('<?= /* @noEscape */ __('Are you sure?')?>')" href="<?= /* @noEscape */ $block->getUrl('wkcs/subaccount/delete', ['id'=>$subaccount->getId()]) ?>"><?= /* @noEscape */ __('Delete') ?></a>
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="toolbar bottom"> <?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span> <?= /* @noEscape */ __('No Sub Accounts Available.'); ?></span></div>
+<?php endif ?>
+
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "subaccountlist": ""
+    }
+}
+</script>

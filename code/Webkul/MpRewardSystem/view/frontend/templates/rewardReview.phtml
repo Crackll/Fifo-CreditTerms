@@ -1,0 +1,28 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+?>
+<?php
+  $helper = $block->getDataByKey("curHelper");
+    $reviewStatus = $helper->getAllowReview();
+    $enableRewardSystem = $helper->getMpRewardEnabled();
+    $reviewPoints = $helper->getRewardOnReview();
+  $customerId = $helper->getCustomerId();
+if ($reviewStatus == 1 && $enableRewardSystem== 1 && $customerId) {
+    ?>
+  <div>
+      <h2 class="wk_rs_review_style wk_rs_advertise_review_style">
+          <span class="wk_rs_greet"></span>
+      <?=/* @noEscape */ __('Submit your review to get')?>
+          <span class="wk_rs_green"><?=/* @noEscape */ $reviewPoints; ?>
+          </span><?=/* @noEscape */ __(' Reward Points.')?>
+      </h2>
+  </div>
+<?php } ?>

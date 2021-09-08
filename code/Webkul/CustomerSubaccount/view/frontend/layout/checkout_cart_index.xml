@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_CustomerSubaccount::css/style.css" />
+	</head>
+    <body>
+        <referenceContainer name="checkout.cart.methods" label="Payment Methods After Checkout Button">
+            <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.cart.methods.onepage.bottom" template="Magento_Checkout::onepage/link.phtml" />
+            <block class="Magento\Checkout\Block\QuoteShortcutButtons" name="checkout.cart.shortcut.buttons" />
+            <block class="Webkul\CustomerSubaccount\Block\Checkout\Buttons" name="checkout.cart.methods.onepage.requestApproval" template="Webkul_CustomerSubaccount::checkout/requestApproval.phtml" />
+            <block class="Webkul\CustomerSubaccount\Block\Checkout\Buttons" name="checkout.cart.methods.onepage.requestMerge" template="Webkul_CustomerSubaccount::checkout/requestMerge.phtml" />
+        </referenceContainer>
+    </body>
+</page>

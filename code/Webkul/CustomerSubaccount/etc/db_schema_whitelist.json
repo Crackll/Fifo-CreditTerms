@@ -1,0 +1,29 @@
+{
+    "wkcs_subaccounts": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "main_account_id": true,
+            "parent_account_id": true,
+            "available_permissions": true,
+            "forbidden_access": true,
+            "status": true,
+            "admin_approved": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wkcs_cart": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "quote_id": true,
+            "type": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

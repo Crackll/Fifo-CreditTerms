@@ -1,0 +1,271 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="webkul" sortOrder="0" translate="label">
+			<label>Webkul</label>
+		</tab>
+		<section id="waf_setting" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label">
+			<label>WAF Configuration</label>
+			<tab>webkul</tab>
+			<resource>Webkul_WebApplicationFirewall::config</resource>
+			<group id="login_security" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label">
+				<label>General Settings</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Enable Magento Security</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="login_notification" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label comment" type="select">
+					<label>Get Alerts about Unrecognized Admin Logins</label>
+					<!-- <comment>Please download library before enabling Login Alerts</comment> -->
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="cms_blocked_ip_page" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Select CMS Page for Blocked IPs</label>
+                    <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+					<comment>Select CMS page to redirect user if ip is blocked.</comment>
+                </field>
+			</group>
+			<group id="file_security" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="20" translate="label">
+				<label>Malicious Files Security</label>
+				<field id="file_notification" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Receive File Malicious Notification on Email Address</label>
+                    <comment>Ex: test@webkul.com.</comment>
+                </field>
+				<field id="file_upload_notification" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Get Notification if Any File Uploads by Magento</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="prevent_file_extension" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Prevent Uploading File With Extension(s)</label>
+                    <comment>Ex: php,exe and Leave blank for disable this setting.</comment>
+                </field>
+
+					<field id="check_multi_extension" translate="label comment" sortOrder="30" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+		          <label>Check Multi Extension</label>
+		          <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+							<comment>Ex: demo.php.docx.txt, this will check .php and .docx extension also.</comment>
+		      </field>
+
+			</group>
+			<group id="country_ban" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="20" translate="label">
+				<label>Ban User Country Wise</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Ban Enable</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="licence_key" translate="label comment" type="obscure" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Geoip2 Licence Key</label>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+					<validate>required-entry</validate>
+                    <comment><![CDATA[To get licence key <br/> 1. <a href="https://www.maxmind.com/en/geolite2/signup">Sign up free for a MaxMind account</a><br/>2. Set your password and create a <a hef="https://www.maxmind.com/en/accounts/current/license-key">licence key</a>]]></comment>
+                </field>
+				<field id="download_geoip2" translate="label comment" type="button" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+					<frontend_model>Webkul\WebApplicationFirewall\Block\Adminhtml\System\Config\DownloadButton</frontend_model>
+					<label></label>
+					<comment>Library required to validate blocked countries.</comment>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+				</field>
+				<field id="specificcountry" translate="label" type="multiselect" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+			</group>
+			<group id="ips_ban" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="30" translate="label">
+				<label>IPs Allowed Setting</label>
+				<field id="black_list" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Blacklist IP(s)</label>
+                    <comment>Enter Blacklisted IP(s) to prevent login from these IPs. Add multiple Separated by (,). eg : 192.168.1.*, 101.22.*.*</comment>
+                </field>
+                <field id="white_list" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Whitelist IP(s)</label>
+                    <comment>Enter IP(s) which is allowed to login from these IPs. Add multiple Separated by (,). eg : 192.168.1.*, 101.22.*.*</comment>
+                </field>
+				<field id="enable_log" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Enable IP Dubug Log</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+
+			<!-- ====================== Start Code Added ===================== -->
+			<group id="two_step_authentication" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="30" translate="label">
+				<label>Frontend Two Step Authenticaton</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+						<label>Enable Google Two Factor Auth</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field canRestore="1" id="allow_trusted" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Enable "trust this device" option</label>
+					<comment>NOTE: This option should be used in HTTPS only environments</comment>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+          		</field>
+			</group>
+			<!-- ====================== End Code Added ===================== -->
+
+			<group id="brute_force" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="40" translate="label">
+				<label>Protect Against Brute-force/Proxy Login Attacks</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Protection Enable</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="alert_each_login_failed" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Send Alert on Each Login Failed</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+				</field>
+				<field id="login_failed_count" translate="label comment" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Warning Email if Number of Login Failed</label>
+                    <comment>Enter values: ex: 5</comment>
+					<depends>
+                        <field id="enable">1</field>
+						<field id="alert_each_login_failed">0</field>
+                    </depends>
+                </field>
+				<field id="threshold" translate="label comment" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Login Failed Threshold</label>
+                    <comment>Enter values in minutes: ex: 5</comment>
+					<depends>
+                        <field id="enable">1</field>
+						<field id="alert_each_login_failed">0</field>
+                    </depends>
+                </field>
+				<field id="admin_emails" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send warning emails to</label>
+                    <comment>All warning emails will be sent to these emails. To add multiple emails separated with (,)</comment>
+					<depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+				<field id="lock_user_alert" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Admin User Locked Alert</label>
+                    <comment>Send alert mail when admin user is locked(Admin User Lock Setting: Advanced->Admin->Security)</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+			</group>
+			<group id="master_password" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="15" translate="label">
+				<label>Send Password Reset Request</label>
+				<field id="send_rest_request" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<frontend_model>Webkul\WebApplicationFirewall\Block\Adminhtml\System\Config\SendPasswordReset</frontend_model>
+					<label></label>
+					<comment>Block sub-users account and send password reset link to all.</comment>
+				</field>
+			</group>
+			<group id="abuseipdb" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="50" translate="label">
+				<label>AbuseIPDB</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Activate</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="api_key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Key</label>
+                    <comment>you can obtain api keys from: https://www.abuseipdb.com/account/api</comment>
+                </field>
+				<field id="max_days" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Max Days</label>
+                    <comment>Enter number of days 1-365 to determines how far back in time we go to fetch reports.</comment>
+                </field>
+				<field id="report_ip" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Report IPs If Brute Force Attempt Detected</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<!-- <field id="customer_login_failed" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Report IPs if Maximum Customer Login Attempts Failed</label>
+                </field> -->
+				<!-- <field id="sql_injection_detected" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Report IPs if SQL Injection Detected</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> -->
+				<field id="block_based_score" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Block IP Based on Abuse Confidence Score</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="abuse_score" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Block IPs If Minimum Abuse Confidence Score</label>
+					<comment>Enter the Abuse Confidence Score between 5-100, to Reject IPs.</comment>
+					<depends>
+                        <field id="block_based_score">1</field>
+                    </depends>
+				</field>
+			</group>
+			<group id="mailboxlayer" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="60" translate="label">
+				<label>Mailbox Layer Real-Time Email Address Validation</label>
+				<field id="api_key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Key</label>
+                    <comment>you can obtain api keys from: https://mailboxlayer.com/product</comment>
+                </field>
+				<field id="customer" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label comment" type="select">
+					<label>Enable for Customer</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+			<!-- <group id="2fa_setting" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="60" translate="label">
+				<label>Google Authenticator Frontend</label>
+				<field id="google_authenticator" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+					<label>Enable this provider</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="google_trusted" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+					<label>Enable "trust this device" option</label>
+					<comment>NOTE: This option should be used in HTTPS only environments</comment>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group> -->
+			<group id="emails" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1000" translate="label">
+				<label>Email Sender and Templates</label>
+				<field id="notification_sender" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>WAF Notification Sender</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+				</field>
+				<field id="admin_login_alert" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>Unrecognized Admin Login Notification</label>
+					<comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="master_password" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>Password Reset Notification to Sub Users</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="login_failed" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>Admin Login Failed Notification Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="user_locked" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>Admin User Locked Notification Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="file_uploade_alert" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>New File Upload by Magento Notification</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="malacious_uploade_alert" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+					<label>Malacious File Upload by Magento Notification</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

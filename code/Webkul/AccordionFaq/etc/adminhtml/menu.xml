@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_AccordionFaq
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Webkul_AccordionFaq::faq" title="Webkul Accordion FAQ" module="Webkul_AccordionFaq" sortOrder="25" resource="Webkul_AccordionFaq::faq"/>
+    	<add id="Webkul_AccordionFaq::addfaq" title="Manage FAQ" 
+            module="Webkul_AccordionFaq" sortOrder="1" parent="Webkul_AccordionFaq::faq" 
+            action="accordionfaq/addfaq/index" resource="Webkul_AccordionFaq::addfaq" />
+        <add id="Webkul_AccordionFaq::faqgroup" title="Manage FAQ Group" 
+            module="Webkul_AccordionFaq" sortOrder="2" parent="Webkul_AccordionFaq::faq" 
+            action="accordionfaq/faqgroup/index" resource="Webkul_AccordionFaq::faqgroup" />
+   	</menu>
+</config>

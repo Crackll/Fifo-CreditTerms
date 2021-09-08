@@ -1,0 +1,60 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$viewModel = $block->getViewModel();
+$_helper = $viewModel->getMpHelper();
+$isPartner= $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+?>
+<?php
+if ($isPartner): ?>
+        <li id="wk-mp-menu-pricelist" 
+            class="wk-mp-item-pricelist level-0
+            <?= $block->escapeHtml(strpos($magentoCurrentUrl, 'mppricelist') !== false ?"current":"");?>"
+            id="wk-mp-menu-pricelist">
+            <a href="#" onclick="return false;" class="">
+                <span><?= $block->escapeHtml(__('Marketplace PriceList'))?></span>
+            </a>
+            <div class="wk-mp-submenu">
+                <strong class="wk-mp-submenu-title"><?= $block->escapeHtml(__('Marketplace PriceList'))?></strong>
+                <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                <ul>
+                    <li data-ui-id="menu-webkul-pricelist-menu" class="item-menu parent level-1">
+                        <strong class="wk-mp-submenu-group-title">
+                            <span><?= $block->escapeHtml(__('Menu'))?></span>
+                        </strong>
+                        <div class="wk-mp-submenu">
+                            <ul>
+                                <li class="level-2">
+                                    <a href="<?= $block->escapeHtml($block->getUrl(
+                                        'mppricelist/sellerpricelist/managepricelist',
+                                        ['_secure' => $block->getRequest()->isSecure()]
+                                    )); ?>">
+                                    <?= $block->escapeHtml(__('Manage Price List')) ?>
+                                    </a>
+                                </li>
+                                <li class="level-2">
+                                    <a href="<?= $block->escapeHtml($block->getUrl(
+                                        'mppricelist/pricerules/manageruleslist',
+                                        ['_secure' => $block->getRequest()->isSecure()]
+                                    )); ?>">
+                                    <?= $block->escapeHtml(__('Manage Price Rules')) ?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+<?php endif;?>

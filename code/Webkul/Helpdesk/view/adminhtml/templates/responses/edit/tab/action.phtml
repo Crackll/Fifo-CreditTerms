@@ -1,0 +1,757 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+
+$ticketsPriorityArr = $block->getTicketsPriority();
+$ticketTypeArr = $block->getTicketsType();
+$ticketGroupArr = $block->getTicketsGroup();
+$ticketsStatusArr = $block->getTicketsStatus();
+$tagCollection = $block->getAllTagCollection();
+$responseModel = $block->getCurrentResponseData();
+$agentColl = $block->getAgentCollection();
+$responseAction = json_decode($responseModel->getActions(), true);
+$ticketTemplateCollection = $block->getTicketTemplateCollection();
+$wysiwygConfig = $block->getWysiwygConfig();
+?>
+<div class="entry-edit">
+    <div class="box response-action-container">
+        <div class="option-box">
+            <div class="grid tier form-list">
+                <label>
+                <?= $block->escapeHtml(__("You can select multiple Action and then 
+                'Prepared Responses with Action' will work on them. ")) ?>
+                </label>
+                <button type="button" id="import-variables" style="float: right; margin: 5px;">
+                <span><span><span>
+                <?= $block->escapeHtml(__("Insert Variable...")) ?>
+                </span></span></span>
+                </button>
+                <table cellspacing="0" cellpadding="0" class="border response-action-details">
+                    <tbody class="body_content">
+                        <?php $actionDefaultType = $block->getActionType(); ?>
+                        <?php if (isset($responseAction['action-type'])): ?>
+                            <?php foreach ($responseAction['action-type'] as $actionType): ?>
+                                <tr>
+                                    <td>
+                                        <select class="required-entry action-type" name="action[action-type][]">
+                                            <option></option>
+                                            <?php foreach ($actionDefaultType as $types): ?>
+                                                <option 
+                                                value="<?= $block->escapeHtml($types['value']) ?>" 
+                                                <?php
+                                                if ($actionType == $types['value']) {
+                                                    echo "selected";
+                                                } ?>>
+                                                <?= $block->escapeHtml($types['label']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <?php if ($actionType == 'priority'): ?>
+                                            <select name="action[priority][]" class="ticket_priority">
+                                                <?php foreach ($ticketsPriorityArr as $key => $priority): ?>
+                                                    <option value="<?= $block->escapeHtml($priority['value']) ?>" 
+                                                    <?php
+                                                    if ($responseAction['priority']['0'] == $priority['value']) {
+                                                        echo "selected";
+                                                    } ?> >
+                                                    <?= $block->escapeHtml($priority['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'type'): ?>
+                                            <select name="action[type][]" class="ticket_priority">
+                                                <?php foreach ($ticketTypeArr as $key => $type): ?>
+                                                    <option value="<?= $block->escapeHtml($type['value']) ?>" 
+                                                    <?php
+                                                    if ($responseAction['type']['0'] == $type['value']) {
+                                                        echo "selected";
+                                                    }
+                                                    ?> >
+                                                    <?= $block->escapeHtml($type['label']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'status'): ?>
+                                            <select name="action[status][]" class="ticket_priority">
+                                                <?php foreach ($ticketsStatusArr as $key => $status): ?>
+                                                    <option 
+                                                    value="<?=
+                                                    $block->escapeHtml($status['value'])
+                                                    ?>" 
+                                                    <?php
+                                                    if ($responseAction['status']['0'] == $status['value']) {
+                                                        echo "selected";
+                                                    } ?> >
+                                                    <?=
+                                                    $block->escapeHtml($status['label'])
+                                                    ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'tag'): ?>
+                                            <select id="assign-agent" name="action[tag][]" multiple="multiple">
+                                                <option value=""></option>
+                                                <?php foreach ($tagCollection as $key => $tag): ?>
+                                                    <option 
+                                                    value="<?=
+                                                    $block->escapeHtml($tag->getId())
+                                                    ?>" 
+                                                    <?php
+                                                    if (in_array($tag->getId(), $responseAction['tag'])) {
+                                                        echo "selected";
+                                                    }
+                                                    ?>>
+                                                    <?=
+                                                    $block->escapeHtml($tag->getName())
+                                                    ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'cc'): ?>
+                                            <select id="assign-agent" name="action[cc][]" multiple="multiple">
+                                                <?php foreach ($agentColl as $key => $agent) { ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($agent->getEmail()) ?>" 
+                                                    <?php
+                                                    if (in_array($agent->getUserId(), $responseAction['cc'])
+                                                    ) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?=
+                                                    $block->escapeHtml($agent->getFirstname()." - ".$agent->getEmail())
+                                                    ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'bcc'): ?>
+                                            <select id="assign-agent" name="action[bcc][]" multiple="multiple">
+                                                <?php foreach ($agentColl as $key => $agent) { ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($agent->getEmail()) ?>" 
+                                                    <?php
+                                                    if (in_array($agent->getEmail(), $responseAction['bcc'])
+                                                    ) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?=
+                                                    $block->escapeHtml(
+                                                        $agent->getFirstname()." - ".$agent->getEmail()
+                                                    )
+                                                    ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'note'): ?>
+                                            <textarea name="action[note][]">
+                                            <?=
+                                            $block->escapeHtml(
+                                                $block->escapeHtml($responseAction['note']['0'])
+                                            )
+                                            ?>
+                                            </textarea>
+                                        <?php elseif ($actionType == 'assign_agent'): ?>
+                                            <select id="assign-agent" name="action[assign_agent][]">
+                                                <?php foreach ($agentColl as $key => $agent) { ?>
+                                                    <option 
+                                                    value="<?=
+                                                    $block->escapeHtml($agent->getUserId())?>" 
+                                                    <?php
+                                                    if ($responseAction['assign_agent']['0']== $agent->getUserId()
+                                                    ) {
+                                                            echo "selected";
+                                                    } ?>>
+                                                    <?=
+                                                    $block->escapeHtml($agent->getFirstname().''.$agent->getLastname())
+                                                    ?>
+                                                    </option>
+                                                <?php } ?>>
+                                            </select>
+                                        <?php elseif ($actionType == 'assign_group'): ?>
+                                            <select id="assign-group"  name="action[assign_group][]">
+                                                <?php foreach ($ticketGroupArr as $key => $group) { ?>
+                                                    <option 
+                                                    value="<?= $block->escapeHtml($group['value']) ?>"
+                                                    <?php
+                                                    if ($responseAction['assign_group']['0'] == $group['value']) {
+                                                        echo "selected";
+                                                    } ?>>
+                                                    <?=
+                                                    $block->escapeHtml($group['label']) ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        <?php elseif ($actionType == 'mail_agent'): ?>
+                                            <div class="mail_conatiner">
+                                                <div class="mail_row">
+                                                    <select id="assign-agent" 
+                                                    name="action[mail_agent][agent][]" 
+                                                    class="select">
+                                                        <option 
+                                                        value="agent" 
+                                                        <?php
+                                                        if ($responseAction['mail_agent']['agent']['0'] == "agent") {
+                                                             echo "selected";
+                                                        } ?>>
+                                                        <?=
+                                                            $block->escapeHtml(__("Assigned Agent"))
+                                                        ?>
+                                                        </option>
+                                                        <?php foreach ($agentColl as $key => $agent) { ?>
+                                                            <option 
+                                                            value="<?= $block->escapeHtml($agent->getUserId()) ?>" 
+                                                            <?php
+                                                            if ($responseAction['mail_agent']['agent']['0']
+                                                            == $agent->getUserId()) { echo "selected"; }
+                                                            ?> >
+                                                            <?=
+                                                            $block->escapeHtml(
+                                                                $agent->getName().' '.$agent->getLastname()
+                                                            );
+                                                            ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <select id="email-template" 
+                                                    name="action[mail_agent][template_id]" 
+                                                    class="select">
+                                                        <option value="">
+                                                        <?= $block->escapeHtml(__("Select Template")) ?></option>
+                                                        <?php
+                                                        foreach ($ticketTemplateCollection as $key => $template) {
+                                                            ?>
+                                                            <option 
+                                                            value="
+                                                            <?= $block->escapeHtml($template->getId()) ?>" 
+                                                            <?php
+                                                            if ($responseAction['mail_agent']['template_id']
+                                                            == $template->getId()
+                                                            ) {
+                                                                echo "selected";
+                                                            }
+                                                            ?> >
+                                                            <?=
+                                                            $block->escapeHtml($template->getTemplateCode())
+                                                            ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <strong style="margin-left:40%">
+                                                    <?= $block->escapeHtml(__("OR")) ?>
+                                                    </strong>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <input type="text" 
+                                                    id="mail_agent_subject" 
+                                                    class="input-text" name="action[mail_agent][subject][]" 
+                                                    placeholder="<?= $block->escapeHtml(__('Subject')) ?>" 
+                                                    value="
+                                                    <?=
+                                                        $block->escapeHtml(
+                                                            $responseAction['mail_agent']['subject']['0']
+                                                        );
+                                                    ?>
+                                                    "
+                                                    >
+                                                </div>
+                                                <div class="mail_row">
+                                                    <textarea class="" id="mail_agent" 
+                                                    name="action[mail_agent][content][]">
+                                                    <?=
+                                                        $block->escapeHtml(
+                                                            $responseAction['mail_agent']['content']['0']
+                                                        );
+                                                    ?>
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        <?php elseif ($actionType == 'mail_group'): ?>
+                                            <div class="mail_conatiner">
+                                                <div class="mail_row">
+                                                    <select id="assign-group"  name="action[mail_group][group][]">
+                                                        <option 
+                                                        value="group" 
+                                                        <?php
+                                                        if ($responseAction['mail_group']['group']['0'] == "group") {
+                                                            echo "selected";
+                                                        } ?>>
+                                                        <?= $block->escapeHtml(__("Assigned Group")) ?></option>
+                                                        <?php foreach ($ticketGroupArr as $key => $group): ?>
+                                                            <option 
+                                                            value="<?= $block->escapeHtml($group['value']) ?>" 
+                                                            <?php
+                                                            if ($responseAction['mail_group']['group']['0']
+                                                            == $group['value']) {
+                                                                echo "selected";
+                                                            } ?>>
+                                                            <?= $block->escapeHtml($group['label']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <select id="email-template" 
+                                                    name="action[mail_group][template_id]" class="select">
+                                                        <option value="">
+                                                        <?= $block->escapeHtml(__("Select Template")) ?>
+                                                        </option>
+                                                        <?php
+                                                        foreach ($ticketTemplateCollection as $key => $template):
+                                                            ?>
+                                                            <option 
+                                                            value="<?=
+                                                            $block->escapeHtml($template->getId()) ?>" 
+                                                            <?php
+                                                            if ($responseAction['mail_group']['template_id']
+                                                            == $template->getId()) {
+                                                                echo "selected";
+                                                            }
+                                                            ?> >
+                                                            <?=
+                                                            $block->escapeHtml($template->getTemplateCode()) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <strong style="margin-left:40%">
+                                                    <?= $block->escapeHtml(__("OR")) ?>
+                                                    </strong>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <input id="mail_group_subject" 
+                                                    type="text" class="input-text" 
+                                                    name="action[mail_group][subject][]" 
+                                                    placeholder="<?=
+                                                    $block->escapeHtml(__('Subject'))
+                                                    ?>" 
+                                                    value="<?=
+                                                    $block->escapeHtml($responseAction['mail_group']['subject']['0']);
+                                                    ?>">
+                                                </div>
+                                                <div class="mail_row">
+                                                    <textarea class="" id="mail_group" 
+                                                    name="action[mail_group][content][]">
+                                                    <?=
+                                                    $block->escapeHtml($responseAction['mail_group']['content']['0']);
+                                                    ?>
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        <?php elseif ($actionType == 'mail_customer'): ?>
+                                            <div class="mail_conatiner">
+                                                <div class="mail_row">
+                                                    <select id="email-template" 
+                                                    name="action[mail_customer][template_id]" class="select">
+                                                        <option value="">
+                                                        <?= $block->escapeHtml(__("Select Template")) ?>
+                                                        </option>
+                                                        <?php
+                                                        foreach ($ticketTemplateCollection as $key => $template):
+                                                            ?>
+                                                            <option 
+                                                            value="<?=
+                                                            $block->escapeHtml($template->getId())
+                                                            ?>" 
+                                                            <?php
+                                                            if ($responseAction['mail_customer']['template_id']
+                                                            == $template->getId()
+                                                            ) {
+                                                                echo "selected";
+                                                            } ?> >
+                                                            <?= $block->escapeHtml($template->getTemplateCode()) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <strong style="margin-left:40%">
+                                                    <?= $block->escapeHtml(__("OR")) ?>
+                                                    </strong>
+                                                </div>
+                                                <div class="mail_row">
+                                                    <input id="mail_customer_subject" 
+                                                    type="text" class="input-text" 
+                                                    name="action[mail_customer][subject][]" 
+                                                    placeholder="<?= $block->escapeHtml(__('Subject')) ?>" 
+                                                    value="<?=
+                                                    $block->escapeHtml($responseAction['mail_customer']['subject']['0']);
+                                                    ?>">
+                                                </div>
+                                                <div class="mail_row">
+                                                    <textarea class="" id="mail_customer" 
+                                                    name="action[mail_customer][content][]">
+                                                    <?=
+                                                    $block->escapeHtml(
+                                                        $responseAction['mail_customer']['content']['0']
+                                                    );
+                                                    ?>
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="last">
+                                        <span title="Delete row">
+                                            <button class="scalable delete delete-select-row icon-btn" type="button" 
+                                            title="<?= $block->escapeHtml(__('Delete Row')) ?>">
+                                                <span>
+                                                    <span>
+                                                        <span><?= $block->escapeHtml(__('Delete Row')) ?></span>
+                                                    </span>
+                                                </span>
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td class="a-right" colspan="100">
+                            <button class="scalable add add-action-btn"type="button" 
+                            title="<?= $block->escapeHtml(__('Add Action')) ?>">
+                                <span>
+                                    <span>
+                                        <span><?= $block->escapeHtml(__('Add Action')) ?></span>
+                                    </span>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script class="response_row" type="text/x-jquery-tmpl">
+    <tr>
+        <td>
+            <select class="required-entry action-type" name="action[action-type][]">
+                <option></option>
+                <?php foreach ($block->getActionType() as $types): ?>
+                    <option value="<?= $block->escapeHtml($types['value']) ?>">
+                    <?= $block->escapeHtml($types['label']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </td>
+        <td>
+        </td>
+        <td class="last">
+            <span title="Delete row">
+                <button class="scalable delete delete-select-row icon-btn" type="button" 
+                title="<?= $block->escapeHtml(__('Delete Row')) ?>">
+                    <span>
+                        <span>
+                            <span><?= $block->escapeHtml(__('Delete Row')) ?></span>
+                        </span>
+                    </span>
+                </button>
+            </span>
+        </td>
+    </tr>
+</script>
+
+<script class="priority" type="text/x-jquery-tmpl">
+    <select name="action[priority][]">
+        <?php foreach ($ticketsPriorityArr as $key => $priority): ?>
+            <option value="<?= $block->escapeHtml($priority['value']) ?>">
+            <?= $block->escapeHtml($priority['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="type" type="text/x-jquery-tmpl">
+    <select name="action[type][]">
+        <?php foreach ($ticketTypeArr as $key => $type): ?>
+            <option value="<?= $block->escapeHtml($type['value']) ?>">
+            <?= $block->escapeHtml($type['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="status" type="text/x-jquery-tmpl">
+    <select name="action[status][]">
+        <?php foreach ($ticketsStatusArr as $key => $status): ?>
+            <option value="<?= $block->escapeHtml($status['value']) ?>">
+            <?= $block->escapeHtml($status['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="tag" type="text/x-jquery-tmpl">
+    <select name="action[tag][]" multiple="multiple">
+        <option value=""></option>
+        <?php foreach ($tagCollection as $tag): ?>
+            <option value="<?= $block->escapeHtml($tag->getId()) ?>">
+            <?= $block->escapeHtml($tag->getName()) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="cc" type="text/x-jquery-tmpl">
+    <select id="assign-agent" name="action[cc][]" multiple="multiple">
+        <?php foreach ($agentColl as $key => $agent) { ?>
+            <option value="<?= $block->escapeHtml($agent->getUserId()) ?>">
+            <?= $block->escapeHtml($agent->getFirstname().' '.$agent->getLastname().'-'.$agent->getEmail()) ?>
+            </option>
+        <?php } ?>
+    </select>
+</script>
+
+<script class="bcc" type="text/x-jquery-tmpl">
+    <select id="assign-agent" name="action[bcc][]" multiple="multiple">
+    <?php foreach ($agentColl as $key => $agent) { ?>
+        <option value="<?= $block->escapeHtml($agent->getUserId()) ?>">
+        <?= $block->escapeHtml($agent->getFirstname().' '.$agent->getLastname().'-'.$agent->getEmail()) ?>
+        </option>
+    <?php } ?>
+    </select>
+</script>
+
+<script class="assign_agent" type="text/x-jquery-tmpl">
+    <select id="assign-agent" name="action[assign_agent][]">
+    <?php foreach ($agentColl as $key => $agent) { ?>
+        <option 
+        value="<?= $block->escapeHtml($agent->getUserId()) ?>">
+        <?= $block->escapeHtml($agent->getFirstname().' '.$agent->getLastname()); ?>
+        </option>
+    <?php } ?>
+    </select>
+</script>
+
+<script class="assign_group" type="text/x-jquery-tmpl">
+    <select id="assign-group"  name="action[assign_group][]">
+        <?php foreach ($ticketGroupArr as $key => $group): ?>
+            <option value="<?= $block->escapeHtml($group['value']) ?>">
+            <?= $block->escapeHtml($group['label']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</script>
+
+<script class="note" type="text/x-jquery-tmpl">
+    <textarea name="action[note][]"></textarea>
+</script>
+
+<script class="mail_agent" type="text/x-jquery-tmpl">
+    <div class="mail_conatiner">
+        <div class="mail_row">
+            <select id="assign-agent" name="action[mail_agent][agent][]" class="select">
+                <option value="agent"><?= $block->escapeHtml(__("Assigned Agent")) ?></option>
+                <?php foreach ($agentColl as $key => $agent) { ?>
+                    <option value="<?= $block->escapeHtml($agent->getUserId()) ?>">
+                    <?= $block->escapeHtml($agent->getFirstname().' '.$agent->getLastname()); ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="mail_row">
+            <select id="email-template" name="action[mail_agent][template_id]" class="select">
+                <option value=""><?= $block->escapeHtml(__("Select Template")) ?></option>
+                <?php foreach ($ticketTemplateCollection as $key => $template) { ?>
+                    <option value="<?= $block->escapeHtml($template->getId()) ?>">
+                    <?= $block->escapeHtml($template->getTemplateCode()) ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="mail_row">
+            <strong style="margin-left:40%"><?= $block->escapeHtml(__("OR")) ?></strong>
+        </div>
+        <div class="mail_row">
+            <input type="text" id="mail_agent_subject" class="input-text" 
+            name="action[mail_agent][subject][]" 
+            placeholder="<?= $block->escapeHtml(__('Subject')) ?>">
+        </div>
+        <div class="mail_row">
+            <textarea class="" id="mail_agent" name="action[mail_agent][content][]"></textarea>
+        </div>
+    </div>
+</script>
+<script class="mail_group" type="text/x-jquery-tmpl">
+    <div class="mail_conatiner">
+        <div class="mail_row">
+            <select id="assign-group"  name="action[mail_group][group][]">
+                <option value="group"><?= $block->escapeHtml(__("Assigned Group")) ?>
+                </option>
+                <?php foreach ($ticketGroupArr as $key => $group) { ?>
+                    <option value="<?= $block->escapeHtml($group['value']) ?>">
+                    <?= $block->escapeHtml($group['label']) ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="mail_row">
+            <select id="email-template" name="action[mail_group][template_id]" class="select">
+                <option value=""><?= $block->escapeHtml(__("Select Template")) ?></option>
+                <?php foreach ($ticketTemplateCollection as $key => $template) { ?>
+                    <option value="<?= $block->escapeHtml($template->getId()) ?>">
+                    <?= $block->escapeHtml($template->getTemplateCode()) ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="mail_row">
+            <strong style="margin-left:40%"><?= $block->escapeHtml(__("OR")) ?></strong>
+        </div>
+        <div class="mail_row">
+            <input type="text" id="mail_group_subject" class="input-text" 
+            name="action[mail_group][subject][]" 
+            placeholder="<?= $block->escapeHtml(__('Subject')) ?>">
+        </div>
+        <div class="mail_row">
+            <textarea class="" id="mail_group" name="action[mail_group][content][]"></textarea>
+        </div>
+    </div>
+</script>
+<script class="mail_customer" type="text/x-jquery-tmpl">
+    <div class="mail_conatiner">
+        <div class="mail_row">
+            <select id="email-template" name="action[mail_customer][template_id]" 
+            class="select">
+                <option value=""><?= $block->escapeHtml(__("Select Template")) ?></option>
+                <?php foreach ($ticketTemplateCollection as $key => $template): ?>
+                    <option value="<?= $block->escapeHtml($template->getId()) ?>">
+                    <?= $block->escapeHtml($template->getTemplateCode()) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="mail_row">
+            <strong style="margin-left:40%"><?= $block->escapeHtml(__("OR")) ?></strong>
+        </div>
+        <div class="mail_row">
+            <input type="text" id="mail_customer_subject" class="input-text" 
+            name="action[mail_customer][subject][]" 
+            placeholder="<?= $block->escapeHtml(__('Subject')) ?>">
+        </div>
+        <div class="mail_row">
+            <textarea class="" id="mail_customer" name="action[mail_customer][content][]"></textarea>
+        </div>
+    </div>
+</script>
+<div id="overlay_modal" class="overlay_magento" 
+style="display: none; position: absolute; top: 10px; left: 0px; width: 100%; height: 2500px;">
+</div>
+<div id="variables-chooser" class="dialog popup-window" 
+style="position:fixed;display:none;left: 288px; top: 27px; z-index: 1002; width: 712px; height: 619px;">
+    <div onclick="Windows.close(&quot;variables-chooser&quot;, event)" 
+    id="variables-chooser_close" class="magento_close"> </div>
+    <a id="variables-chooser_focus_anchor" href="#"></a>
+    <table class="top table_window" id="variables-chooser_row1">
+        <tbody>
+            <tr>
+                <td class="magento_nw top_draggable"></td>
+                <td class="magento_n">
+                    <div class="magento_title title_window top_draggable" 
+                    id="variables-chooser_top">Insert Variable...</div>
+                </td>
+                <td class="magento_ne top_draggable"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="mid table_window" id="variables-chooser_row2">
+        <tbody>
+            <tr>
+                <td class="magento_w"></td>
+                <td valign="top" class="magento_content" 
+                id="variables-chooser_table_content">
+                    <div class="magento_content" id="variables-chooser_content" 
+                    style="height: 588px; width: 700px; overflow: auto;">
+                        <div class="magento_message" id="modal_dialog_message">
+                            <ul>
+                                <li><b>Place-Holders For HelpDesk</b>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var ticketid}}">Ticket Id</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var subject}}">Subject</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var query}}">Description/Message</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var reply}}">Thread Description/Message</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var tags}}">Ticket Tags</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var notes}}">Ticket Notes</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var group}}">Ticket Group</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var type}}">Ticket Type</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var status}}">Ticket Status</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var priority}}">Ticket Priority</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var source}}">Ticket Source</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var agent_name}">Agent Name</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var agent_email}}">Agent Email</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var customer_name}}">Customer Name</a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var customer_email}}">Customer Email
+                                </a>
+                                </li>
+                                <li style="padding-left: 20px;">
+                                <a href="{{var customer_organization}}">
+                                Customer Organization</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                <td class="magento_e"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<?php
+$formData = [
+    'wysiwygConfig' => $wysiwygConfig
+];
+$blockObj= $block->getLayout()->createBlock(Webkul\Helpdesk\Block\Ticket\View::class);
+$serializedFormData = $blockObj->getJsonHelper()->jsonEncode($formData);
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "responses": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

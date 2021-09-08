@@ -1,0 +1,41 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 4.0.0-p1 --------------------------------------
+    - fixed product data update issue on elastic index
+    - fixed disable product show in search suggestion
+ 
+-------------------------------- Version 4.0.0 --------------------------------------
+    + made compatible with Magento 2.4.*
+    + supports elastic version 7.6.*
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + made compatible with Magento 2.3.2
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + made compatible with Magento 2.3.x
+
+-------------------------------- Version 2.0.2 --------------------------------------
+    + made compatible with Magento2.2.7
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	+ works with latest elastic search ver 6.0.
+    + admin can easily replace MySQL search engine with elastic search engine.
+    + admin can easily update products, categories and cms pages data to elastic server.
+    + admin can set cron to update products, categories and cms pages data on elastic server.
+    + admin can also use command line tool to update website data to elastic server.
+    + after indexing data to elastic admin can easily update data on elastic server too whenever he updates products, categories or pages.
+    + admin can select which search filter to use on search input from the configuration.
+    + admin can select character filters to replace or remove unwanted terms from search input.
+    + admin can configure multi-match query to search on the storefront.
+    + admin select between searchable attributes to use for multi-match queries.
+    + admin can select simple match query which will only work for name and SKU fields.
+    + works well will multi-store websites or multi-website.
+    + admin can choose store wise language stemmer to work with multi languages.
+    + search suggestion will show results for category and pages as well.
+    + category, search and advanced search and layered navigation will be driven by data from elastic server.
+    + all the searchable and filterable attributes will be automatically indexed to elastic server.
+    + did you mean feature added
+    + index prefix added

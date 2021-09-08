@@ -1,0 +1,129 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?= $block->getGridHtml(); ?>
+<input type="hidden" name="pricelist_rules" id="pricelist_rules" data-form-part="admin_pricelist_form" value="" />
+<input type="hidden" name="pricelist_rules_old" id="pricelist_rules_old"
+    data-form-part="admin_pricelist_form" value="" />
+<?php
+    $myBlock = $block;
+    $blockGrid = $block->getBlockGrid();
+    $myBlock = $block->getBlockGrid();
+    $gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'underscore',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function(jQuery, confirm, _) {
+
+        var checkBoxes = $H(<?= /* @noEscape */ $block->getSelectedRulesJson(); ?>);
+        var warning = false;
+        if (checkBoxes.size() > 0) {
+            warning = true;
+        }
+        jQuery('#pricelist_rules').val(checkBoxes.toQueryString());
+
+        function registerPriceListRule(grid, element, checked)
+        {
+            if (checked) {
+                checkBoxes.set(element.value, 0);
+            } else {
+                checkBoxes.unset(element.value);
+            }
+            $('pricelist_rules').value = checkBoxes.toQueryString();
+            grid.reloadParams = {'pricelist_rules[]':checkBoxes.keys()};
+        }
+
+        function priceListRuleRowClick(grid, event)
+        {
+            var trElement = Event.findElement(event, 'tr');
+            var isInput   = Event.element(event).tagName == 'INPUT';
+            if (trElement) {
+                var checkbox = Element.getElementsBySelector(trElement, 'input');
+                if(checkbox[0]){
+                    var checked = isInput ? !checkbox[0].checked : checkbox[0].checked;
+                    if (checked) {
+                        checkbox[0].checked = false;
+                        checkBoxes.unset(checkbox[0].value);
+                        varienElementMethods.setHasChanges(checkbox[0]);
+                        $('pricelist_rules').value = checkBoxes.toQueryString();
+                        grid.reloadParams = {
+                            'pricelist_rules[]': checkBoxes.keys()
+                        };
+                    } else {
+                        checkbox[0].checked = true;
+                        checkBoxes.set(checkbox[0].value, true);
+                        $('pricelist_rules').value = checkBoxes.toQueryString();
+                        grid.reloadParams = {
+                            'pricelist_rules[]': checkBoxes.keys()
+                        };
+                    }
+                }
+            }
+        }
+
+        function priceListRuleRowInit(grid, row)
+        {
+            var checkbox = $(row).getElementsByClassName('checkbox')[0];
+            if (checkbox) {
+                if (checkbox.checked) {
+                    checkBoxes.set(checkbox.value, checkbox.checked);
+                } else {
+                    checkBoxes.unset(checkbox.value);
+                }
+
+                $('pricelist_rules').value = checkBoxes.toQueryString();
+                grid.reloadParams = {'pricelist_rules[]':checkBoxes.keys()};
+            }
+        }
+
+        function massSelectGallery(allCheckbox) {
+            if (!allCheckbox.checked && _.size(checkBoxes._object) > 0) {
+                allCheckbox.checked = true;
+                allCheckbox.checked = false;
+                markCheckboxes(false);
+            } else {
+                markCheckboxes(allCheckbox.checked)
+            }
+        }
+        function markCheckboxes(value) {
+            <?= $block->escapeHtml($myBlock->getJsObjectName()) ?>.rows.each(function(row)
+            {
+                $(row).getElementsByClassName('checkbox')[0].checked = value;
+                priceListRuleRowInit(<?= $block->escapeHtml($myBlock->getJsObjectName()) ?>, row);
+            });
+        }
+        function onLoad() {
+            if (typeof <?= $block->escapeHtml($myBlock->getJsObjectName()) ?> !== 'undefined') {
+                <?= $block->escapeHtml($myBlock->getJsObjectName()) ?>.
+                rowClickCallback = priceListRuleRowClick;
+                <?= $block->escapeHtml($myBlock->getJsObjectName()) ?>.
+                initRowCallback = priceListRuleRowInit;
+                <?= $block->escapeHtml($myBlock->getJsObjectName()) ?>.
+                checkboxCheckCallback = registerPriceListRule;
+                <?= $block->escapeHtml($myBlock->getJsObjectName()) ?>.
+                checkCheckboxes = massSelectGallery;
+                <?= $block->escapeHtml($myBlock->getJsObjectName()) ?>.
+                rows.each(function (row) {
+                    priceListRuleRowInit(<?= $block->escapeHtml($myBlock->getJsObjectName()) ?>, row)
+                });
+                $('pricelist_rules_old').value = $('pricelist_rules').value;
+            } else {
+                setTimeout(onLoad, 300);
+            }
+        }
+        onLoad();
+});
+</script>

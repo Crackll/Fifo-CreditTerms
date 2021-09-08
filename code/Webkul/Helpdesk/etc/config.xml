@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <helpdesk>
+            <helpdesk_settings>
+                <ticketsystemname>Ticket System</ticketsystemname>
+                <ticketsystememail>owner@example.com</ticketsystememail>
+                <uploadfilesize>2</uploadfilesize>
+                <dateformat>d/m/y</dateformat>
+                <loginrequired>0</loginrequired>
+                <allowedextensions>jpeg,png,gif,pdf</allowedextensions>
+                <alloweditor>1</alloweditor>
+                <customer_can_delete_ticket>0</customer_can_delete_ticket>
+                <customer_can_delete_thread>0</customer_can_delete_thread>
+                <customer_can_add_cc>0</customer_can_add_cc>
+                <customer_can_close_ticket>0</customer_can_close_ticket>
+                <priority_on_creation>0</priority_on_creation>
+                <status_on_creation>0</status_on_creation>
+                <group_on_creation>0</group_on_creation>
+                <agent_ticket_visibilty>0</agent_ticket_visibilty>                
+            </helpdesk_settings>
+            <ticketstatus>
+                <openstatus>1</openstatus>
+                <newstatus>2</newstatus>
+                <pendingstatus>3</pendingstatus>
+                <solvestatus>4</solvestatus>
+                <closedstatus>5</closedstatus>
+                <spamstatus>6</spamstatus>
+            </ticketstatus>
+            <ticketdeafult>
+                <defaultstatus>1</defaultstatus>
+                <defaulttype>1</defaulttype>
+                <defaultgroup>1</defaultgroup>
+                <defaultpriority>1</defaultpriority>
+            </ticketdeafult>
+            <activity>
+                <dashboardactivitylimit>10</dashboardactivitylimit>
+            </activity>
+            <admin_ticketview>
+                <threadlimit>10</threadlimit>
+                <draftsavetime>50000</draftsavetime>
+                <lockviewtime>50000</lockviewtime>
+                <lockexpiretime>10</lockexpiretime>
+            </admin_ticketview>
+            <email>
+                <helpdesk_mail>send_mail_to_admin</helpdesk_mail>
+                <helpdesk_from_mail>send_mail_from_admin</helpdesk_from_mail>
+                <helpdesk_from_customer>send_mail_from_customer</helpdesk_from_customer>
+                <helpdesk_forward_email>forward_mail</helpdesk_forward_email>
+            </email>
+        </helpdesk>
+    </default>
+</config>

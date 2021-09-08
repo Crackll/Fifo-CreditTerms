@@ -1,0 +1,32 @@
+{
+    "webkul_accordionfaq": {
+        "column": {
+            "id": true,
+            "faq": true,
+            "body": true,
+            "status": true,
+            "created_time": true,
+            "updated_time": true,
+            "sort_order": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "webkul_accordionfaqgroup": {
+        "column": {
+            "id": true,
+            "faq_ids": true,
+            "group_code": true,
+            "group_name": true,
+            "width": true,
+            "status": true,
+            "created_time": true,
+            "updated_time": true,
+            "sort_order": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

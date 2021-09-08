@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <event name="checkout_cart_product_add_after">
+    <observer name="webkul_customersubaccount_checkoutcartproductaddafter_observer" instance="Webkul\CustomerSubaccount\Observer\CheckoutCartProductAddAfter"/>
+  </event>
+  <event name="sales_quote_add_item">
+    <observer name="webkul_customersubaccount_salesquoteadditem_observer" instance="Webkul\CustomerSubaccount\Observer\SalesQuoteAddItem"/>
+  </event>
+  <event name="sales_quote_remove_item">
+    <observer name="webkul_customersubaccount_salesquoteremoveitem_observer" instance="Webkul\CustomerSubaccount\Observer\SalesQuoteRemoveItem"/>
+  </event>
+  <event name="checkout_cart_update_items_after">
+    <observer name="webkul_customersubaccount_checkoutcartupdateitemsafter_observer" instance="Webkul\CustomerSubaccount\Observer\CheckoutCartUpdateItemsAfter"/>
+  </event>
+  <event name="controller_action_postdispatch_checkout_cart_add">
+    <observer name="webkul_customersubaccount_controlleractionpostdispatchcheckoutcartadd_observer" instance="Webkul\CustomerSubaccount\Observer\ControllerActionPostdispatchCheckoutCartAdd"/>
+  </event>
+</config>

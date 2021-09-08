@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_MpPriceList::pricelist" title="Price List Manager" module="Webkul_MpPriceList" sortOrder="10" parent="Webkul_Marketplace::marketplace" resource="Webkul_MpPriceList::pricelist"/>
+        <add id="Webkul_MpPriceList::list" title="View Price List" module="Webkul_MpPriceList" sortOrder="1" parent="Webkul_MpPriceList::pricelist" action="mppricelist/pricelist" resource="Webkul_MpPriceList::list"/>
+        <add id="Webkul_MpPriceList::rule" title="View Price List Rules" module="Webkul_MpPriceList" sortOrder="5" parent="Webkul_MpPriceList::pricelist" action="mppricelist/rule" resource="Webkul_MpPriceList::rule"/>
+    </menu>
+</config>

@@ -1,0 +1,67 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!--@subject {{trans "New Login to %store_name from %browser"  store_name=$store.getFrontendName() browser=$loginUser.browser}} @-->
+<!--@vars {
+"var store.getFrontendName()|escape":"Store Name"
+} @-->
+
+<table class="wrapper" width="100%">
+    <td class="wrapper-inner" align="center">
+        <table class="main" align="center">
+            <tr>
+                <td class="header">
+                    <h4>{{trans "We have received a request to login for your account at %store_name." store_name=$store.getFrontendName() }}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td class="main-content">
+                    <table>
+                        <tr>
+                            <td style="font-size: 14px;"><strong>{{trans "Device Location*"}}</strong></td>
+                            <td>
+                                <p style="font-size: 14px;">
+                                    {{trans "%browser on %platform %city, %country" browser=$loginUser.browser platform=$loginUser.platform city=$loginUser.city region=$loginUser.region country=$loginUser.country_name}}
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <span style="font-size: 10px;" class="note">{{trans "Location is approximate based on the login IP address"}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="main-content">
+                    <header style="font-size: 12px;"><strong>{{trans "If this was you: "}}</strong></header>
+                    <p style="font-size: 14px;">{{trans "Great! there is noting else you need to do"}}.</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="main-content">
+                    <header style="font-size: 12px;"><strong>{{trans "If this wasn't you: "}}</strong></header>
+                    <p style="font-size: 14px;">{{trans "Please contact us immediately at %store_email" store_email=$store_email |escape}}{{depend store_phone}} {{trans "or call us at %store_phone" store_phone=$store_phone |escape}}{{/depend}}.</p>
+                    <p>{{trans "Or you can "}}<a href="{{store url='admin/auth/resetpassword/' _query_id=$user.id _query_token=$user.rp_token _nosid=1}}">{{trans "reset your password now"}}</a></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="footer">
+                    <p class="closing">{{trans "Thank you, %store_name" store_name=$store.getFrontendName()}}!</p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</table>

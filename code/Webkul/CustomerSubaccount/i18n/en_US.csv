@@ -1,0 +1,195 @@
+Pending,Pending
+Approved,Approved
+Merged,Merged
+Ordered,Ordered
+"Manage Customer Sub Account","Manage Customer Sub Account"
+"A total of %1 sub-account(s) have been activated.","A total of %1 sub-account(s) have been activated."
+"A total of %1 sub-account(s) have been deactivated.","A total of %1 sub-account(s) have been deactivated."
+"Action Not Allowed.","Action Not Allowed."
+"Cart approved successfully.","Cart approved successfully."
+"Cart deleted successfully.","Cart deleted successfully."
+"Manage Cart Approval","Manage Cart Approval"
+"Cart sent for Approval.","Cart sent for Approval."
+"Cart sent for Merge.","Cart sent for Merge."
+"Something went wrong.","Something went wrong."
+"Main Account Orders","Main Account Orders"
+"Manage Cart Merge","Manage Cart Merge"
+"Cart merged successfully.","Cart merged successfully."
+"You are not authorised to delete this cart.","You are not authorised to delete this cart."
+"My Cart Requests","My Cart Requests"
+"You are not authorised to place this cart.","You are not authorised to place this cart."
+"Quote Data","Quote Data"
+"Add Sub Account","Add Sub Account"
+"Sub Account deleted successfully.","Sub Account deleted successfully."
+"Edit Sub Account","Edit Sub Account"
+"Manage Sub Accounts","Manage Sub Accounts"
+"Logged in to sub-account.","Logged in to sub-account."
+"Sub-account is inactive.","Sub-account is inactive."
+"Sub Account created successfully.","Sub Account created successfully."
+"Sub Account details saved successfully.","Sub Account details saved successfully."
+"Sub Account Orders","Sub Account Orders"
+"Item added to Main Wish List.","Item added to Main Wish List."
+"Main Wish List","Main Wish List"
+"Wish list item removed.","Wish list item removed."
+"Cart Approval Required","Cart Approval Required"
+"Can Merge Own Cart to Main Cart","Can Merge Own Cart to Main Cart"
+"Can Approve Carts","Can Approve Carts"
+"Can Place Order","Can Place Order"
+"Force Usage Main Account Address","Force Usage Main Account Address"
+"Can View Main Wishlist","Can View Main Wishlist"
+"Can Add to Main Wishlist","Can Add to Main Wishlist"
+"Can Remove From Main Wishlist","Can Remove From Main Wishlist"
+"Can View Main Account Order List","Can View Main Account Order List"
+"Can View Main Account Order Details","Can View Main Account Order Details"
+"Can View Sub Account Order List","Can View Sub Account Order List"
+"Can View Sub Account Order Details","Can View Sub Account Order Details"
+"Will Get Notified on Order Place by Main Account","Will Get Notified on Order Place by Main Account"
+"Will Get Notified on Order Place by Sub Account","Will Get Notified on Order Place by Sub Account"
+"Can Create Sub Accounts","Can Create Sub Accounts"
+"Can Edit Sub Accounts","Can Edit Sub Accounts"
+"Can Delete Sub Accounts","Can Delete Sub Accounts"
+"Can Login to Sub Accounts","Can Login to Sub Accounts"
+"Can Review Products","Can Review Products"
+"Order Placed Notification to Main Account","Order Placed Notification to Main Account"
+"Main Account's Order Placed Notification","Main Account's Order Placed Notification"
+"Sub Account's Order Placed Notification","Sub Account's Order Placed Notification"
+"Sub Account Activated Notification from Admin","Sub Account Activated Notification from Admin"
+"Cart Approved Notification","Cart Approved Notification"
+"New Sub Account Created Notification","New Sub Account Created Notification"
+Admin,Admin
+Active,Active
+Inactive,Inactive
+"You are not authorised to place this order.","You are not authorised to place this order."
+"Please ask Main Account user to add shipping address or remove Force Usage Main Account Address.","Please ask Main Account user to add shipping address or remove Force Usage Main Account Address."
+"Access Forbidden","Access Forbidden"
+"Invalid Form Key. Please refresh the page.","Invalid Form Key. Please refresh the page."
+"This account is not confirmed. <a href=""%1"">Click here</a> to resend confirmation email.","This account is not confirmed. <a href=""%1"">Click here</a> to resend confirmation email."
+"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.","The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later."
+"An unspecified error occurred. Please contact us for assistance.","An unspecified error occurred. Please contact us for assistance."
+"A login and a password are required.","A login and a password are required."
+"You don't have permission to review.","You don't have permission to review."
+"You submitted your review for moderation.","You submitted your review for moderation."
+"We can't post your review right now.","We can't post your review right now."
+"The maximum quantity can't be more than %1 when shipping to multiple addresses. Change the quantity and try again.","The maximum quantity can't be more than %1 when shipping to multiple addresses. Change the quantity and try again."
+"Verify the shipping address information and continue.","Verify the shipping address information and continue."
+"Verify the billing address information and continue.","Verify the billing address information and continue."
+"Quote address for failed order not found.","Quote address for failed order not found."
+"Exception for failed order not found.","Exception for failed order not found."
+"Invalid customer id %1","Invalid customer id %1"
+"Invalid customer address id %1","Invalid customer address id %1"
+"Invalid address id %1","Invalid address id %1"
+"View Customer","View Customer"
+Id,Id
+"Customer Name","Customer Name"
+"Customer Email","Customer Email"
+"Search by Id","Search by Id"
+"Search by Name","Search by Name"
+"Search by Email","Search by Email"
+Save,Save
+Submit,Submit
+"Items Qty","Items Qty"
+Subtotal,Subtotal
+Items,Items
+Action,Action
+View,View
+Approve,Approve
+"Are you sure?","Are you sure?"
+Delete,Delete
+"No Cart available for Approval.","No Cart available for Approval."
+"Request Cart Approval","Request Cart Approval"
+"Request Cart Merge","Request Cart Merge"
+Merge,Merge
+"No Cart available to Merge.","No Cart available to Merge."
+Type,Type
+Status,Status
+Approval,Approval
+N/A,N/A
+Order,Order
+Orders,Orders
+"Order #","Order #"
+Date,Date
+"Ship To","Ship To"
+"Order Total","Order Total"
+Actions,Actions
+"View Order","View Order"
+"You have placed no orders.","You have placed no orders."
+"Product Name","Product Name"
+SKU,SKU
+Price,Price
+Qty,Qty
+Back,Back
+Reset,Reset
+"Save Sub Account","Save Sub Account"
+"First Name","First Name"
+"Last Name","Last Name"
+Email,Email
+"Allowed Permissions","Allowed Permissions"
+"Forbidden Access","Forbidden Access"
+"You can use frontname or frontname_controller or frontname_controller_action. Access must be comma(,) separated.","You can use frontname or frontname_controller or frontname_controller_action. Access must be comma(,) separated."
+Yes,Yes
+No,No
+"Add New Sub Account","Add New Sub Account"
+Permissions,Permissions
+Forbidden,Forbidden
+"Parent Account","Parent Account"
+"Main Account","Main Account"
+"Available Permissions","Available Permissions"
+Login,Login
+Edit,Edit
+"No Sub Accounts Available.","No Sub Accounts Available."
+"Remove Item","Remove Item"
+"Remove item","Remove item"
+"Add to Main Wish List","Add to Main Wish List"
+"Dear %name,","Dear %name,"
+"Your cart with id %cartid has been approved.","Your cart with id %cartid has been approved."
+"Thank You","Thank You"
+"An Order with Id %orderid was placed by main account.","An Order with Id %orderid was placed by main account."
+"An Order with Id %orderid was placed by sub account user %subuser.","An Order with Id %orderid was placed by sub account user %subuser."
+"Your account has been activated by the Admin.","Your account has been activated by the Admin."
+"Dear %mainname,","Dear %mainname,"
+"Sub account below has been activated by the Admin.","Sub account below has been activated by the Admin."
+Name,Name
+"Dear %adminname,","Dear %adminname,"
+"A new Sub Account has been created with following details.","A new Sub Account has been created with following details."
+"Customer Id","Customer Id"
+"Sub Account Id","Sub Account Id"
+"Customer Status","Customer Status"
+"Main Account Id","Main Account Id"
+"Main Account User Name","Main Account User Name"
+"A new Sub Account has been created with following details by %creator.","A new Sub Account has been created with following details by %creator."
+"Customer Sub Accounts","Customer Sub Accounts"
+Webkul,Webkul
+"Customer Sub-account","Customer Sub-account"
+"General Settings","General Settings"
+"Admin E-mail","Admin E-mail"
+"Manageable Permissions","Manageable Permissions"
+"Permissions that can a customer use for their sub-accounts.","Permissions that can a customer use for their sub-accounts."
+"Sub-account Apporval Required","Sub-account Apporval Required"
+"Sub-accounts needs to be approved by admin?","Sub-accounts needs to be approved by admin?"
+"Send Order Notifications to Main Account","Send Order Notifications to Main Account"
+"Send Sub-account's Order Notifications to Main Account?","Send Sub-account's Order Notifications to Main Account?"
+"Allow Forbidden Access Management","Allow Forbidden Access Management"
+"The forbidden action access can only be managed by main account. It will inherit from parent account if any subaccount user create a subaccount.","The forbidden action access can only be managed by main account. It will inherit from parent account if any subaccount user create a subaccount."
+"Email Options","Email Options"
+"Main Account's Order Placed Notification to Sub Account","Main Account's Order Placed Notification to Sub Account"
+"Sub Account's Order Placed Notification to Sub Account","Sub Account's Order Placed Notification to Sub Account"
+"Sub Account Activated Notification from Admin to Sub Account","Sub Account Activated Notification from Admin to Sub Account"
+"Sub Account Activated Notification from Admin to Main Account","Sub Account Activated Notification from Admin to Main Account"
+"Cart Approved Notification to Sub Account","Cart Approved Notification to Sub Account"
+"Sub Account Created Notification to Admin","Sub Account Created Notification to Admin"
+"Sub Account Created Notification to Main Account","Sub Account Created Notification to Main Account"
+"In case of sub-account created by another sub-account user.","In case of sub-account created by another sub-account user."
+"Manage Status","Manage Status"
+Activate,Activate
+Deactivate,Deactivate
+ID,ID
+"Main Account Name","Main Account Name"
+"Parent Account Name","Parent Account Name"
+"Sub Accounts","Sub Accounts"
+"Approve Carts","Approve Carts"
+"Merge Carts","Merge Carts"
+"Items Ordered","Items Ordered"
+Invoices,Invoices
+"Order Shipments","Order Shipments"
+Refunds,Refunds
+"Track All Shipments","Track All Shipments"

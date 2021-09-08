@@ -1,0 +1,102 @@
+<!-- /**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */ -->
+ <div class="payment-option _collapsible opc-payment-additional discount-code wk_seller_reward_system"
+ data-bind="mageInit: {'collapsible':{'openedState': '_active'}}">
+<!-- ko if: rewradStatus() -->
+<div class="payment-option-title field choice" data-role="title">
+    <span class="action action-toggle" id="block-discount-heading" role="heading" aria-level="2">
+    <!-- ko i18n: 'Seller\'s Reward'--><!-- /ko -->
+    </span>
+</div>
+<div class="payment-option-content" data-role="content">
+    <!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+    <form class="form form-discount" id="reward-form" data-bind="blockLoader: isLoading">
+        <input type="hidden" name="seller_id" data-bind="value: changeValue">
+        <input type="hidden" name="remaining_reward_point" id="remaining_reward_point" data-bind="value: maxValue" />
+        <div class="payment-option-inner">
+            <div class="field">
+                <label class="label" for="reward-code">
+                    <span data-bind="i18n: 'Enter Reward code'"></span>
+                </label>
+                <div class="control">
+                    <select id="select_reward" class="select" data-bind="
+                            options: sellerReward,
+                            optionsText: 'seller_text',
+                            optionsValue: 'seller_id',
+                            optionsCaption: $t('Select Seller\'s Reward'),
+                            value: changeValue,
+                            optionsAfterRender: setOptionAttr,
+                            event:{ change: showField},
+                            " data-validate="{required:true}">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="payment-option-inner">
+            <div class="field">
+                <div class="control">
+                        <input class="input-text"
+                           type="text"
+                           id="reward_points"
+                           name="used_reward_points"
+                           min="1"
+                           data-bind="value: userRewardPoint, attr:{placeholder: $t('Enter Reward points')}, visible: isVisible"
+                           data-validate="{required:true,'validate-number-range':true,'validate-number':true}"
+                            />
+                </div>
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <!-- /ko ifnot: isApplied() -->
+                    <button class="action action-apply" type="submit" data-bind="'value': $t('Apply Reward'), click: apply">
+                        <span><!-- ko i18n: 'Apply Reward'--><!-- /ko --></span>
+                    </button>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <div class="actions-toolbar"></div>
+        <div class="payment-option-inner">
+            <div class="field">
+            <!-- ko if: isApplied() -->
+                <dl class="wk_applied_rewards">
+                    <dt><!-- ko i18n: 'Applied Rewards'--><!-- /ko --></dt>
+                    <dd>
+                        <ul class="form-list" data-bind="foreach: rewardsession">
+                            <li>
+                                <span data-bind="text: seller_name"></span>:
+                                <span><!-- ko i18n: 'Using'--><!-- /ko --></span>
+                                <span data-bind="text: amount"></span>
+                                <span>(</span><span data-bind="text: used_reward_points"></span><span><!-- ko i18n: ' Rewards '--><!-- /ko --></span><span>)  <!-- ko i18n: 'of'--><!-- /ko --></span>
+                                <span data-bind="text: avail_amount"></span>
+                                <span>(</span><span data-bind="text: remaining_reward_point"></span><span><!-- ko i18n: ' Rewards )'--><!-- /ko --></span>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            <!-- /ko -->
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <!-- ko if: isApplied() -->
+                    <button class="action action-cancel" type="submit" data-bind="'value': $t('Cancel'), click: cancel">
+                        <span><!-- ko i18n: 'Cancel'--><!-- /ko --></span>
+                    </button>
+                <!-- /ko -->
+            </div>
+        </div>
+    </form>
+</div>
+<!--/ko-->
+</div>

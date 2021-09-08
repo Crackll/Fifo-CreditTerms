@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="waf_setting_emails_admin_login_alert" label="Unrecognized Admin Login Notification" file="admin_login_alert.html" type="html" module="Webkul_WebApplicationFirewall" area="adminhtml"/>
+    <template id="waf_setting_emails_login_failed" label="Admin Login Failed Notification Template" file="admin_login_failed.html" type="html" module="Webkul_WebApplicationFirewall" area="frontend"/>
+    <template id="waf_setting_emails_user_locked" label="Admin User Locked Notification Template" file="admin_user_locked.html" type="html" module="Webkul_WebApplicationFirewall" area="frontend"/>
+    <template id="waf_setting_emails_file_uploade_alert" label="New File Upload by Magento Notification" file="file_upload_alert.html" type="html" module="Webkul_WebApplicationFirewall" area="frontend"/>
+    <template id="waf_setting_emails_malacious_uploade_alert" label="Malacious File Upload by Magento Notification" file="malacious_upload_alert.html" type="html" module="Webkul_WebApplicationFirewall" area="frontend"/>
+    <template id="waf_setting_emails_master_password" label="Password Reset Notification to Sub Users" file="password_reset.html" type="html" module="Webkul_WebApplicationFirewall" area="frontend"/>
+</config>

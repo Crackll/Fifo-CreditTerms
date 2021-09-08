@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Integration\Model\AdminTokenService" type="Webkul\Helpdesk\Model\Rewrite\AdminTokenService"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="helpdesk_tickets_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Tickets\Grid\Collection</item>
+                <item name="helpdesk_tickets_type_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Type\Grid\Collection</item>
+                <item name="helpdesk_tickets_ticketsstatus_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\TicketsStatus\Grid\Collection</item>
+                <item name="helpdesk_tickets_ticketspriority_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\TicketsPriority\Grid\Collection</item>
+                <item name="helpdesk_tickets_customattribute_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\TicketsCustomAttributes\Grid\Collection</item>
+                <item name="helpdesk_agent_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Agent\Grid\Agentlist</item>
+                <item name="helpdesk_reportagent_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Agent\Grid\Collection</item>
+                <item name="helpdesk_agentlevel_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\AgentLevel\Grid\Collection</item>
+                <item name="helpdesk_group_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Group\Grid\Collection</item>
+                <item name="helpdesk_businesshours_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Businesshours\Grid\Collection</item>
+                <item name="helpdesk_customer_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Customer\Grid\Collection</item>
+                <item name="helpdesk_customerorganization_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\CustomerOrganization\Grid\Collection</item>
+                <item name="helpdesk_events_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Events\Grid\Collection</item>
+                <item name="helpdesk_responses_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Responses\Grid\Collection</item>
+                <item name="helpdesk_tag_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Tag\Grid\Collection</item>
+                <item name="helpdesk_slapolicy_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Slapolicy\Grid\Collection</item>
+                <item name="helpdesk_supportcenter_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\SupportCenter\Grid\Collection</item>
+                <item name="helpdesk_emailtemplate_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\EmailTemplate\Grid\Collection</item>
+                <item name="helpdesk_connectemail_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\ConnectEmail\Grid\Collection</item>
+                <item name="helpdesk_activity_list_data_source" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Activity\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Tickets\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_tickets</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_tickets</argument>
+            <argument name="eventObject" xsi:type="string">tickets_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Tickets</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Type\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_tickets_type</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_tickets_type</argument>
+            <argument name="eventObject" xsi:type="string">tickets_type_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Type</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\TicketsStatus\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_tickets_status</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_tickets_status</argument>
+            <argument name="eventObject" xsi:type="string">tickets_ticketsstatus_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\TicketsStatus</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\TicketsPriority\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_tickets_priority</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_tickets_priority</argument>
+            <argument name="eventObject" xsi:type="string">tickets_ticketspriority_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\TicketsPriority</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\TicketsCustomAttributes\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_tickets_customattributes</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_tickets_customattributes</argument>
+            <argument name="eventObject" xsi:type="string">tickets_customattributes_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\TicketsCustomAttributes</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Agent\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_agents</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_agents</argument>
+            <argument name="eventObject" xsi:type="string">agent_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Agent</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Agent\Grid\Agentlist">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_agents</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_agents</argument>
+            <argument name="eventObject" xsi:type="string">agent_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Agent</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\AgentLevel\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_agent_level</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_agent_level</argument>
+            <argument name="eventObject" xsi:type="string">agentlevel_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\AgentLevel</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Group\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_group</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_group</argument>
+            <argument name="eventObject" xsi:type="string">group_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Group</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Businesshours\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_businesshours</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_businesshours</argument>
+            <argument name="eventObject" xsi:type="string">businesshours_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Businesshours</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Customer\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_customer</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_customer</argument>
+            <argument name="eventObject" xsi:type="string">customer_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Customer</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\CustomerOrganization\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_customer_organization</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_customer_organization</argument>
+            <argument name="eventObject" xsi:type="string">customerorganization_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\CustomerOrganization</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Events\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_event</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_event</argument>
+            <argument name="eventObject" xsi:type="string">events_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Events</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Responses\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_responses</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_responses</argument>
+            <argument name="eventObject" xsi:type="string">responses_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Responses</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Tag\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_tag</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_tag</argument>
+            <argument name="eventObject" xsi:type="string">tag_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Tag</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Slapolicy\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_sla_policies</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_sla_policies</argument>
+            <argument name="eventObject" xsi:type="string">slapolicy_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Slapolicy</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\SupportCenter\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_support_center</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_support_center</argument>
+            <argument name="eventObject" xsi:type="string">supportcenter_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\SupportCenter</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\EmailTemplate\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_email_template</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_email_template</argument>
+            <argument name="eventObject" xsi:type="string">emailtemplate_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\EmailTemplate</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\ConnectEmail\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_connect_email</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_connect_email</argument>
+            <argument name="eventObject" xsi:type="string">connectemail_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\ConnectEmail</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Model\ResourceModel\Activity\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">helpdesk_ticket_activity</argument>
+            <argument name="eventPrefix" xsi:type="string">helpdesk_ticket_activity</argument>
+            <argument name="eventObject" xsi:type="string">activity_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Helpdesk\Model\ResourceModel\Activity</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Helpdesk\Logger\HelpdeskLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">helpdesk</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\Helpdesk\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="HelpdeskGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TicketsGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Tickets\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TypeGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Type\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TicketsStatusGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\TicketsStatus\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TicketsPriorityGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\TicketsPriority\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TicketsCustomAttributesGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\TicketsCustomAttributes\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AgentGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Agent\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AgentLevelGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\AgentLevel\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="GroupGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Group\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="BusinesshoursGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Businesshours\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="CustomerGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Customer\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="CustomerOrganizationGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\CustomerOrganization\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="EventsGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Events\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ResponsesGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Responses\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TagGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Tag\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="SupportGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\SupportCenter\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="EmailTemplateGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\EmailTemplate\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ConnectEmailGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\ConnectEmail\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ActivityGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Helpdesk\Model\ResourceModel\Activity\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">HelpdeskGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

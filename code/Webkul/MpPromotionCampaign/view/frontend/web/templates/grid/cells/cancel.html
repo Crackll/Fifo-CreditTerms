@@ -1,0 +1,33 @@
+<form method="post" id="cancelForm" action="<%- formaction %>">
+    <input type="hidden" name="campaignId" value="<%- campaignid %>">
+    <p class="cancel-btn"></p>
+</form>
+<div id="popup-modal">
+    <center>
+    
+      <div class="campaign-btn">
+        <button class="campaign-back"><%- cancellabel %> </button>
+        <button class="campaign-confirm"><%- submitlabel %> </button>
+      </div>
+    </center>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" />
+  <script>
+  var $ = jQuery;
+  $(".campaign-confirm").on('click',function(){ 
+    $("#cancelForm").submit();
+  });
+  
+  $(".campaign-back").on('click',function(){ 
+    $(".action-close").trigger('click');
+  });
+  </script>
+  <style>
+  .modal-popup._inner-scroll .modal-inner-wrap {
+    max-height: 90%;
+    width: 60%;
+  }
+  .campaign-btn {
+    padding-bottom: 20px;
+}
+</style>

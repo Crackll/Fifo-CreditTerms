@@ -1,0 +1,79 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$offers = $block->getOffers();
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMpPromotionCampaignHelper();
+?>
+<div class="wkmpc-offers">
+    <?php
+    if (!$offers->getSize()) { ?>
+    <div class="wkmpc-offers-unavailalble">
+        <?=  /* @noEscape */ __('Sorry, there is no offer available at this moment.');?>
+    </div>
+    <?php } else {
+        foreach ($offers as $offer) {
+            $image = $block->getBannerImage($offer);
+            $promotionViewUrl = $block->getUrl('mppromotioncampaign/promotion/view', ["id"=>$offer->getId()]);
+            ?>
+            <div class="wkmpc-offer-container">
+                <a href="<?= /* @noEscape */ $promotionViewUrl ?>">
+                    <div class="wkmpc-offer">
+                        <?php  if ($image) {
+                            ?>
+                            <img class="wkmpc-offer-image" src="<?=  /* @noEscape */ $image?>"/>
+                            <?php
+                        } else {?>
+                            <span class="wkmpc-offer-text"><?=  /* @noEscape */  __($offer->getTitle()) ?></span>
+                        <?php } ?>
+                    </div>
+                </a>
+            </div>
+            <?php
+        }
+    }
+    ?>
+</div>
+<?php
+$ucoffers = $block->getUpcomingOffers();
+?>
+<div class="wkmpc-offers wkmpc-ucoffers">
+    <?php
+    if ($ucoffers->getSize()) { ?>
+        <h1 class="wkmpc-ucoffers-heading page-title"><?=   /* @noEscape */ __('Upcoming Offers') ?></h1>
+        <?php
+        foreach ($ucoffers as $offer) {
+            $image = $block->getBannerImage($offer);
+            $startTime = $offer->getStartDate();
+            if (!empty($startTime)) {
+                $startTime = $helper->getLocaleZoneDateTime($startTime);
+            }
+            ?>
+            <div class="wkmpc-offer-container">
+                <div class="wkmpc-offer wkmpc-ucoffers">
+                    <span class="wkmpc-start-label"><?=  /* @noEscape */ __('Starts from %1', $startTime);?></span>
+                <?php  if ($image) {
+                    ?>
+                        <img class="wkmpc-offer-image" src="<?=  /* @noEscape */ $image?>"/>
+                    <?php
+                } else {
+                    ?>
+                        <span class="wkmpc-offer-text"><?=   /* @noEscape */ __($offer->getTitle()) ?></span>
+                    <?php
+                } ?>
+                </div>
+            </div>
+            <?php
+        }
+    }
+    ?>
+</div>
+
+

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">marketplace_account_auctionlist.marketplace_account_auctionlist_data_source</item>
+            <item name="deps" xsi:type="string">marketplace_account_auctionlist.marketplace_account_auctionlist_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">mp_auction_list_columns</item>
+    </argument>
+    <dataSource name="marketplace_account_auctionlist_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Webkul\MpAuction\Ui\DataProvider\AccountListDataProvider</argument>
+            <argument name="name" xsi:type="string">marketplace_account_auctionlist_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Webkul_Marketplace/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="marketplace/mui_index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="cacheRequests" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="namespace" xsi:type="string">marketplace_account_auctionlist</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="statefull" xsi:type="array">
+                        <item name="applied" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="params" xsi:type="array">
+                        <item name="filters_modifier" xsi:type="array" />
+                    </item>
+                </item>
+            </argument>
+        </filters>
+       <paging name="listing_paging"/>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">marketplace_account_auctionlist.marketplace_account_auctionlist.mp_auction_list_columns.ids</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+            <action name="cancel">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">cancel</item>
+                        <item name="label" xsi:type="string" translate="true">Cancel Auction</item>
+                        <item name="url" xsi:type="url" path="mpauction/account/masscancel"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Cancel Auction</item>
+                            <item name="message" xsi:type="string" translate="true">You can cancel only those auctions which are not bought by winner and auction status is not completed. Do you want to cancel selected auction product records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+    <columns name="mp_auction_list_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">auctionHistoryGrid</item>
+                        <item name="target" xsi:type="string">selectauctions</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <selectionsColumn name="ids">
+           <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">0</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="product_id" class="Webkul\MpAuction\Ui\Component\Listing\Product\Column\Name">
+            <argument name="data" xsi:type="array">
+                <item name="component" xsi:type="string">Webkul_Marketplace/js/grid/columns/link</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">false</item>
+                    <item name="label" xsi:type="string" translate="true">Product</item>
+                </item>
+            </argument>
+        </column>
+        <column name="min_qty" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Minimum Quantity</item>
+                </item>
+            </argument>
+        </column>
+        <column name="max_qty" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Maximum Quantity</item>
+                </item>
+            </argument>
+        </column>
+         <column name="starting_price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Starting Price</item>
+                </item>
+            </argument>
+        </column>
+         <column name="reserve_price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Reserve Price</item>
+                </item>
+            </argument>
+        </column>
+        <column name="start_auction_time" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="editor" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Start Auction Time</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+        <column name="stop_auction_time" class="Magento\Ui\Component\Listing\Columns\Date" >
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="editor" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Stop Auction Time</item>
+                    <item name="sortOrder" xsi:type="number">61</item>
+                </item>
+            </argument>
+        </column>
+        <column name="increment_opt" >
+        <argument name="data" xsi:type="array">
+            <item name="options" xsi:type="object">Webkul\MpAuction\Model\ResourceModel\Product\Source\Options</item>
+            <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">select</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                <item name="dataType" xsi:type="string">select</item>
+                <item name="label" xsi:type="string" translate="true">Increment Option</item>
+            </item>
+        </argument>
+        </column>
+        <column name="auto_auction_opt" >
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpAuction\Model\ResourceModel\Product\Source\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Automatic Bidding Option</item>
+                </item>
+            </argument>
+        </column>
+         <column name="auction_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpAuction\Model\ResourceModel\Product\Source\AuctionStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Auction Status</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="bid_details" class="Webkul\MpAuction\Ui\Component\Listing\Account\Column\BidDetailsActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                    <item name="label" xsi:type="string" translate="true">Bid Details</item>
+                </item>
+            </argument>
+        </actionsColumn>
+         <actionsColumn name="actions" class="Webkul\MpAuction\Ui\Component\Listing\Account\Column\MpAuctionListActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortOrder" xsi:type="number">220</item>
+                    <item name="label" xsi:type="string" translate="true">Action</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

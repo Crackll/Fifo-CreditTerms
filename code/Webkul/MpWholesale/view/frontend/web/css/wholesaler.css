@@ -1,0 +1,207 @@
+/**
+ * MpWholesale
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.mpwholesale
+{
+    position: relative;
+}
+.mpwholesale ul.nav
+{
+    display:none;
+    top: 0px;
+    position: absolute;
+    background-color: #f5f5f5;
+    margin-left: 35%;
+    border: 1px solid rgb(204, 204, 204);
+    z-index: 9999;
+}
+.mpwholesale:hover ul.nav
+{
+    display:block;
+}
+.block-collapsible-nav .mpwholesale.current .item a {
+    font-weight: normal;
+    border-left:none;
+}
+.wk-quote-button {
+  background: #43A45C !important;
+  border: 1px solid #43A45C !important;
+  padding: 7px 8px !important;
+}
+.wk-price-list-button {
+  background: #0091B6 !important;
+  border: 1px solid #0091B6 !important;
+  padding: 7px 8px !important;
+}
+.wk-mp-wholesaler-pricelist {
+    padding: 8px 29px 29px 37px;
+    overflow-y: scroll;
+}
+#module-quotation-product-name {
+    color: #337ab7;
+    font-weight: 800;
+}
+.popover_background{
+    background-color: rgba(227, 227, 227, 0.59);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 100%;
+}
+.wk_reset{
+    margin-right: 10px !important;
+}
+.modal-footer .submit_button{
+    background-color: #428bca;
+    border: 1px solid #357ebd;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 10px;
+    width: 100px;
+    margin-right:10px;
+}
+.modal-footer .submit_button:hover {
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+.buttons-set {
+    display: inline-block;
+}
+.popover_close{
+    color: #d21d1d;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 11px;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+}
+
+.wk-wholesaler-quotation {
+    position: relative;
+    padding: 15px;
+    width: 94%;
+    margin: 0 !important;
+}
+.wk-clear{
+    clear: both;
+}
+.ws_quote_edit {
+    cursor: pointer;
+}
+.wk-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.wk-contact_input_fields{
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+.wk-qs-inner-wrap{
+    overflow: auto;
+}
+.wk-qs-min-qty{
+    font-size: 12px;
+    color: green;
+    font-weight: 600;
+}
+.quote_description{
+    height: 100px!important;
+}
+ .wk_footer{
+    padding: 2% !important;
+}
+.wk_ws_status_decline{
+    color: #F4101F;
+    font-weight: bold;
+}
+.wk_ws_status_approved{
+    color: #0FBE00;
+    font-weight: bold;
+}
+.wk_ws_status_pending{
+    color: #da9011;
+    font-weight: bold;
+}
+.wk-back-buttons-set {
+    display: inline-block;
+}
+/* edit_quote css */
+.wk_ws_onereply {
+    box-shadow: 2px 2px 5px;
+    margin: 10px;
+}
+.wk_ws_onereply_seller {
+    background: none repeat scroll 0 0 #B9CDF8 !important;
+}
+.wk_ws_onereply_head {
+    background: none repeat scroll 0 0 #96c986;
+    display: block;
+    padding: 10px;
+}
+.wk_ws_onereply_cntnt_container {
+    background: none repeat scroll 0 0 #dfe8e6;
+    padding: 10px;
+}
+.wk_ws_onereply_cntnt {
+    font-family: tahoma;
+    line-height: 25px;
+}
+.wk_ws_onereply_head_left {
+    color: #000000;
+    display: inline-block;
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: left;
+    width: 48%;
+}
+.wk_ws_onereply_head_right {
+    color: #888888;
+    display: inline-block;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: right;
+    width: 50%;
+}
+.wk-mp-list-table th,.wk-mp-list-table tr{
+    border-bottom: 1px solid #CCCCCC;
+}
+/* edit_quote css */
+@media all and (min-width: 768px), print {
+    .limiter {
+       float: right;
+    }
+}
+.modal-content {
+    margin: 0px !important;
+}
+

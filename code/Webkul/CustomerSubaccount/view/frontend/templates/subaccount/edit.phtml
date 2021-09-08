@@ -1,0 +1,148 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/**
+ * Subaccount Account Create/Edit
+ *
+ * @var \Webkul\CustomerSubaccount\Block\Subaccount\Edit
+ */
+use Magento\Customer\Block\Widget\Name;
+
+$helper = $block->getHelper();
+?>
+<?php
+$allPermissionTypes = array_intersect_key(
+    $helper->getAllPermissions(),
+    array_flip($helper->getManageablePermissions())
+);
+$id = (int)$block->getRequest()->getParam('id');
+if (!empty($id)) {
+    $subAccount = $block->getSubAccount($id);
+    $allowedPermissions = explode(',', $subAccount->getAvailablePermissions());
+    $customerData = $helper->getCustomerById($subAccount->getCustomerId());
+    $firstname = $customerData->getFirstname();
+    $lastname = $customerData->getLastname();
+    $email = $customerData->getEmail();
+    $status = $subAccount->getStatus();
+    $forbidden = $subAccount->getForbiddenAccess();
+    $adminApproved = $subAccount->getAdminApproved();
+} else {
+    $allowedPermissions = [];
+    $firstname = '';
+    $lastname = '';
+    $email = '';
+    $forbidden = '';
+    $status = 0;
+    $adminApproved = 0;
+    $customerData = $helper->getCustomerModelById(0);
+}
+?>
+
+<form action="<?= /* @noEscape */ $block->getUrl('wkcs/subaccount/save') ?>" enctype="multipart/form-data" method="post" id="form-sub-account" data-mage-init='{"validation": {}}'>
+    <div class="fieldset">
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="id" value="<?= /* @noEscape */ $id ?>">
+        <div class="wkcs-main-btn-container wkcs-right">
+            <button id="back" title="<?= /* @noEscape */ __("Back"); ?>" type="button" class="action scalable back" onclick="javascript: window.history.back();" data-ui-id="back-button">
+                <span> <?= /* @noEscape */ __("Back"); ?></span>
+            </button>
+            <button id="reset" title="<?= /* @noEscape */ __("Reset"); ?>" type="reset" class="action scalable reset" data-ui-id="reset-button">
+                <span> <?= /* @noEscape */ __("Reset"); ?></span>
+            </button>
+            <button id="save" title="<?= /* @noEscape */ __("Save Sub Account"); ?>" type="button" class="action scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" data-form-role="save" data-ui-id="save-button" role="button" aria-disabled="false">
+                <span class="ui-button-text">
+                    <span> <?= /* @noEscape */ __("Save Sub Account"); ?></span>
+                </span>
+            </button>
+        </div>
+        <div class='wkcs-clear-both'></div>
+        <?= $block->getLayout()->createBlock(Name::class)->setObject($customerData)->toHtml() ?>
+        <div class="field required">
+            <label for="email" class="label">
+                <span> <?= /* @noEscape */ __("Email"); ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text required-entry validate-email validate-no-html-tags" name="email" data-validate="{required:true}" title="<?= /* @noEscape */ __("Email"); ?>" id="email" value="<?= /* @noEscape */ $block->escapeHtml($email) ?>">
+            </div>
+        </div>
+        
+        <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+        <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
+        <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
+        <?php if ($_dob->isEnabled()): ?>
+            <?= $_dob->setDate($customerData->getDob())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_taxvat->isEnabled()): ?>
+            <?= $_taxvat->setTaxvat($customerData->getTaxvat())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_gender->isEnabled()): ?>
+            <?= $_gender->setGender($customerData->getGender())->toHtml() ?>
+        <?php endif ?>
+
+        <div class="field required">
+            <label for="available_permissions" class="label">
+                <span> <?= /* @noEscape */ __("Allowed Permissions"); ?></span>
+            </label>
+            <div class="control">
+                <select data-validate="{'validate-select':true}" title="<?= /* @noEscape */ __("Allowed Permissions"); ?>" id="available_permissions" name="available_permissions[]" class="required-entry select multiselect admin__control-multiselect" size="<?= /* @noEscape */ count($allPermissionTypes)?>" data-ui-id="select-permission-type" multiple="multiple">
+                    <?php
+                    foreach ($allPermissionTypes as $value => $label):
+                        ?>
+                        <option value="<?= /* @noEscape */ $value; ?>" <?php if (in_array($value, $allowedPermissions)): ?>selected<?php endif; ?>> <?= /* @noEscape */ $label; ?></option>
+                        <?php
+                        endforeach;
+                    ?>
+                </select>
+            </div>
+        </div>
+        <?php if ($helper->getAllowForbiddenAccessManagement()) { ?>
+        <div class="field">
+            <label for="forbidden_access" class="label">
+                <span> <?= /* @noEscape */ __("Forbidden Access"); ?></span>
+            </label>
+            <div class="control">
+                <textarea class="input-text validate-no-html-tags" name="forbidden_access" id="forbidden_access"><?= /* @noEscape */ $block->escapeHtml($forbidden) ?></textarea>
+                <note><?= /* @noEscape */ __('You can use frontname or frontname_controller or frontname_controller_action. Access must be comma(,) separated.') ?></note>
+            </div>
+        </div>
+        <?php }?>
+        <div class="field required">
+            <label for="account_status" class="label">
+                <span> <?= /* @noEscape */ __("Active"); ?></span>
+            </label>
+            <div class="control">
+                <select <?php if ($helper->getSubaccountApprovalRequired() && !$adminApproved) {echo 'disabled';}?> data-validate="{'validate-select':true}" title="<?= /* @noEscape */ __("Active"); ?>" id="account_status" name="status" class="required-entry" data-ui-id="select-status">
+                    <option value="1" <?php if ($status == 1): ?>selected<?php endif; ?>> <?= /* @noEscape */ __('Yes'); ?></option>
+                    <option value="0" <?php if ($status == 0): ?>selected<?php endif; ?>> <?= /* @noEscape */ __('No'); ?></option>
+                </select>
+                <?php if ($helper->getSubaccountApprovalRequired() && !$adminApproved) { ?>
+                <input type="hidden" name="status" value="<?= /* @noEscape */ $status?>" />
+                <?php }?>
+            </div>
+        </div>
+    </div>
+    <?php if (!empty($id)) { ?>
+        <input type="hidden" name="entity_id" value="<?= /* @noEscape */ $id?>" />
+        <input type="hidden" name="customer_id" value="<?= /* @noEscape */ $subAccount->getCustomerId()?>" />
+    <?php } ?>
+</form>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();" class="left">&laquo;  <?= /* @noEscape */ __('Back') ?></a>
+    </p>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*" : {
+        "subaccountedit": ""
+    }
+}
+</script>

@@ -1,0 +1,19 @@
+<!--
+/** 
+ * Webkul_MpAuction History right. 
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<?php
+    $proDetail = $block->getAuctionProDetail();
+?>
+<div class="wk block">
+    <div class="block-content">
+        <img src="<?= /* @noEscape */ $proDetail['image']?>" alt="<?= /* @noEscape */ __('no image')?>" />
+        <h3><a href="<?= /* @noEscape */ $proDetail['url']?>" ><?= /* @noEscape */ $proDetail['name'] ?></a></h3>
+    </div>
+</div>

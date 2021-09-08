@@ -1,0 +1,41 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 3.0.1 --------------------------------------
+    + Added fucntionality to see agent specific ticket
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Compatible with 2.3.3
+    - Bug fixed while fetching mail
+    - Bug fixed on sending mail to agent
+
+-------------------------------- Version 2.1.1 --------------------------------------
+    - Bug fixed while replying on ticket with large text
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Compatible with 2.3.*
+    - Bug fixed
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+    + Allow admin to create ticket status, ticket priority, ticket types, ticket custom field.
+    + Allow to Merge tickets.
+    + Allow split thread as new ticket.
+    + Admin can create helpdesk customers.
+    + Admin can add organization and manage tickets based on Organization level.
+    + Admin can manage Agents and agent level.
+    + Admin can add unlimited agent group.
+    + Admin can define business hours and holidays based on SLA’s.
+    + Admin can prepare responses with action.
+    + Admin can create support center category.
+    + Email tickets fetch support.
+    + Reply by email.
+    + Admin can create Service level agreements (SLA).
+    + Complete Agents management system.
+    + Admin can create Event Triggers support found.
+    + Admin can create custom fields support for tickets.
+    + Complete and flexible ACL system.
+    + Ticket Lock feature support.
+	+ Customer generate ticket.
+	+ Customer can view his ticket and also replying on it.

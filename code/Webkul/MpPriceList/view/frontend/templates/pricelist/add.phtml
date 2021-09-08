@@ -1,0 +1,198 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$priceListId = "";
+  $customerId = $block->getCustomerId();
+  $statusOptions = $block->getStatusOptions();
+if (!empty($block->getRequest()->getParam('id'))) {
+    $priceListId = $block->getRequest()->getParam('id');
+    $priceListData = $block->validatePriceListId($priceListId);
+    $assignedRuleOnPriceList = $block->getAssignedRuleOnPriceList($priceListId, null, $flag = 1);
+    $assignedCustomerOnPriceList = $block->getAssignedCustomerOnPriceList($priceListId);
+    $unformmattedRuleIds = implode(',', $assignedRuleOnPriceList);
+    $formattedRulesId =$block->getFormattedString($assignedRuleOnPriceList);
+    $unformattedCustomerId = implode(',', $assignedCustomerOnPriceList);
+    $formattedCustomerId =$block->getFormattedString($assignedCustomerOnPriceList);
+}
+?>
+<div class="wk-supplier-company-overview-container">
+    <form method="post" class='form' id="wk-pricelist-info-form" action = "<?= $block->escapeHtml($block->getUrl(
+        'mppricelist/sellerpricelist/savepricelist',
+        ['_secure' => true]
+    ));?>" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <div class="field required">
+                <label class="label" for="first_name">
+                    <span><?= $block->escapeHtml(__('Price List Name'))?></span>
+                </label>
+                <div class="control">
+                    <input class='input-text'
+                    data-validate="{required:true, 'validate-no-html-tags':true}"
+                    type="text"
+                    id="pricelist_name"
+                    name="pricelist[title]"
+                    title="<?= $block->escapeHtml(__('Price List Name'))?>"
+                    placeholder="<?= $block->escapeHtml(__('Price List Name')); ?>"
+                    class="input-text"
+                    value="<?php if (!empty($priceListData) && !empty($priceListData->getTitle())) {
+                            echo $block->escapeHtml($priceListData->getTitle());
+                           }  ?>" />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="Priority"><span><?= $block->escapeHtml(__('Priority'))?></span></label>
+                <div class="control">
+                <input placeholder="<?= $block->escapeHtml(__('Priority')); ?>"
+                    data-validate="{required:true, 'validate-greater-than-zero':true,'validate-digits':true}"
+                    type="text"
+                    name="pricelist[priority]"
+                    title="<?= $block->escapeHtml(__('Priority'))?>"
+                    class="input-text"
+                    value="<?php if (!empty($priceListData) && !empty($priceListData->getPriority())) {
+                            echo $block->escapeHtml($priceListData->getPriority());
+                           }  ?>"/>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="role"><span><?= $block->escapeHtml(__(' Start Date'))?></span></label>
+                <div class="control">
+                    <input id="startDate"
+                    data-validate="{required:true, 'validate-no-html-tags':true }"
+                    type="text"
+                    name="pricelist[start_date]"
+                    title="<?= $block->escapeHtml(__(' Start Date'))?>"
+                    placeholder="<?= $block->escapeHtml(__('Start Date')); ?>"
+                    class="input-text datetype"
+                    value="<?php if (!empty($priceListData) && !empty($priceListData->getStartDate())) {
+                            echo $block->escapeHtml($priceListData->getStartDate());
+                           }  ?>"/>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="role"><span><?= $block->escapeHtml(__(' End Date'))?></span></label>
+                <div class="control">
+                    <input id="endDate"
+                    data-validate="{required:true, 'validate-no-html-tags':true}"
+                    type="text"
+                    name="pricelist[end_date]"
+                    title="<?= $block->escapeHtml(__(' End Date'))?>"
+                    class="input-text datetype" 
+                    placeholder="<?= $block->escapeHtml(__(' End Date')); ?>"
+                    value="<?php if (!empty($priceListData) && !empty($priceListData->getEndDate())) {
+                            echo $block->escapeHtml($priceListData->getEndDate());
+                           }  ?>"/>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="role"><span><?= $block->escapeHtml(__('Status'))?></span></label>
+                <div class="control">
+                <select data-validate="{required:true}"  name="pricelist[status]" class="input-select">
+                    <?php foreach ($statusOptions as $status) { ?>
+                     <option value = <?= $block->escapeHtml($status['value']);?>
+                        <?php if (!empty($priceListData) && $priceListData->getStatus()== $status['value']) {
+                            echo 'selected';
+                        }?>>
+                        <?= $block->escapeHtml(__($status['label']));?>
+                    </option>  
+                    <?php }?>    
+                </select>
+                </div>
+            </div>
+            <div class="actions-toolbar" style="display:none">
+                <div class="primary">
+                    <button type="submit"
+                        id="submit"
+                        class="action submit primary"
+                        title="<?= $block->escapeHtml(__('Submit')) ?>">
+                        <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                    </button>
+                </div>
+            </div>
+            <?php if (!empty($priceListId)) {?>
+            <input type="hidden" name="pricelist[id]" value="<?= $block->escapeHtml($priceListId);?>"/>
+            <?php }?>
+            <input type="hidden" name="pricelist[seller_id]" value="<?= $block->escapeHtml($customerId);?>"/>
+            <input type="hidden"
+                name="pricelist_rules"
+                id="pricelist_rules"
+                value="<?php if (!empty($priceListData) && !empty($unformmattedRuleIds)) {
+                        echo $block->escapeHtml($unformmattedRuleIds);
+                       }?>"
+            />
+            <input type="hidden"
+                name="pricelist_rules_old"
+                id="pricelist_rules_old"
+                value="<?php if (!empty($priceListData) && !empty($formattedRulesId)) {
+                        echo $block->escapeHtml($formattedRulesId);
+                       }?>"
+            />
+            <input type="hidden"
+                name="pricelist_customers"
+                id="pricelist_customers"
+                value="<?php if (!empty($priceListData) && !empty($unformattedCustomerId)) {
+                        echo $block->escapeHtml($unformattedCustomerId);
+                       }?>"
+            />
+            <input type="hidden"
+                name="pricelist_customers_old"
+                id="pricelist_customers_old"
+                value="<?php if (!empty($priceListData) && !empty($formattedCustomerId)) {
+                        echo $block->escapeHtml($formattedCustomerId);
+                       }?>"
+            />
+        </fieldset>
+    </form>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#wk-pricelist-info-form": {
+            "validation": {}
+        }
+    }
+</script>
+<script type="text/javascript">
+require([
+    "jquery",
+    'mage/translate',
+    "mage/calendar"
+], function($, $t){
+    $(document).ready(function() {
+        var date = new Date();
+        var currentMonth = date.getMonth();
+        var currentDate = date.getDate();
+        var currentYear = date.getFullYear();
+        $('#endDate , #startDate').datepicker({
+        minDate: new Date(currentYear, currentMonth, currentDate),
+        dateFormat:'mm/dd/yy'
+        });
+        $(document).on('click', '.wk-mp-save', function (event) {
+        var endDate = $('#endDate').val();
+        var endDate = new Date(endDate.replace(/-/g,"/"));
+        var endYear = endDate.getFullYear();
+        var endDat = endDate.getDate();
+        var endMonth = endDate.getMonth();
+        var endDateString = (endMonth + 1) + "/" +endDat + "/" + endYear;
+        var startDate = $('#startDate').val();
+        var startDate = new Date(startDate.replace(/-/g,"/"));
+        var startYear = startDate.getFullYear();
+        var startDat = startDate.getDate();
+        var startMonth = startDate.getMonth();
+        var startDateString = (startMonth + 1) + "/" +startDat + "/" + startYear;
+            if(Date.parse(endDateString) <= Date.parse(startDateString)) {
+                alert(
+                        $t("Start date should be less than End date")
+                    );
+                $('#startDate').val("");
+                $('#endDate').val("");
+            }
+        });
+    });
+});
+</script>

@@ -1,0 +1,82 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<h3><?= /* @noEscape */   __("Promotion Detail");?> </h3>
+<div id="tab_element">
+    <ul class="tabs-horiz" >
+        <li>
+            <a href="#tab1_content">
+                <span>
+                    <?= /* @noEscape */  __("Information"); ?>            
+                </span>
+            </a>
+        </li>
+        <?php
+        if ($block->campainSellerJoin($block->getRequest()->getparam('id'))) {
+            ?>
+        <li>
+            <a href="#tab2_content">
+                <span>
+                <?= /* @noEscape */  __("Add New Product"); ?>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#tab3_content">
+                <span>
+                <?= /* @noEscape */  __("Status"); ?>
+                </span>
+            </a>
+        </li>
+        <?php } ?>
+    </ul>
+</div>
+<div id="tab_element_content">
+    <div id="tab1_content" >
+        <div>
+        <?=
+             /* @noEscape */ $block->getChildHtml('campaign.detail');
+        ?>
+        </div>
+    </div>
+    <?php
+    if ($block->campainSellerJoin($block->getRequest()->getparam('id'))) {
+        ?>
+        <div id="tab2_content" >
+            <div>
+                <div> <?=   /* @noEscape */ $block->getChildHtml('mppromotioncampaign_product_list');?></div>
+            </div>
+        </div>
+        <div id="tab3_content" >
+            <div>
+            <div> <?=   /* @noEscape */  $block->getChildHtml('mppromotioncampaign_product_status');?></div>
+            </div>
+        </div>
+        </div>
+    <?php } ?>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;" onclick="javascript: window.history.back();" 
+                class="left">&laquo; <?= $block->escapeHtml(__('Back')) ?></a>
+        </p>
+    </div>
+<script>
+    require(["jquery","mage/backend/tabs"], function($){
+        $(function() {
+            $('#tab_element').tabs({
+                active: 'tab1_content',  
+                destination: '#tab_element_content', 
+                shadowTabs: []        
+            });
+        });
+    });
+</script>
+

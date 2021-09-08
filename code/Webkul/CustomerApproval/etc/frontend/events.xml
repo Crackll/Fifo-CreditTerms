@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerApproval
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_customer_authenticated">
+        <observer name="wk_customerapproval_login" instance="Webkul\CustomerApproval\Observer\Authenticate" />
+    </event>
+    <event name="customer_register_success">
+        <observer name="wk_customerapproval_register" instance="Webkul\CustomerApproval\Observer\Register" />
+    </event>
+</config>

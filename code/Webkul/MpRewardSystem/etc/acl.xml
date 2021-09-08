@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software protected Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+              <resource id="Webkul_Marketplace::marketplace" title="Marketplace Management" sortOrder="10" >
+                  <resource id="Webkul_MpRewardSystem::menu" title="Reward System" sortOrder="10" >
+                      <resource id="Webkul_MpRewardSystem::product" title="Reward Points on Product" sortOrder="10">
+                      </resource>
+                      <resource id="Webkul_MpRewardSystem::category" title="Reward Points on Category" sortOrder="11">
+                      </resource>
+                      <resource id="Webkul_MpRewardSystem::cart" title="Reward Points on Cart" sortOrder="12">
+                      </resource>
+                      <resource id="Webkul_MpRewardSystem::reward" title="Reward System Details" sortOrder="13">
+                      </resource>
+                  </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Webkul_MpRewardSystem::config_mprewardsystem" title="Marketplace RewardSystem Configuration section" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

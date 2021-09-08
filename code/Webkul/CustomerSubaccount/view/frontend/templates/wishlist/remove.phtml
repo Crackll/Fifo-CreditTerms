@@ -1,0 +1,30 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/**
+ * Wishlist Item Remove
+ *
+ * @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Remove
+ */
+?>
+<a href="#" data-role="remove" data-post-remove='<?= /* @noEscape */ /* @noEscape */ $block->getItemRemoveParams($block->getItem()) ?>' title="<?= /* @noEscape */ $block->escapeHtmlAttr(__('Remove Item')) ?>" class="btn-remove action delete">
+    <span><?= /* @noEscape */ $block->escapeHtml(__('Remove item')) ?></span>
+</a>
+<?php
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getHelper();
+if ($helper->isSubaccountUser() && $helper->canAddToMainWishlist()) {
+    ?>
+<a href="<?= /* @noEscape */ $block->getUrl('wkcs/wishList/addToMain', ['id'=>$block->getItem()->getId()]);?>">
+    <button type="button">
+        <span><?= /* @noEscape */ __('Add to Main Wish List')?></span>
+    </button>
+</a>
+<?php } ?>

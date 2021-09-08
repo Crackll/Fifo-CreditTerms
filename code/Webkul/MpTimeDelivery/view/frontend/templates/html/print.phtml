@@ -1,0 +1,28 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpTimeDelivery
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+?>
+
+<?php $scriptString = <<<script
+
+    require(
+        [
+            'jquery'
+        ],
+        function($) {
+            $(function() {
+                setTimeout(function(){ window.print(); }, 700);
+            });
+        }
+    );
+
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

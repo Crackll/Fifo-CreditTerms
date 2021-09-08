@@ -1,0 +1,264 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+$helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$product = $block->getProduct();
+$sellerId = '';
+$marketplaceProduct = $helper->getSellerProductDataByProductId($product['entity_id']);
+foreach ($marketplaceProduct as $value) {
+    $sellerId = $value['seller_id'];
+}
+if ($sellerId!="") {
+    $b2bHelper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+    $supplierInfo = $b2bHelper->getSupplierInfoById($sellerId);
+    $captchenable = $helper->getCaptchaEnable();
+    $rowsocial = $helper->getSellerDataBySellerId($sellerId);
+    $shoptitle = '';
+    $shopUrl = '';
+    $defaultAddressId = '';
+    $companyLocality = '';
+    foreach ($rowsocial as $value) {
+        $shoptitle = $value['shop_title'];
+        $shopUrl = $value['shop_url'];
+        $defaultAddressId = $value->getDefaultAddressId();
+        $companyLocality = $value['company_locality'];
+        if (!$shoptitle) {
+            $shoptitle = $value->getShopUrl();
+        }
+    }
+    $shoptitle = $block->escapeHtml($shoptitle);
+    $feeds = $helper->getFeedTotal($sellerId);
+    $defaultAddress = $b2bHelper->getAddressById($defaultAddressId);
+    if ($defaultAddress && $defaultAddress->getCountryId()) {
+        $locsearch = implode(
+            ', ',
+            $defaultAddress->getStreet()
+        ).", ".
+            $defaultAddress->getCity().", ".
+            $defaultAddress->getRegion().", ".
+            $b2bHelper->getCountryName($defaultAddress->getCountryId()).", ".
+            $defaultAddress->getPostcode();
+    } else {
+        $locsearch = $block->escapeHtml($companyLocality);
+    }
+    $profileUrl = $helper->getRewriteUrl('marketplace/seller/profile/shop/'.$shopUrl);
+    $requestQuoteUrl = $helper->getRewriteUrl(
+        'b2bmarketplace/supplier_profile/requestQuote/shop/'.$shopUrl
+    )."?product=".$product['entity_id'];
+    $quickOrderUrl = $helper->getRewriteUrl(
+        'b2bmarketplace/supplier_profile/quickOrder/shop/'.$shopUrl
+    );
+    ?>
+    <div class="wk-block no-display wk-supplier-product-block" id="mp-wk-block">
+        <div class="wk-supplier-product-row">
+            <div>
+            <a class="wk-supplier-title" href="<?= $block->escapeHtml($profileUrl)?>">
+                <?= $block->escapeHtml($shoptitle)?>
+            </a>
+            <?php if ($supplierInfo->getWkIsVerifiedSupplier()) { ?>
+                <span class="wk-supplier-verified"></span>
+                <?php
+            } ?>
+            <?php if ($supplierInfo->getWkIsPremiumSupplier()) { ?>
+                <span class="wk-supplier-premium"></span>
+                <?php
+            } ?>
+            </div>
+            <?php if ($locsearch) { ?>
+                <div>
+                    <a class="wk-supplier-location" title="<?= $block->escapeHtml(__('Location')) ?>" 
+                    href="<?= $block->escapeHtml($helper->getRewriteUrl(
+                        'marketplace/seller/location/shop/'.$shopUrl
+                    )."?loc=".$locsearch)?>" target="_blank">
+                        <?= $block->escapeHtml(__($locsearch)); ?>
+                    </a>
+                </div>
+            <?php } ?>
+        </div>
+        <?php
+        $rating = $helper->getSelleRating($sellerId);
+        if ($rating*1) { ?>
+            <div style="position: relative;" class="wk-supplier-product-row">
+                <a href="<?= $block->escapeHtml($helper->getRewriteUrl(
+                    'marketplace/seller/feedback/shop/'.$shopUrl
+                ))?>" title="<?= $block->escapeHtml(__('Make a Review'))?>">
+                    <span class="wk-block-rating"><?= $block->escapeHtml($rating)?></span>
+                </a>
+                <div class="wk-seller-rating wk-mp-design-inner">
+                    <div style="padding: 5px 0;">
+                        <span>
+                            <?=
+                            $review_percentage = (($helper->getSelleRating($sellerId)*100)/5);
+                            /* @noEscape */ $review_percentage."% ".
+                            __('positive feedback')." (".
+                            __('%1 ratings', number_format($feeds['feedcount'])).") ";
+                            ?>
+                        </span>
+                    </div>
+                    <div class="wk-mp-row">
+                        <div class="mpfeedback">
+                            <div class="price">
+                                <span class="wk-ordertitle-label"><?= $block->escapeHtml(__('Price')) ?> 
+                                </span><span>:</span>
+                                <div class="ratingslider-box">
+                                    <div class="rating" 
+                                    style="width:<?= $block->escapeHtml(ceil($feeds['price']));?>%;">
+                                </div>
+                                </div>
+                                <span>&nbsp;
+                                (<?= $block->escapeHtml(round(($feeds['price']/20), 1, PHP_ROUND_HALF_UP))?>/5)
+                                </span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="value">
+                                <span class="wk-ordertitle-label">
+                                <?= $block->escapeHtml(__('Value')) ?> 
+                                </span><span>:</span>
+                                <div class="ratingslider-box" >
+                                    <div class="rating" 
+                                    style="width:<?= $block->escapeHtml(ceil($feeds['value']));?>%;">
+                                    </div>                                
+                                </div>
+                                <span>&nbsp;
+                                (<?= $block->escapeHtml(round(($feeds['value']/20), 1, PHP_ROUND_HALF_UP))?>/5)
+                                </span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="quality">
+                                <span class="wk-ordertitle-label"><?= $block->escapeHtml(__('Quality')) ?> 
+                                </span><span>:</span>
+                                <div class="ratingslider-box">
+                                    <div class="rating" 
+                                    style="width:<?= $block->escapeHtml(ceil($feeds['quality']));?>%;"></div>
+                                </div>
+                                <span>&nbsp;
+                                (<?= $block->escapeHtml(round(($feeds['quality']/20), 1, PHP_ROUND_HALF_UP))?>/5)
+                                </span>
+                                <div class="wk-clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="wk-supplier-visit-web">
+                    <a href="<?= $block->escapeHtml($profileUrl)?>" 
+                    title="<?= $block->escapeHtml(__('Visit Shop')) ?>" id="profileconnect">
+                        <?= $block->escapeHtml(__('Visit Website')) ?>
+                    </a>
+                </span>
+            </div>
+            <?php
+        } ?>
+        <div class="wk-supplier-btn-wrapper wk-supplier-product-row">
+            <button class="wk-supplier-msg-btn askque" id="askque">
+                <span><?= $block->escapeHtml(__('Message Supplier'))?></span>
+            </button>
+        </div>
+        <div class="wk-supplier-dropdown-wrap">
+            <span class="action toggle"
+                    data-mage-init='{"dropdown":{}}'
+                    data-toggle="dropdown"
+                    aria-haspopup="true">
+                <?= $block->escapeHtml(__('More Information'))?>
+            </span>
+            <div class="wk-supplier-dropdown">
+                <?php
+                $responseTime = $supplierInfo->getWkSupplierResponseTime();
+                $responseTimeUnit = $supplierInfo->getWkSupplierResponseTimeUnit();
+                $responseRate = $b2bHelper->getResponseRate(
+                    $sellerId,
+                    $responseTime,
+                    $responseTimeUnit
+                );
+                if ($responseRate) { ?>
+                    <div class="wk-supplier-product-row">
+                        <div class="wk-supplier-response-rate-container">
+                            <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                <?= $block->escapeHtml(__('Response Rate'))?>
+                                <strong> - <?= $block->escapeHtml($responseRate)?>%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                } ?>
+                <?php if ($responseTime = $supplierInfo->getWkSupplierResponseTime()) {
+                    if (!$supplierInfo->getWkSupplierResponseTimeUnit()) {
+                        $timeUnit = __('Hour(s)');
+                    } else {
+                        if ($supplierInfo->getWkSupplierResponseTimeUnit() == 'day') {
+                            $timeUnit = __('Day(s)');
+                        } else {
+                            $timeUnit = __('Hour(s)');
+                        }
+                    }
+                    ?>
+                    <div class="wk-supplier-product-row">
+                        <div class="wk-supplier-response-time-container">
+                            <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                <?= $block->escapeHtml(__('Response Time'))?>
+                                <strong> - <?= $block->escapeHtml($responseTime." ".$timeUnit)?></strong>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                } ?>
+                <?= $block->getChildHtml()?>
+                <div class="wk-supplier-btn-wrapper wk-supplier-product-row">
+                        <button class="action primary" id="quick_order">
+                            <span><?= $block->escapeHtml(__('Quick Order'))?></span>
+                        </button>
+                </div>
+                <div class="wk-supplier-btn-wrapper wk-supplier-product-row">
+                    <a href="<?= $block->escapeHtml($requestQuoteUrl)?>" 
+                        title="<?= $block->escapeHtml(__('Request a Quote'))?>">
+                        <button class="action primary">
+                            <span><?= $block->escapeHtml(__('Request a Quote'))?></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        require([
+            "jquery",
+            "mage/mage"
+        ], function($) {
+            $("#quick_order").on("click", function(){
+                $("#product-addtocart-button").trigger("click");
+                var form = $("#product_addtocart_form");
+                var redirectUrl = this.redirectUrl;
+                if (!(form.validation() && form.validation('isValid'))) {
+                    return;
+                } else {
+                    $('body').trigger('processStart');
+                    window.location = '<?= /* @noEscape */ $quickOrderUrl ?>';
+                }
+            });
+            var askDataForm = $('#ask-form');
+            askDataForm.mage('validation', {});
+
+            $('.product-info-main').append($('#mp-wk-block'));
+            $('#mp-wk-block').show();
+
+            $('body').append($('#wk-mp-ask-data'));
+
+            $(".wk-block-rating" ).mouseover(function() {
+                  $( ".wk-seller-rating" ).show();
+            }).mouseout(function() {
+                $( ".wk-seller-rating" ).hide();
+            });
+        });
+    </script>
+    <?php
+} ?>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="wk_region_upload" translate="label" type="text" sortOrder="502" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Region Upload</label>
+            <tab>webkul</tab>
+            <resource>Webkul_RegionUpload::config</resource>
+            <group id="wk_regionupload_enable_google_map_pin" translate="label comment" type="text" sortOrder="510" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="wk_regionupload_enable_google_pin" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <label>Active</label>
+                    <comment>Enable Google Pin at Checkout</comment>
+                </field>
+                <field id="wk_regionupload_api_key" translate="label comment" type="obscure" sortOrder="104" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Key</label>
+                    <comment>Enter the Google Map API Key</comment>
+                    <depends>
+                        <field id="wk_regionupload_enable_google_pin">1</field>
+                    </depends>
+                    <validate>required-entry validate-no-html-tags</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+            </group>                              
+        </section>
+    </system>
+</config>

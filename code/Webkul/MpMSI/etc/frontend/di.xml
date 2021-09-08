@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpMSI
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="\Webkul\Marketplace\Block\Product\Steps\Bulk" type="Webkul\MpMSI\Block\Product\Steps\Bulk" />
+    <preference for="\Webkul\Marketplace\Block\Product\Productlist" type="Webkul\MpMSI\Block\Product\Productlist" />
+    <preference for="\Webkul\Marketplace\Block\Product\Edit\Variations\Config\Matrix" type="Webkul\MpMSI\Block\Product\Edit\Variations\Config\Matrix" />
+    
+</config>

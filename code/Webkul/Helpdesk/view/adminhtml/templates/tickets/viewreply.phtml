@@ -1,0 +1,1400 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $block->helperData();
+$ticketsHelper = $block->ticketHelper();
+$offset = $ticketsHelper->getAgentOffset();
+$datFormat = $helper->getDateFormate();
+$ticket = $block->getCurrentTicket();
+$ticketId = $ticket->getId();
+$ticketsPriorityArr = $block->getTicketsPriority();
+$ticketTypeArr = $block->getTicketsType();
+$agentColl = $block->getAgentCollection();
+$tagCollection = $block->getAllTagCollection();
+$ticketGroupArr = $block->getTicketsGroup();
+$ticketsStatusArr = $block->getTicketsStatus();
+$threadLimit = $helper->getThreadLimit();
+$totalThread = $ticketsHelper->getTotalThreads($ticketId);
+$imgExtensions = explode(",", $helper->getConfigAllowedextensions());
+$agentId = $ticketsHelper->getCurrentAgentId();
+$noteCollection = $block->getNoteCollection($agentId, $ticketId);
+$mediaUrl = $helper->getMediaUrl();
+$mediaDirpath = $helper->getMediaPath();
+$extensions = ['pdf','doc','docx','xls','xlsx'];
+?>
+<input type="hidden" name="agent_id" id="agent_id" value="<?= $block->escapeHtml($agentId); ?>"/>
+<div class="wk_ts_thread_wrapper">
+    <div class="wk_ts_thread_header">
+        <h1>
+            <?= $block->escapeHtml(__("Tickets ")) ?>#<?= $block->escapeHtml($ticketId); ?>
+            <a href="<?= /** @noEscape*/ $block->getUrl('*/*/index/'); ?>">
+                <button class="action_button reply" style="float:right">
+                    <i class="fa fa-reply"></i>
+                </button>
+            </a>
+        </h1>
+        <div class="wk_ts_ticket_detail_box">
+            <div class="wk_ts_pannel_heading <?php if ($ticket->getWhoIs() == 'customer') { echo 'customer'; } ?>">
+                <span><?= /** @noEscape*/ substr($ticket->getFullname(), 0, 1) ?></span><i 
+                style="display:none" id="wk_loader" class="fa fa-spin fa-spinner"></i>
+            </div>
+            <div style="margin-left: 5px; float: left; width: 87%;margin-top: 14px;">
+                <h2>
+                    <?php
+                    if (strlen($ticket->getSubject()) > 30) {
+                        echo $block->escapeHtml(substr($ticket->getSubject(), 0, 30))."..";
+                    } else {
+                        echo $block->escapeHtml($ticket->getSubject());
+                    }
+                    ?>
+                </h2>
+                <div class="wk_ts_ticket_created_date">
+                    <i class="fa fa-clock-o"></i>
+                    <h4><?= $block->escapeHtml(__("Created On - ")) ?></h4>
+                    <label>
+                        <?= /** @noEscape */
+                        date($datFormat, strtotime($ticket->getCreatedAt()) + $offset);
+                        ?>
+                    </label>
+                </div>
+                <div class="wk_ts_ticket_customer_detail">
+                    <i class="fa fa-user"></i>
+                    <h4><?= $block->escapeHtml(__("Customer - ")) ?></h4>
+                    <label>
+                        <?= $block->escapeHtml($ticket->getFullname()) ?>
+                        <i class="fa fa-chevron-left"></i>
+                        <a 
+                        target="_blank" href="mail:<?= /** @noEscape */ $ticket->getEmail() ?>">
+                        <?= $block->escapeHtml($ticket->getEmail()) ?>
+                        </a>
+                        <i class="fa fa-chevron-right"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="wk_ts_ticket_action_box">
+            <div class="wk_ts_property_conatiner">
+                <div class="wk_ts_priority_box">
+                    <h4><?= $block->escapeHtml(__("Priority - ")) ?></h4>
+                    <?php if ($helper->getPermission("Webkul_Helpdesk::edit_ticket_properties")): ?>
+                        <select name="priority" class="ticket_priority">
+                            <option value=""></option>
+                            <?php foreach ($ticketsPriorityArr as $key => $priority): ?>
+                                <option 
+                                value="<?= $block->escapeHtml($priority['value']) ?>" 
+                                <?php
+                                if ($ticket->getPriority() == $priority['value']) {
+                                    echo "selected";
+                                } ?>>
+                                <?= $block->escapeHtml($priority['label']) ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <button class="wk_disable_btn" type="button" disabled="disabled">
+                            <?= $block->escapeHtml($ticketsHelper->getTicketPriorityName($ticketId)); ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+                <div class="wk_ts_status_box">
+                    <h4><?= $block->escapeHtml(__("Status - ")) ?></h4>
+                    <?php if ($helper->getPermission("Webkul_Helpdesk::edit_status")): ?>
+                        <select name="status" class="ticket_status">
+                            <option value=""></option>
+                            <?php foreach ($ticketsStatusArr as $key => $status): ?>
+                                <option 
+                                value="<?= $block->escapeHtml($status['value']) ?>" 
+                                <?php
+                                if ($ticket->getStatus() == $status['value']) {
+                                    echo "selected";
+                                } ?>>
+                                <?= $block->escapeHtml($status['label']) ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <button class="wk_disable_btn" type="button" disabled="disabled">
+                            <?=
+                            $block->escapeHtml($ticketsHelper->getTicketStatusName($ticketId));
+                            ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+                <div class="wk_ts_type_box">
+                    <h4><?= $block->escapeHtml(__("Type - ")) ?></h4>
+                    <?php if ($helper->getPermission("Webkul_Helpdesk::edit_ticket_properties")): ?>
+                        <select name="type" class="ticket_type">
+                            <option value=""></option>
+                            <?php foreach ($ticketTypeArr as $key => $type): ?>
+                                <option value="<?= $block->escapeHtml($type['value']) ?>" 
+                                <?php
+                                if ($ticket->getType() == $type['value']) { echo "selected"; } ?>>
+                                <?= $block->escapeHtml($type['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <button class="wk_disable_btn" type="button" disabled="disabled">
+                            <?=
+                            $block->escapeHtml($ticketsHelper->getTicketTypeName($ticketId));
+                            ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="wk_ts_sla_msg_conatiner">
+                <?php $resolveTime =  $ticketsHelper->getTicketResolveTime($ticketId); ?>
+                <?php if (isset($resolveTime['msg'])): ?>
+                    <button class="sla_msg_box <?php if ($resolveTime['error']) { echo 'wk_success';
+                                               } else { echo 'wk_faliure'; } ?>" 
+                                               style="float: right; margin-top: 15px;margin-left: 5px;" 
+                                               title="" type="button">
+                        <?= $block->escapeHtml($resolveTime['msg']) ?>
+                        <div class="down_arrow_box" style="bottom: 27px;">
+                            <span class="names">
+                                <?= $block->escapeHtml(__("Resolve Time")) ?>
+                            </span>
+                        </div>
+                    </button>
+                <?php endif; ?>
+                <?php $responseTime =  $ticketsHelper->getTicketResponseTime($ticketId); ?>
+                <?php if (isset($responseTime['msg']) && $responseTime['flag']): ?>
+                    <button class="sla_msg_box <?php if ($responseTime['error']) { echo 'wk_success';
+                                               } else { echo 'wk_faliure'; } ?> " 
+                                               style="float: right; margin-top: 15px;" 
+                                               title="" type="button">
+                        <?= $block->escapeHtml($responseTime['msg']) ?>
+                        <div class="down_arrow_box" style="bottom: 27px;">
+                            <span class="names">
+                                <?= $block->escapeHtml(__("Response Time")) ?>
+                            </span>
+                        </div>
+                    </button>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <div class="wk_ts_thread_content">
+        <div class="wk_ts_left_sidebar">
+            <div class="form-group">
+                <h4><?= $block->escapeHtml(__("Assign Agent")) ?></h4>
+                <div class="form-col ticket_property">
+                    <?php if ($helper->getPermission("Webkul_Helpdesk::assign_ticket")): ?>
+                        <select id="assign-agent" name="agent">
+                            <option value=""></option>
+                            <?php foreach ($agentColl as $key => $agent): ?>
+                                <option value="<?= /** @noEscape */ $agent->getUserId() ?>" 
+                                <?php
+                                if ($ticket->getToAgent() == $agent->getUserId()) {
+                                    echo "selected";
+                                } ?>>
+                                <?= $block->escapeHtml($agent->getFirstname()." ".$agent->getLastname()) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <button class="wk_disable_btn" type="button" disabled="disabled" style="width:100%">
+                            <?= $block->escapeHtml($ticketsHelper->getTicketAgentName($ticketId)); ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <h4><?= $block->escapeHtml(__("Assign Group")) ?></h4>
+                <div class="form-col ticket_property">
+                    <?php if ($helper->getPermission("Webkul_Helpdesk::edit_ticket_properties")): ?>
+                        <select id="assign-group"  name="group">
+                            <option value=""></option>
+                            <?php foreach ($ticketGroupArr as $key => $group): ?>
+                                <option value="<?= /** @noEscape */ $group['value'] ?>" 
+                                <?php
+                                if ($ticket->getToGroup() == $group['value']) {
+                                    echo "selected";
+                                } ?>>
+                                <?= $block->escapeHtml($group['label']) ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <button class="wk_disable_btn" type="button" disabled="disabled" style="width:100%">
+                            <?= $block->escapeHtml($ticketsHelper->getTicketGroupName($ticketId)); ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="form-group ticket_tag_block">
+                <h4><?= $block->escapeHtml(__("Ticket Tags")) ?></h4>
+                <?php
+                    $tagNames = [];
+                foreach ($tagCollection as $tag) {
+                    $ticketIds = explode(",", $tag->getTicketIds());
+                    if (in_array($ticketId, $ticketIds)) {
+                        array_push($tagNames, $tag->getName());
+                    }
+                }
+                ?>
+                <div class="form-col" style="position:relative">
+                    <button class="dropdown-toggle ticket_tag_btn" 
+                    data-toggle="dropdown" type="button" data-id="input-tags">
+                        <?php if (count($tagNames) == 0): ?>
+                            <span class="filter-option pull-left">
+                                <?= $block->escapeHtml(__("Nothing selected")) ?>
+                            </span>
+                        <?php else: ?>
+                            <span class="filter-option pull-left">
+                                <?= $block->escapeHtml(implode(',', $tagNames))?>
+                            </span>
+                        <?php endif; ?>
+                        <i class="fa fa-caret-down" style="position:absolute;right:10px;"></i>
+                    </button>
+                    <div class="dropdown-menu open">
+                        <div class="bs-searchbox">
+                            <input type="text" autocomplete="off" class="form-control">
+                        </div>
+                        <ul role="menu" class="dropdown-menu-list">
+                            <?php foreach ($tagCollection as $tag): ?>
+                                <?php $ticketIds = explode(",", $tag->getTicketIds()) ?>
+                                <li data-id="<?= /** @noEscape */ $tag->getId() ?>" 
+                                data-active="<?php
+                                if (in_array($ticketId, $ticketIds)) {
+                                    echo "1";
+                                } else { echo "0"; } ?>">
+                                    <span class="text">
+                                        <?= $block->escapeHtml($tag->getName()) ?>
+                                    </span>
+                                    <i class="fa fa-check <?php if (!in_array($ticketId, $ticketIds)) { echo "hide";
+                                                          } else { echo "show"; } ?>" 
+                                                          style="position:absolute;right:15px;"></i>
+                                </li>
+                            <?php endforeach; ?>
+                            <li class="no-results" style="display: none;">
+                            <?= $block->escapeHtml(__("Use Enter To Add If UnAvailable")) ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h4><?= $block->escapeHtml(__("Ticket Notes")) ?></h4>
+                <div class="form-col ticket_property">
+                    <input id="add_personal_notes" name="notes">
+                </div>
+                <?php foreach ($noteCollection as $note):?>
+                    <div class="personal_note_row">
+                        <input type="checkbox" class="personal_note_check" 
+                        value="<?= /** @noEscape */ $note->getId() ?>" 
+                        <?php if ($note->getStatus() == 2) { echo "checked"; } ?>>
+                        <span class="note_description" 
+                        style="<?php
+                        if ($note->getStatus() == 2) {
+                            echo "text-decoration: line-through;";
+                        } ?>">
+                        <?= $block->escapeHtml($note->getDescription()); ?>
+                        </span>
+                        <span class="note_delete_box">
+                            <i class="fa fa-trash-o"></i>
+                        </span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <?php if (count($ticketsHelper->getTicketAttributeDetails($ticketId))): ?>
+                <form 
+                action="<?= /** @noEscape */
+                $block->getUrl('helpdesk/ticketsmanagement_tickets/saveattributevalues/', ["id"=>$ticketId]);
+                ?>" method="post">
+                    <input name="form_key" type="hidden" value="<?= /** @noEscape */ $block->getFormKey() ?>" />
+                    <input type="hidden" name="ticket_id" value="<?= /** @noEscape */ $ticketId; ?>"/>
+                    <h3><?= $block->escapeHtml(__("Custom Field")) ?></h3>
+                    <?php foreach ($ticketsHelper->getTicketAttributeDetails($ticketId) as $attributeValue): ?>
+                        <?php $attribute = $block->getAttributeData($attributeValue['attribute_id']); ?>
+                        <div class="form-group">
+                            <h4><?= /** @noEscape */ $attribute['frontend_label'];  ?></h4>
+                            <div class="form-col">
+                                <?php
+                                if ($attribute['frontend_input'] == 'select' ||
+                                $attribute['frontend_input']=='multiselect' ||
+                                $attribute['frontend_input']=='boolean') {
+                                    $fix = "";
+                                    $multiselect = "";
+                                    if ($attribute['frontend_input'] == 'multiselect') {
+                                        $fix = "[]";
+                                        $multiselect = "multiple";
+                                    }
+
+                                    ?>
+                                    <select class="myinput-text 
+                                    <?php
+                                    if ($attribute['is_required']) {
+                                        echo 'required-entry';
+                                    } ?> input-text validate-data" name="custom[<?=
+                                    $block->escapeHtml($attribute['attribute_code'])
+?>]<?= $block->escapeHtml($fix) ?>" 
+                                    <?= $block->escapeHtml($multiselect);?>>
+                                        <?php $attributeOptions = $attribute->getSource()->getAllOptions();
+                                        foreach ($attributeOptions as $each) {
+                                            $values=explode(',', $attributeValue['value']);
+                                            $selected="";
+                                            if (in_array($each["value"], $values)) {
+                                                $selected= "selected=='selected'";
+                                            } ?>
+                                          <option <?= /** @noEscape */ $selected; ?> 
+                                          value="<?=/** @noEscape */ $each["value"]; ?>">
+                                            <?= /** @noEscape */ $each["label"];  ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'text') { ?>
+                                    <input class="<?php
+                                    if ($attribute['is_required']) {
+                                        echo 'required-entry';
+                                    } ?> input-text validate-data" 
+                                        type="text" 
+                                        value="<?= /** @noEscape */ $attributeValue['value'] ?>" 
+                                        name="custom[<?= /** @noEscape */ $attribute['attribute_code'];?>]" />
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'date') { ?>
+                                    <input 
+                                    class="<?php
+                                    if ($attribute['is_required']) {
+                                        echo 'required-entry';
+                                    } ?> input-text datetype validate-date" 
+                                    type="text" 
+                                    value="<?= /** @noEscape */ $attributeValue['value'] ?>" 
+                                    name="custom[<?= /** @noEscape */ $attribute['attribute_code'];?>]" />
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'textarea') { ?>
+                                    <textarea class="<?php
+                                    if ($attribute['is_required']) {
+                                        echo 'required-entry';
+                                    } ?> input-text" 
+                                        rows="5" cols="75" id="textar" 
+                                        name="custom[<?= /** @noEscape */ $attribute['attribute_code'];?>]" >
+                                        <?= /** @noEscape */ $attributeValue['value'] ?>
+                                    </textarea>
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'image') { ?>
+                                    <?php if ($attributeValue['value']): ?>
+                                        <div class="wk_ts_one_thread_attachments_holder">
+                                            <span class="wk_ts_attachment_block">
+                                                <?php
+                                                $url =
+                                                $mediaUrl.'helpdesk/attributeattachment/'
+                                                .$ticketId.'/'.$attributeValue['value']
+                                                ?>
+                                                <?php
+                                                    $file =
+                                                    explode('.', $attributeValue['value']);
+                                                    $ext = $file[count($file) - 1];
+                                                ?>
+                                                <?php if (in_array($ext, $imgExtensions)): ?>
+                                                    <img src="<?= /** @noEscape */ $url ?>" 
+                                                    title="<?= /** @noEscape */ $attributeValue['value'] ?>"/>
+                                                <?php else: ?>
+                                                    <span class="wk_ts_file_extension">
+                                                        <?= /** @noEscape */ $ext ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <a class="image-hover-a" target="_blank" 
+                                                href="<?= /** @noEscape */ $url ?>">
+                                                <i class="fa fa-download"></i></a>
+                                            </span>
+                                        </div>
+                                    <?php else: ?>
+                                        <input 
+                                        class="<?php
+                                        if ($attribute['is_required']) {
+                                            echo 'required-entry';
+                                        } ?> input-text" 
+                                        type="file" 
+                                        name="custom[<?= /** @noEscape */ $attribute['attribute_code'];?>]" />
+                                    <?php endif; ?>
+                                <?php } ?>
+                                <?php if ($attribute['frontend_input'] == 'file') { ?>
+                                    <?php if ($attributeValue['value']): ?>
+                                        <div class="wk_ts_one_thread_attachments_holder">
+                                            <span class="wk_ts_attachment_block">
+                                                <?php
+                                                $url =
+                                                $mediaUrl.
+                                                'helpdesk/attributeattachment/'
+                                                .$ticketId.
+                                                '/'.$attributeValue['value'] ?>
+                                                <?php
+                                                    $file = explode('.', $attributeValue['value']);
+                                                    $ext = $file[count($file) - 1];
+                                                ?>
+                                                <?php if (in_array($ext, $imgExtensions)): ?>
+                                                    <img 
+                                                    src="<?= /** @noEscape */ $url ?>" 
+                                                    title="<?= /** @noEscape */ $attributeValue['value'] ?>"/>
+                                                <?php else: ?>
+                                                    <span class="wk_ts_file_extension">
+                                                        <?= /** @noEscape */ $ext ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <a class="image-hover-a" target="_blank" 
+                                                href="<?= /** @noEscape */ $url ?>">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                            </span>
+                                        </div>
+                                    <?php else: ?>
+                                        <input 
+                                        class="<?php
+                                        if ($attribute['is_required']) {
+                                            echo 'required-entry';
+                                        } ?> input-text" 
+                                        type="file" 
+                                        name="custom[<?=
+                                        $block->escapeHtml($attribute['attribute_code']);?>]" />
+                                    <?php endif; ?>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <button class="save_attribute_btn" type="submit">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </form>
+            <?php endif; ?>
+        </div>
+        <div class="wk_ts_thread_container">
+            <div class="wk_ts_button_action_box">
+                <button id="ticket-viewers" class="action_button wk_primary" 
+                data-html="true" type="button">
+                    <i class="fa fa-eye"></i>
+                    <div class="down_arrow_box">
+                        <strong style="width:100%;float:left">
+                        <?= $block->escapeHtml(__('Ticket Viewer'));?> - 
+                        <span class="count">0<span></strong>
+                        <span class="names"><?= $block->escapeHtml(__('Test'));?></span>
+                    </div>
+                </button>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::send_reply")): ?>
+                    <button class="action_button reply" href="#wk_ts_reply_container">
+                        <i class="fa fa-reply"></i>
+                        <?= $block->escapeHtml(__("Reply")) ?>
+                    </button>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::forward_ticket")): ?>
+                    <button class="action_button forward" 
+                    href="#wk_ts_forward_container">
+                        <i class="fa fa-share"></i>
+                        <?= $block->escapeHtml(__("Forward")) ?>
+                    </button>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::add_note")): ?>
+                    <button class="action_button add_note" 
+                    href="#wk_ts_add_note_container">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <?= $block->escapeHtml(__("Add Note")) ?>
+                    </button>
+                <?php endif; ?>
+                <button class="action_button apply_action">
+                    <i class="fa fa-check"></i>
+                    <?= $block->escapeHtml(__("Responses")) ?>
+                </button>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::edit_status")): ?>
+                    <button class="action_button mark_spam">
+                        <i class="fa fa-ban"></i>
+                        <?= $block->escapeHtml(__("Mark Spam")) ?>
+                    </button>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::delete_ticket")): ?>
+                    <button class="action_button delete">
+                        <i class="fa fa-trash-o"></i>
+                        <?= $block->escapeHtml(__("Delete")) ?>
+                    </button>
+                <?php endif; ?>
+            </div>
+
+            <?php $createThread = $ticketsHelper->getCreateTypeTreadDetails($ticketId); ?>
+            <div class="wk_ts_create_thread" style="margin-top:10px;">
+                <div class="wk_ts_one_thread_heading">
+                    <div class="wk_ts_pannel_heading  
+                    <?php
+                    if ($createThread->getWhoIs() == 'customer') {
+                        echo 'customer';
+                    }
+                    ?>">
+                        <?= $block->escapeHtml(substr($createThread->getSender(), 0, 1)) ?>
+                    </div>
+                    <div class="wk_ts_header_user_details">
+                        <div class="wk_ts_ticket_customer_detail">
+                            <i class="fa fa-user"></i>
+                            <h4><?= $block->escapeHtml($createThread->getSender()) ?></h4>
+                        </div>
+                        <div class="wk_ts_ticket_created_date">
+                            <i class="fa fa-clock-o"></i>
+                            <h4><?= $block->escapeHtml(__("Created On - ")) ?></h4>
+                            <label>
+                                <?= /** @noEscape */
+                                date($datFormat, strtotime($createThread->getCreatedAt()) + $offset);
+                                ?>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="wk_ts_one_thread_body <?php if ($createThread->getWhoIs() == "admin") { echo 'admin'; } ?>">
+                    <h4><?= $block->escapeHtml($ticket->getSubject()) ?></h4>
+                    <?= /** @noEscape */
+                    strip_tags(htmlspecialchars_decode(stripslashes($ticket->getQuery())), "<br><p>");
+                    ?>
+                    <?php if ($createThread->getSource() == "email"): ?>
+                        <?php
+                            $mailDetails =
+                            $ticketsHelper->getMailFetchCollection($createThread->getEntityId());
+                        ?>
+                        <div class="wk_ts_one_thread_attachments_holder">
+                            <?php
+                            $emailAttachmentPath =
+                            $mediaDirpath.
+                            "/helpdesk/mailattachment/".
+                            $mailDetails->getUId(). '/';
+                            ?>
+                            <?php if ($block->fileExists($emailAttachmentPath)): ?>
+                                <?php foreach (new DirectoryIterator($emailAttachmentPath) as $fileInfo): ?>
+                                    <?php if ($fileInfo->isDot() || $fileInfo->isDir()) { continue;}
+                                    if ($fileInfo->isFile()): ?>
+                                        <span class="wk_ts_attachment_block">
+                                            <?php
+                                            $url =
+                                            $mediaUrl.
+                                            'helpdesk/mailattachment/'
+                                            .$mailDetails->getUId().
+                                            '/'.$fileInfo; ?>
+                                            <?php if (in_array($fileInfo->getExtension(), $imgExtensions)): ?>
+                                                <img src="<?= /** @noEscape */  $url ?>" 
+                                                title="<?= /** @noEscape */ $fileInfo ?>"/>
+                                            <?php else: ?>
+                                                <span class="wk_ts_file_extension">
+                                                    <?= /** @noEscape */ $fileInfo->getExtension()
+                                                    ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            <a class="image-hover-a" 
+                                            target="_blank" 
+                                            href="<?= /** @noEscape */ $url ?>">
+                                            <i class="fa fa-download"></i>
+                                            </a>
+                                        </span>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php else: ?>
+                         <?php if ($createThread->getAttachment() == 1):   ?>
+                            <div class="wk_ts_one_thread_attachments_holder">
+                                <?php
+                                $emailAttachmentPath =
+                                $mediaDirpath.
+                                "/helpdesk/websiteattachment/".
+                                $createThread->getEntityId(). '/';
+                                ?>
+                                <?php if ($block->fileExists($emailAttachmentPath)): ?>
+                                    <?php
+                                    foreach (new DirectoryIterator($emailAttachmentPath) as $fileInfo): ?>
+                                        <?php
+                                        if ($fileInfo->isDot() || $fileInfo->isDir()) { continue;}
+                                        if ($fileInfo->isFile()): ?>
+                                            <span class="wk_ts_attachment_block">
+                                                <?php
+                                                $url =
+                                                $mediaUrl.'helpdesk/websiteattachment/'
+                                                .$createThread->getEntityId().'/'
+                                                .$fileInfo; ?>
+                                                <?php
+                                                if (in_array($fileInfo->getExtension(), $imgExtensions)):
+                                                    ?>
+                                                    <?php
+                                                    if (in_array($fileInfo->getExtension(), $extensions)) {
+                                                        ?>
+                                                    <span class="wk_ts_file_extension">
+                                                        <?= /** @NoEscape */$fileInfo->getExtension() ?>
+                                                    </span>
+                                                <?php } else {?>
+                                                    <img 
+                                                    src="<?=/** @noEscape */ $url ?>" 
+                                                    title="<?=
+                                                    $block->escapeHtml($fileInfo)
+                                                    ?>"/>
+                                                <?php } ?>    
+                                                <?php else: ?>
+                                                    <span class="wk_ts_file_extension">
+                                                        <?=
+                                                        $block->escapeHtml($fileInfo->getExtension())
+                                                        ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <a class="image-hover-a" 
+                                                download href="<?= /** @noEscape */ $url ?>">
+                                                <i class="fa fa-download"></i>
+                                                </a>
+                                            </span>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="wk_ts_view_more_box">
+                <div class="wk_ts_more_expand_link" data-next-page="2" 
+                data-max-pages="<?= /** @noEscape */
+                $ticketsHelper->getMaxPages($threadLimit, $ticketId)
+                ?>">
+                    <?php $remianingThread = $totalThread - $threadLimit; ?>
+                    <?php if ($remianingThread > 0): ?>
+                        <span class="thread_count">
+                            <?= $block->escapeHtml($remianingThread);  ?>
+                        </span>
+                        <?= $block->escapeHtml(__("More Expand")) ?>
+                    <?php else: ?>
+                        <?= $block->escapeHtml(__("All Displayed")) ?>
+                    <?php endif; ?>
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+            </div>
+            <div class="wk_ts_thread_container_box">
+                <?php $data = $block->getCollection($threadLimit, $ticketId)->toArray();?>
+                <?php $data = array_reverse($data['items']) ?>
+                <?php foreach ($data as $thread): ?>
+                    <div class="wk_ts_one_thread">
+                        <div class="wk_ts_one_thread_heading">
+                            <div class="wk_ts_pannel_heading 
+                            <?php
+                            if ($thread['who_is'] == 'customer') {
+                                echo 'customer';
+                            } ?>">
+                                <?= $block->escapeHtml(substr($thread['sender'], 0, 1)) ?>
+                            </div>
+                            <div class="wk_ts_header_user_details">
+                                <div class="wk_ts_ticket_customer_detail">
+                                    <i class="fa fa-user"></i>
+                                    <h4><?= $block->escapeHtml($thread['sender']) ?></h4>
+                                </div>
+                                <div class="wk_ts_ticket_created_date">
+                                    <span class="fa"><?= $block->escapeHtml(__("Id")) ?></span>
+                                    <?= $block->escapeHtml($thread['entity_id']) ?>
+                                    <?php if ($thread['to'] != ""): ?>
+                                        <?=
+                                            "<strong style='margin-left:5px'>"
+                                            .$block->escapeHtml(__("To"))."</strong> : "
+                                            .$block->escapeHtml($thread['to']); ?>
+                                    <?php endif; ?>
+                                    <?php if ($thread['cc'] != ""): ?>
+                                        <?=
+                                            "<strong style='margin-left:5px'>"
+                                            .$block->escapeHtml(__("Cc")).
+                                            "</strong> : "
+                                            .$block->escapeHtml($thread['cc']); ?>
+                                    <?php endif; ?>
+                                    <?php if ($thread['bcc'] != ""): ?>
+                                        <?=
+                                            "<strong style='margin-left:5px'>"
+                                            .$block->escapeHtml(__("Bcc")).
+                                            "</strong> : "
+                                            .$block->escapeHtml($thread['bcc']); ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wk_ts_notes_msg">
+                            <?php if ($thread['thread_type'] == "reply"):  ?>
+                                <i>
+                                    <?= $block->escapeHtml($thread['sender']) ?> 
+                                    <span class="reply">
+                                        <?= $block->escapeHtml(__("replied")) ?>
+                                    </span> on 
+                                    <?= /** @noEscape */
+                                    date($datFormat, strtotime($thread['created_at']) + $offset);
+                                    ?></i>
+                            <?php elseif ($thread['thread_type'] == "forward"):  ?>
+                                <i>
+                                    <?= $block->escapeHtml($thread['sender']) ?> 
+                                    <span class="reply">
+                                        <?= $block->escapeHtml(__("forwarded")) ?>
+                                    </span> on <?= /** @noEscape */
+                                    date($datFormat, strtotime($thread['created_at']) + $offset);
+                                    ?></i>
+                            <?php else: ?>
+                                <i><?= $block->escapeHtml($thread['sender']) ?> 
+                                <span class="note">
+                                    <?= $block->escapeHtml(__("added notes")) ?></span> 
+                                    on <?= /** @noEscape */
+                                    date($datFormat, strtotime($thread['created_at']) + $offset);
+                                    ?></i>
+                            <?php endif; ?>
+                        </div>
+                        <div class="wk_ts_one_thread_body 
+                        <?php if ($thread['thread_type'] == "note") { echo 'note'; } ?>">
+                            <?php
+                            if ($helper->getPermission("Webkul_Helpdesk::split_ticket")
+                            && $thread['who_is'] != 'customer'
+                            && $thread['thread_type'] == "reply"): ?>
+                                <button class="splitthread" style="margin-left:3px" 
+                                data-id="<?= /** @noEscape */ $thread['entity_id'] ?>">
+                                    <i class="fa fa-chain-broken"></i>
+                                </button>
+                            <?php endif; ?>
+                            <?php
+                            if ($helper->getPermission("Webkul_Helpdesk::delete_conversation")):
+                                ?>
+                                <button 
+                                class="deletethread" 
+                                data-id="<?= /** @noEscape */ $thread['entity_id'] ?>">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            <?php endif; ?>
+                            <?= /** @noEscape */
+                            strip_tags(htmlspecialchars_decode(stripslashes($thread['reply'])), "<br><p>");
+                            ?>
+                            <?php if ($thread['source'] == "email"): ?>
+                                <?php
+                                    $mailDetails =
+                                    $ticketsHelper->getMailFetchCollection($thread['entity_id']);
+                                ?>
+                                <div class="wk_ts_one_thread_attachments_holder">
+                                    <?php
+                                    $emailAttachmentPath =
+                                    $mediaDirpath."/helpdesk/mailattachment/"
+                                    .$mailDetails->getUId(). '/'; ?>
+                                    <?php if ($block->fileExists($emailAttachmentPath)): ?>
+                                        <?php foreach (new DirectoryIterator($emailAttachmentPath) as $fileInfo): ?>
+                                            <?php if ($fileInfo->isDot() || $fileInfo->isDir()) { continue;}
+                                            if ($fileInfo->isFile()): ?>
+                                                <span class="wk_ts_attachment_block">
+                                                    <?php
+                                                    $url =
+                                                    $mediaUrl.
+                                                    'helpdesk/mailattachment/'.
+                                                    $mailDetails->getUId().'/'.
+                                                    $fileInfo; ?>
+                                                    <?php if (in_array($fileInfo->getExtension(), $imgExtensions)): ?>
+                                                        <img 
+                                                        src="<?= /** @noEscape */ $url ?>" 
+                                                        title="<?= /** @noEscape */ $fileInfo ?>"/>
+                                                    <?php else: ?>
+                                                        <span class="wk_ts_file_extension">
+                                                            <?= /** @noEscape */
+                                                            $fileInfo->getExtension() ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    <a class="image-hover-a" 
+                                                    target="_blank" href="<?= /** @noEscape */ $url ?>">
+                                                    <i class="fa fa-download"></i>
+                                                    </a>
+                                                </span>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php else: ?>
+                                <?php if ($thread['attachment'] == 1):   ?>
+                                    <div class="wk_ts_one_thread_attachments_holder">
+                                        <?php
+                                        $emailAttachmentPath = $mediaDirpath.
+                                        "/helpdesk/websiteattachment/".
+                                        $thread['entity_id']. '/';
+                                        ?>
+                                        <?php if ($block->fileExists($emailAttachmentPath)): ?>
+                                            <?php foreach (new DirectoryIterator($emailAttachmentPath) as $fileInfo): ?>
+                                                <?php if ($fileInfo->isDot() || $fileInfo->isDir()) { continue;}
+                                                if ($fileInfo->isFile()): ?>
+                                                    <span class="wk_ts_attachment_block">
+                                                        <?php
+                                                        $url =
+                                                        $mediaUrl
+                                                        .'helpdesk/websiteattachment/'
+                                                        .$thread['entity_id'].'/'
+                                                        .$fileInfo;
+                                                        ?>
+                                                        <?php
+                                                        if (in_array($fileInfo->getExtension(), $imgExtensions)):
+                                                            ?>
+                                                            <?php
+                                                            if (in_array(
+                                                                $fileInfo->getExtension(),
+                                                                ['doc','docx','xls','csv']
+                                                            )) {
+                                                                $src = $block->docFileUrl();
+                                                            } elseif (in_array($fileInfo->getExtension(), ['pdf'])) {
+                                                                $src = $block->pdfFileUrl();
+                                                            } else {
+                                                                $src =  $url;
+                                                            }?>
+                                                            <img 
+                                                            src="<?= /** @noEscape */ $src ?>" 
+                                                            title="<?= /** @noEscape */ $fileInfo ?>"/>
+                                                        <?php else: ?>
+                                                            <span 
+                                                            class="wk_ts_file_extension">
+                                                            <?= /** @noEscape */
+                                                            $fileInfo->getExtension() ?>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <a class="image-hover-a" 
+                                                        target="_blank" 
+                                                        href="<?= /** @noEscape */ $url ?>">
+                                                        <i class="fa fa-download"></i>
+                                                        </a>
+                                                    </span>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="wk_ts_header_user_details" style="margin-left: 60px;"></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <?php if ($ticket->getMergePrimaryId() == '1' || $ticket->getIsMerged() == 0) {?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::send_reply") ||
+                $helper->getPermission("Webkul_Helpdesk::forward_ticket") ||
+                $helper->getPermission("Webkul_Helpdesk::add_note")): ?>
+                <div class="wk_ts_one_thread_heading">
+                    <?php $agent = $ticketsHelper->getCurrentAgent(); ?>
+                    <div class="wk_ts_pannel_heading">
+                        <?= $block->escapeHtml(substr($agent->getName(), 0, 1)) ?>
+                    </div>
+                    <div class="wk_ts_header_user_details">
+                        <div class="wk_ts_ticket_customer_detail">
+                            <i class="fa fa-user"></i>
+                            <h4><?= $block->escapeHtml($agent->getName()) ?></h4>
+                            <span id="draft_msg_box" 
+                            style="color: #75a74d;font-size:13px;float:left;width:100%;font-style: italic;">
+                                <?php
+                                if ($ticketsHelper->getDraftContent("reply", $ticketId) != "" ||
+                                $ticketsHelper->getDraftContent("forward", $ticketId)
+                                != "" ||
+                                $ticketsHelper->getDraftContent("note", $ticketId)
+                                != ""): ?>
+                                    <?= $block->escapeHtml(__("Draft Saved")); ?>
+                                <?php endif; ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <?php endif ?>
+            <ul class="wk_ts_nav_tabs">
+                <?php if ($helper->getPermission("Webkul_Helpdesk::send_reply")): ?>
+                    <li class="active wk_ts_reply_container-tab" 
+                    for="#wk_ts_reply_container">
+                        <span><?= $block->escapeHtml(__("Reply")) ?></span>
+                    </li>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::forward_ticket")): ?>
+                    <li 
+                    class="<?php
+                    if (!$helper->getPermission("Webkul_Helpdesk::send_reply")) {
+                        echo 'active';
+                    } ?>wk_ts_forward_container-tab" 
+                    for="#wk_ts_forward_container">
+                        <span><?= $block->escapeHtml(__("Forward")) ?></span>
+                    </li>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::add_note")): ?>
+                    <li 
+                    class="<?php
+                    if (!$helper->getPermission("Webkul_Helpdesk::send_reply") &&
+                    !$helper->getPermission("Webkul_Helpdesk::forward_ticket")) {
+                        echo 'active';
+                    } ?>wk_ts_add_note_container-tab" 
+                        for="#wk_ts_add_note_container">
+                        <span><?= $block->escapeHtml(__("Add note")) ?></span>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <ul class="wk_ts_forms_container">
+                <?php if ($helper->getPermission("Webkul_Helpdesk::send_reply")): ?>
+                    <li class="wk_ts_forms_container_li wk_ts_reply_container" id="wk_ts_reply_container">
+                        <ul>
+                            <?php if ($helper->getPermission("Webkul_Helpdesk::add_cc_bcc")): ?>
+                                <li>
+                                    <button class="dropdown-toggle ticket_tag_btn" 
+                                    data-toggle="dropdown" type="button" 
+                                    data-id="input-tags">
+                                        <span class="filter-option pull-left" for="Cc">
+                                            <?= $block->escapeHtml(__("Cc")) ?>
+                                        </span>
+                                        <i class="fa fa-caret-down" style="position:absolute;right:10px;"></i>
+                                    </button>
+                                    <div class="dropdown-menu open">
+                                        <div class="bs-searchbox">
+                                            <input type="email" autocomplete="off" 
+                                            class="form-control cc-email-type" 
+                                            style="width: 99%; padding: 1% 0px;">
+                                            <span class="cc-err" style="color:red">
+                                            </span>
+                                        </div>
+                                        <ul role="menu" class="dropdown-menu-list">
+                                            <?php foreach ($agentColl as $key => $agent): ?>
+                                                <li data-id="<?=
+                                                    $block->escapeHtml($agent->getUserId())
+                                                ?>" 
+                                                data-active="0">
+                                                    <span class="text" 
+                                                    data-email="<?= $block->escapeHtml($agent->getEmail()) ?>">
+                                                        <?=
+                                                        $block->escapeHtml(
+                                                            $agent->getFirstname().
+                                                            " - ".$agent->getEmail()
+                                                        ) ?>
+                                                    </span>
+                                                    <i class="fa fa-check hide" 
+                                                    style="position:absolute;right:15px;"></i>
+                                                </li>
+                                            <?php endforeach; ?>
+                                            <li class="no-results" style="display: none;">
+                                            <?=
+                                            $block->escapeHtml(__("Use Enter To Add If UnAvailable"))
+                                            ?></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <button class="dropdown-toggle ticket_tag_btn" 
+                                    data-toggle="dropdown" type="button" 
+                                    data-id="input-tags">
+                                        <span class="filter-option pull-left" for="Bcc">
+                                            <?= $block->escapeHtml(__("Bcc")) ?>
+                                        </span>
+                                        <i class="fa fa-caret-down" 
+                                        style="position:absolute;right:10px;"></i>
+                                    </button>
+                                    <div class="dropdown-menu open">
+                                        <div class="bs-searchbox">
+                                            <input type="text" autocomplete="off" 
+                                            class="form-control" 
+                                            style="width: 99%; padding: 1% 0px;">
+                                        </div>
+                                        <ul role="menu" class="dropdown-menu-list">
+                                            <?php foreach ($agentColl as $key => $agent): ?>
+                                                <li 
+                                                data-id="<?=
+                                                $block->escapeHtml($agent->getUserId())
+                                                ?>" 
+                                                data-active="0">
+                                                    <span class="text" 
+                                                    data-email="<?=
+                                                    $block->escapeHtml($agent->getEmail()) ?>">
+                                                        <?=
+                                                        $block->escapeHtml($agent->getFirstname().
+                                                        " - ".$agent->getEmail()) ?>
+                                                    </span>
+                                                    <i class="fa fa-check hide" 
+                                                    style="position:absolute;right:15px;"></i>
+                                                </li>
+                                            <?php endforeach; ?>
+                                            <li class="no-results" style="display: none;">
+                                            <?= $block->escapeHtml(__("Use Enter To Add If UnAvailable")) ?>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                            <form id="wk_ts_reply_form" method="post" 
+                            action="<?= /** @noEscape */
+                            $block->getUrl('helpdesk/ticketsmanagement_tickets/adminreply/');
+                            ?>" 
+                            enctype="multipart/form-data">
+                                <li>
+                                    <input name="form_key" type="hidden" 
+                                    value="<?= $block->escapeHtml($block->getFormKey()) ?>" />
+                                    <input type="hidden" name="ticket_id" 
+                                    value="<?= $block->escapeHtml($ticketId); ?>"/>
+                                    <input name="thread_type" type="hidden" value="reply" />
+                                    <input name="cc" type="hidden" class="Cc"/>
+                                    <input name="bcc" type="hidden" class="Bcc"/>
+                                    <textarea style="height:200px" 
+                                    class="required-entry" id="wk_reply_text_field" 
+                                    name="query">
+                                    <?= /** @noEscape */
+                                    strip_tags(htmlspecialchars_decode(stripslashes($ticketsHelper->getDraftContent(
+                                        "reply",
+                                        $ticketId
+                                    ))), "<p><br>")
+                                    ?>
+                                    </textarea>
+                                </li>
+                                <li style="padding: 15px 0px;">
+                                    <label class="upload_btn" for="wk_ts_file">
+                                        <?= $block->escapeHtml(__("Upload")) ?>
+                                    </label>
+                                    <input id="wk_ts_file" type="file" 
+                                    multiple="multiple" style="display:none;" 
+                                    name="fupld">
+                                    <span id="uploaded-file-id" style="margin:10px"></span>
+                                    <button class="msg_submit_btn reply-button"><i 
+                                    class="fa fa-reply"></i>
+                                    <?= $block->escapeHtml(__("Reply")) ?>
+                                    </button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::forward_ticket")): ?>
+                    <li class="wk_ts_forms_container_li wk_ts_forward_container" 
+                    id="wk_ts_forward_container" 
+                    style="<?php if (!$helper->getPermission("Webkul_Helpdesk::send_reply")) { echo 'display:block';
+                           } else { echo 'display:none'; } ?>">
+                        <ul>
+                            <li>
+                                <button class="dropdown-toggle ticket_tag_btn" 
+                                data-toggle="dropdown" type="button" 
+                                data-id="input-tags">
+                                    <span class="filter-option pull-left" for="To">
+                                        <?= $block->escapeHtml(__("To")) ?>
+                                    </span>
+                                    <i class="fa fa-caret-down" style="position:absolute;right:10px;"></i>
+                                </button>
+                                <div class="dropdown-menu open">
+                                    <div class="bs-searchbox">
+                                        <input type="text" autocomplete="off" 
+                                        class="form-control" 
+                                        style="width: 99%; padding: 1% 0px;">
+                                    </div>
+                                    <ul role="menu" class="dropdown-menu-list">
+                                        <?php foreach ($agentColl as $key => $agent): ?>
+                                            <li 
+                                            data-id="<?= $block->escapeHtml($agent->getUserId()) ?>" 
+                                            data-active="0">
+                                                <span class="text" 
+                                                data-email="<?= $block->escapeHtml($agent->getEmail()) ?>">
+                                                    <?=
+                                                    $block->escapeHtml(
+                                                        $agent->getFirstname().
+                                                        " - ".$agent->getEmail()
+                                                    ) ?>
+                                                </span>
+                                                <i class="fa fa-check hide" 
+                                                style="position:absolute;right:15px;">
+                                                </i>
+                                            </li>
+                                        <?php endforeach; ?>
+                                        <li class="no-results" style="display: none;">
+                                        <?= $block->escapeHtml(__("Use Enter To Add If UnAvailable")) ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <?php if ($helper->getPermission("Webkul_Helpdesk::add_cc_bcc")): ?>
+                                <li>
+                                    <button class="dropdown-toggle ticket_tag_btn" 
+                                    data-toggle="dropdown" type="button" 
+                                    data-id="input-tags">
+                                        <span class="filter-option pull-left" for="Cc">
+                                            <?= $block->escapeHtml(__("Cc")) ?>
+                                        </span>
+                                        <i class="fa fa-caret-down" 
+                                        style="position:absolute;right:10px;"></i>
+                                    </button>
+                                    <div class="dropdown-menu open">
+                                        <div class="bs-searchbox">
+                                            <input 
+                                            type="text" 
+                                            autocomplete="off" class="form-control" 
+                                            style="width: 99%; padding: 1% 0px;">
+                                        </div>
+                                        <ul role="menu" class="dropdown-menu-list">
+                                            <?php foreach ($agentColl as $key => $agent): ?>
+                                                <li 
+                                                data-id="<?=
+                                                $block->escapeHtml($agent->getUserId())
+                                                ?>" data-active="0">
+                                                    <span class="text" 
+                                                    data-email="<?=
+                                                        $block->escapeHtml($agent->getEmail())
+                                                    ?>">
+                                                        <?=
+                                                        $block->escapeHtml($agent->getFirstname()
+                                                        ." - ".$agent->getEmail())
+                                                        ?>
+                                                    </span>
+                                                    <i class="fa fa-check hide" 
+                                                    style="position:absolute;right:15px;"></i>
+                                                </li>
+                                            <?php endforeach; ?>
+                                            <li class="no-results" 
+                                            style="display: none;">
+                                            <?= $block->escapeHtml(__("Use Enter To Add If UnAvailable")) ?>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <button class="dropdown-toggle ticket_tag_btn" 
+                                    data-toggle="dropdown" type="button" 
+                                    data-id="input-tags">
+                                        <span class="filter-option pull-left" for="Bcc">
+                                            <?= $block->escapeHtml(__("Bcc")) ?>
+                                        </span>
+                                        <i class="fa fa-caret-down" style="position:absolute;right:10px;"></i>
+                                    </button>
+                                    <div class="dropdown-menu open">
+                                        <div class="bs-searchbox">
+                                            <input type="text" autocomplete="off" 
+                                            class="form-control" style="width: 99%; padding: 1% 0px;">
+                                        </div>
+                                        <ul role="menu" class="dropdown-menu-list">
+                                            <?php foreach ($agentColl as $key => $agent): ?>
+                                                <li 
+                                                data-id="<?= $block->escapeHtml($agent->getUserId()) ?>" 
+                                                data-active="0">
+                                                    <span class="text" 
+                                                    data-email="<?= $block->escapeHtml($agent->getEmail()) ?>">
+                                                        <?=
+                                                        $block->escapeHtml(
+                                                            $agent->getFirstname().
+                                                            " - ".
+                                                            $agent->getEmail()
+                                                        )
+                                                        ?>
+                                                    </span>
+                                                    <i class="fa fa-check hide" 
+                                                    style="position:absolute;right:15px;"></i>
+                                                </li>
+                                            <?php endforeach; ?>
+                                            <li class="no-results" style="display: none;">
+                                            <?= $block->escapeHtml(__("Use Enter To Add If UnAvailable")) ?>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                            <form id="wk_ts_forward_form" method="post" 
+                            action="<?= /** @noEscape */
+                            $block->getUrl('helpdesk/ticketsmanagement_tickets/adminreply/'); ?>" 
+                            enctype="multipart/form-data">
+                                <li>
+                                    <input name="to" type="hidden" class="To"/>
+                                    <input name="cc" type="hidden" class="Cc"/>
+                                    <input name="bcc" type="hidden" class="Bcc"/>
+                                    <input type="hidden" name="ticket_id" 
+                                    value="<?= $block->escapeHtml($ticketId); ?>"/>
+                                    <input name="thread_type" type="hidden" 
+                                    value="forward" />
+                                    <input name="form_key" type="hidden" 
+                                    value="<?= /** @noEscape*/ $block->getFormKey() ?>" />
+                                    <textarea class="required-entry" 
+                                    id="wk_forward_text_field" name="query">
+                                    <?= $block->escapeHtml($ticketsHelper->getDraftContent("forward", $ticketId)) ?>
+                                    </textarea>
+                                </li>
+                                <li style="padding: 15px 0px;">
+                                    <label class="upload_btn" for="wk_ts_file1">
+                                        <?= $block->escapeHtml(__("Upload")) ?>
+                                    </label>
+                                    <input id="wk_ts_file1" type="file" 
+                                    multiple="multiple" style="display:none;" 
+                                    name="fupld">
+                                    <button 
+                                    class="msg_submit_btn forward-button">
+                                    <i class="fa fa-share"></i>
+                                    <?= $block->escapeHtml(__("Forward"))?>
+                                    </button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <?php if ($helper->getPermission("Webkul_Helpdesk::add_note")): ?>
+                    <li class="wk_ts_forms_container_li wk_ts_add_note_container" 
+                    id="wk_ts_add_note_container" 
+                    style="<?php
+                    if (!$helper->getPermission("Webkul_Helpdesk::send_reply")
+                    && !$helper->getPermission("Webkul_Helpdesk::forward_ticket")) {
+                        echo 'display:block';
+                    } else { echo 'display:none'; } ?>">
+                        <form id="wk_ts_add_note_form" method="post" 
+                        action="<?=
+                        /** @noEscape */ $block->getUrl('helpdesk/ticketsmanagement_tickets/adminreply/'); ?>" 
+                        enctype="multipart/form-data">
+                            <ul>
+                                <li>
+                                    <input type="hidden" name="ticket_id" 
+                                    value="<?= $block->escapeHtml($ticketId); ?>"/>
+                                    <input name="form_key" type="hidden" 
+                                    value="<?= /** @noEscape */ $block->getFormKey() ?>" />
+                                    <input name="thread_type" type="hidden" value="note" />
+                                    <textarea class="required-entry" 
+                                    id="wk_add_note_text_field" name="query">
+                                    <?= $block->escapeHtml($ticketsHelper->getDraftContent("note", $ticketId)) ?>
+                                    </textarea>
+                                </li>
+                                <li style="padding: 15px 0px;">
+                                    <button class="msg_submit_btn add-note-button"><i 
+                                    class="fa fa-pencil-square-o"></i>
+                                    <?= $block->escapeHtml(__("Add note")) ?>
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <?php }?>
+        </div>
+    </div>
+    <div class="ticketsLoader text-info">
+        <i class="fa fa-spin fa-spinner fa-5x"></i>
+    </div>
+</div>
+<div class="required-field-error-msg">
+    <i class="fa fa-exclamation-circle"></i>
+    <?= $block->escapeHtml(__("Please write something.")) ?>
+    <label class="wk_close_msg">X</label>
+</div>
+<div class="ajax-success-msg">
+    <i class="fa fa-exclamation-circle"></i>
+    <span class="msg"></span>
+    <label class="wk_close_msg">X</label>
+</div>
+<div class="ajax-draft-save-msg">
+    <i class="fa fa-exclamation-circle"></i>
+    <?= $block->escapeHtml(__("Success !  message has been save in draft.")) ?>
+    <label class="wk_close_msg">X</label>
+</div>
+<script class="popup_container_template" type="text/x-jquery-tmpl">
+    <div class="popup_container">
+        <div class="popup-dialog">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <span class="close_pop_up">×</span>
+                    <h4 class="popup-title">
+                        <?= $block->escapeHtml(__("Prepared Responses With Action(s)")) ?></h4>
+                </div>
+               <div class="popup-body">
+                    <div class="alert alert-info">
+                        <?= $block->escapeHtml(__("Using this Responses, you can apply action(s) to tickets.")) ?>
+
+                    </div>
+                    <div class="container-fluid">
+                        <?php $collection = $ticketsHelper->getAllEnableResponses(); ?>
+                        <?php foreach ($collection as $row): ?>
+                            <?php
+                            if ($row->getCanUse() == "me" && $row->getAgentId() != $agentId) {
+                                continue;
+                            } elseif ($row->getCanUse() == "groups") {
+                                $flag = 0;
+                                $groupIds = array_filter(explode(',', $row->getGroups()));
+                                foreach ($groupIds as $groupId) {
+                                    $group = $ticketsHelper->getGroupDataById($groupId);
+                                    $agentIds = explode(',', $group->getAgentIds());
+                                    if (in_array($agentId, $agentIds)) {
+                                        $flag = 1;
+                                        break;
+                                    }
+                                }
+                                if ($flag == 0) {
+                                    continue;
+                                }
+                            }
+                            ?>
+                            <div class="row">
+                                <h4><?= $block->escapeHtml($row->getName()) ?></h4>
+                                <label><?= $block->escapeHtml($row->getDescription()) ?></label>
+                                <a 
+                                href="<?= /** @noEscape */ $block->getUrl('helpdesk/responses/applyresponse/').'id/'.
+                                $block->escapeHtml($ticketId.'/responseid/'.$row->getId()); ?>">
+                                <button class="action_button apply_response_btn">
+                                    <?= $block->escapeHtml(__("Apply")) ?>
+                                </button></a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="popup-footer">
+                    <button data-dismiss="popup" 
+                    class="action_button popup_close_btn" type="button">
+                    <?= $block->escapeHtml(__('Close'))?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script class="customer_detail_popup_template" type="text/x-jquery-tmpl">
+    <div class="arrow_box">
+        <?php
+            $customer = $ticketsHelper->getHelpdeskCustomerById($ticket->getCustomerId());
+            $customerUrl = $block->getUrl('helpdesk/customer_customer/edit', ["id"=>$customer->getId()]);
+        ?>
+        <span class="detail_head"><?= $block->escapeHtml(__("Customer Detail")) ?></span>
+        <span class="customer_name">
+            <a href='<?= $block->escapeHtml($customerUrl) ?>' target="_blank">
+                <i class='fa fa-user'></i>
+                <?= $block->escapeHtml($customer->getName()) ?>
+            </a>
+        </span>
+        <span class="customer_email">
+            <i class='fa fa-envelope'></i>
+            <?= $block->escapeHtml($customer->getEmail()) ?>
+        </span>
+    </div>
+</script>
+<script class="personal_note_row_tmp" type="text/x-jquery-tmpl">
+    <div class="personal_note_row">
+        <input type="checkbox" class="personal_note_check" value=<%- data.note_id %>>
+        <span class="note_description"><%- data.note_description %></span>
+        <span class="note_delete_box">
+            <i class="fa fa-trash-o"></i>
+        </span>
+    </div>
+</script>
+<script class="tag_row_tmp" type="text/x-jquery-tmpl">
+    <li data-active="1" data-id=<%- data.id %>>
+        <span class="text" data-email=<%- data.name %>>
+            <%- data.name %>
+        </span>
+        <i style="position:absolute;right:15px;" class="fa fa-check show"></i>
+    </li>
+</script>
+<?php
+$formData = [
+    'wysiwygConfig' => $block->getWysiwygConfig(),
+    'draftsavetime' => $helper->getConfigDraftsavetime(),
+    'lockviewtime' => $helper->getConfigLockviewtime(),
+    'allowedextensions' => $helper->getConfigAllowedextensions(),
+    'remianingThread' => $totalThread - $threadLimit,
+    'threadLimit' => $threadLimit,
+    'totalThread' => $totalThread,
+    'expandthreadsUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/expandthreads'),
+    'changepropertyUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/changeproperty'),
+    'ticketid' => $ticketId,
+    'spamstatus' => $helper->getConfigSpamstatus(),
+    'addPersonalNoteUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/addPersonalNote'),
+    'ticketdeleteUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/delete'),
+    'deletethreadUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/deletethread'),
+    'splitthreadUrl' =>  $block->getUrl('helpdesk/ticketsmanagement_tickets/splitthread'),
+    'changeNoteStatusUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/changeNoteStatus'),
+    'deleteNoteUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/deleteNote'),
+    'addtagUrl' => $block->getUrl('helpdesk/tag/addtag'),
+    'formkey' => $block->getFormKey(),
+    'checkViewerUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/checkviewer'),
+    'saveindraftUrl' => $block->getUrl('helpdesk/ticketsmanagement_tickets/saveindraft'),
+    'numAllowFile' => $helper->getConfigNumAllowFile(),
+    'savetagUrl' => $block->getUrl('helpdesk/tag/savetag'),
+    'alloweditor' => $helper->getConfigAllowEditor()
+];
+$blockObj= $block->getLayout()->createBlock(Webkul\Helpdesk\Block\Ticket\View::class);
+$serializedFormData = $blockObj->getJsonHelper()->jsonEncode($formData);
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "viewreply": <?= /* @noEscape */ $serializedFormData ?>
+        }
+    }
+</script>

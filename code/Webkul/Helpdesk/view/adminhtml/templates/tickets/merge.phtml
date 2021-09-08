@@ -1,0 +1,70 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Helpdesk
+ * @author    Webkul
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<script class="popup_container_template" id="popup_container_template" type="text/x-magento-template">
+    <form id="wk_ts_merge_form" 
+    action="<?=
+    /** @noEscape */ $block->getUrl('helpdesk/ticketsmanagement_tickets/merge/');
+    ?>" 
+    method="get">
+        <input type="hidden" name="form_key" 
+        value="<?= /** @noEscape */ $block->getFormKey(); ?>" />
+        <div class="popup_container" style="position: absolute;display:none;">
+            <div class="popup-dialog">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <span class="close_pop_up">×</span>
+                        <h4 class="popup-title">
+                            <?= $block->escapeHtml(__("Merge With Other Tickets")) ?>
+                        </h4>
+                    </div>
+                    <div class="popup-body">
+                         <div class="container-fluid">
+                         </div>
+                     </div>
+                    <div class="popup-footer">
+                        <label 
+                        class="wk_ts_warning_msg" 
+                        style="color: #f56b6b;font-weight:700;margin:10px;float:left;display:none">
+                        <?=
+                            $block->escapeHtml(__("Warning ! min 2 tickets required for merge process."));
+                        ?>
+                        </label>
+                        <button class="action_button popup_close_btn" 
+                        type="button">Close</button>
+                        <button class="action_button wk_primary merge-submit" 
+                        style="float:right;margin:10px" type="submit">
+                        <?= $block->escapeHtml(__("Merge")) ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script class="popup_body_template" id="popup_body_template" type="text/x-magento-template">
+    <div class="row" style="margin: 10px;">
+        <input type="checkbox" class="merge_checkbox" name="id" value=<%- data.ticket_id %>>
+        <input type="hidden" name="ticket_id[]" value=<%- data.ticket_id %>>
+        <h4 style="display: inline-block;">#<%- data.ticket_id %></h4>
+        <label></label>
+        <button type="button" class="action_button apply_response_btn">X</button>
+        <button type="button" style="display:none;float:right" class="wk_success">
+            <?= $block->escapeHtml(__("Primary Ticket")) ?>
+        </button>
+    </div>
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "merge": {}
+        }
+    }
+</script>

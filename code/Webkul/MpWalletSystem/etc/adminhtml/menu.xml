@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpWalletSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+       	<add id="Webkul_MpWalletSystem::walletsystem" title="Marketplace Wallet System" module="Webkul_MpWalletSystem" sortOrder="10" resource="Webkul_MpWalletSystem::walletsystem"/>
+       	<add id="Webkul_MpWalletSystem::wallet" title= "Marketplace Wallet System Details" module="Webkul_MpWalletSystem" sortOrder="1" parent="Webkul_MpWalletSystem::walletsystem" action="mpwalletsystem/wallet" resource="Webkul_MpWalletSystem::wallet"/>
+		<add id="Webkul_MpWalletSystem::banktransfer" title= "Marketplace Wallet System Bank Transfer Details" module="Webkul_MpWalletSystem" sortOrder="2" parent="Webkul_MpWalletSystem::walletsystem" action="mpwalletsystem/wallet/bankdetails/sender_type/5" resource="Webkul_MpWalletSystem::banktransfer"/>
+       	<add id="Webkul_MpWalletSystem::walletamount" title="Adjust Amount to Wallet" module="Webkul_MpWalletSystem" sortOrder="3" parent="Webkul_MpWalletSystem::walletsystem" action="mpwalletsystem/wallet/addamount" resource="Webkul_MpWalletSystem::walletamount"/>
+       	<add id="Webkul_MpWalletSystem::walletcreditrules" title= "Marketplace Wallet System Credit Rules" module="Webkul_MpWalletSystem" sortOrder="4" parent="Webkul_MpWalletSystem::walletsystem" action="mpwalletsystem/creditrules/creditrules" resource="Webkul_MpWalletSystem::walletcreditrules"/>
+       	<add id="Webkul_MpWalletSystem::walletpayee" title= "Marketplace Wallet System Payee List" module="Webkul_MpWalletSystem" sortOrder="5" parent="Webkul_MpWalletSystem::walletsystem" action="mpwalletsystem/transfer/payeelist" resource="Webkul_MpWalletSystem::walletpayee"/>
+       	<add id="Webkul_MpWalletSystem::adminwallet" title= "Manage Admin Wallet" module="Webkul_MpWalletSystem" sortOrder="5" parent="Webkul_MpWalletSystem::walletsystem" action="mpwalletsystem/wallet/adminwallet" resource="Webkul_MpWalletSystem::adminwallet"/>
+    </menu>
+</config>

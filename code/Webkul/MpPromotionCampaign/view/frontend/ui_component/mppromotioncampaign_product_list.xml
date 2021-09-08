@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+   <argument name="data" xsi:type="array">
+      <item name="js_config" xsi:type="array">
+         <item name="provider" xsi:type="string">mppromotioncampaign_product_list.mppromotioncampaign_product_list_data_source</item>
+         <item name="deps" xsi:type="string">mppromotioncampaign_product_list.mppromotioncampaign_product_list_data_source</item>
+      </item>
+      <item name="spinner" xsi:type="string">products_columns</item>
+   </argument>
+   <dataSource name="mppromotioncampaign_product_list_data_source">
+      <argument name="dataProvider" xsi:type="configurableObject">
+         <argument name="class" xsi:type="string">Webkul\MpPromotionCampaign\Ui\DataProvider\Seller\ProductListDataProvider</argument>
+         <argument name="name" xsi:type="string">mppromotioncampaign_product_list_data_source</argument>
+         <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+         <argument name="requestFieldName" xsi:type="string">id</argument>
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="component" xsi:type="string">Webkul_Marketplace/js/grid/provider</item>
+               <item name="update_url" xsi:type="url" path="marketplace/mui_index/render" />
+               <item name="storageConfig" xsi:type="array">
+                  <item name="cacheRequests" xsi:type="boolean">false</item>
+               </item>
+            </item>
+         </argument>
+      </argument>
+   </dataSource>
+   <listingToolbar name="listing_top">
+      <filters name="listing_filters">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="statefull" xsi:type="array">
+                  <item name="applied" xsi:type="boolean">false</item>
+               </item>
+               <item name="params" xsi:type="array">
+                  <item name="filters_modifier" xsi:type="array" />
+               </item>
+            </item>
+         </argument>
+      </filters>
+      <massaction name="listing_massaction">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="selectProvider" xsi:type="string">mppromotioncampaign_product_list.mppromotioncampaign_product_list.products_columns.productIds</item>
+               <item name="indexField" xsi:type="string">entity_id</item>
+            </item>
+         </argument>
+          <action name="massadded">
+            <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                  <item name="type" xsi:type="string">massadded</item>
+                  <item name="label" xsi:type="string" translate="true">Product Add</item>
+                  <item name="url" xsi:type="url" path="mppromotioncampaign/campaign/productadd" />
+                  <item name="confirm" xsi:type="array">
+                     <item name="title" xsi:type="string" translate="true">Add</item>
+                     <item name="message" xsi:type="string" translate="true">Are you sure you want to add selected products?</item>
+                  </item>
+               </item>
+            </argument>
+         </action>
+      </massaction>
+      <paging name="listing_paging" />
+   </listingToolbar>
+   <columns name="products_columns">
+      <argument name="data" xsi:type="array">
+         <item name="config" xsi:type="array">
+            <item name="editorConfig" xsi:type="array">
+               <item name="selectProvider" xsi:type="string">mppromotioncampaign_product_list.mppromotioncampaign_product_list.products_columns.productIds</item>
+               <item name="enabled" xsi:type="boolean">true</item>
+               <item name="indexField" xsi:type="string">entity_id</item>
+               <item name="clientConfig" xsi:type="array">
+                  <item name="saveUrl" path="mppromotioncampaign/campaign/productmodified" xsi:type="url" />
+                  <item name="validateBeforeSave" xsi:type="boolean">false</item>
+               </item>
+            </item>
+            <item name="childDefaults" xsi:type="array">
+               <item name="fieldAction" xsi:type="array">
+                  <item name="provider" xsi:type="string">mppromotioncampaign_product_list.mppromotioncampaign_product_list.products_columns_editor</item>
+                  <item name="target" xsi:type="string">startEdit</item>
+                  <item name="params" xsi:type="array">
+                     <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                     <item name="1" xsi:type="boolean">true</item>
+                  </item>
+               </item>
+            </item>
+         </item>
+      </argument>
+      <selectionsColumn name="productIds">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="indexField" xsi:type="string">entity_id</item>
+               <item name="sortOrder" xsi:type="number">0</item>
+               <item name="preserveSelectionsOnFilter" xsi:type="boolean">true</item>
+            </item>
+         </argument>
+      </selectionsColumn>
+      <column name="thumbnail" class="Webkul\Marketplace\Ui\Component\Listing\Columns\Frontend\Thumbnail">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+               <item name="add_field" xsi:type="boolean">true</item>
+               <item name="sortable" xsi:type="boolean">false</item>
+               <item name="altField" xsi:type="string">name</item>
+               <item name="has_preview" xsi:type="string">1</item>
+               <item name="align" xsi:type="string">left</item>
+               <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+               <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+         </argument>
+      </column>
+      <column name="name" class="Webkul\Marketplace\Ui\Component\Listing\Columns\Frontend\ProductUrl">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="component" xsi:type="string">Webkul_Marketplace/js/grid/columns/link</item>
+               <item name="filter" xsi:type="string">text</item>
+               <item name="add_field" xsi:type="boolean">true</item>
+               <item name="label" xsi:type="string" translate="true">Name</item>
+               <item name="sortOrder" xsi:type="number">30</item>
+            </item>
+         </argument>
+      </column>
+      <column name="sku">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="filter" xsi:type="string">text</item>
+               <item name="label" translate="true" xsi:type="string">Sku </item>
+            </item>
+         </argument>
+      </column>
+      <column name="qty" class="Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\Frontend\SellerQty">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="filter" xsi:type="string">false</item>
+               <item name="label" translate="true" xsi:type="string">Quantity </item>
+               <item name="resizeEnabled" xsi:type="boolean">false</item>
+               <item name="resizeDefaultWidth" xsi:type="string">10</item>
+               <item name="sortable" xsi:type="boolean">false</item>
+               <item name="editor" xsi:type="array">
+                  <item name="editorType" xsi:type="string">text</item>
+                  <item name="validation" xsi:type="array">
+                     <item name="required-entry" xsi:type="boolean">false</item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </column>
+    <column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Price</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </column>
+        <column name="promotionPrice" class="Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns\Frontend\PromotionPrice">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">false</item>
+                    <item name="label" xsi:type="string" translate="true">Promotion Price</item>
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">10</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">false</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </column>
+   </columns> 
+</listing>

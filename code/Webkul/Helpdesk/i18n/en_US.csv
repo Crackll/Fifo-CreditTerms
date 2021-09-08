@@ -1,0 +1,699 @@
+"Save Agent","Save Agent"
+"New Agent","New Agent"
+"Agent Information","Agent Information"
+"Account Information","Account Information"
+Username,Username
+"First Name","First Name"
+"Last Name","Last Name"
+E-mail,E-mail
+Password,Password
+"New Password","New Password"
+"Password Confirmation","Password Confirmation"
+Level,Level
+"This account is","This account is"
+"Account Status","Account Status"
+Active,Active
+Inactive,Inactive
+Timezone,Timezone
+Signature,Signature
+"Agent Group","Agent Group"
+"Ticket Scope","Ticket Scope"
+"Please Select","Please Select"
+"Global Access","Global Access"
+"Group Access","Group Access"
+"Restricted Access","Restricted Access"
+"Current User Identity Verification","Current User Identity Verification"
+"Your Password","Your Password"
+Assigned,Assigned
+"Role Name","Role Name"
+Agent,Agent
+"Agent Role","Agent Role"
+"Save Group","Save Group"
+"New Group","New Group"
+"Group Information","Group Information"
+"Add Group","Add Group"
+"Group Name","Group Name"
+"Businesshour Hour","Businesshour Hour"
+Status,Status
+Enabled,Enabled
+Disabled,Disabled
+Group,Group
+"Save Level","Save Level"
+"New Level","New Level"
+"Level Information","Level Information"
+"Add Level","Add Level"
+Name,Name
+Description,Description
+Role,Role
+"Add New Role","Add New Role"
+"Add/Manage Agent Role","Add/Manage Agent Role"
+"Save Businesshours","Save Businesshours"
+"New Businesshours","New Businesshours"
+"Yearly Holiday List","Yearly Holiday List"
+"Helpdesk Hours","Helpdesk Hours"
+"Add Businesshours","Add Businesshours"
+"Businesshour Name","Businesshour Name"
+"Businesshours Information","Businesshours Information"
+"Businesshours Info","Businesshours Info"
+Save,Save
+"New Connect Email","New Connect Email"
+"Fetch Mails","Fetch Mails"
+"IMAP / POP Configuration","IMAP / POP Configuration"
+"User Name","User Name"
+"Host Name","Host Name"
+port,port
+Mailbox,Mailbox
+Protocol,Protocol
+"Select Protocol","Select Protocol"
+IMAP,IMAP
+POP,POP
+"Fetch Emails (no.)","Fetch Emails (no.)"
+"Helpdesk Action","Helpdesk Action"
+"Do Nothing","Do Nothing"
+"Delete Email(s)","Delete Email(s)"
+"Create Folder","Create Folder"
+"Move Email(s)","Move Email(s)"
+"Connect Email Information","Connect Email Information"
+Email,Email
+"Default Values of Ticket","Default Values of Ticket"
+"Default Group","Default Group"
+"Default Type","Default Type"
+"Default Priority","Default Priority"
+"Connect Email Info","Connect Email Info"
+"Save Customer","Save Customer"
+"New Customer","New Customer"
+"Customer Information","Customer Information"
+"Add Customer","Add Customer"
+"Customer Name","Customer Name"
+"Select Customer","Select Customer"
+"Select Organizations","Select Organizations"
+Customer,Customer
+"Save Organization","Save Organization"
+"New Organization","New Organization"
+"Organization Information","Organization Information"
+"Add Organization","Add Organization"
+"Organization Name","Organization Name"
+Domain,Domain
+Notes,Notes
+"Customer Role","Customer Role"
+Goups,Goups
+Organization,Organization
+"Set Priority As","Set Priority As"
+"Set Type As","Set Type As"
+"Set Status As","Set Status As"
+"Add Tag","Add Tag"
+"Add CC","Add CC"
+"Add BCC","Add BCC"
+"Add Note","Add Note"
+"Assign To Agent","Assign To Agent"
+"Assign To Group","Assign To Group"
+"Send Mail To Agent","Send Mail To Agent"
+"Send Mail To Group","Send Mail To Group"
+"Send Mail To Customer","Send Mail To Customer"
+"Delete Ticket","Delete Ticket"
+"Mark Spam","Mark Spam"
+"New Email Template","New Email Template"
+Delete,Delete
+"Preview Template","Preview Template"
+"Default Config","Default Config"
+"Template Information","Template Information"
+"Currently Used For","Currently Used For"
+"Template Name","Template Name"
+"Template Subject","Template Subject"
+"Insert Variable...","Insert Variable..."
+"Template Content","Template Content"
+"Template Styles","Template Styles"
+"Email Template Information","Email Template Information"
+"Email Template Info","Email Template Info"
+"Save Event","Save Event"
+"New Event","New Event"
+Rules,Rules
+"Add Event","Add Event"
+"Events Information","Events Information"
+"Events Info","Events Info"
+Action,Action
+"Save Response","Save Response"
+"New Responses","New Responses"
+Actions,Actions
+"Add Response","Add Response"
+"Can Use","Can Use"
+Me,Me
+"All Agents","All Agents"
+Groups,Groups
+"Response Information","Response Information"
+"Response Info","Response Info"
+"New Slapolicy","New Slapolicy"
+"Conditions for SLA","Conditions for SLA"
+"Add SLA Policy","Add SLA Policy"
+"Sort Order","Sort Order"
+"SLA Targets","SLA Targets"
+"SLA Policy","SLA Policy"
+"Save Item","Save Item"
+"New Item","New Item"
+"Ticket Support Center Information","Ticket Support Center Information"
+"Add Support Center","Add Support Center"
+"Support Center Name","Support Center Name"
+"CMS Page","CMS Page"
+"Ticket Support Center","Ticket Support Center"
+"Save Attribute","Save Attribute"
+"Add Attribute","Add Attribute"
+"Default label","Default label"
+"Attribute Code","Attribute Code"
+"This is used internally. Make sure you don't use spaces or more than %1 characters.","This is used internally. Make sure you don't use spaces or more than %1 characters."
+"Field Dependency","Field Dependency"
+"Input Type","Input Type"
+"Values Required","Values Required"
+"Input Validation","Input Validation"
+Enable,Enable
+Disable,Disable
+"Media Image","Media Image"
+File,File
+"Ticket Custom Attribute Information","Ticket Custom Attribute Information"
+Properties,Properties
+"Save Priority","Save Priority"
+"Add Priority","Add Priority"
+"Ticket Priority Information","Ticket Priority Information"
+"Ticket Priority","Ticket Priority"
+"Save Status","Save Status"
+"New Status","New Status"
+"Ticket Status","Ticket Status"
+"Add Status","Add Status"
+"Ticket Status Information","Ticket Status Information"
+"Save Ticket","Save Ticket"
+"New Ticket","New Ticket"
+"Ticket Information","Ticket Information"
+"Add Ticket","Add Ticket"
+Type,Type
+Subject,Subject
+Query,Query
+"Ticket Info","Ticket Info"
+"Save Type","Save Type"
+"New Type","New Type"
+"Add Type","Add Type"
+"Ticket Type Information","Ticket Type Information"
+"Ticket Type","Ticket Type"
+"A total of %1 record(s) were deleted.","A total of %1 record(s) were deleted."
+"There are some error during this action.","There are some error during this action."
+Webkul_Helpdesk::activity,Webkul_Helpdesk::activity
+Activity,Activity
+"Add Agent","Add Agent"
+"Manage Agent","Manage Agent"
+"This user no longer exists.","This user no longer exists."
+"Edit Agent","Edit Agent"
+Users,Users
+"Manage Agents","Manage Agents"
+"Unable to find agent to save","Unable to find agent to save"
+"You have entered an invalid password for current user.","You have entered an invalid password for current user."
+"Agent has been successfully saved","Agent has been successfully saved"
+"Manage Group","Manage Group"
+"This group no longer exists.","This group no longer exists."
+"Edit Group","Edit Group"
+"A total of %1 record(s) were updated.","A total of %1 record(s) were updated."
+"Unable to find group to save","Unable to find group to save"
+"Group successfully saved","Group successfully saved"
+"There are some error to save type","There are some error to save type"
+"Manage Level","Manage Level"
+"This level no longer exists.","This level no longer exists."
+"Edit Level","Edit Level"
+"Manage Agent Levels","Manage Agent Levels"
+"Unable to find level to save","Unable to find level to save"
+"Level successfully saved","Level successfully saved"
+"Manage Businesshours","Manage Businesshours"
+"This Business hours no longer exists.","This Business hours no longer exists."
+"Edit Businesshours","Edit Businesshours"
+Businesshours,Businesshours
+"Manage Business Hours","Manage Business Hours"
+"Business hour successfully saved","Business hour successfully saved"
+"Connect Email","Connect Email"
+"Manage Connect Email","Manage Connect Email"
+"This Event no longer exists.","This Event no longer exists."
+"Edit Connect Email","Edit Connect Email"
+"%1 email was successfully fetched.","%1 email was successfully fetched."
+"Item does not exist","Item does not exist"
+"Manage Connect Mail","Manage Connect Mail"
+"Item was successfully saved","Item was successfully saved"
+"There are some error to save event","There are some error to save event"
+"Manage Customer","Manage Customer"
+"This Customer no longer exists.","This Customer no longer exists."
+"Edit Customer","Edit Customer"
+"Customer successfully saved","Customer successfully saved"
+"Email is already added with selected customer!!","Email is already added with selected customer!!"
+"Manage Organization","Manage Organization"
+"This Organization no longer exists.","This Organization no longer exists."
+"Edit Organization","Edit Organization"
+"Unable to find organization to save","Unable to find organization to save"
+"Organization successfully saved","Organization successfully saved"
+Dashboard,Dashboard
+"The email template has been deleted.","The email template has been deleted."
+"Unable to find a Email Template to delete.","Unable to find a Email Template to delete."
+EmailTemplate,EmailTemplate
+Events,Events
+"Manage EmailTemplate","Manage EmailTemplate"
+"This Email Template no longer exists.","This Email Template no longer exists."
+"Edit EmailTemplate","Edit EmailTemplate"
+"New EmailTemplate","New EmailTemplate"
+"Manage Email Template","Manage Email Template"
+"Email Preview","Email Preview"
+"An error occurred. The email template can not be opened for preview.","An error occurred. The email template can not be opened for preview."
+"This Email template no longer exists.","This Email template no longer exists."
+"The email template has been saved.","The email template has been saved."
+"Manage Events","Manage Events"
+"Edit Event","Edit Event"
+"Unable to find events to save","Unable to find events to save"
+"Event successfully saved","Event successfully saved"
+"Agent Reporting Summary","Agent Reporting Summary"
+"Customer Reporting Summary","Customer Reporting Summary"
+"Response has been successfully applied.","Response has been successfully applied."
+"Add Responses","Add Responses"
+"Manage Responses","Manage Responses"
+"This response no longer exists.","This response no longer exists."
+"Edit Responses","Edit Responses"
+Responses,Responses
+"Unable to find response to save","Unable to find response to save"
+"Response successfully saved","Response successfully saved"
+"Manage SLA Policy","Manage SLA Policy"
+"This SLA Policy no longer exists.","This SLA Policy no longer exists."
+"Edit SLA Policy","Edit SLA Policy"
+"New SLA Policy","New SLA Policy"
+"Please select condition for SLA!","Please select condition for SLA!"
+"SLA Policy successfully saved","SLA Policy successfully saved"
+"Add Item","Add Item"
+"Manage Item","Manage Item"
+"This Item no longer exists.","This Item no longer exists."
+"Edit Item","Edit Item"
+Item,Item
+"Manage Support Center","Manage Support Center"
+"Support Center successfully saved","Support Center successfully saved"
+"Unable to find Support Center to save","Unable to find Support Center to save"
+"There are some error to save Support Center","There are some error to save Support Center"
+"Manage Tag","Manage Tag"
+"Manage Attribute","Manage Attribute"
+"This custom attribute no longer exists.","This custom attribute no longer exists."
+"Edit Custom Attribute","Edit Custom Attribute"
+"New Custom Attribute","New Custom Attribute"
+"Ticket Attributes Manager","Ticket Attributes Manager"
+"A total of %1 record(s) were disable.","A total of %1 record(s) were disable."
+"A total of %1 record(s) were enable.","A total of %1 record(s) were enable."
+"Unable to find attribute to save","Unable to find attribute to save"
+"Custom attribute successfully saved","Custom attribute successfully saved"
+"Manage Priority","Manage Priority"
+"This ticket priority no longer exists.","This ticket priority no longer exists."
+"Edit Priority","Edit Priority"
+"New Priority","New Priority"
+"Ticket Priority Management","Ticket Priority Management"
+"Priority successfully saved","Priority successfully saved"
+"Unable to find ticket Priority to save","Unable to find ticket Priority to save"
+"Manage Ticket Status","Manage Ticket Status"
+"This status no longer exists.","This status no longer exists."
+"Edit Status","Edit Status"
+"Ticket Status Management","Ticket Status Management"
+"Status successfully saved","Status successfully saved"
+"Unable to find ticket status to save","Unable to find ticket status to save"
+"Nothing Found To Send!!","Nothing Found To Send!!"
+Admin,Admin
+"Message Sent Successfully","Message Sent Successfully"
+"No viewer is watching this ticket","No viewer is watching this ticket"
+"Ticket was successfully deleted","Ticket was successfully deleted"
+Ticket,Ticket
+"Manage Ticket","Manage Ticket"
+Tickets,Tickets
+"Manage Tickets","Manage Tickets"
+"Unable to find ticket to merge","Unable to find ticket to merge"
+"Ticket already merged!!","Ticket already merged!!"
+"Success ! you have been successfully merged Tickets.","Success ! you have been successfully merged Tickets."
+"Unable to find ticket to save","Unable to find ticket to save"
+"Ticket has been successfully created","Ticket has been successfully created"
+"Success ! you have been successfully modified Tickets.","Success ! you have been successfully modified Tickets."
+"Sorry Nothing Found To Save!!","Sorry Nothing Found To Save!!"
+"You are not authorized to access this ticket.","You are not authorized to access this ticket."
+"Ticket does not exist.","Ticket does not exist."
+"Manage Type","Manage Type"
+"This type no longer exists.","This type no longer exists."
+"Edit Type","Edit Type"
+"Ticket Type Management","Ticket Type Management"
+"Type successfully saved","Type successfully saved"
+"Unable to find ticket type to save","Unable to find ticket type to save"
+"Ticket was successfully updated","Ticket was successfully updated"
+"Unauthorised user!!","Unauthorised user!!"
+"Support Center","Support Center"
+"Check ticket status","Check ticket status"
+"Form key is not valid!!","Form key is not valid!!"
+"You entered incorrect data. Please enter correct data!! ","You entered incorrect data. Please enter correct data!! "
+"Unauthorised User!!","Unauthorised User!!"
+"Unable to login!!","Unable to login!!"
+"You are successfully Logged Out","You are successfully Logged Out"
+"'You are not authorized to delete 
+                    tickets with id ' .","'You are not authorized to delete 
+                    tickets with id ' ."
+"Tickets has been successfully deleted from your account","Tickets has been successfully deleted from your account"
+"Ticket Listing","Ticket Listing"
+"Create New Ticket","Create New Ticket"
+"Please Login !!","Please Login !!"
+"Your Ticket Has been saved 
+                    successfully","Your Ticket Has been saved 
+                    successfully"
+"your ticket id is : #","your ticket id is : #"
+"Ticket does not exist!!","Ticket does not exist!!"
+"View Ticket","View Ticket"
+"You are not authorized user!!","You are not authorized user!!"
+"Unable to save activity","Unable to save activity"
+"The file you're uploading exceeds the max size limit of %1 MB.","The file you're uploading exceeds the max size limit of %1 MB."
+D/M/Y,D/M/Y
+Y/M/D,Y/M/D
+M/D/Y,M/D/Y
+"Unable to save ticket","Unable to save ticket"
+"Unable to manage events","Unable to manage events"
+"'Unable to send mail :' .","'Unable to send mail :' ."
+System,System
+"The tokens could not be revoked.","The tokens could not be revoked."
+"There are some error in SLA","There are some error in SLA"
+"Unable to save thread","Unable to save thread"
+msg,msg
+"There are some error in ticketsla","There are some error in ticketsla"
+Edit,Edit
+Yes,Yes
+No,No
+Preview,Preview
+Seconds,Seconds
+View,View
+Reply,Reply
+"Holiday already added","Holiday already added"
+"Invalid holiday added","Invalid holiday added"
+"Add Holiday","Add Holiday"
+"Select working days/hours","Select working days/hours"
+am,am
+pm,pm
+hrs,hrs
+mins,mins
+"Manage Options (values of your attribute)","Manage Options (values of your attribute)"
+"Add Option","Add Option"
+"Sort Option","Sort Option"
+"Allowed Extension","Allowed Extension"
+Pending,Pending
+New,New
+Open,Open
+Closed,Closed
+Resolved,Resolved
+Spam,Spam
+"Recent Activities","Recent Activities"
+"Performer Details","Performer Details"
+Date,Date
+"Are you sure you want to strip tags?","Are you sure you want to strip tags?"
+"Using Events you can add triggers on HelpDesk 'Ticket' Events and can perform selected Action(s) based on selected Condition(s).","Using Events you can add triggers on HelpDesk 'Ticket' Events and can perform selected Action(s) based on selected Condition(s)."
+"Can add events(s) for 'Event(s) & Triggers' which will perform to ticket.","Can add events(s) for 'Event(s) & Triggers' which will perform to ticket."
+"Priority Updated","Priority Updated"
+"Type Updated","Type Updated"
+"Group Updated","Group Updated"
+"Agent Updated","Agent Updated"
+"Note Added","Note Added"
+"Reply Added","Reply Added"
+From,From
+To,To
+Any,Any
+Forward,Forward
+Private,Private
+By,By
+Created,Created
+Deleted,Deleted
+"Delete Row","Delete Row"
+"Add Action","Add Action"
+"At Least One Conditions for Event(s) & Triggers to apply","At Least One Conditions for Event(s) & Triggers to apply"
+"Based on at least one condition from these conditions, Event(s) & Triggers will work for HelpDesk, be careful and select valid conditions.","Based on at least one condition from these conditions, Event(s) & Triggers will work for HelpDesk, be careful and select valid conditions."
+Mail,Mail
+"Subject or Description","Subject or Description"
+Priority,Priority
+Source,Source
+"Customer Email","Customer Email"
+"Organization Domain","Organization Domain"
+Is,Is
+"Is Not","Is Not"
+"Is Contains","Is Contains"
+"Is Not Contains","Is Not Contains"
+"Start With","Start With"
+"End With","End With"
+Website,Website
+Before,Before
+"Before or On","Before or On"
+After,After
+"After or On","After or On"
+"Is 
+                                            Not Contains","Is 
+                                            Not Contains"
+"All Conditions for Event(s) & Triggers","All Conditions for Event(s) & Triggers"
+"Based on these all conditions, Event(s) & Triggers 
+        will work for HelpDesk, be careful and select valid conditions.","Based on these all conditions, Event(s) & Triggers 
+        will work for HelpDesk, be careful and select valid conditions."
+"End 
+                                            With","End 
+                                            With"
+"Delete 
+                                                            Row","Delete 
+                                                            Row"
+"Can add action(s) for Event(s) & Triggers which will perform to ticket.","Can add action(s) for Event(s) & Triggers which will perform to ticket."
+"Assigned 
+                                                        Agent","Assigned 
+                                                        Agent"
+"Select Template","Select Template"
+OR,OR
+"Assigned 
+                                                        Group","Assigned 
+                                                        Group"
+"Select 
+                                                            Template","Select 
+                                                            Template"
+"Assigned Agent","Assigned Agent"
+"Assigned Group","Assigned Group"
+"You can select multiple Action and then 'Prepared Responses with Action' will work on them. ","You can select multiple Action and then 'Prepared Responses with Action' will work on them. "
+"At Least One Conditions for SLA to apply","At Least One Conditions for SLA to apply"
+"Based on at least one condition from these conditions, SLA will work for HelpDesk, be careful and select valid conditions.","Based on at least one condition from these conditions, SLA will work for HelpDesk, be careful and select valid conditions."
+"All Conditions for SLA","All Conditions for SLA"
+"Based on these all conditions, SLA will work for HelpDesk, be careful and select valid conditions.","Based on these all conditions, SLA will work for HelpDesk, be careful and select valid conditions."
+"Respond within","Respond within"
+"Resolve within","Resolve within"
+"Operational Hrs","Operational Hrs"
+Mins,Mins
+Days,Days
+Hrs,Hrs
+"Business Hours","Business Hours"
+"Calendar Hours","Calendar Hours"
+"Merge With Other Tickets","Merge With Other Tickets"
+"Warning ! min 2 tickets required for merge process.","Warning ! min 2 tickets required for merge process."
+Merge,Merge
+"Primary Ticket","Primary Ticket"
+"Tickets ","Tickets "
+"Created On - ","Created On - "
+"Customer - ","Customer - "
+"Priority - ","Priority - "
+"Status - ","Status - "
+"Type - ","Type - "
+"Resolve Time","Resolve Time"
+"Response Time","Response Time"
+"Assign Agent","Assign Agent"
+"Assign Group","Assign Group"
+"Ticket Tags","Ticket Tags"
+"Nothing selected","Nothing selected"
+"Use Enter To Add If UnAvailable","Use Enter To Add If UnAvailable"
+"Ticket Notes","Ticket Notes"
+"Custom Field","Custom Field"
+"Ticket Viewer","Ticket Viewer"
+Test,Test
+"More Expand","More Expand"
+"All Displayed","All Displayed"
+Id,Id
+Cc,Cc
+Bcc,Bcc
+replied,replied
+forwarded,forwarded
+"added notes","added notes"
+"Draft Saved","Draft Saved"
+"Add note","Add note"
+Upload,Upload
+"Please write something.","Please write something."
+"Success !  message has been save in draft.","Success !  message has been save in draft."
+"Prepared Responses With Action(s)","Prepared Responses With Action(s)"
+"Using this Responses, you can apply action(s) to tickets.","Using this Responses, you can apply action(s) to tickets."
+Apply,Apply
+Close,Close
+"Customer Detail","Customer Detail"
+"No support center found.","No support center found."
+"Check Ticket Status","Check Ticket Status"
+"E-Mail 
+                    Address","E-Mail 
+                    Address"
+"Email Address","Email Address"
+"Ticket ID","Ticket ID"
+"* Required Fields","* Required Fields"
+Continue,Continue
+Clear,Clear
+"These are generated ticket(s) by your account.","These are generated ticket(s) by your account."
+Sorting,Sorting
+"Ticket Id","Ticket Id"
+"Date Added","Date Added"
+"No Results Found !!","No Results Found !!"
+"Id : ","Id : "
+"Assign To 
+                                                Agent : ","Assign To 
+                                                Agent : "
+UnAssigned,UnAssigned
+"Priority : ","Priority : "
+"Status : ","Status : "
+"Type : ","Type : "
+"Support Category","Support Category"
+Search,Search
+"No Results Found.","No Results Found."
+Ticket(s),Ticket(s)
+"Generate Ticket","Generate Ticket"
+"Ticket(s) Status","Ticket(s) Status"
+"Full Name","Full Name"
+Select,Select
+"Ticket 
+                        Priority","Ticket 
+                        Priority"
+"Ticket 
+                        Group","Ticket 
+                        Group"
+"Ticket 
+                        Status","Ticket 
+                        Status"
+"Please 
+                                        select","Please 
+                                        select"
+hide_attribute,hide_attribute
+"Your Query","Your Query"
+"File Upload","File Upload"
+"Required Fields","Required Fields"
+Reset,Reset
+"Create Ticket","Create Ticket"
+"Ask Query","Ask Query"
+"Cc , separated","Cc , separated"
+"Please enter valid email!","Please enter valid email!"
+"Please write somthing.","Please write somthing."
+"Looking forward for a positive response. For any query feel free to contact.","Looking forward for a positive response. For any query feel free to contact."
+"Thank you","Thank you"
+"You haven't selected any items!","You haven't selected any items!"
+"Displayed All","Displayed All"
+"Are you sure you want to delete this ticket ?","Are you sure you want to delete this ticket ?"
+"Are you sure you want to delete this thread ? ","Are you sure you want to delete this thread ? "
+"Success ! you have been successfully deleted thread.","Success ! you have been successfully deleted thread."
+" Are you sure you want to split this ticket ? "," Are you sure you want to split this ticket ? "
+"Success ! you have been successfully split thread as ticket #","Success ! you have been successfully split thread as ticket #"
+" Are you sure you want to delete ? "," Are you sure you want to delete ? "
+"Success ! you have been successfully deleted note.","Success ! you have been successfully deleted note."
+"Success ! you have been successfully modified note.","Success ! you have been successfully modified note."
+"No Checkbox is checked","No Checkbox is checked"
+"Are you sure you want to delete these ticket(s) ?","Are you sure you want to delete these ticket(s) ?"
+"Can not upload more than ","Can not upload more than "
+"File type not allowed,Allowed file: ","File type not allowed,Allowed file: "
+" More Expand"," More Expand"
+" Are you sure you want to delete this thread ? "," Are you sure you want to delete this thread ? "
+" Are you sure you want to delete this ticket ? "," Are you sure you want to delete this ticket ? "
+" File type not allowed,Allowed file: "," File type not allowed,Allowed file: "
+"Change Status","Change Status"
+"Do you want to change status?","Do you want to change status?"
+"Change Type","Change Type"
+"Do you want to change type?","Do you want to change type?"
+"Change Priority","Change Priority"
+"Do you want to change priority?","Do you want to change priority?"
+"Change Group","Change Group"
+"Do you want to change group?","Do you want to change group?"
+"Change Agent","Change Agent"
+"Do you want to change agent?","Do you want to change agent?"
+"Helpdesk Manager","Helpdesk Manager"
+"Tickets Management","Tickets Management"
+"Manage Ticket Type","Manage Ticket Type"
+"Manage Ticket Priority","Manage Ticket Priority"
+"Manage Ticket Custom Attributes","Manage Ticket Custom Attributes"
+"Agent Management","Agent Management"
+"Manage Agent Level","Manage Agent Level"
+"Manage Groups","Manage Groups"
+"Customer Management","Customer Management"
+"Support Content","Support Content"
+"Manage Events and Triggers","Manage Events and Triggers"
+Tag,Tag
+"Manage SLA Policies","Manage SLA Policies"
+"Connect Email(s)","Connect Email(s)"
+Reporting,Reporting
+"Customer Report Summary","Customer Report Summary"
+"Agent Report Summary","Agent Report Summary"
+Webkul,Webkul
+Helpdesk,Helpdesk
+"HelpDesk Settings","HelpDesk Settings"
+"Ticket System Name","Ticket System Name"
+"Ticket System Email-id","Ticket System Email-id"
+"e.g johndoe@domain.com","e.g johndoe@domain.com"
+"Enter Upload File Size","Enter Upload File Size"
+"e.g 2 (mb)","e.g 2 (mb)"
+"Login Required for Ticket Creation","Login Required for Ticket Creation"
+"Allowed File Extensions","Allowed File Extensions"
+"Enter file extensions seperated by comma(,) like jpeg,png,gif,pdf","Enter file extensions seperated by comma(,) like jpeg,png,gif,pdf"
+"Enable WYSIWYG Editor on Front","Enable WYSIWYG Editor on Front"
+"Date format","Date format"
+"System will display date in this format","System will display date in this format"
+"Customer Can Delete Ticket","Customer Can Delete Ticket"
+"Customer Can Delete Own Thread","Customer Can Delete Own Thread"
+"Customer Can Add CC","Customer Can Add CC"
+"Customer Can Close Ticket","Customer Can Close Ticket"
+"Priority On Ticket Creation Page","Priority On Ticket Creation Page"
+"Status On Ticket Creation Page","Status On Ticket Creation Page"
+"Group On Ticket Creation Page","Group On Ticket Creation Page"
+"Ticket Open","Ticket Open"
+"Ticket New","Ticket New"
+"Ticket Pending","Ticket Pending"
+"Ticket Solved","Ticket Solved"
+"Ticket Closed","Ticket Closed"
+"Ticket Spam","Ticket Spam"
+"Ticket Default Setting","Ticket Default Setting"
+"Default Status","Default Status"
+"Default Ticket Type","Default Ticket Type"
+"Ticket View","Ticket View"
+"Ticket Thread Limit","Ticket Thread Limit"
+"Draft Saving Time","Draft Saving Time"
+"e.g 50000","e.g 50000"
+"Lock View Time","Lock View Time"
+"Lock Expire Time","Lock Expire Time"
+"e.g : 10:00:00","e.g : 10:00:00"
+"Activity Limit Dashboard","Activity Limit Dashboard"
+"Generate Activity","Generate Activity"
+"Activity priority on delete","Activity priority on delete"
+"Activity priority on add","Activity priority on add"
+"Activity priority on edit","Activity priority on edit"
+"Are you sure to delete selected activity?","Are you sure to delete selected activity?"
+20,20
+30,30
+50,50
+100,100
+200,200
+Performer,Performer
+Entity,Entity
+"Created At","Created At"
+"is Agent","is Agent"
+"Delete selected items?","Delete selected items?"
+"Delete items","Delete items"
+"Change status","Change status"
+"Level Id","Level Id"
+"Add agentrole","Add agentrole"
+"Add Business Hours","Add Business Hours"
+Organizations,Organizations
+"Add New Template","Add New Template"
+"Template Type","Template Type"
+"Are you sure to delete selected event?","Are you sure to delete selected event?"
+"Group Id","Group Id"
+"Total Ticket","Total Ticket"
+"Resolve Ticket","Resolve Ticket"
+"First Response Time","First Response Time"
+"Average Response Time","Average Response Time"
+"Ticket Count","Ticket Count"
+"New Attribute","New Attribute"
+"Don't Show In Frontend","Don't Show In Frontend"
+"Are you sure you want to disable selected items?","Are you sure you want to disable selected items?"
+"Show In Frontend","Show In Frontend"
+"Are you sure you want to enable selected items?","Are you sure you want to enable selected items?"
+"Remove Attribute","Remove Attribute"
+"Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
+"Attribute Label","Attribute Label"
+Required,Required
+"Display on frontend","Display on frontend"
+"Priority Id","Priority Id"
+"Status Id","Status Id"
+"Type Id","Type Id"
+"Type Name","Type Name"

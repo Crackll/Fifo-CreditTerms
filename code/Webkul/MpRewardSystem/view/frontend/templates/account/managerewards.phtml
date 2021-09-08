@@ -1,0 +1,93 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+/**
+ * Manage Credit template
+ *
+ * @var $block \Webkul\MpRewardSystem\Block\Account\Managecredit
+ */
+?>
+<?php
+  $helper = $block->getMarketplaceHelper();
+  $rewardHelper = $block->getRewardHelper();
+  $isPartner = $helper->isSeller();
+  $currencyCode = $rewardHelper->getBaseCurrencyCode();
+if ($isPartner == 1) {
+    ?>
+<form class="form" action="<?=$block->escapeUrl($block->getUrl('mprewardsystem/account/saveprice')) ?>"
+ method="post" id="form-validate" data-mage-init='{"validation":{}}' enctype="multipart/form-data" 
+ data-hasrequired="<?=/* @noEscape */ __('* Required Fields') ?>" autocomplete="off">
+    <fieldset class="fieldset info wk_field">
+      <?=/* @noEscape */ $block->getBlockHtml('formkey')?>
+      <?=/* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+        <legend class="legend"><span><?=/* @noEscape */ __('Settings') ?></span>
+            <button type="submit" class="button wk-mp-btn action save primary">
+                <span><span><?=/* @noEscape */ __('Save') ?></span></span>
+            </button>
+        </legend><br>
+        <div class="field required">
+          <label class="label"><span><?=/* @noEscape */ __("Price Per Reward"); ?>:</span></label>
+          <div class="control">
+              <div class="addon">
+                  <input id="rewardprice" type="text" 
+                  class="validate-number required-entry validate-digits-range digits-range-0-1000000"
+                   name="rewardprice" data-validate="{required:true, 'validate-greater-than-zero':true}" 
+                   value="<?=$block->escapeHtml($block->getPricingHelper()->currency($block->_getCustomerData()
+                     ->getRewardprice(), false, false)); ?>" />
+                  <label class="addbefore" for="price"><strong><?=$block->escapeHtml($block
+                    ->getCurrentCurrencySymbol())?></strong></label>
+              </div>
+          </div>
+      </div>
+      <div class="field required">
+          <label class="label"><span><?=/* @noEscape */ __("Reward Points Calculation Based On"); ?>:</span></label>
+          <div class="control">
+              <div class="addon">
+                <select name="reward_priority" id="reward-set-id" class="required-entry">
+                <?php foreach ($rewardHelper->getPrioritySet() as $value => $label) {?>
+                      <option value="<?=$block->escapeHtml($value) ?>" <?php if ($value==$block
+                         ->_getCustomerData()->getRewardPriority()) { ?> selected="selected" <?php } ?>>
+                      <?=$block->escapeHtml($label)?></option>
+                    <?php } ?>
+                </select>
+              </div>
+          </div>
+      </div>
+      <div class="field required" style="display:none">
+          <label class="label"><span><?=/* @noEscape */ __("Reward Assign Product's Quantity wise"); ?>:</span></label>
+          <div class="control">
+              <div class="addon">
+                <select name="reward_product_status" id="reward-status-id" class="required-entry">
+                    <option value="0" <?php if ($block->_getCustomerData()->getRewardProductStatus() == 0) {
+                        ?> selected="selected" <?php } ?>><?=/* @noEscape */ __("No")?></option>
+                    <option value="1" <?php if ($block->_getCustomerData()->getRewardProductStatus() == 1) {
+                        ?> selected="selected" <?php } ?>><?=/* @noEscape */ __("Yes")?></option>
+                </select>
+              </div>
+          </div>
+      </div>
+    </fieldset>
+</form>
+    <?php
+    $formData = [
+    "rewardStatus" => "#reward-status-id",
+    "detailsForm" => "#form-validate",
+    "rewardSets" => "#reward-set-id"
+    ];
+    $serializedFormData = $block->getJsonData()->jsonEncode($formData);
+    ?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "MpRewardSettings": <?=/* @noEscape */ $serializedFormData; ?>
+    }
+}
+</script>
+<?php } ?>

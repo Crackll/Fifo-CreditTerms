@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- <head>
+        <css src="Webkul_Dropship::css/styles.css"/>
+    </head> -->
+    <body>
+        <referenceContainer name="left">
+            <block class="Webkul\MpWholesale\Block\Adminhtml\User\Edit\Tabs" name="mpwholesale.user.edit.tabs"/>
+        </referenceContainer>
+        <referenceBlock name="content">
+            <block class="Webkul\MpWholesale\Block\Adminhtml\User\Edit" name="mpwholesale.user.edit"/>
+        </referenceBlock>
+    </body>
+</page>

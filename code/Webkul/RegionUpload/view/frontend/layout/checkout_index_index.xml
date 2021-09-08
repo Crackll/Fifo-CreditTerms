@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_RegionUpload::css/style-map.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+                <block class="Magento\Checkout\Block\Onepage" name="map_on_checkout_page" template="Webkul_RegionUpload::mapOnCheckout.phtml" 
+                ifconfig="wk_region_upload/wk_regionupload_enable_google_map_pin/wk_regionupload_enable_google_pin" after="-">
+                    <arguments>
+                        <argument name="wk_map_helper" xsi:type="object">Webkul\RegionUpload\Helper\MapData</argument>
+                    </arguments>
+                </block>
+        </referenceContainer>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="shipping-address-fieldset" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="shippingMap" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Webkul_RegionUpload/js/view/shippingMap-js</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                         <item name="template" xsi:type="string">Webkul_RegionUpload/elements</item> 
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                           <item name="payments-list" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="before-place-order" xsi:type="array">
+                                                                     <item name="component" xsi:type="string">Webkul_RegionUpload/js/view/checkoutaddress-js</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                         <item name="template" xsi:type="string">Webkul_RegionUpload/elementAddress</item> 
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

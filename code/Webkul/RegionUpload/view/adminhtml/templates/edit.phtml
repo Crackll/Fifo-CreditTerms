@@ -1,0 +1,195 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$countryList = $block->getCountryList();
+$localeList = $block->getLocale();
+// print_r($localeList); die;
+$data = $block->getRegionName();
+$locales = $block->getLocaleRegions();
+?>
+<form id="wk_region_add_form" data-mage-init='{"validation": {}}' method="post" class="admin__scope-old edit-form" 
+    action="<?= $escaper->escapeUrl($block->getUrl(
+        'regionupload/view/save',
+        ['_secure' => $block->getIsSecure()]
+    ))?>">
+    <input type="hidden" name="region_id" value="<?= $block->getRegionId() ?>" />
+    <input type="hidden" name="form_key" value= "<?= $block->getFormKey() ?>"/>
+    <div class="wk_main">
+        <fieldset class="admin__fieldset" id="wk_upload">
+            <div class="field admin__field _required">
+                <label class="admin__field-label">
+                    <?= $escaper->escapeHtml(__('Country')) ?>:
+                </label>
+                <div class="admin__field-control">
+                    <select 
+                        class="required-entry _required admin__control-select" 
+                        name="wk_country_id" 
+                        id="wk_country_id" 
+                        aria-required="true"
+                    >
+                        <?php
+                        foreach ($countryList as $pair) {
+                            ?>
+                            <option value="<?= $escaper->escapeHtml($pair['value']); ?>"
+                            <?php if ($data['country_id'] == $pair['value']) echo 'selected'; ?>
+                            >
+                                <?= $escaper->escapeHtml($pair['label']);
+                                ?>
+                                </option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="admin__field _required" data-validate="{required:true}">
+                <label class="admin__field-label required">
+                    <?= $escaper->escapeHtml(__('Region Code')) ?>:
+                </label>
+                <div class="admin__field-control">
+                        <input type="text" id="wk_region_code" value="<?= $data['code']; ?>" 
+                        class="required-entry validate-no-html-tags admin__control-text" 
+                        data-validate="{required:true}" disabled name="wk_region_code" />
+                </div>
+            </div>
+            <div class="field admin__field _required">
+                <label class="admin__field-label">
+                    <?= $escaper->escapeHtml(__('Default Name')) ?>:
+                </label>
+                <div class="admin__field-control _required">
+                        <input type="text" id="wk_region_name" value="<?= $data['default_name']; ?>"
+                        class=" required-entry admin__control-text" placeholder="Baghlan" name="wk_region_name" />
+                </div>
+            </div>
+            <div class="field admin__field _required">
+                <label class="admin__field-label">
+                    <?= $escaper->escapeHtml(__('Region Name for Locale')) ?>:
+                </label>
+                <div class="admin__field-control _required">
+                    <table class="admin__dynamic-rows admin__control-table locale-regionname">
+                        <thead>
+                            <tr>
+                                <th data-repeat-index="0" class="_empty">
+                                    <span>Locale</span>
+                                </th>
+                                <th class="_empty">
+                                    <span>Region Name</span>
+                                </th>
+                                <th data-repeat-index="4" >
+                                    <span></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="body-regionname">
+                            <?php $i = 1;
+                            foreach ($locales as $locale) {
+                                if ($locale['locale'] == 'en_US') {
+                                    continue;
+                                }
+                                ?>
+                                <tr class="data-row" data-repeat-index="<?= $i ?>" >
+                                    <td>
+                                        <div class="admin__field" data-index="website_id">  
+                                            <div class="admin__field-control">
+                                                <select class="admin__control-select" name="regionname[<?= $i ?>][locale]">
+                                                    <?php foreach ($localeList as $pair) { ?>
+                                                        <option value="<?= $escaper->escapeHtml($pair['value']); ?>"
+                                                        <?php if ($locale['locale'] == $pair['value']) echo 'selected'; ?>
+                                                        >
+                                                            <?= $escaper->escapeHtml($pair['label']);?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="_required">
+                                        <div class="admin__field _required">
+                                            <div class="admin__field-control">
+                                                <input class="admin__control-text" value="<?= $locale['name'] ?>" type="text" name="regionname[<?= $i ?>][name]" maxlength="255">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="action-delete" data-action="remove_row">
+                                            <span ></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php $i++; } ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <button type="button" id="add-btn">
+                                        <span>Add</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>
+
+<form id="wk_regionupload_popup" method="POST" data-mage-init='{"validation": {}}'
+class="admin__scope-old edit-form" enctype="multipart/form-data"
+    action="<?= $escaper->escapeUrl($block->getUrl(
+        'regionupload/csv/upload',
+        ['_secure' => $block->getIsSecure()]
+    ))?>" style="display:none">
+</form>
+
+<script id="row-template" type="text/x-magento-template">
+    <tr class="data-row" data-repeat-index="<%- data.id %>" >
+        <td>
+            <div class="admin__field" data-index="website_id">  
+                <div class="admin__field-control">
+                    <select class="admin__control-select" name="regionname[<%- data.id %>][locale]">
+                        <?php foreach ($localeList as $pair) { ?>
+                            <option value="<?= $escaper->escapeHtml($pair['value']); ?>">
+                                <?= $escaper->escapeHtml($pair['label']);?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </td>
+        <td class="_required">
+            <div class="admin__field _required">
+                <div class="admin__field-control">
+                    <input class="admin__control-text" type="text" name="regionname[<%- data.id %>][name]" maxlength="255">
+                </div>
+            </div>
+        </td>
+        <td>
+            <button class="action-delete" data-action="remove_row">
+                <span ></span>
+            </button>
+        </td>
+    </tr>
+</script>
+
+<?php
+$data = [
+    'counter' => count($locales)
+];
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "wkUploadRegion": <?= json_encode($data) ?>
+        }
+    }
+</script>

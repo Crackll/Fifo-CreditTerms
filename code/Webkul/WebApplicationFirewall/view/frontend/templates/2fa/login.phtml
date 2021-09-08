@@ -1,0 +1,105 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+
+<?php
+    $customer = $block->getCustomer();
+    $isNewUser = $block->isNewUser();
+    $scanMsg = __("Scan this qrcode to register with Two Step Authentication system via Google Authenticator App.");
+    $regMsg1 = __("You have already registered with Two Step Authentication.");
+    $regMsg2 = __("Open your Google Authenticator App and Enter OTP to login your account.");
+    $regMsg = $regMsg1.' '.$regMsg2;
+?>
+<hr style="margin-top: -32px; margin-bottom: 40px;">
+<div>
+    <h2 class="mainHeading">
+        <span><?= $block->escapeHtml(__("Hi,")." ".$customer->getFirstname())?></span>
+        <span class="subHeading">(<?= $block->escapeHtml($customer->getEmail())?>)</span>
+    </h2>
+
+    <table class="width-100">
+        <tbody>
+            <tr>
+                <td class="width-50 right-line">
+                    <form class="form"
+                    action="<?= $block->escapeHtml($block->getUrl('waf/account/twostepauthenticate')) ?>"
+                    method="post" id="form-validate" data-mage-init='{"validation":{}}'
+                    data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>" autocomplete="off">
+                        <fieldset class="fieldset info">
+                            <legend class="legend">
+                                <span><?= $block->escapeHtml(__('Google Authenticator')) ?></span>
+                            </legend>
+                            <br>
+
+                            <div class="field required">
+                                <label class="label"><span><?= $block->escapeHtml(__("OTP")) ?>:</span></label>
+                                <div class="control">
+                                    <input id="otp" type="password" name="otp"
+                                        placeholder="<?= $block->escapeHtml(__('OTP'))?>"
+                                        data-validate="{required:true}" autofocus />
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="param"
+                                value="<?= $block->escapeHtml($block->getParam())?>">
+                            <input type="hidden" name="redirectTo"
+                                value="<?= $block->escapeHtml($block->getRedirectTo()) ?>">
+                            <input type="hidden" name="two_step_auth_enabled"
+                                value="<?= $block->escapeHtml($block->getTwoStepAuthEnabled())?>">
+
+                            <?php
+                            if ($block->isTrustThisDeviceOptionEnabled() && !$isNewUser) {
+                                ?>
+                                <div class="field">
+                                    <div class="control">
+                                        <input type="checkbox" id="is_trusted_device" name="is_trusted_device">
+                                        <?= $block->escapeHtml(__('Trust this device, do not ask again')) ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                            <div class="field required">
+                                <div class="control">
+                                    <button type="submit" class="button wk-mp-btn action save primary">
+                                        <span><span><?= $block->escapeHtml(__('Login')) ?></span></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </td>
+
+                <td>
+                    <div>
+                        <?php
+                        if ($isNewUser) {
+                            ?>
+                            <div class="text-center">
+                                <div class="padding-left-right"><?= $block->escapeHtml($scanMsg)?></div>
+                                <img width="200px" src="<?= $block->escapeHtml($block->getQrcode())?>">
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="alreadyRegisteredText">
+                                <?= $block->escapeHtml($regMsg) ?>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

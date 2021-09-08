@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_WebApplicationFirewall
+ * @author Webkul
+ * @copyright Copyright (c) WebkulSoftware Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ *
+ */
+  -->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">waf_bruteforce_login_log_listing.waf_bruteforce_login_log_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>waf_bruteforce_login_log_columns</spinner>
+		<deps>
+			<dep>waf_bruteforce_login_log_listing.waf_bruteforce_login_log_listing_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource component="Magento_Ui/js/grid/provider" name="waf_bruteforce_login_log_listing_data_source">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Webkul_WebApplicationFirewall::acl_login_failed</aclResource>
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="waf_bruteforce_login_log_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>entity_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="waf_bruteforce_login_log_columns">
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>entity_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="entity_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="username">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Used Username</label>
+			</settings>
+		</column>
+		<column name="password">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Used Password</label>
+			</settings>
+		</column>
+		<column name="ip">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Client IP</label>
+			</settings>
+		</column>
+		<column name="browser_agent">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Browser</label>
+			</settings>
+		</column>
+		<column name="url">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Url</label>
+			</settings>
+		</column>
+		<column name="referer_url">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Referer Url</label>
+			</settings>
+		</column>
+		<column name="time" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+			<settings>
+				<filter>dateRange</filter>
+                <dataType>date</dataType>
+				<label translate="true">Login Time</label>
+			</settings>
+		</column>
+	</columns>
+</listing>

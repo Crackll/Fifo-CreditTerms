@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_RegionUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_RegionUpload::region_upload_parent" title="Upload Regions" module="Webkul_RegionUpload" sortOrder="100" parent="Magento_Sales::sales" resource="Webkul_RegionUpload::region_upload_parent"/>
+        
+        <add id="Webkul_RegionUpload::region_upload" title="Add Regions" module="Webkul_RegionUpload" sortOrder="1" parent="Webkul_RegionUpload::region_upload_parent" action="regionupload/add/index" resource="Webkul_RegionUpload::region_upload"/>
+        <add id="Webkul_RegionUpload::region_view" title="Regions List" module="Webkul_RegionUpload" sortOrder="1" parent="Webkul_RegionUpload::region_upload_parent" action="regionupload/view/index" resource="Webkul_RegionUpload::region_view"/>
+    </menu>
+</config>

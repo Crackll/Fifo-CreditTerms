@@ -1,0 +1,46 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPriceList
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div class="wk-mppricelist-container">
+    <div class="page-main-actions">
+        <div class="page-actions-placeholder"></div>
+        <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+            <div class="page-actions-inner" data-title='<?= $block->escapeHtml(__("Add Price List")); ?>'>
+                <div class="page-actions-buttons">
+                    <button title='<?= $block->escapeHtml(__("Add Price List")); ?>' 
+                        id="add"
+                        type="button"
+                        class="action- scalable primary wk-mp-btn wk-ui-grid-btn wk-ui-grid-btn-primary"
+                        onclick="location.href =
+                        '<?= $block->escapeHtml($block->getUrl('mppricelist/sellerpricelist/addpricelist'))?>';"
+                        data-ui-id="add-button">
+                        <span><?= $block->escapeHtml(__("Add Price List")); ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?= $block->getChildHtml(); ?>
+</div>
+
+<input type="hidden" name="form_key" value="<?= $block->escapeHtml($block->getFormKey()) ?>" />
+
+<script>
+require([
+    'jquery',
+    'uiComponent',
+    'mage/translate',
+    'Magento_Ui/js/modal/confirm'
+], function ($, Component, $t, confirm) {
+    'use strict';
+    window.FORM_KEY = $("input[name=form_key]").val();
+});
+</script>

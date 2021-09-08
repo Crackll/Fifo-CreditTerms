@@ -1,0 +1,39 @@
+<div data-bind="attr: {'class': $data.name.replace(/\./g, '').replace(/ /g, '') }">
+   
+    <div class="popup-body">
+        <div class="list-products admin__data-grid-wrap admin__data-grid-wrap-static">
+            <table class="data-grid">
+                <thead>
+                    <tr>
+                        <th class="data-grid-th"><label class="th-checkbox-cell-inner"><input type="checkbox" class="wk-inputcheck" data-bind="checked: allSelectedCheckbox"/></label></th>
+                        <th class="data-grid-th" data-bind="i18n: 'Code'"></th>
+                        <th class="data-grid-th" data-bind="i18n: 'Name'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ko if: products().length !== 0 -->
+                        <!-- ko foreach: $data.products -->
+                        <tr>
+                            <!-- ko if: $parent.productSelector  -->
+                            <td class="data-grid-checkbox-cell"><label class="data-grid-checkbox-cell-inner"><input data-bind="attr:{'type': 'checkbox', 'class': 'admin__control-checkbox', 'name': 'id', 'id':$data.source_code + 'check'}, checked: $parent.productSelectedCheckbox, value: $data.source_code"><label data-bind="attr: {for: $data.source_code + 'check'}"></label></label></td>
+                            <!-- /ko -->
+                            <!-- ko if: !$parent.productSelector  -->
+                            <td><input data-bind="attr:{'type': 'radio', 'class': 'radio', 'name': 'source_code'}, checked: $parent.productSelectedRadio, value: $data.source_code"></td>
+                            <!-- /ko -->
+                            <td data-bind="text: $data.source_code"></td>
+                            <td data-bind="text: $data.name"></td>
+                        </tr>
+                        <!--/ko-->
+                    <!--/ko-->
+                    <!-- ko if: products().length === 0 -->
+                    <tr class="data-grid-tr-no-data">
+                        <td class="msi-empty-msg" colspan="3"  data-bind="i18n: 'We couldn\'t find any records'"></td>
+                    </tr>
+                <!--/ko-->
+                </tbody>
+            </table>
+            
+        </div>
+       
+    </div>
+</div>

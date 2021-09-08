@@ -1,0 +1,44 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4 CE and EE
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Admin can manage admin email address website wise which will be used by this module
+    + Admin can manage the allowed Manageable Permissions for the Main Account
+    + Admin can make sub account approval mandatory
+    + Admin can manage whether to notify the main account user when order placed by sub account
+    + Admin can Allow/Disallow forbidden access management
+    + Admin can manage the email template for Order Placed Notification to Main Account
+    + Admin can manage the email template for Main Account's Order Placed Notification to Sub Account
+    + Admin can manage the email template for Sub Account's Order Placed Notification to Sub Account
+    + Admin can manage the email template for Sub Account Activated Notification from Admin to Sub Account
+    + Admin can manage the email template for Sub Account Activated Notification from Admin to Main Account
+    + Admin can manage the email template for Cart Approved Notification to Sub Account
+    + Admin can manage the email template for Sub Account Created Notification to Admin
+    + Admin can manage the email template for Sub Account Created Notification to Main Account
+    + Admin can Activate/Deactivate the sub accounts
+    + Admin can view the mapping of sub account, main account and parent account in list
+    + Main user can login to Sub accounts
+    + Main user can manage forbidden accesses
+    + Forbidden Access can be managed with routename, routename_controller or routename_controller_action
+    + Main user or Sub Account user with proper permission can View/Create/Edit/Delete Sub Account users
+    + Main user or Sub Account user with proper permission can manage status of the Sub Account users
+    + Main user or Sub Account user with proper permission can set Cart Approval Required for Sub Account users
+    + Main user or Sub Account user with proper permission can allow Sub Account users to Merge own Cart to Main Cart
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can Place Order
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can Approve Carts
+    + Main user or Sub Account user with proper permission can force usage of Main Account Address for Order
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can View Main Wishlist
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can Add to Main Wishlist
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can Remove From Main Wishlist
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can View Main Account's Orders List
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can View Main Account's Order Details
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can View Sub Account's Orders List
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can View Sub Account's Order Details
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user will Get Notified on Order Place by Main Account
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user will Get Notified on Order Place by Sub Account
+    + Main user or Sub Account user with proper permission can set whether a Sub Account user can Review Products

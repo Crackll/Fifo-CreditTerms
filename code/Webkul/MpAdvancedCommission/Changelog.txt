@@ -1,0 +1,35 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+
+	+  Compatible with Magento version 2.4.x and marketplace 5.0.x
+	-  Resolved issue Applying the wrong commission in case of Commission Rule is Fixed
+	
+-------------------------------- Version 4.0.0 --------------------------------------
+
+	+  Compatible with Magento version 2.4.x and marketplace 5.0.x
+	
+-------------------------------- Version 3.0.0 --------------------------------------
+
+	+  Compatible with Magento version 2.3.x and marketplace 3.0.x
+	
+-------------------------------- Version 2.1.0 --------------------------------------
+
+	+  Compatible with Magento version 2.3.x and marketplace 2.2.x
+	
+-------------------------------- Version 2.0.2 --------------------------------------
+
+	+  Compatible with Magento version 2.2.x and marketplace 2.1.x
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+	+  Compatible with Magento version 2.1.x
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+	+ Admin can set commission on products,categories.
+	+ Admin can set commission on products and categories together.
+	+ Admin can set two type of commission fixed or percent.
+	+ Commission on product will get higher priority if commission rules are not applying.

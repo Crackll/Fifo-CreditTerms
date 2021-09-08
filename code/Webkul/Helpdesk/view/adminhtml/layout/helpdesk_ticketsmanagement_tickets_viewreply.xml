@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_Helpdesk
+* @author    Webkul
+* @license   https://store.webkul.com/license.html
+*/
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+	    <css src="Webkul_Helpdesk::css/viewreply.css"/>
+		<css src="Webkul_Helpdesk::css/font-awesome.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\Helpdesk\Block\Adminhtml\Ticketsmanagement\Tickets\Viewreply" name="ticket.view" template="Webkul_Helpdesk::tickets/viewreply.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

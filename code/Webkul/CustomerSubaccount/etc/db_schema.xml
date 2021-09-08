@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_CustomerSubaccount
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wkcs_subaccounts" resource="default" engine="innodb" comment="Customer Sub-account">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Customer Id"/>
+        <column xsi:type="int" name="main_account_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="main account Id"/>
+        <column xsi:type="int" name="parent_account_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="parent account Id"/>
+        <column xsi:type="text" name="available_permissions" nullable="true" comment="available permissions"/>
+        <column xsi:type="text" name="forbidden_access" nullable="true" comment="forbidden access"/>
+        <column xsi:type="smallint" name="status" padding="5" unsigned="true" nullable="false" identity="false" default="1" comment="status"/>
+        <column xsi:type="smallint" name="admin_approved" padding="5" unsigned="true" nullable="false" identity="false" default="1" comment="Is Approved by Admin"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wkcs_cart" resource="default" engine="innodb" comment="Customer Sub-account cart/quote management">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Customer Id"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Quote Id"/>
+        <column xsi:type="varchar" name="type" nullable="true" comment="Cart request type, approval or merge" length="25"/>
+        <column xsi:type="smallint" name="status" padding="5" unsigned="true" nullable="false" identity="false" default="1" comment="status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

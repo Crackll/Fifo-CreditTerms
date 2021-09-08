@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_MpWholesale
+* @author Webkul
+* @license https://store.webkul.com/license.html
+*/ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="Webkul\MpWholesale\Block\Account\Navigation" name="layout2_mpwholesale_account_navigation" before="-" template="Webkul_MpWholesale::/layout2/account/navigation.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="wholesale-link" ifconfig="mpwholsale/general_settings/status">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Create a Wholesaler Account</argument>
+                    <argument name="path" xsi:type="string">mpwholesale/account/create</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

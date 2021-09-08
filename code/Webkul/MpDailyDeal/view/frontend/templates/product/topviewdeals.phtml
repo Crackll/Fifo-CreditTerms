@@ -1,0 +1,50 @@
+<?php
+/**
+ * Webkul_MpDailyDeals Top Deals Viewed Block.
+ * @category  Webkul
+ * @package   Webkul_MpDailyDeals
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$topDealViewsProduct = $block->getTopDealViewsProduct();
+?>
+<?php if ($topDealViewsProduct): ?>
+    <div class="block block-compare block-topdeals">
+        <div class="block-title">
+            <strong><?= /* @noEscape */ __('Top Viewed Deals'); ?></strong>
+        </div>
+        <div class="block-content">
+            <ol class="product-items">
+                <?php foreach ($topDealViewsProduct as $product) { ?>
+                    <li class="product-item">
+                        <div class="product-item-info">
+                            <a class="product-item-photo" href="<?= /* @noEscape */
+                            $product->getProductUrl() ?>"
+                             title="<?= /* @noEscape */ $product->getName()?>">
+                                <span class="product-image-container">
+                                    <span class="product-image-wrapper">
+                                        <img class="product-image-photo" src="<?= /* @noEscape */
+                                         $block->getDealProductImage($product)?>" 
+                                         alt="<?= /* @noEscape */ $product->getName()?>">
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="product-item-details">
+                                <strong class="product-item-name">
+                                    <a class="product-item-link" href="<?= /* @noEscape */
+                                     $product->getProductUrl()?>">
+                                        <span ><?= /* @noEscape */ $product->getName()?></span>
+                                    </a>
+                                </strong>
+                                <?= /* @noEscape */ $block->getProductPrice($product);?> 
+                            </div>
+                        </div>
+                        <div class="clear-left"></div>
+                    </li>
+                <?php } ?>
+            </ol>
+        </div>
+    </div>
+<?php endif ?>

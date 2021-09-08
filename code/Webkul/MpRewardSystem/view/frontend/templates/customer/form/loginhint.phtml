@@ -1,0 +1,27 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+?>
+<?php
+  $helper = $block->getDataByKey("curHelper");
+  $registrationStatus = $helper->getAllowRegistration();
+  $enableRewardSystem = $helper->getMpRewardEnabled();
+  $registrationPoints = $helper->getRewardOnRegistration();
+if ($registrationStatus == 1 && $enableRewardSystem== 1) {
+    ?>
+    <div>
+        <h1 class="wk_rs_review_style wk_rs_advertise_review_style">
+            <span class="wk_rs_greet"></span>
+            <?=/* @noEscape */ __('Register Yourself to get')?>
+            <span class="wk_rs_green"><?=/* @noEscape */ $registrationPoints; ?>
+            </span><?=/* @noEscape */ __(' Reward Points.')?>
+        </h1>
+    </div>
+<?php } ?>

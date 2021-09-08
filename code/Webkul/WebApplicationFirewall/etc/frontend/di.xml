@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- ====================== Start Code Added ===================== -->
+    <preference for="Magento\Customer\Controller\Account\LoginPost" type="Webkul\WebApplicationFirewall\Controller\Account\LoginPost" />
+    <preference for="Magento\Customer\Controller\Ajax\Login" type="Webkul\WebApplicationFirewall\Controller\Ajax\Login" />
+    <!-- ====================== End Code Added ===================== -->
+
+</config>

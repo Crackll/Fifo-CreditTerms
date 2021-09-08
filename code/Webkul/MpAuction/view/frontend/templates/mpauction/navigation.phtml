@@ -1,0 +1,53 @@
+<!--
+/**
+ * Webkul_MpAuction Navigation.
+ * @category  Webkul
+ * @package   Webkul_MpAuction
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+$mpAuctionViewModel = $block->getMpAuctionViewmodel();
+
+$helper = $mpAuctionViewModel->getMarketplaceHelper();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+if ($helper->isSeller() && $block->isAuctionEnable() &&
+(
+    (($isSellerGroup && $helper->isAllowedAction('mpauction/account/index')) || !$isSellerGroup)
+)
+) { ?>
+    <?php if (($isSellerGroup && $helper->isAllowedAction('mpauction/account/index')) || !$isSellerGroup) { ?>
+    <li class="mp-auction nav item <?= /* @noEscape */ $block->getCurrentNavClass('mpauction/account')?>">  
+        <?php if ($block->getCurrentNavClass('mpauction/account')) { ?>   
+            <strong><?= /* @noEscape */ __('Auction') ?></strong>        
+            <?php
+        } else { ?>    
+            <a href="#"><?= /* @noEscape */ __('Auction') ?></a>                
+        <?php } ?>
+        <ul class="nav items">
+            <li class="nav item <?= /* @noEscape */ $block->getCurrentNavClass('mpauction/account/index');?>">
+                <?php if ($block->getCurrentNavClass('mpauction/account/index')) { ?>   
+                    <strong><?= /* @noEscape */ __('Add Auction') ?></strong>        
+                    <?php
+                } else { ?>    
+                    <a href="<?= /* @noEscape */ $block->getDealUrl('mpauction/account/index')?>">
+                        <?= /* @noEscape */ __('Add Auction') ?>
+                    </a>                
+                <?php } ?>
+            </li>
+            <li class="nav item <?= /* @noEscape */ $block->getCurrentNavClass('mpauction/account/auctionlist');?>">
+                <?php if ($block->getCurrentNavClass('mpauction/account/auctionlist')) { ?>   
+                    <strong><?= /* @noEscape */ __('Auction Product List') ?></strong>        
+                    <?php
+                } else { ?>    
+                    <a href="<?= /* @noEscape */ $block->getDealUrl('mpauction/account/auctionlist')?>">
+                        <?= /* @noEscape */ __('Auction Product List') ?>
+                    </a>                
+                <?php } ?>
+            </li>
+        </ul>   
+    </li>
+    <?php } ?>
+<?php }?>

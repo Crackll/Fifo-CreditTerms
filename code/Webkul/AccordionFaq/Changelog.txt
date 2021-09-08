@@ -1,0 +1,29 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 4.0.0 --------------------------------------
+
+	+ Compatible with version 2.4.*.
+	+ Add enable/disable feature in the module
+
+-------------------------------- Version 3.0.0 --------------------------------------
+
+	+ Compatible with version 2.3.*.
+	- Bugs fix.
+
+-------------------------------- Version 2.0.2 --------------------------------------
+
+	+ Compatible with version 2.2.*.
+	- Bugs fix.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+	+ Compatible with version 2.1.*
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+	+ Fully Admin management, admin can create multiple FAQ's as per admin needs.
+	+ Content area for FAQ is rich with WYSIWYG editor that means admin can use interactive font style and font size.
+	+ Module is based on java script that means will work on all devices and screens including responsive templates.
+	+ Adjust Width as per your ease.

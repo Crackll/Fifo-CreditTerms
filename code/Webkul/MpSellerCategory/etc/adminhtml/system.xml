@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpSellerCategory
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="mpsellercategory" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Marketplace Seller Category</label>
+            <tab>webkul</tab>
+            <resource>Webkul_MpSellerCategory::config_mpsellercategory</resource>
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Seller Category Settings</label>
+                <field id="allow" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Seller Categories</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                    <comment>If set to Yes then seller categories will be appeared in layered navigation on their collection page.</comment>
+                </field>
+                <field id="allow_manage_category" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Seller to Manage Category</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                    <comment>If set to Yes then sellers will be able to manage categories for their collection page.</comment>
+                    <depends>
+                        <field id="allow">1</field>
+                    </depends>
+                </field>
+                <field id="filter_name" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Name for Filter in Layered Navigation</label>
+                    <validate>required-entry</validate>
+                    <comment>eg: Seller Category</comment>
+                    <depends>
+                        <field id="allow">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

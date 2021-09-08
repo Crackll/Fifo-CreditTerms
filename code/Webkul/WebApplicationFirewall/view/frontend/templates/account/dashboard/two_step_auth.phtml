@@ -1,0 +1,105 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_WebApplicationFirewall
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+
+<?php
+if ($block->isModuleEnable()) {
+    $isAuthEnabled = $block->escapeHtml($block->getIsAuthEnabled());
+    ?>
+    <div class="block block-dashboard-info">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Two Step Authentication')) ?></strong></div>
+        <div class="block-content">
+            <div class="box">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Google Authentication')) ?></span>
+                </strong>
+                <div class="box-content">
+                    <?php
+                    $isNewUser = $block->escapeHtml($block->isNewUser());
+
+                    if (!$isNewUser) {
+                        ?>
+                        <form class="form"
+                            action="<?= $block->escapeHtml($block->getUrl('waf/account/twostepauthenableddisabled')) ?>"
+                            method="post" id="form-validate" data-mage-init='{"validation":{}}'
+                            data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>" autocomplete="off">
+                            <fieldset class="fieldset info">
+                                <div class="field">
+                                    <div class="control">
+                                        <select name="two_step_auth" id="two_step_auth">
+                                            <option value="0" selected><?= $block->escapeHtml(__('Disabled'))?></option>
+                                            <option value="1" <?= ($isAuthEnabled == true) ? 'selected' : ''?>>
+                                                <?= $block->escapeHtml(__('Enabled'))?>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="field required hide" id="save_btn_field">
+                                    <div class="control">
+                                        <button type="submit" class="button wk-mp-btn action save primary">
+                                            <span><?= $block->escapeHtml(__('Save')) ?></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <?php
+                    } else {
+                        ?>
+                        <form class="form"
+                            action="<?= $block->escapeHtml($block->getUrl('waf/account/twostepauthenableddisabled')) ?>"
+                            method="post" id="form-validate" data-mage-init='{"validation":{}}'
+                            data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>" autocomplete="off">
+                            <fieldset class="fieldset info">
+                                <div class="field required">
+                                    <div class="control">
+                                        <input type="hidden" name="two_step_auth_register" value="1">
+                                        <button type="submit" class="button wk-mp-btn action save primary">
+                                            <span><?= $block->escapeHtml(__('Register')) ?></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+
+            <div class="box">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Information')) ?></span>
+                </strong>
+                <div class="box-content">
+                    <p>
+                    <?= /** @NoEscape */ __('Two Step Authentication adds a security layer to secure your account.')?>
+                    <?= ' '?>
+                    <?= $block->escapeHtml(__('Google Authenticator App will give you OTP to login your account.'))?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/x-magento-init">
+    {
+        "*":{
+            "twostepauthjs": {
+                "isAuthEnabled": "<?= $block->escapeHtml($isAuthEnabled) ?>"
+            }
+        }
+    }
+    </script>
+    <?php
+}
+?>

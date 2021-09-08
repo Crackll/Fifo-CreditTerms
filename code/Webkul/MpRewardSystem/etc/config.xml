@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRewardSystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software protected Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mprewardsystem>
+            <general_settings>
+                <enable>1</enable>
+                <reward_value>1</reward_value>
+                <max_reward_assign>150</max_reward_assign>
+                <max_reward_used>15</max_reward_used>
+                <allow_registration>1</allow_registration>
+                <registration_reward>10</registration_reward>
+                <allow_review>0</allow_review>
+                <priority>0</priority>
+                <activeproduct>0</activeproduct>
+            </general_settings>
+            <email_settings>
+                <enable_mprewardsystem_transaction_mail>1</enable_mprewardsystem_transaction_mail>
+                <mprewardsystem_transaction>mprewardsystem_email_settings_mprewardsystem_transaction</mprewardsystem_transaction>
+            </email_settings>
+        </mprewardsystem>
+    </default>
+</config>

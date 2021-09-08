@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul MpWholesale Email Templates xml
+ *
+ * @category  Webkul
+ * @package   Webkul_MpWholesale
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="mpwholsale_email_new_account_notification" label="New Account Create Mail to Wholesale User" file="wholesaler_account_new.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_new_quote" label="New Quote mail to wholesaler" file="new_quote.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_quote_message" label="Quote Message Email" file="quote_message.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_custom_email" label="Custom Email To Seller" file="custom_email.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_quote_status" label="Quote Status Email" file="quote_status.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_new_product" label="New Product Email" file="new_product.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_product_approve" label="Product Approval Email" file="product_approve.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_product_unapprove" label="Product Unapproval Email" file="product_unapprove.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_wholesaler_approve" label="Wholesaler Approval Email" file="wholesaler_approve.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_wholesaler_inactive" label="Wholesaler Inactive Email" file="wholesaler_inactive.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+    <template id="mpwholsale_email_become_wholesaler_request" label="Wholesaler Request Template" file="become_wholesaler_request.html" type="html" module="Webkul_MpWholesale" area="frontend"/>
+</config>

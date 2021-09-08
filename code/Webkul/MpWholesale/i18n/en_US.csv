@@ -1,0 +1,330 @@
+Send Mail,Send Mail
+Lead Information,Lead Information
+Lead Details,Lead Details
+ID,ID
+Product Name,Product Name
+Product SKU,Product SKU
+Product Price,Product Price
+Save PriceRule,Save PriceRule
+Wholesaler Price Rules,Wholesaler Price Rules
+Price Rule,Price Rule
+Wholesaler Price Rule,Wholesaler Price Rule
+PriceRule Information,PriceRule Information
+Properties,Properties
+Add New Product,Add New Product
+Back,Back
+Reset,Reset
+Save,Save
+Update Quote,Update Quote
+Edit quote '%1',Edit quote '%1'
+New Quote,New Quote
+Manage quotes,Manage quotes
+Manage Quotes,Manage Quotes
+Sender,Sender
+Receiver,Receiver
+Conversation,Conversation
+Created At,Created At
+Manage Quotes Information,Manage Quotes Information
+Quote Manager,Quote Manager
+Quote Conversation,Quote Conversation
+Seller Details,Seller Details
+Me,Me
+Save User,Save User
+Delete User,Delete User
+Edit Wholesale User '%1',Edit Wholesale User '%1'
+New Wholesale User,New Wholesale User
+Wholesale User Information,Wholesale User Information
+User Name,User Name
+Wholesale User Name,Wholesale User Name
+First Name,First Name
+Contact Person First Name,Contact Person First Name
+Last Name,Last Name
+Contact Person Last Name,Contact Person Last Name
+Email,Email
+Wholesaler Email,Wholesaler Email
+Wholesaler Title,Wholesaler Title
+Description,Description
+Wholesaler Description,Wholesaler Description
+Complete Address,Complete Address
+wholesaler Address,wholesaler Address
+Password,Password
+New Password,New Password
+Password Confirmation,Password Confirmation
+This account is,This account is
+Wholesaler Account Status,Wholesaler Account Status
+Active,Active
+Inactive,Inactive
+Current Wholesale User Identity Verification,Current Wholesale User Identity Verification
+Your Password,Your Password
+User Info,User Info
+Create New Wholesaler Account,Create New Wholesaler Account
+Day,Day
+Week,Week
+Month,Month
+Year,Year
+"Module is disabled by admin, Please contact to admin!","Module is disabled by admin, Please contact to admin!"
+Wholesale user account has been created successfully.,Wholesale user account has been created successfully.
+Please wait for the admin approval.,Please wait for the admin approval.
+Please check your email %1 for the login details,Please check your email %1 for the login details
+Leads List,Leads List
+Please check the details entered,Please check the details entered
+Mail Sent Successfully,Mail Sent Successfully
+Error Sending Mail,Error Sending Mail
+Requested price rule doesn't exist,Requested price rule doesn't exist
+Something went wrong while editing the pricerule.,Something went wrong while editing the pricerule.
+Edit Price Rule %1,Edit Price Rule %1
+New Price Rule,New Price Rule
+Edit Price Rule,Edit Price Rule
+Price Rules,Price Rules
+A total of %1 record(s) have been deleted.,A total of %1 record(s) have been deleted.
+A total of %1 record(s) have been disabled.,A total of %1 record(s) have been disabled.
+A total of %1 record(s) have been enabled.,A total of %1 record(s) have been enabled.
+Price Rule Details Successfully Updated,Price Rule Details Successfully Updated
+Price Rule Details Successfully Saved,Price Rule Details Successfully Saved
+Products,Products
+This Rule for this product is no longer exists.,This Rule for this product is no longer exists.
+Edit Product Rule,Edit Product Rule
+Update Product Rule,Update Product Rule
+Add Product Rule,Add Product Rule
+Wholesaler Product List,Wholesaler Product List
+A total of %1 record(s) have been approved.,A total of %1 record(s) have been approved.
+A total of %1 record(s) have been Rejected.,A total of %1 record(s) have been Rejected.
+Please select products to set rules.,Please select products to set rules.
+Product record updated successfully.,Product record updated successfully.
+Product record saved successfully.,Product record saved successfully.
+This quote no longer exists.,This quote no longer exists.
+View Quote,View Quote
+Products Quotation,Products Quotation
+Quote Message cannot be empty!!!,Quote Message cannot be empty!!!
+Quote is not exists.,Quote is not exists.
+Quote message sent successfully !!,Quote message sent successfully !!
+Wholesaler Unit,Wholesaler Unit
+This unit no longer exists.,This unit no longer exists.
+Edit Unit,Edit Unit
+Update Unit,Update Unit
+Add Unit,Add Unit
+Wholesaler Unit List,Wholesaler Unit List
+Unit Details Successfully Updated,Unit Details Successfully Updated
+Unit Details Successfully Saved,Unit Details Successfully Saved
+You deleted the wholesale user.,You deleted the wholesale user.
+We can't find a user to delete.,We can't find a user to delete.
+This Wholesaler user no longer exists.,This Wholesaler user no longer exists.
+This user no longer exists.,This user no longer exists.
+Edit User,Edit User
+New User,New User
+Users,Users
+Marketplace Wholesalers,Marketplace Wholesalers
+A total of %1 record(s) have been Approved.,A total of %1 record(s) have been Approved.
+You have entered an invalid password for current user.,You have entered an invalid password for current user.
+You saved the wholesale user.,You saved the wholesale user.
+This wholeSaleUser no longer exists.,This wholeSaleUser no longer exists.
+Wholesale Products,Wholesale Products
+You are not authorized to access this quote,You are not authorized to access this quote
+Edit Quote,Edit Quote
+Quote Does Not exists.,Quote Does Not exists.
+Wholesale Products Quotation,Wholesale Products Quotation
+Wholesaler List of %1,Wholesaler List of %1
+Not able to send the email.,Not able to send the email.
+New Quote has been created. Please check.,New Quote has been created. Please check.
+Status has been changed for quote id : %1,Status has been changed for quote id : %1
+New Message has been appended to quote id : %1,New Message has been appended to quote id : %1
+"Wholesaler replied to your quotation.
+                quote id : %1.","Wholesaler replied to your quotation.
+                quote id : %1."
+Please visit the website to know more details.,Please visit the website to know more details.
+I would like to inform you that recently I have added a new wholesale product.,I would like to inform you that recently I have added a new wholesale product.
+Approved,Approved
+Pending,Pending
+Declined,Declined
+Enable,Enable
+Disable,Disable
+"Lead with id ""%1"" does not exist.","Lead with id ""%1"" does not exist."
+"Price Rule with id ""%1"" does not exist.","Price Rule with id ""%1"" does not exist."
+"Wholesale Product with id ""%1"" does not exist.","Wholesale Product with id ""%1"" does not exist."
+"Quote Conversation with id ""%1"" does not exist.","Quote Conversation with id ""%1"" does not exist."
+"Quote with id ""%1"" does not exist.","Quote with id ""%1"" does not exist."
+The tokens could not be revoked.,The tokens could not be revoked.
+Per Day,Per Day
+Per Week,Per Week
+Per Month,Per Month
+Per Year,Per Year
+"Unit with id ""%1"" does not exist.","Unit with id ""%1"" does not exist."
+"Wholesale user with id ""%1"" does not exist.","Wholesale user with id ""%1"" does not exist."
+"Wholesaler Unit with id ""%1"" does not exist.","Wholesaler Unit with id ""%1"" does not exist."
+Edit,Edit
+Approve,Approve
+Reject,Reject
+Product,Product
+Price After Configuration,Price After Configuration
+Price,Price
+Quote Quantity,Quote Quantity
+Quantity,Quantity
+Quote Status,Quote Status
+Status,Status
+Quote Description,Quote Description
+Quote Detail,Quote Detail
+Decline,Decline
+Enter Message:,Enter Message:
+Wholesaler Name in Email,Wholesaler Name in Email
+Mail body,Mail body
+This is a required field,This is a required field
+Rule Name,Rule Name
+Select,Select
+selected,selected
+Enabled,Enabled
+Disabled,Disabled
+Manage Units,Manage Units
+Unit of quantity,Unit of quantity
+Price per quantity,Price per quantity
+Add Option,Add Option
+Delete,Delete
+Default Shipping Address,Default Shipping Address
+Wholesale,Wholesale
+Wholesale Product,Wholesale Product
+Wholesale Quotation,Wholesale Quotation
+Personal Information,Personal Information
+Wholesaler Address Information,Wholesaler Address Information
+* Required Fields,* Required Fields
+Sign-in Information,Sign-in Information
+Confirm Password,Confirm Password
+Wholesaler Privacy Policy,Wholesaler Privacy Policy
+I have read and agree to the,I have read and agree to the
+Privacy Policy,Privacy Policy
+Create an Account,Create an Account
+Congratulations! User name is available.,Congratulations! User name is available.
+"Sorry! the User Name is not available, please set another User Name.","Sorry! the User Name is not available, please set another User Name."
+Menu,Menu
+Search by product name,Search by product name
+Submit,Submit
+Type,Type
+Wholesaler Information,Wholesaler Information
+Action,Action
+wholesaler_name,wholesaler_name
+View Wholesaler(s),View Wholesaler(s)
+No Product Available,No Product Available
+Message,Message
+Conversations:,Conversations:
+Admin,Admin
+Chat With Wholesaler,Chat With Wholesaler
+Enter Message,Enter Message
+Send,Send
+No Quotes Available,No Quotes Available
+Quote Id,Quote Id
+Quote Price,Quote Price
+Wholesaler(s),Wholesaler(s)
+Wholesaler Name,Wholesaler Name
+Search by Wholesaler Name,Search by Wholesaler Name
+Minimum Quote Quantity,Minimum Quote Quantity
+Maximum Quote Quantity,Maximum Quote Quantity
+Production Capacity,Production Capacity
+Minimum Quantity,Minimum Quantity
+Maximum Quantity,Maximum Quantity
+Quotation,Quotation
+Price list,Price list
+Price List,Price List
+Unit,Unit
+Quantity (<=),Quantity (<=)
+Text,Text
+Ask quotation for ,Ask quotation for 
+Price per Item,Price per Item
+"%customer_name,","%customer_name,"
+This is to inform you that ,This is to inform you that 
+ has requested to become a Wholesaler., has requested to become a Wholesaler.
+Please ,Please 
+ Click here, Click here
+ to login., to login.
+%sellername,%sellername
+%message,%message
+%seller_message,%seller_message
+Please approve the product as soon as possible.,Please approve the product as soon as possible.
+Thank you,Thank you
+%wholesaler_name,%wholesaler_name
+%quoteTitle,%quoteTitle
+Quote Qty,Quote Qty
+Description:,Description:
+I would like to inform you that your product %product_name has been approved.,I would like to inform you that your product %product_name has been approved.
+I would like to inform you that your product %product_name has been rejected.,I would like to inform you that your product %product_name has been rejected.
+%receiver_name,%receiver_name
+%titleMsg,%titleMsg
+New Message :,New Message :
+"Hello, ","Hello, "
+Quote,Quote
+New Status :,New Status :
+This is to inform you that you are approved as wholesaler.,This is to inform you that you are approved as wholesaler.
+This is to inform you that you are inactive as wholesaler.,This is to inform you that you are inactive as wholesaler.
+ Are you sure you want to edit this quote ? , Are you sure you want to edit this quote ? 
+Ok,Ok
+There was error during verifying user name data,There was error during verifying user name data
+Your quotation has been sent successfully.,Your quotation has been sent successfully.
+There was error during fetching results.,There was error during fetching results.
+"Unable to save quote, Please try again.","Unable to save quote, Please try again."
+Quote quantity limit is ,Quote quantity limit is 
+There was error during getting price list,There was error during getting price list
+Webkul,Webkul
+Marketplace Wholesale,Marketplace Wholesale
+General Settings,General Settings
+Name,Name
+Admin Email-id,Admin Email-id
+Wholesaler Approval Required,Wholesaler Approval Required
+Wholesaler Product Approval Required,Wholesaler Product Approval Required
+Privacy Policy Heading,Privacy Policy Heading
+Privacy Policy Description,Privacy Policy Description
+Wholesale Transactional Emails,Wholesale Transactional Emails
+New Wholesale Account Template,New Wholesale Account Template
+New Quote Email to Wholesaler,New Quote Email to Wholesaler
+Quote Message Email,Quote Message Email
+Wholesaler Custom Email to Seller,Wholesaler Custom Email to Seller
+Quote Status Email,Quote Status Email
+New Product Email,New Product Email
+Product Approval Email,Product Approval Email
+Product Unapproval Email,Product Unapproval Email
+Wholesaler Approval Email,Wholesaler Approval Email
+Wholesaler Inactive Email,Wholesaler Inactive Email
+Wholesaler Request Template,Wholesaler Request Template
+Options,Options
+Are you sure to you want to perform this action on selected Product(s)?,Are you sure to you want to perform this action on selected Product(s)?
+Add Price Rule,Add Price Rule
+Are you sure you wan't to delete selected price rule(s)?,Are you sure you wan't to delete selected price rule(s)?
+Are you sure you want to enable selected rules?,Are you sure you want to enable selected rules?
+Are you sure you want to disable selected rules?,Are you sure you want to disable selected rules?
+Price Rule Name,Price Rule Name
+Created,Created
+Unit Information,Unit Information
+Unit Details,Unit Details
+Unit Name,Unit Name
+Sort Order,Sort Order
+Lead Id,Lead Id
+Seller Id,Seller Id
+Seller Name,Seller Name
+First viewed At,First viewed At
+Recent viewed At,Recent viewed At
+Total Viewed,Total Viewed
+Product Information,Product Information
+Product Details,Product Details
+Minimum Quote Qty,Minimum Quote Qty
+Maximum Quote Qty,Maximum Quote Qty
+Duration Type,Duration Type
+Select Price Rules,Select Price Rules
+Assign Rules to Products,Assign Rules to Products
+Change Status,Change Status
+Product Id,Product Id
+Approval Status,Approval Status
+Wholesaler Username,Wholesaler Username
+Seller Email,Seller Email
+Add New Unit,Add New Unit
+Delete items,Delete items
+Are you sure you want to delete selected Unit(s)?,Are you sure you want to delete selected Unit(s)?
+Are you sure you want to enable selected Unit(s)?,Are you sure you want to enable selected Unit(s)?
+Are you sure you want to disable selected Unit(s)?,Are you sure you want to disable selected Unit(s)?
+Add New Wholesaler,Add New Wholesaler
+20,20
+30,30
+50,50
+100,100
+200,200
+User Id,User Id
+Create a Wholesaler Account,Create a Wholesaler Account
+Leads,Leads
+Product List,Product List
+Change Status,Change Status
+Quote isn't declined after approved,Quote isn't declined after approved

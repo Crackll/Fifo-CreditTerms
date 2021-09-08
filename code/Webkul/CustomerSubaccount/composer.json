@@ -1,0 +1,22 @@
+{
+    "name": "webkul/module-customersubaccount",
+    "description": "Webkul Customer Sub Account Module For Magento2",
+    "require": {
+        "magento/module-config": "101.2.*",
+        "magento/module-sales": "103.0.*",
+        "magento/module-ui": "101.2.*"
+    },
+    "type": "magento2-module",
+    "version": "4.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\CustomerSubaccount\\": ""
+        }
+    }
+}

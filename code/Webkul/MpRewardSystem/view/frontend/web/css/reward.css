@@ -1,0 +1,84 @@
+ /**
+ * Webkul RewardSystem.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRewardSystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.wk_rs_advertise_review_style {
+    border-color: #C4C6C8 #C4C6C8 #FF7171;
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    color: #1E7EC8;
+    padding: 10px !important;
+    font-size: 34px;
+}
+.wk_rs_greet {
+    background: url("../images/sprite.png") repeat scroll 36px 373px transparent;
+    padding-left: 30px;
+}
+.wk_rs_green {
+    color: #4ABC48;
+    font-size: 35px;
+}
+.wk_rs_sub_head1{
+    display: inline-block;
+    float: left;
+    margin-right: 15px;
+}
+.wk_rs_sub_head2 h2, .wk_rs_sub_head2 h3{
+    margin: 0px;
+}
+.wk_rs_price{
+    color: green;
+}
+.wk_rs_main *{
+    box-sizing:border-box;
+    position: relative;
+}
+.wk_rs_main h2, .wk_rs_main h3{
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 6rem;
+}
+#wk_rs_no_reward_img{
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.wk_rs_noreward_head {
+    text-align: center;
+}
+.wk_rs_points_details.wk_rs_total_points{
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px 14px;
+  width: 40%;
+  margin-right:20px;
+  float: left;
+  margin-bottom:16px;
+}
+.wk_rs_reward_value{
+  font-size:45px;
+  font-weight:600;
+  margin-right:10px;
+}
+.wk_rs_reward_text{
+  font-weight:600;
+  font-size:16px;
+}
+.wk_rs_reward_applied{
+  background: url("../images/icon.png") no-repeat transparent;
+  font-size: 19px;
+}
+.wk_rs_applied_reward_text {
+  margin-left: 28px;
+}
+.wk_rs_applied_amount{
+  font-weight:600;
+}
+.wk_rs_amount_currency{
+  font-size: 30px;
+  font-weight: 600;
+}

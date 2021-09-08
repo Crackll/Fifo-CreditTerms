@@ -1,0 +1,111 @@
+{
+    "wk_mpauction_product": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "customer_id": true,
+            "order_id": true,
+            "is_processing": true,
+            "min_amount": true,
+            "starting_price": true,
+            "reserve_price": true,
+            "auction_status": true,
+            "days": true,
+            "min_qty": true,
+            "max_qty": true,
+            "start_auction_time": true,
+            "stop_auction_time": true,
+            "increment_opt": true,
+            "increment_price": true,
+            "auto_auction_opt": true,
+            "status": true,
+            "expired": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_mpauction_amount": {
+        "column": {
+            "entity_id": true,
+            "auction_id": true,
+            "product_id": true,
+            "customer_id": true,
+            "is_auto_bid": true,
+            "auction_amount": true,
+            "winning_status": true,
+            "shop": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_MPAUCTION_AMOUNT_AUCTION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_MPAUCTION_AMOUNT_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID": true
+        }
+    },
+    "wk_mpauction_incremental_price": {
+        "column": {
+            "entity_id": true,
+            "user_id": true,
+            "incval": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_mpauto_auction": {
+        "column": {
+            "entity_id": true,
+            "auction_id": true,
+            "product_id": true,
+            "customer_id": true,
+            "amount": true,
+            "winning_price": true,
+            "status": true,
+            "shop": true,
+            "flag": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_MPAUTO_AUCTION_AUCTION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_MPAUTO_AUCTION_AUCTION_ID_WK_MPAUCTION_PRODUCT_ENTITY_ID": true
+        }
+    },
+    "wk_mpauction_winner_data": {
+        "column": {
+            "entity_id": true,
+            "auction_id": true,
+            "product_id": true,
+            "customer_id": true,
+            "win_amount": true,
+            "days": true,
+            "min_qty": true,
+            "max_qty": true,
+            "start_auction_time": true,
+            "stop_auction_time": true,
+            "status": true,
+            "complete": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_MPAUCTION_WINNER_DATA_AUCTION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_MPAUCTION_WINNER_DATA_AUCTION_ID_WK_MPAUCTION_PRD_ENTT_ID": true
+        }
+    }
+}

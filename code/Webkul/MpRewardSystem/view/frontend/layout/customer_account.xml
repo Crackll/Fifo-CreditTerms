@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRewardSystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Marketplace Reward System" design_abstraction="custom">
+    <head>
+        <css src="Webkul_MpRewardSystem::css/style.css"/>
+    </head>
+    <body>
+        <attribute name="class" value="account"/>
+        <referenceContainer name="seller_account_navigation">
+            <block class="Webkul\Marketplace\Block\Account\Navigation" name="seller_reward_navigation" template="Webkul_MpRewardSystem::account/navigation.phtml">
+                <arguments>
+                    <argument name="curHelper" xsi:type="object">Webkul\MpRewardSystem\Helper\Data</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-rewards-index-link" ifconfig="mprewardsystem/general_settings/enable">
+                <arguments>
+                    <argument name="path" xsi:type="string">mprewardsystem</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Reward Points</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,25 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceProductLabels
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "product-list-component": {
+                    "component": "Webkul_MarketplaceProductLabels/js/label/separate-seller-label-list",
+                    "template" : "Webkul_Marketplace/separate-product-list"
+                }
+            }
+        }
+    }
+}
+</script>

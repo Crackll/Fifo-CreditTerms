@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_MpRewardSystem
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software protected Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+       	<add id="Webkul_MpRewardSystem::menu" translate="title" title="Reward System" module="Webkul_MpRewardSystem" parent="Webkul_Marketplace::marketplace" sortOrder="100" resource="Webkul_MpRewardSystem::menu" dependsOnConfig="mprewardsystem/general_settings/enable"/>
+       	<add id="Webkul_MpRewardSystem::product" translate="title" title="Reward Points on Product" module="Webkul_MpRewardSystem" sortOrder="6" parent="Webkul_MpRewardSystem::menu" action="mprewardsystem/product" resource="Webkul_MpRewardSystem::product" dependsOnConfig="mprewardsystem/general_settings/enable"/>
+        <add id="Webkul_MpRewardSystem::category" translate="title" title="Reward Points on Category" module="Webkul_MpRewardSystem" sortOrder="7" parent="Webkul_MpRewardSystem::menu" action="mprewardsystem/category" resource="Webkul_MpRewardSystem::category" dependsOnConfig="mprewardsystem/general_settings/enable"/>
+        <add id="Webkul_MpRewardSystem::cart" translate="title" title="Reward Points on Cart" module="Webkul_MpRewardSystem" sortOrder="8" parent="Webkul_MpRewardSystem::menu" action="mprewardsystem/cart" resource="Webkul_MpRewardSystem::cart" dependsOnConfig="mprewardsystem/general_settings/enable"/>
+        <add id="Webkul_MpRewardSystem::reward" translate="title" title="Reward System Details" module="Webkul_MpRewardSystem" sortOrder="9" parent="Webkul_MpRewardSystem::menu" action="mprewardsystem/reward" resource="Webkul_MpRewardSystem::reward" dependsOnConfig="mprewardsystem/general_settings/enable"/>
+    </menu>
+</config>

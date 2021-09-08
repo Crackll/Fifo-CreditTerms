@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SampleProduct
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_sample_product" resource="default" engine="innodb" comment="Sample Product Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Sample ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" default="0" comment="Product Id"/>
+        <column xsi:type="int" name="sample_product_id" unsigned="true" nullable="false" default="0" comment="Sample Product Id"/>
+        <column xsi:type="int" name="status" nullable="false" default="1" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Create Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="WK_SAMPLE_PRODUCT_PRODUCT_ID_CATALOG_PRODUCT_ENTITY" table="wk_sample_product" column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_SAMPLE_PRODUCT_PRODUCT_ID_CATALOG_PRODUCT_ENTITY" indexType="btree">
+            <column name="product_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="WK_SAMPLE_PRODUCT_SAMPLE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY" table="wk_sample_product" column="sample_product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_SAMPLE_PRODUCT_SAMPLE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY" indexType="btree">
+            <column name="sample_product_id"/>
+        </index>
+    </table>
+    <table name="wk_sample_product_order" resource="default" engine="innodb" comment="Sample Product Order Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Sample Order ID"/>
+        <column xsi:type="int" name="sample_id" unsigned="true" nullable="false" default="0" comment="Sample Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" default="0" comment="Order Id"/>
+        <column xsi:type="int" name="status" nullable="false" default="1" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Create Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>
