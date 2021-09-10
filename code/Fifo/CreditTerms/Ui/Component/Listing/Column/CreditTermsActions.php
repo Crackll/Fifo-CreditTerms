@@ -11,7 +11,7 @@ namespace Fifo\CreditTerms\Ui\Component\Listing\Column;
 
 class CreditTermsActions extends \Magento\Ui\Component\Listing\Columns\Column
 {
-    const URL_PATH_EDIT = 'fifo_creditterms/items/edit';
+    const URL_PATH_EDIT = 'fifo_creditterms/definitions/edit';
 
     /**
      * URL builder
@@ -50,8 +50,8 @@ class CreditTermsActions extends \Magento\Ui\Component\Listing\Columns\Column
      */
     public function prepareDataSource(array $dataSource)
     {
-        if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as & $item) {
+        if (isset($dataSource['data']['definitions'])) {
+            foreach ($dataSource['data']['definitions'] as & $item) {
                 $item[$this->getData('name')] = [
                     'edit' => [
                         'href' => $this->_urlBuilder->getUrl(

@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
@@ -53,7 +53,13 @@ class MassStatus extends \Magento\Backend\App\Action
         foreach ($collection as $record) {
             $record->setStatus($this->getRequest()->getParam('status'))->save();
         }
-        if($this->getRequest()->getParam('status') == 1){$status = 'enabled';}else{$status = 'disabled';}
+
+        if($this->getRequest()->getParam('status') == 1){
+            $status = 'enabled';
+        }else{
+            $status = 'disabled';
+        }
+
         $this->messageManager->addSuccess(__('A total of %1 record(s) have been '.$status, $collectionSize));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */

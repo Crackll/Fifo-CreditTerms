@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Block\Adminhtml\Items\Edit\Tab;
+namespace Fifo\CreditTerms\Block\Adminhtml\Definitions\Edit\Tab;
 
 use Magento\Backend\Block\Widget\Form\Generic;
 use Magento\Backend\Block\Widget\Tab\TabInterface;
@@ -33,7 +33,7 @@ class Main extends Generic implements TabInterface
      */
     public function getTabLabel()
     {
-        return __('Item Information');
+        return __('Credit Term Definitions Information');
     }
 
     /**
@@ -41,7 +41,7 @@ class Main extends Generic implements TabInterface
      */
     public function getTabTitle()
     {
-        return __('Item Information');
+        return __('Credit Term Definitions Information');
     }
 
     /**
@@ -69,12 +69,12 @@ class Main extends Generic implements TabInterface
      */
     protected function _prepareForm()
     {
-        $model = $this->_coreRegistry->registry('current_fifo_creditterms_items');
+        $model = $this->_coreRegistry->registry('current_fifo_creditterms_definitions');
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
-        $form->setHtmlIdPrefix('item_');
+        $form->setHtmlIdPrefix('definitions_');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Item Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Credit Term Definitions Information')]);
         if ($model->getId()) {
             $fieldset->addField('creditterms_definition_id', 'hidden', ['name' => 'creditterms_definition_id']);
         }

@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;

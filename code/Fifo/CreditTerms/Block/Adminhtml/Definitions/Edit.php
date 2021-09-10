@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Block\Adminhtml\Items;
+namespace Fifo\CreditTerms\Block\Adminhtml\Definitions;
 
 class Edit extends \Magento\Backend\Block\Widget\Form\Container
 {
@@ -42,7 +42,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     protected function _construct()
     {
         $this->_objectId = 'id';
-        $this->_controller = 'adminhtml_items';
+        $this->_controller = 'adminhtml_definitions';
         $this->_blockGroup = 'Fifo_CreditTerms';
 
         parent::_construct();
@@ -67,11 +67,11 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      */
     public function getHeaderText()
     {
-        $item = $this->_coreRegistry->registry('current_fifo_creditterms_items');
-        if ($item->getId()) {
-            return __("Edit Item '%1'", $this->escapeHtml($item->getName()));
+        $definitions = $this->_coreRegistry->registry('current_fifo_creditterms_definitions');
+        if ($definitions->getId()) {
+            return __("Edit Credit Term Definitions '%1'", $this->escapeHtml($definitions->getName()));
         } else {
-            return __('New Item');
+            return __('New Credit Term Definitions');
         }
     }
 }

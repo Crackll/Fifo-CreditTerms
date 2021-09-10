@@ -7,9 +7,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
-class Index extends \Fifo\CreditTerms\Controller\Adminhtml\Items
+class Index extends \Fifo\CreditTerms\Controller\Adminhtml\Definitions
 {
     /**
      * Items list.
@@ -20,10 +20,10 @@ class Index extends \Fifo\CreditTerms\Controller\Adminhtml\Items
     {
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('Fifo_CreditTerms::test');
-        $resultPage->getConfig()->getTitle()->prepend(__('Test Items'));
+        $resultPage->setActiveMenu('Fifo_CreditTerms::definition');
+        $resultPage->getConfig()->getTitle()->prepend(__('Test Definitions'));
         $resultPage->addBreadcrumb(__('Test'), __('Test'));
-        $resultPage->addBreadcrumb(__('Items'), __('Items'));
+        $resultPage->addBreadcrumb(__('Definitions'), __('Definitions'));
         return $resultPage;
     }
 }

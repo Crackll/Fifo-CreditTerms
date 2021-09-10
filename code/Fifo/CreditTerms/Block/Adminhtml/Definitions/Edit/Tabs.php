@@ -7,9 +7,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Block\Adminhtml;
+namespace Fifo\CreditTerms\Block\Adminhtml\Definitions\Edit;
 
-class Items extends \Magento\Backend\Block\Widget\Grid\Container
+class Tabs extends \Magento\Backend\Block\Widget\Tabs
 {
     /**
      * Constructor
@@ -18,9 +18,9 @@ class Items extends \Magento\Backend\Block\Widget\Grid\Container
      */
     protected function _construct()
     {
-        $this->_controller = 'items';
-        $this->_headerText = __('Items');
-        $this->_addButtonLabel = __('Add New Item');
         parent::_construct();
+        $this->setId('fifo_creditterms_definitions_edit_tabs');
+        $this->setDestElementId('edit_form');
+        $this->setTitle(__('Definitions'));
     }
 }

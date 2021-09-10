@@ -14,9 +14,9 @@ use Magento\MediaStorage\Model\File\UploaderFactory;
 use Magento\Framework\Image\AdapterFactory;
 use Magento\Framework\Filesystem;
 /**
- * Items controller
+ * Definitions controller
  */
-abstract class Items extends \Magento\Backend\App\Action
+abstract class Definitions extends \Magento\Backend\App\Action
 {
     /**
      * Core registry
@@ -69,15 +69,10 @@ abstract class Items extends \Magento\Backend\App\Action
         $this->_file = $file;
     }
 
-    /**
-     * Initiate action
-     *
-     * @return this
-     */
     protected function _initAction()
     {
         $this->_view->loadLayout();
-        $this->_setActiveMenu('Fifo_CreditTerms::items')->_addBreadcrumb(__('Items'), __('Items'));
+        $this->_setActiveMenu('Fifo_CreditTerms::definitions')->_addBreadcrumb(__('Definitions'), __('Definitions'));
         return $this;
     }
 
@@ -88,6 +83,6 @@ abstract class Items extends \Magento\Backend\App\Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Fifo_CreditTerms::items');
+        return $this->_authorization->isAllowed('Fifo_CreditTerms::definitions');
     }
 }

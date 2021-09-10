@@ -7,9 +7,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
-class Delete extends \Fifo\CreditTerms\Controller\Adminhtml\Items
+class Delete extends \Fifo\CreditTerms\Controller\Adminhtml\Definitions
 {
 
     public function execute()
@@ -20,21 +20,21 @@ class Delete extends \Fifo\CreditTerms\Controller\Adminhtml\Items
                 $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms');
                 $model->load($id);
                 $model->delete();
-                $this->messageManager->addSuccess(__('You deleted the item.'));
+                $this->messageManager->addSuccess(__('You deleted the credit term definition.'));
                 $this->_redirect('fifo_creditterms/*/');
                 return;
             } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 $this->messageManager->addError($e->getMessage());
             } catch (\Exception $e) {
                 $this->messageManager->addError(
-                    __('We can\'t delete item right now. Please review the log and try again.')
+                    __('We can\'t delete credit term definition right now. Please review the log and try again.')
                 );
                 $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
                 $this->_redirect('fifo_creditterms/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
-        $this->messageManager->addError(__('We can\'t find a item to delete.'));
+        $this->messageManager->addError(__('We can\'t find a credit term definition to delete.'));
         $this->_redirect('fifo_creditterms/*/');
     }
 }

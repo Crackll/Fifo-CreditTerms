@@ -7,21 +7,20 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
-class Edit extends \Fifo\CreditTerms\Controller\Adminhtml\Items
+class Edit extends \Fifo\CreditTerms\Controller\Adminhtml\Definitions
 {
 
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
-        
         $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms');
 
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                $this->messageManager->addError(__('This item no longer exists.'));
+                $this->messageManager->addError(__('This Definitions no longer exists.'));
                 $this->_redirect('fifo_creditterms/*');
                 return;
             }
@@ -31,9 +30,9 @@ class Edit extends \Fifo\CreditTerms\Controller\Adminhtml\Items
         if (!empty($data)) {
             $model->addData($data);
         }
-        $this->_coreRegistry->register('current_fifo_creditterms_items', $model);
+        $this->_coreRegistry->register('current_fifo_creditterms_definitions', $model);
         $this->_initAction();
-        $this->_view->getLayout()->getBlock('items_items_edit');
+        $this->_view->getLayout()->getBlock('definitions_definitions_edit');
         $this->_view->renderLayout();
     }
 }

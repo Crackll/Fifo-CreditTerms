@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
 class InlineEdit extends \Magento\Backend\App\Action
 {
@@ -30,16 +30,16 @@ class InlineEdit extends \Magento\Backend\App\Action
         $messages = [];
 
         if ($this->getRequest()->getParam('isAjax')) {
-            $postItems = $this->getRequest()->getParam('items', []);
-            if (!count($postItems)) {
+            $postDefinitions = $this->getRequest()->getParam('definitions', []);
+            if (!count($postDefinitions)) {
                 $messages[] = __('Please correct the data sent.');
                 $error = true;
             } else {
-                foreach (array_keys($postItems) as $modelid) {
+                foreach (array_keys($postDefinitions) as $modelid) {
                     /** @var \Magento\Cms\Model\Block $block */
                     $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms')->load($modelid);
                     try {
-                        $model->setData(array_merge($model->getData(), $postItems[$modelid]));
+                        $model->setData(array_merge($model->getData(), $postDefinitions[$modelid]));
                         $model->save();
                     } catch (\Exception $e) {
                         $messages[] = "[Mytesting ID: {$modelid}]  {$e->getMessage()}";

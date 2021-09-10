@@ -7,9 +7,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Controller\Adminhtml\Items;
+namespace Fifo\CreditTerms\Controller\Adminhtml\Definitions;
 
-class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Items
+class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Definitions
 {
     public function execute()
     {
@@ -28,7 +28,7 @@ class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Items
                 if ($id) {
                     $model->load($id);
                     if ($id != $model->getId()) {
-                        throw new \Magento\Framework\Exception\LocalizedException(__('The wrong item is specified.'));
+                        throw new \Magento\Framework\Exception\LocalizedException(__('The wrong Definition is specified.'));
                     }
                 }
 
@@ -37,7 +37,7 @@ class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Items
                 $session->setPageData($model->getData());
                 $model->save();
 
-                $this->messageManager->addSuccess(__('You saved the item.'));
+                $this->messageManager->addSuccess(__('You saved the Definition.'));
 
                 $session->setPageData(false);
                 if ($this->getRequest()->getParam('back')) {
@@ -58,7 +58,7 @@ class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Items
                 return;
             } catch (\Exception $e) {
                 $this->messageManager->addError(
-                    __('Something went wrong while saving the item data. Please review the error log.')
+                    __('Something went wrong while saving the Definition data. Please review the error log.')
                 );
                 $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
                 $this->_objectManager->get('Magento\Backend\Model\Session')->setPageData($data);

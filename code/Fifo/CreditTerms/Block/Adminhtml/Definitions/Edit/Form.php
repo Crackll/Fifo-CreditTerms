@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-namespace Fifo\CreditTerms\Block\Adminhtml\Items\Edit;
+namespace Fifo\CreditTerms\Block\Adminhtml\Definitions\Edit;
 
 class Form extends \Magento\Backend\Block\Widget\Form\Generic
 {
@@ -19,8 +19,8 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('creditterms_items_form');
-        $this->setTitle(__('Item Information'));
+        $this->setId('creditterms_definitions_form');
+        $this->setTitle(__('Credit Term Definitions Information'));
     }
 
     /**
@@ -35,7 +35,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             [
                 'data' => [
                     'id' => 'edit_form',
-                    'action' => $this->getUrl('fifo_creditterms/items/save'),
+                    'action' => $this->getUrl('fifo_creditterms/definitions/save'),
                     'method' => 'post',
                     'enctype' => 'multipart/form-data'
                 ],

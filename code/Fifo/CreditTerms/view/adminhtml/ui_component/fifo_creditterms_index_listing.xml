@@ -116,10 +116,10 @@
             <action name="delete">
                 <settings>
                     <confirm>
-                        <message translate="true">Delete selected items?</message>
-                        <title translate="true">Delete items</title>
+                        <message translate="true">Delete selected definitions?</message>
+                        <title translate="true">Delete definitions</title>
                     </confirm>
-                    <url path="fifo_creditterms/items/massDelete"/>
+                    <url path="fifo_creditterms/definitions/massDelete"/>
                     <type>delete</type>
                     <label translate="true">Delete</label>
                 </settings>
@@ -132,14 +132,14 @@
                         <action name="0">
                             <type>enable</type>
                             <label translate="true">Enable</label>
-                            <url path="fifo_creditterms/items/massStatus">
+                            <url path="fifo_creditterms/definitions/massStatus">
                                 <param name="status">1</param>
                             </url>
                         </action>
                         <action name="1">
                             <type>disable</type>
                             <label translate="true">Disable</label>
-                            <url path="fifo_creditterms/items/massStatus">
+                            <url path="fifo_creditterms/definitions/massStatus">
                                 <param name="status">0</param>
                             </url>
                         </action>
@@ -171,7 +171,7 @@
                     <item name="enabled" xsi:type="boolean">false</item>
                     <item name="indexField" xsi:type="string">creditterms_definition_id</item>
                     <item name="clientConfig" xsi:type="array">
-                        <item name="saveUrl" xsi:type="url" path="fifo_creditterms/items/inlineEdit"/>
+                        <item name="saveUrl" xsi:type="url" path="fifo_creditterms/definitions/inlineEdit"/>
                         <item name="validateBeforeSave" xsi:type="boolean">false</item>
                     </item>
                 </item>
