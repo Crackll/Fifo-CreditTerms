@@ -1,0 +1,83 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Otp
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/** @var \Fifo\CreditTerms\Block\Payment\Form $block */
+?>
+<form class="form form-edit-account" action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
+      method="post" id="form-validate" enctype="multipart/form-data"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      autocomplete="off">
+
+    <fieldset class="fieldset password" data-container="change-email-password">
+        <legend class="legend">
+            <span data-title="change-email-password"><?= $block->escapeHtml(__('Change Email and Password')) ?></span>
+        </legend><br>
+        <div class="field email required" data-container="change-email">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email" name="email" id="email"
+                       autocomplete="email" data-input="change-email"
+                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                       class="input-text" data-validate="{required:true, 'validate-email':true}" />
+            </div>
+        </div>
+        <div class="field password current required">
+            <label class="label" for="current-password">
+                <span><?= $block->escapeHtml(__('Current Password')) ?></span>
+            </label>
+            <div class="control">
+                <input type="password" class="input-text"
+                       name="current_password" id="current-password"
+                       data-input="current-password" autocomplete="off" />
+            </div>
+        </div>
+        <div class="field new password required" data-container="new-password">
+            <label class="label" for="password"><span><?= $block->escapeHtml(__('New Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="password" id="password"
+                    data-input="new-password"
+                    data-validate="{required:true, 'validate-customer-password':true}"
+                    autocomplete="off" />
+                <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                    <div id="password-strength-meter" class="password-strength-meter">
+                        <?= $block->escapeHtml(__('Password Strength')) ?>:
+                        <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                            <?= $block->escapeHtml(__('No Password')) ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field confirm password required" data-container="confirm-password">
+            <label class="label" for="password-confirmation">
+                <span><?= $block->escapeHtml(__('Confirm New Password')) ?></span>
+            </label>
+            <div class="control">
+                <input type="password" class="input-text" name="password_confirmation" id="password-confirmation"
+                    data-input="confirm-password"
+                    autocomplete="off" />
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>">
+                <span><?= $block->escapeHtml(__('Save')) ?></span>
+            </button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml(__('Go back')) ?></span>
+            </a>
+        </div>
+    </div>
+</form>
