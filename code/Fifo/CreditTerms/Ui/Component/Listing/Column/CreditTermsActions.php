@@ -50,8 +50,8 @@ class CreditTermsActions extends \Magento\Ui\Component\Listing\Columns\Column
      */
     public function prepareDataSource(array $dataSource)
     {
-        if (isset($dataSource['data']['definitions'])) {
-            foreach ($dataSource['data']['definitions'] as & $item) {
+        if (isset($dataSource['data']['items'])) {
+            foreach ($dataSource['data']['items'] as & $item) {
                 $item[$this->getData('name')] = [
                     'edit' => [
                         'href' => $this->_urlBuilder->getUrl(

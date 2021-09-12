@@ -21,9 +21,7 @@ class Index extends \Fifo\CreditTerms\Controller\Adminhtml\Definitions
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Fifo_CreditTerms::definition');
-        $resultPage->getConfig()->getTitle()->prepend(__('Test Definitions'));
-        $resultPage->addBreadcrumb(__('Test'), __('Test'));
-        $resultPage->addBreadcrumb(__('Definitions'), __('Definitions'));
+        $resultPage->getConfig()->getTitle()->prepend(__('CreditTerm Definitions'));
         return $resultPage;
     }
 }

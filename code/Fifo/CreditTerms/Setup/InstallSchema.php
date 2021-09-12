@@ -76,6 +76,13 @@ class InstallSchema implements InstallSchemaInterface
 			'Credit Limit'
 		)
         ->addColumn(
+            'type',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => true,'default' => null],
+            'Type'
+        )
+        ->addColumn(
 			'created_at',
 			\Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
 			null,

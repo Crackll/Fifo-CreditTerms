@@ -138,6 +138,18 @@ class Main extends Generic implements TabInterface
             ]
         );
 
+        $fieldset->addField(
+            'type',
+            'select',
+            [
+                'name' => 'type',
+                'label' => __('Type'),
+                'title' => __('Type'),
+                'options'   => ['buyer' => 'Buyer', 'supplier' => 'Supplier'],
+                'required' => true
+            ]
+        );
+
         $form->setValues($model->getData());
         $this->setForm($form);
         return parent::_prepareForm();

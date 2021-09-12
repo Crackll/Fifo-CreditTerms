@@ -21,7 +21,7 @@
             </block>
         </referenceContainer>
         <referenceContainer name="content">
-            <block class="Fifo\CreditTerms\Block\Adminhtml\Definitions\Edit" name="test_definitions_edit"/>
+            <block class="Fifo\CreditTerms\Block\Adminhtml\Definitions\Edit" name="fifo_creditterms_definitions_edit"/>
         </referenceContainer>
     </body>
 </page>
