@@ -16,10 +16,7 @@
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
       autocomplete="off">
 
-    <fieldset class="fieldset password" data-container="change-email-password">
-        <legend class="legend">
-            <span data-title="change-email-password"><?= $block->escapeHtml(__('Change Email and Password')) ?></span>
-        </legend><br>
+    <fieldset class="fieldset">
         <div class="field email required" data-container="change-email">
             <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
@@ -30,41 +27,104 @@
                        class="input-text" data-validate="{required:true, 'validate-email':true}" />
             </div>
         </div>
-        <div class="field password current required">
-            <label class="label" for="current-password">
-                <span><?= $block->escapeHtml(__('Current Password')) ?></span>
+        <div class="field commercial-registration-number required">
+            <label class="label" for="commercial-registration-number">
+                <span><?= $block->escapeHtml(__('Commercial Registration Number')) ?></span>
             </label>
             <div class="control">
-                <input type="password" class="input-text"
-                       name="current_password" id="current-password"
-                       data-input="current-password" autocomplete="off" />
+                <input type="text" class="input-text"
+                       name="commercial_registration_number" id="commercial-registration-number"
+                       autocomplete="off" />
             </div>
         </div>
-        <div class="field new password required" data-container="new-password">
-            <label class="label" for="password"><span><?= $block->escapeHtml(__('New Password')) ?></span></label>
-            <div class="control">
-                <input type="password" class="input-text" name="password" id="password"
-                    data-input="new-password"
-                    data-validate="{required:true, 'validate-customer-password':true}"
-                    autocomplete="off" />
-                <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
-                    <div id="password-strength-meter" class="password-strength-meter">
-                        <?= $block->escapeHtml(__('Password Strength')) ?>:
-                        <span id="password-strength-meter-label" data-role="password-strength-meter-label">
-                            <?= $block->escapeHtml(__('No Password')) ?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="field confirm password required" data-container="confirm-password">
-            <label class="label" for="password-confirmation">
-                <span><?= $block->escapeHtml(__('Confirm New Password')) ?></span>
+        <div class="field company-name required">
+            <label class="label" for="company-name">
+                <span><?= $block->escapeHtml(__('Company Name')) ?></span>
             </label>
             <div class="control">
-                <input type="password" class="input-text" name="password_confirmation" id="password-confirmation"
-                    data-input="confirm-password"
-                    autocomplete="off" />
+                <input type="text" class="input-text"
+                       name="company_name" id="company-name"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field restaurant-name required">
+            <label class="label" for="restaurant-name">
+                <span><?= $block->escapeHtml(__('Restaurant Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="restaurant_name" id="restaurant-name"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field number-of-branches required">
+            <label class="label" for="number-of-branches">
+                <span><?= $block->escapeHtml(__('Number of Branches')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="number_of_branches" id="number-of-branches"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field location-region required">
+            <label class="label" for="location-region">
+                <span><?= $block->escapeHtml(__('Location / Region')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="location_region" id="location-region"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field owner-name required">
+            <label class="label" for="owner-name">
+                <span><?= $block->escapeHtml(__('Owner Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="owner_name" id="owner-name"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field contact-person-name required">
+            <label class="label" for="contact-person-name">
+                <span><?= $block->escapeHtml(__('Contact person Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="contact_person_name" id="contact-person-name"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field contact-number required">
+            <label class="label" for="contact-number">
+                <span><?= $block->escapeHtml(__('Contact Number (Mobile / Phone)')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="contact_number" id="contact-number"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field contact-email required">
+            <label class="label" for="contact-email">
+                <span><?= $block->escapeHtml(__('Contact Email')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="contact_email" id="contact-email"
+                       autocomplete="off" />
+            </div>
+        </div>
+        <div class="field buyer-credit-term required">
+            <label class="label" for="buyer-credit-term">
+                <span><?= $block->escapeHtml(__('Buyer Credit Term')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" class="input-text"
+                       name="buyer_credit_term" id="buyer-credit-term"
+                       autocomplete="off" />
             </div>
         </div>
     </fieldset>
