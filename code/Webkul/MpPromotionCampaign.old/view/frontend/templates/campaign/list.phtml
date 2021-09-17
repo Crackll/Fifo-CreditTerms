@@ -1,0 +1,96 @@
+
+<div id="tab_element">
+    <ul class="tabs-horiz" >
+        <li>
+            <a href="#tab1_content">
+                <span>
+                    <?= /* @noEscape */  __("All Promotion"); ?>            
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#tab2_content">
+                <span>
+                    <?= /* @noEscape */  __("Participation Promotion"); ?>
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="tab_element_content">
+    <div id="tab1_content" >
+        <div>
+        <?=
+             /* @noEscape */  $block->getChildHtml('mppromotioncampaign_campaign_list');
+        ?>
+        </div>
+    </div>
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create four equal columns that floats next to each other */
+.wk-column {
+  float: left;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.wk-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<?php
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMpPromotionCampaignHelper();
+$campaignData = $helper->totalSellerCampaign();
+?>
+<div id="tab2_content" >
+    <div class="wk-row">
+    <div class="wk-column">
+        <h6><a href="<?= /* @noEscape */  $block->getUrl().'mppromotioncampaign/campaign/index/camStatus/5';?>">
+        <?= /* @noEscape */  __(" All");?>(<?= /* @noEscape */  $campaignData['allCampaign'];?> )</a></h6>
+    </div>
+    <div class="wk-column" >
+    <h6><a href="<?= /* @noEscape */  $block->getUrl().'mppromotioncampaign/campaign/index/camStatus/3'?>">
+    <?= /* @noEscape */  __("Coming Soon");?>(<?= /* @noEscape */  $campaignData['upcommingCampaign'];?>)</a></h6>
+    </div>
+    <div class="wk-column" >
+    <h6><a href="<?= /* @noEscape */  $block->getUrl().'mppromotioncampaign/campaign/index/camStatus/1'?>">
+    <?= /* @noEscape */  __("During Promotion");?>(<?= /* @noEscape */  $campaignData['liveCampaign'];?>)</a></h6>
+    </div>
+    <div class="wk-column" >
+    <h6><a href="<?= /* @noEscape */  $block->getUrl().'mppromotioncampaign/campaign/index/camStatus/2'?>">
+    <?= /* @noEscape */  __("Finish");?>(<?= /* @noEscape */  $campaignData['finishCampaign'];?>)</a></h6>
+    </div>
+    </div>
+    <div>
+        <div> <?= /* @noEscape */  $block->getChildHtml('mppromotioncampaign_seller_campain');?></div>
+        </div>
+    </div>
+</div>
+<?php
+$activeTab = 0;
+if ($block->getRequest()->getParam('camStatus')) {
+    $activeTab = 1;
+}
+ /* @noEscape */ echo '<input type="hidden" value="'.$activeTab.'" id="activeTab">';
+?>
+<script>
+    require(["jquery","mage/backend/tabs"], function($){
+        $(function() {
+            $('#tab_element').tabs({
+               // active: 'tab2_content',  // active tab elemtn id
+                destination: '#tab_element_content', // tab content destination element id
+                shadowTabs: ['tab2_content']        
+            });
+            var activeTab = $("#activeTab").val();
+            if(activeTab == 1){
+                $("#ui-id-2").click();
+            }
+        });
+    });
+</script>

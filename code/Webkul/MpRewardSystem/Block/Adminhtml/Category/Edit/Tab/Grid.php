@@ -60,7 +60,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         parent::_construct();
         $this->setId('mprewardcategorygrid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('DESC');
+        $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
     /**
@@ -96,7 +96,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         $collection->addFilterToMap("category_name", "cpev.value");
         $collection->addFilterToMap("points", "rc.points");
         $collection->addFilterToMap("status", "rc.status");
-        $collection->setOrder('position', 'ASC');
 
         $this->setCollection($collection);
         parent::_prepareCollection();

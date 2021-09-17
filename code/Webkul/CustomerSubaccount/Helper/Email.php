@@ -110,12 +110,18 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     ) {
         $area = \Magento\Framework\App\Area::AREA_FRONTEND;
         try {
-            $template =  $this->transportBuilder->setTemplateIdentifier($emailTempId)->setTemplateOptions(
-                ['area' => $area, 'store' => $this->storeManager->getStore()->getId()]
-            )->setTemplateVars($emailTemplateVariables)->setFrom($senderInfo)->addTo(
-                $receiverInfo['email'],
-                $receiverInfo['name']
-            );
+            $senderEmail = isset($senderInfo['replyToEmail']) ? $senderInfo['replyToEmail'] : $senderInfo['email'];
+            $template =  $this->transportBuilder->setTemplateIdentifier($emailTempId)
+                ->setTemplateOptions(
+                    [
+                            'area' => $area,
+                            'store' => $this->storeManager->getStore()->getId(),
+                        ]
+                )
+            ->setTemplateVars($emailTemplateVariables)
+            ->setFrom($senderInfo)
+            ->addTo($receiverInfo['email'], $receiverInfo['name'])
+            ->setReplyTo($senderEmail, $senderInfo['name']);
             return $this;
         } catch (\Exception $e) {
             $this->logger->info($e->getMessage());
@@ -203,7 +209,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                             ];
                             $senderInfo = [
                                 'name' => $order->getCustomerName(),
-                                'email' => $order->getCustomerEmail()
+                                // 'email' => $order->getCustomerEmail()
+                                'email' => $this->scopeConfig->getValue(
+                                    'customersubaccount/general/manager_email',
+                                    ScopeInterface::SCOPE_WEBSITE
+                                ),
+                                'replyToEmail' => $order->getCustomerEmail()
                             ];
                             $emailTempVariables = [
                                 'subject' => __("Main Account's Order Placed Notification"),
@@ -263,7 +274,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                             $mainAccountUser = $this->helper->getCustomerModelById($mainAccountId);
                             $senderInfo = [
                                 'name' => $mainAccountUser->getName(),
-                                'email' => $mainAccountUser->getEmail()
+                                // 'email' => $mainAccountUser->getEmail()
+                                'email' => $this->scopeConfig->getValue(
+                                    'customersubaccount/general/manager_email',
+                                    ScopeInterface::SCOPE_WEBSITE
+                                ),
+                                'replyToEmail' => $mainAccountUser->getEmail()
                             ];
                             $emailTempVariables = [
                                 'subject' => __("Sub Account's Order Placed Notification"),
@@ -410,7 +426,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
             ];
             $senderInfo = [
                 'name' => $approver->getName(),
-                'email' => $approver->getEmail()
+                // 'email' => $approver->getEmail()
+                'email' => $this->scopeConfig->getValue(
+                    'customersubaccount/general/manager_email',
+                    ScopeInterface::SCOPE_WEBSITE
+                ),
+                'replyToEmail' => $approver->getEmail()
             ];
             $emailTempVariables = [
                 'subject' => __("Cart Approved Notification"),
@@ -460,7 +481,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
             ];
             $senderInfo = [
                 'name' => $creator->getName(),
-                'email' => $creator->getEmail()
+                // 'email' => $creator->getEmail()
+                'email' => $this->scopeConfig->getValue(
+                    'customersubaccount/general/manager_email',
+                    ScopeInterface::SCOPE_WEBSITE
+                ),
+                'replyToEmail' => $creator->getEmail()
             ];
             $emailTempVariables = [
                 'subject' => __("New Sub Account Created Notification"),
@@ -513,7 +539,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
             ];
             $senderInfo = [
                 'name' => $creator->getName(),
-                'email' => $creator->getEmail()
+                // 'email' => $creator->getEmail()
+                'email' => $this->scopeConfig->getValue(
+                    'customersubaccount/general/manager_email',
+                    ScopeInterface::SCOPE_WEBSITE
+                ),
+                'replyToEmail' => $creator->getEmail()
             ];
             $emailTempVariables = [
                 'subject' => __("New Sub Account Created Notification"),

@@ -39,9 +39,9 @@ class Save extends Action
     public $_fileFactory;
 
     /**
-     * Date
+     * DateTime
      *
-     * @var \Magento\Framework\Stdlib\DateTime\Filter\Date
+     * @var \Magento\Framework\Stdlib\DateTime\Filter\DateTime
      */
     public $_dateFilter;
 
@@ -82,7 +82,7 @@ class Save extends Action
      * @param Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
-     * @param \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter
+     * @param \Magento\Framework\Stdlib\DateTime\Filter\DateTime $dateFilter
      * @param \Webkul\MpPromotionCampaign\Model\CampaignFactory $campaignFactory
      * @param \Webkul\MpPromotionCampaign\Logger\Logger $logger
      * @param \Webkul\MpPromotionCampaign\Helper\Data $helper
@@ -94,7 +94,7 @@ class Save extends Action
         Context $context,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
-        \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter,
+        \Magento\Framework\Stdlib\DateTime\Filter\DateTime $dateFilter,
         \Webkul\MpPromotionCampaign\Model\CampaignFactory $campaignFactory,
         \Webkul\MpPromotionCampaign\Logger\Logger $logger,
         \Webkul\MpPromotionCampaign\Helper\Data $helper,
@@ -115,8 +115,6 @@ class Save extends Action
     }
 
     /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      * @return \Magento\Backend\Model\View\Result\Redirect
      */
     public function execute()
@@ -149,9 +147,9 @@ class Save extends Action
                 $generalData['title'] = $this->filterData($generalData['title']);
                 $generalData['discount'] = min(100, $generalData['discount']);
                 $generalData['status'] =  $generalData['status'];
-                $filterValues = ['from_date' => $this->_dateFilter];
-                if ($this->getRequest()->getParam('to_date')) {
-                    $filterValues['to_date'] = $this->_dateFilter;
+                $filterValues = ['start_date' => $this->_dateFilter];
+                if ($this->getRequest()->getParam('end_date')) {
+                    $filterValues['end_date'] = $this->_dateFilter;
                 }
                 $inputFilter = new \Zend_Filter_Input(
                     $filterValues,

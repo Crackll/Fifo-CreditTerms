@@ -1,3 +1,6 @@
 .field-registered_date .df-element-text{
     width:22% !important;
 }
+._has-datepicker.admin__control-text {
+    width: 19rem !important;
+}

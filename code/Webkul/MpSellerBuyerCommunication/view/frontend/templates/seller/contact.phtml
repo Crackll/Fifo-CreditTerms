@@ -22,12 +22,12 @@ $avgResponse = $_helper->getResponseTimeOfSeller($sellerId);
 $guestQueryApproval = $_helper->getGuestQueryApproval();
 ?>
 <div class="wk-mp-seller-profile-box wk-mp-collection-header-bottom-txt">
-    <!-- <a class="askque"><?= $block->escapeHtml(__('Contact')) ?></a> -->
-    <!-- <span class="field-tooltip-action"></span> -->
+    <a class="askque"><?= $escaper->escapeHtml(__('Contact')) ?></a>
+    <span class="field-tooltip-action"></span>
     <div class="field-tooltip-content">
         <span class="seller-response-rate">
-            <span id="reponseRate">0</span><?= $block->escapeHtml(__('% response rate,')) ?>
-            <span id="avgTime">0</span><?= $block->escapeHtml(__('-mins response time')) ?>
+            <span id="reponseRate">0</span><?= $escaper->escapeHtml(__('% response rate,')) ?>
+            <span id="avgTime">0</span><?= $escaper->escapeHtml(__('-mins response time')) ?>
         </span>
     </div>
     <div class="ask-que">
@@ -47,49 +47,53 @@ $guestQueryApproval = $_helper->getGuestQueryApproval();
             <form id="ask-form" method="post" action="#" class="fieldset" 
             data-mage-init='{"validation":{}}' enctype="multipart/form-data">
                 <div class="form-list field required">
-                    <label class="label"><?= $block->escapeHtml(__('Support Type')) ?> :</label>
+                    <label class="label labelhead"><?= $escaper->escapeHtml(__('Support Type')) ?> :</label>
                     <select name="support_type" class="validate-select required-entry">
                         <?php foreach ($_helper->getSupportTypes() as $key => $value) { ?>
-                            <option value=<?= $block->escapeHtml($key); ?>><?= $block->escapeHtml($value); ?></option>
+                            <option value=<?=$escaper->escapeHtml($key);?>>
+                                    <?= $escaper->escapeHtml($value); ?>
+                            </option>
                         <?php } ?>
                     </select>
-                    <label class="label"><?= $block->escapeHtml(__('Your Name')) ?> :</label>
-                    <input type="text" name="name" class="queryemail wk-contact_input_fields validate-no-html-tags
-                     required-entry" value="<?= $block->escapeHtml($buyerName)?>" <?= $block->escapeHtml($readonly)?>/>
-                    <label class="label"><?= $block->escapeHtml(__('Your Email')) ?> :</label>
+                    <label class="label labelhead"><?= $escaper->escapeHtml(__('Your Name')) ?> :</label>
+                    <input type="text" name="name" 
+                           class="queryemail wk-contact_input_fields validate-no-html-tags required-entry" 
+                           value="<?= $escaper->escapeHtml($buyerName)?>" <?= $escaper->escapeHtml($readonly)?>/>
+                    <label class="label labelhead"><?= $escaper->escapeHtml(__('Your Email')) ?> :</label>
                     <input type="email" name="email" class="queryemail required-entry validate-email 
-                    validate-no-html-tags wk-contact_input_fields" value="<?= $block->escapeHtml($buyerEmail)?>" 
-                    <?= $block->escapeHtml($readonly)?>/>
-                    <label class="label"><?= $block->escapeHtml(__('Subject')) ?> :</label>
+                    validate-no-html-tags wk-contact_input_fields" 
+                        value="<?= $escaper->escapeHtml($buyerEmail)?>" 
+                    <?= $escaper->escapeHtml($readonly)?>/>
+                    <label class="label labelhead"><?= $escaper->escapeHtml(__('Subject')) ?> :</label>
                     <input type="text" name="subject" class="wk-contact_input_fields validate-no-html-tags 
                      required-entry"/>
-                    <label class="label"><?= $block->escapeHtml(__('Your Query')) ?> :</label>
+                    <label class="label labelhead"><?= $escaper->escapeHtml(__('Your Query')) ?> :</label>
                     <textarea  name="ask" id="queryquestion" class="queryquestion wk-contact_input_fields 
                     required-entry" style="width:100%;"></textarea>
-                    <input type="hidden" name="seller-id" value="<?= $block->escapeHtml($sellerId);?>"/>
+                    <input type="hidden" name="seller-id" value="<?= $escaper->escapeHtml($sellerId);?>"/>
                     <?php if ($captchenable) { ?>
                         <div>
                             <span>
                                 <label for="wk-mp-captcha">
-                                    <span id="wk-mp-captchalable1"><?= $block->escapeHtml(rand(1, 20))?></span> 
-                                    + <span id="wk-mp-captchalable2"><?= $block->escapeHtml(rand(1, 20))?></span>
+                                    <span id="wk-mp-captchalable1"><?= $escaper->escapeHtml(rand(1, 20))?></span> 
+                                    + <span id="wk-mp-captchalable2"><?= $escaper->escapeHtml(rand(1, 20))?></span>
                                 = </label>
                             </span>
                             <input type="text" class="required-entry wk-contact_input_fields" name="wk-mp-captcha" 
                             id="wk-mp-captcha" />
                         </div>
                     <?php } ?>
-                    <label class="file" class=""><?= $block->escapeHtml(__('Add Image/File')) ?> :</label>
+                    <label class="file" class=""><?= $escaper->escapeHtml(__('Add Image/File')) ?> :</label>
                     <div class="input-box">
                         <div class="image-con">
                             <input type="file" name="img_attachment[]" class="wk_imagevalidate"/>
                             <a href="javascript:void(0)" class="remove_attch" style="display:none">
-                                <?= $block->escapeHtml(__('Remove')); ?>
+                                <?= $escaper->escapeHtml(__('Remove')); ?>
                             </a>
                         </div>
                         <div id="otherimages" class="image-con"></div>
                         <a href="javascript:void(0)" class="product_images">
-                            <?= $block->escapeHtml(__("Add More")); ?>
+                            <?= $escaper->escapeHtml(__("Add More")); ?>
                         </a><br />
                     </div>
                 </div>
@@ -111,7 +115,7 @@ $guestQueryApproval = $_helper->getGuestQueryApproval();
 <script id="attachment-template" type="text/x-magento-template">
     <div id='childDiv<%- fields.index %>' class="image-con">
         <input type='file' name='img_attachment[]' class='wk_imagevalidate'/>
-        <a href='#' class='remove_attch'><?= $block->escapeHtml(__('Remove')); ?></a>
+        <a href='#' class='remove_attch'><?= $escaper->escapeHtml(__('Remove')); ?></a>
     </div>
 </script>
 
@@ -147,7 +151,14 @@ $guestQueryApproval = $_helper->getGuestQueryApproval();
 <script type="text/x-magento-init">
     {
         "*": {
-            "wkSellerProfilePage": <?= $block->escapeJsQuote($serializedData); ?>
+            "wkSellerProfilePage": <?= $escaper->escapeJsQuote($serializedData); ?>
         }
     }
 </script>
+
+<style>
+    .labelhead{
+        display: block;
+    }
+</style>
+

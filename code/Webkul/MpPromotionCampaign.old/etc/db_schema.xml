@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mppromotioncampaign_campaigns" resource="default" engine="innodb" comment="Marketplace Campaign Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="title" comment="Title"/>
+        <column xsi:type="datetime" name="start_date" nullable="false" on_update="false" comment="Start Date"/>
+        <column xsi:type="datetime" name="end_date" nullable="false" on_update="false" comment="End Date"/>
+        <column xsi:type="text" name="discount" comment="Discount"/>
+        <column xsi:type="text" name="banner" comment="Banner Image"/>
+        <column xsi:type="text" name="description" comment="Description"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="mppromotionseller_campaign" resource="default" engine="innodb" comment="Marketplace Promotion Seller Campaign Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="campaign_id" unsigned="true" nullable="false" default="0" comment="Campaign ID"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" default="0" comment="Seller ID"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="mppromotionseller_product_campaign" resource="default" engine="innodb" comment="Marketplace Promotion Seller Product Campaign Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="campaign_id" unsigned="true" nullable="false" default="0" comment="Campaign ID"/>
+        <column xsi:type="int" name="seller_campaign_id" unsigned="true" nullable="false" default="0" comment="Seller Campaign ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" default="0" comment="Product ID"/>
+        <column xsi:type="text" name="price" comment="Price"/>
+        <column xsi:type="text" name="qty" comment="Qty"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="Status"/>
+        <column xsi:type="int" name="sold_qty" unsigned="true" nullable="false" default="0" comment="Sold Qty"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

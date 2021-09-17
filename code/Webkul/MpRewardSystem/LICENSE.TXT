@@ -1,6 +1,6 @@
 SOFTWARE LICENCE AGREEMENT
 
-This AGREEMENT is made effective on the date of the purchase of the software between Webkul Software Pvt. Ltd.,Company incorporated under the Companies Act, 1956 (hereinafter referred to as “Licensor"), and the purchaser of the software/ product (hereinafter referred to as "Licensee").
+This AGREEMENT is made effective on the date of the purchase of the software between Webkul Software Pvt. Ltd.,Company incorporated under the Companies Act, 1956 (hereinafter referred to as â€œLicensor"), and the purchaser of the software/ product (hereinafter referred to as "Licensee").
 
 Preamble
 
@@ -24,7 +24,7 @@ Agreement
 
 (a)Grant of License.  For the consideration set forth below, Licensor hereby grants to Licensee, and Licensee hereby accepts the worldwide, non-exclusive, perpetual, royalty-free rights and licenses set forth below:  
 
-(i)The right and license to use and incorporate the software, in whole or in part, to develop its website/ mobile app (including the integration of all or part of the Licensor’s software into Licensee's own software) on one domain (  Except Joomla modules , listed on store are entitled to be used on unlimited domain as per the standard guidelines ) only, solely for the own personal or business use of the Licensee. However, the License does not authorize the Licensee to compile, copy or distribute the said Software or its Derivative Works.
+(i)The right and license to use and incorporate the software, in whole or in part, to develop its website/ mobile app (including the integration of all or part of the Licensorâ€™s software into Licensee's own software) on one domain (  Except Joomla modules , listed on store are entitled to be used on unlimited domain as per the standard guidelines ) only, solely for the own personal or business use of the Licensee. However, the License does not authorize the Licensee to compile, copy or distribute the said Software or its Derivative Works.
 
 (ii)The right and license does not authorize the Licensee to make any backup or archival copies of the Software and / or the Source Code and Documentation.
 
@@ -120,7 +120,7 @@ If to Webkul Software Pvt. Ltd.:
 
 Webkul Software Pvt. Ltd.
 
-A-67, Sector 63, NOIDA – 201301,
+H-28, ARV Park, Sector 63, NOIDA â€“ 201301,
 
 Uttar Pradesh, India
 
@@ -145,3 +145,4 @@ At the address mentioned by the Licensee
 12. Arbitration
 
 If any dispute arises between the Licensor and the Licensee at any time, in connection with the validity, interpretation, implementation or alleged breach of any provision of this Agreement,  the same shall be referred to a sole Arbitrator who shall be an independent and neutral third party appointed exclusively by the Licensor. The Licensee shall not object to the appointment of the Arbitrator so appointed by the Licensor. The place of arbitration shall be Delhi, India. The Arbitration & Conciliation Act, 1996 as amended by The Arbitration & Conciliation  (Amendment) Act, 2015, shall govern the arbitration proceedings. The arbitration proceedings shall be held in the English language.
+{"mode":"full","isActive":false}

@@ -1,0 +1,43 @@
+{
+    "mppromotioncampaign_campaigns": {
+        "column": {
+            "entity_id": true,
+            "title": true,
+            "start_date": true,
+            "end_date": true,
+            "discount": true,
+            "banner": true,
+            "description": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mppromotionseller_campaign": {
+        "column": {
+            "entity_id": true,
+            "campaign_id": true,
+            "seller_id": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mppromotionseller_product_campaign": {
+        "column": {
+            "entity_id": true,
+            "campaign_id": true,
+            "seller_campaign_id": true,
+            "product_id": true,
+            "price": true,
+            "qty": true,
+            "status": true,
+            "sold_qty": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

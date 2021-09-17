@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+    <resources>
+        <resource id="Magento_Backend::admin">
+            <resource id="Webkul_MpPromotionCampaign::manager" title="Marketplace Promotion Campaign" sortOrder="10" >
+                <resource id="Webkul_MpPromotionCampaign::menu" title="Menu" sortOrder="10">
+                    <resource id="Webkul_MpPromotionCampaign::campaign" title="Manage Promotion Campaigns" sortOrder="10" />   
+                </resource>
+            </resource>
+        </resource>  
+        </resources>
+    </acl>
+</config>

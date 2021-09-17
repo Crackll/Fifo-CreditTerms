@@ -32,13 +32,13 @@
                         <field id="otp_enable">1</field>
                     </depends>
                 </field>
-                <field id="forgot_password" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" canRestore="1">
+                <!-- <field id="forgot_password" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" canRestore="1">
                     <label>Need Otp Validation On Customer Forgot Password</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="otp_enable">1</field>
                     </depends>
-                </field>
+                </field> -->
                 <field id="otp_enable_checkout" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1">
                     <label>Need Otp Validation On Checkout</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

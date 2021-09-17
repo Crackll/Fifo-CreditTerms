@@ -15,6 +15,7 @@ class State extends \Magento\LayeredNavigation\Block\Navigation\State
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Webkul\MpPromotionCampaign\Model\Layer\Resolver $layerResolver,
+        \Webkul\MpPromotionCampaign\Helper\Data $helper,
         array $data = []
     ) {
         parent::__construct($context, $layerResolver, $data);

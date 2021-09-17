@@ -1,0 +1,25 @@
+
+.modal-slide._show{
+    z-index:900 !important;
+}
+
+#mpwalletsystem_add_payee > .fieldset > div label {
+    display:block
+}
+
+#mpwalletsystem_add_payee > .fieldset > div input {
+    width:-webkit-fill-available;
+}
+
+
+#mpwalletsystem_trasfer_amount > .fieldset > div input {
+    width:-webkit-fill-available;
+}
+
+#mpwalletsystem_trasfer_amount > .fieldset > div label {
+    display:block
+}
+
+#mpwalletsystem_trasfer_amount > .fieldset > div textarea {
+    width:-webkit-fill-available;
+}

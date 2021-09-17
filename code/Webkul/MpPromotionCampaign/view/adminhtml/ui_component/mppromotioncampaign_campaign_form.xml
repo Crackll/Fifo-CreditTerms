@@ -39,6 +39,7 @@
             </item>
         </argument>
         <settings>
+            <validateUrl path="*/*/validate"/>
             <submitUrl path="*/*/save"/>
         </settings>
         <dataProvider class="Webkul\MpPromotionCampaign\Model\Campaign\DataProvider" name="campaign_form_data_source">

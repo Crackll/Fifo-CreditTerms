@@ -102,9 +102,13 @@ class MassRefuse extends \Magento\Backend\App\Action
                     }
                 }
                 $this->helper->cacheFlush();
-                $this->messageManager->addSuccess(__('A total of %1 campaign(s) have been refused.', $count));
+                $this->messageManager->addSuccess(
+                    __('A total of %1 product(s) have been refused to join campaign.', $count)
+                );
             } elseif ($campaignstatus == 1) {
-                $this->messageManager->addError(__('The Campaign is Live, You can not refuse the products.'));
+                $this->messageManager->addError(
+                    __('The Campaign is Live, You can not refuse the products.')
+                );
             }
             
         } catch (\Exception $e) {
@@ -113,7 +117,9 @@ class MassRefuse extends \Magento\Backend\App\Action
             );
             $this->messageManager->addError(__($e->getMessage()));
         }
-        return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('*/*/product/id/'.$campaignId);
+        return $this->resultFactory->create(
+            ResultFactory::TYPE_REDIRECT
+        )->setPath('*/*/product/id/'.$campaignId);
     }
 
     /**

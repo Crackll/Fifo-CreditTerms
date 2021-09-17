@@ -61,6 +61,7 @@
     margin: 0 0 20px;
     padding: 0;
     width: 100%;
+    display: block !important;
 }
 .wk-mp-design .fieldset > .field:not(.choice) > .label {
     float: none;

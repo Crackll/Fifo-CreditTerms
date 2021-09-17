@@ -29,7 +29,7 @@ $profileListArray = $block->uploadedProfileName();
         <fieldset class="fieldset">
             <?= $block->getBlockHtml('formkey') ?>
             <?= $block->getBlockHtml('seller.formkey')?>
-            <legend class="legend">
+            <legend class="legend" style="display:unset !important;">
                 <span><?= $block->escapeHtml(__("Mass Uploaded Profile(s) List")); ?></span>
                 <button class="button wk-mp-btn" type="submit">
                     <span><span><?= $block->escapeHtml(__("Delete")); ?></span></span>

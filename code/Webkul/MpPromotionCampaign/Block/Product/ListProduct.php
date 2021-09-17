@@ -18,6 +18,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         \Webkul\MpPromotionCampaign\Model\Layer\Resolver $layerResolver,
         \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
         \Magento\Framework\Url\Helper\Data $urlHelper,
+        \Webkul\MpPromotionCampaign\Helper\Data $helper,
         array $data = []
     ) {
         parent::__construct(

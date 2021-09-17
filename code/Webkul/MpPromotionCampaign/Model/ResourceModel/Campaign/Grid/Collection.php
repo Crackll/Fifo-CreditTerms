@@ -122,7 +122,6 @@ class Collection extends CampaignCollection implements SearchResultInterface
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setSearchCriteria(
         \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null
@@ -147,7 +146,6 @@ class Collection extends CampaignCollection implements SearchResultInterface
      * @param int $totalCount
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setTotalCount($totalCount)
     {
@@ -160,7 +158,6 @@ class Collection extends CampaignCollection implements SearchResultInterface
      * @param \Magento\Framework\Api\ExtensibleDataInterface[] $items
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setItems(array $items = null)
     {
@@ -179,6 +176,7 @@ class Collection extends CampaignCollection implements SearchResultInterface
         $campaignJoin = $this->getTable('mppromotionseller_campaign');
      
         $this->getSelect()->where('main_table.status = '.CampaignModel::STATUS_ENABLED)
+        ->where('main_table.start_date < main_table.end_date')
         ->columns(['totalsellers' =>
             new \Zend_Db_Expr('(SELECT COUNT(*) FROM '.$sellerTable
                 .' WHERE status=0 AND campaign_id=main_table.entity_id)')])

@@ -70,6 +70,7 @@ class View extends Action
         $collection = $this->campaignFactory->create()
                 ->getCollection()
                 ->addFieldToFilter('entity_id', $campaignId)
+                ->addFieldToFilter('status', 1)
                 ->addFieldToFilter('start_date', ['lteq'=>$currentDateTime])
                 ->addFieldToFilter('end_date', ['gteq'=>$currentDateTime]);
         if ($collection->getSize()) {

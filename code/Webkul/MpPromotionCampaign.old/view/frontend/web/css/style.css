@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+  }
+  .promotion-lable2 {
+     width: 60%;
+   }
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .mppromotioncolumn {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    /* height: 50%; */
+}
+  .pro-per {
+      width: 100%;
+      display: flex;
+  }
+  .promotion-lable {
+      width: 30%;
+      display: flex;
+  }
+  .promotion-value {
+      margin-left: auto;
+      width: 70%;
+  }
+  button.campaign-confirm {
+      margin-left: 3%;
+  }
+  .modal-popup .modal-title {
+    border-bottom: unset !important;
+  }
+  .modal-header {
+    border-bottom: unset;
+  }
+  .modal-popup._inner-scroll .modal-inner-wrap {
+    max-height: 80% !important;
+    width: 45% !important;
+}
+#popup-modal {
+    float: right;
+    width: 160px;
+}
+.row-gutter .col-xs-2 {
+    width: 20%;
+}
+.data-grid .data-grid-editable-row-actions {
+    left: 50%;
+    margin-left: -12.5rem;
+    margin-top: -2px;
+    position: absolute;
+    text-align: center;
+}
+
+.data-grid._in-edit .data-grid-editable-row {
+    border: 0.1rem solid #adadad;
+    border-bottom-color: #c2c2c2;
+}
+#promotion-banner {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+img#promotion-banner {
+    display: block;
+    margin: 0 auto;
+}
+@media screen and (max-width: 555px) {
+    .promotion-value {
+        margin-left: auto;
+        width: 50%;
+    }
+    .promotion-lable2 {
+        width: 100%;
+        padding-right: 5px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .promotion-value {
+        margin-left: auto;
+        width: 30%;
+    }
+}
+@media screen and (max-width: 309px) {
+    .promotion-value {
+        margin-left: auto;
+        width: 0%;
+    }
+}
+@media screen and (max-width: 245px) {
+    .promotion-lable2 {
+        width: 100%;
+        padding-right: 20px;
+    }
+}
+@media screen and (max-width: 400px) {
+.mppromotioncolumn {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 50%;
+}
+}

@@ -180,7 +180,10 @@ class Advertise extends \Magento\Framework\View\Element\Template
     public function getDays($blockId)
     {
         $settings = $this->_adsHelper->getSettingsById($blockId);
-        return $settings['valid_for'];
+
+        $validFor = isset($settings['valid_for']) ? $settings['valid_for'] : '';
+
+        return $validFor;
     }
 
     /**

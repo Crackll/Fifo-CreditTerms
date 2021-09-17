@@ -155,7 +155,7 @@ class ProductAdd extends \Magento\Customer\Controller\AbstractAccount implements
             }
             $this->messageManager->addSuccess(
                 __(
-                    'A total of %1 record(s) have been added.',
+                    'A total of %1 product(s) have been added.',
                     $count
                 )
             );

@@ -59,7 +59,7 @@
             <argument name="data" xsi:type="array">
                <item name="config" xsi:type="array">
                   <item name="type" xsi:type="string">massadded</item>
-                  <item name="label" xsi:type="string" translate="true">Product Add</item>
+                  <item name="label" xsi:type="string" translate="true">Add Products</item>
                   <item name="url" xsi:type="url" path="mppromotioncampaign/campaign/productadd" />
                   <item name="confirm" xsi:type="array">
                      <item name="title" xsi:type="string" translate="true">Add</item>

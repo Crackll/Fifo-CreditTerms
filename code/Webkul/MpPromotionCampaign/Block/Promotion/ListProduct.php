@@ -8,7 +8,6 @@
  * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
  * @license   https://store.webkul.com/license.html
  */
-
 namespace Webkul\MpPromotionCampaign\Block\Promotion;
 
 class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
@@ -19,6 +18,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
      * @param \Webkul\MpPromotionCampaign\Model\Layer\Resolver $layerResolver
      * @param \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository
      * @param \Magento\Framework\Url\Helper\Data $urlHelper
+     * @param \Webkul\MpPromotionCampaign\Helper\Data $helper
      * @param array $data
      */
     public function __construct(
@@ -27,6 +27,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
         \Webkul\MpPromotionCampaign\Model\Layer\Resolver $layerResolver,
         \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
         \Magento\Framework\Url\Helper\Data $urlHelper,
+        \Webkul\MpPromotionCampaign\Helper\Data $helper,
         array $data = []
     ) {
         parent::__construct(

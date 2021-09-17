@@ -45,7 +45,7 @@ class DisablePromotion extends SymfonyCommand
     /**
      * @var \Webkul\Marketplace\Helper\Data
      */
-    protected $helper;
+    protected $marketplaceHelper;
 
     /**
      * @param \Magento\Eav\Setup\EavSetupFactory        $eavSetupFactory
@@ -65,7 +65,8 @@ class DisablePromotion extends SymfonyCommand
         \Magento\Framework\App\State $state,
         \Webkul\MpPromotionCampaign\Model\CampaignJoin $sellerCampaign,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollection,
-        \Webkul\Marketplace\Helper\Data $helper
+        \Webkul\Marketplace\Helper\Data $marketplaceHelper,
+        \Webkul\MpPromotionCampaign\Helper\Data $helper
     ) {
         $this->sellerCampaign = $sellerCampaign;
         $this->campaign = $campaign;
@@ -77,6 +78,7 @@ class DisablePromotion extends SymfonyCommand
         $this->_eavAttribute = $entityAttribute;
         $this->_modStatus = $modStatus;
         $this->productCollection = $productCollection;
+        $this->marketplaceHelper = $marketplaceHelper;
         $this->helper = $helper;
         parent::__construct();
     }
@@ -105,12 +107,13 @@ class DisablePromotion extends SymfonyCommand
             }
             $collection = $this->campaignProduct->create()->getCollection();
             foreach ($collection as $camProduct) {
-                $productData = '';
                 $productData = $this->product->load($camProduct->getProductId());
-                $productData->setSpecialToDate('');
-                $productData->setSpecialFromDate('');
-                $productData->setSpecialPrice(null);
-                $productData->save();
+                $this->helper->updateSpecialPriceDates(
+                    $productData->getSku(),
+                    null,
+                    '',
+                    ''
+                );
                 $camProduct->delete();
             }
             $sellerCampaign = $this->sellerCampaign->getCollection();
@@ -120,15 +123,6 @@ class DisablePromotion extends SymfonyCommand
             // disable
             $this->_modStatus->setIsEnabled(false, ['Webkul_MpPromotionCampaign']);
 
-            // clear cache to show updated data on product page
-            $this->helper->clearCache();
-
-            // $connection = $this->_resource
-            // ->getConnection(\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION);
-
-            // delete entry from setup_module table
-            // $tableName = $connection->getTableName('setup_module');
-            // $connection->query("DELETE FROM " . $tableName . " WHERE module = 'Webkul_MpPromotionCampaign'");
             $output->writeln('<info>Webkul Marketplace Promotion Campaign has been disabled successfully.</info>');
         }
     }

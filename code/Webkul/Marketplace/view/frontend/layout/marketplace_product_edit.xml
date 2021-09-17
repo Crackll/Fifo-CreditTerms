@@ -15,6 +15,7 @@
     <update handle="marketplace_styles"/>
     <head>    
         <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+        <css src="Webkul_Marketplace::css/editproduct.css"/>
     </head>
     <body>
         <referenceContainer name="main" htmlTag="div" htmlClass="column main wk-mp-main"/>

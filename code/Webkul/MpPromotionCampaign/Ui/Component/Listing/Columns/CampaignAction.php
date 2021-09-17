@@ -11,36 +11,36 @@
 
 namespace Webkul\MpPromotionCampaign\Ui\Component\Listing\Columns;
 
-use Magento\Framework\UrlInterface;
-use Magento\Framework\View\Element\UiComponent\ContextInterface;
-use Magento\Framework\View\Element\UiComponentFactory;
-use Magento\Ui\Component\Listing\Columns\Column;
-
-class CampaignAction extends Column
+class CampaignAction extends \Magento\Ui\Component\Listing\Columns\Column
 {
     /**
-     * @var UrlInterface
+     * @var \Magento\Framework\UrlInterface
      */
-    public $urlBuilder;
+    protected $urlBuilder;
 
     /**
      * Constructor.
      *
-     * @param ContextInterface   $context
-     * @param UiComponentFactory $uiComponentFactory
-     * @param UrlInterface       $urlBuilder
-     * @param array              $components
-     * @param array              $data
+     * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
+     * @param \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory
+     * @param \Magento\Framework\UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
      */
     public function __construct(
-        ContextInterface $context,
-        UiComponentFactory $uiComponentFactory,
-        UrlInterface $urlBuilder,
+        \Magento\Framework\View\Element\UiComponent\ContextInterface $context,
+        \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory,
+        \Magento\Framework\UrlInterface $urlBuilder,
         array $components = [],
         array $data = []
     ) {
         $this->urlBuilder = $urlBuilder;
-        parent::__construct($context, $uiComponentFactory, $components, $data);
+        parent::__construct(
+            $context,
+            $uiComponentFactory,
+            $components,
+            $data
+        );
     }
 
     /**

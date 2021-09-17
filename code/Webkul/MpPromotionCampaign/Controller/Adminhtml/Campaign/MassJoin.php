@@ -93,7 +93,7 @@ class MassJoin extends \Magento\Backend\App\Action
                         $count++;
                     }
                 } else {
-                     $campaignProduct = $this->collectionFactory->create()
+                    $campaignProduct = $this->collectionFactory->create()
                                         ->addFieldToFilter('campaign_id', $campaignId);
                     foreach ($campaignProduct as $data) {
                         $data->setStatus(CampaignProModel::STATUS_JOIN);
@@ -102,9 +102,13 @@ class MassJoin extends \Magento\Backend\App\Action
                     }
                 }
                 $this->helper->cacheFlush();
-                $this->messageManager->addSuccess(__('A total of %1 record(s) have been joined.', $count));
+                $this->messageManager->addSuccess(
+                    __('A total of %1 product(s) have been joined the campaign.', $count)
+                );
             } elseif ($campaignstatus == 1) {
-                $this->messageManager->addError(__('The Campaign is Live, You can not Join the products.'));
+                $this->messageManager->addError(
+                    __('The Campaign is Live, You can not Join the products.')
+                );
             }
         } catch (\Exception $e) {
             $this->logger->info(
@@ -112,7 +116,9 @@ class MassJoin extends \Magento\Backend\App\Action
             );
             $this->messageManager->addError(__($e->getMessage()));
         }
-        return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('*/*/product/id/'.$campaignId);
+        return $this->resultFactory->create(
+            ResultFactory::TYPE_REDIRECT
+        )->setPath('*/*/product/id/'.$campaignId);
     }
 
     /**

@@ -12,7 +12,8 @@
 <div class="block discount" id="block-discount" 
 data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
     <div class="title" data-role="title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">
-        <strong id="block-discount-heading" role="heading" aria-level="2"><?=/* @noEscape */ __('Seller\'s Reward'); ?>
+        <strong id="block-discount-heading" role="heading" aria-level="2">
+        <?=$escaper->escapeHtml(__('Seller\'s Reward')); ?>
         </strong>
     </div>
     <div class="content" data-role="content" aria-labelledby="block-discount-heading" role="tabpanel" 
@@ -23,27 +24,34 @@ data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
             <input type="hidden" name="remaining_reward_point" id="remaining_reward_point" value="" />
             <div class="fieldset coupon">
                 <div class="field">
-                    <label for="coupon_code" class="label"><span><?=/* @noEscape */ __('Select seller\'s reward');?> 
+                    <label for="coupon_code" class="label"><span>
+                    <?= $escaper->escapeHtml(__('Select seller\'s reward'));?> 
                     </span></label>
                     <select id="select_reward" class="select" name="seller_id">
-                            <option value=""><?=/* @noEscape */ __('Select seller\'s reward');?></option>
-                            <?php foreach ($block->getRewards() as $key => $value): ?>
-                                <?php if ($value['remaining_reward_point'] > 0): ?>
-                                    <option value="<?=$block->escapeHtml($key); ?>" data-reward="<?=$block
-                                    ->escapeHtml((int)($value['remaining_reward_point'])) ?>"><?=$block
-                                    ->escapeHtml("Seller : ".$block
-                                    ->getSellerName($key).", Rewards : ".
-                                    (int)($value['remaining_reward_point']).", Amount : ".$block
-                                    ->getPricingHelper()->currency($value['amount'], true, false)); ?>
+                            <option value=""><?= $escaper->escapeHtml(__('Select seller\'s reward'));?></option>
+                            <?php if ($block->isCustomerLoggedin()) { ?>
+                                <?php foreach ($block->getRewards() as $key => $value): ?>
+                                    <?php if ($value['remaining_reward_point'] > 0): ?>
+                                        <option value="<?=$block->escapeHtml($key); ?>" data-reward="<?=$block
+                                        ->escapeHtml((int)($value['remaining_reward_point'])) ?>"><?=$block
+                                        ->escapeHtml("Seller : ".$block
+                                        ->getSellerName($key).", Rewards : ".
+                                        (int)($value['remaining_reward_point']).", Amount : ".$block
+                                        ->getPricingHelper()->currency($value['amount'], true, false)); ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php } else { ?>
+                                    <option value="">
+                                    <?= $escaper->escapeHtml(__('Please Login or Sign Up to use reward points'));?>
                                     </option>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php } ?>                            
                     </select>
                 </div>
             </div>
             <div class="fieldset coupon reward_field" style="display:none">
                 <div class="field">
-                    <label for="coupon_code" class="label"><span><?=/* @noEscape */ __('Enter Reward Points');?>
+                    <label for="coupon_code" class="label"><span><?= $escaper->escapeHtml(__('Enter Reward Points'));?>
                      </span></label>
                     <div class="control">
                         <input id="reward_points" type="text" class="required-entry input-text" value=""
@@ -53,7 +61,7 @@ data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
                 <div class="actions-toolbar">
                     <div class="primary">
                         <button class="action apply primary" type="submit" value="Apply Reward">
-                            <span><?=/* @noEscape */ __('Apply Reward') ?></span>
+                            <span><?=$escaper->escapeHtml(__('Apply Reward')) ?></span>
                         </button>
                     </div>
                 </div>
@@ -64,7 +72,7 @@ data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
             <form id="cancel-Reward-form" action="<?=$block->escapeUrl($block
             ->getUrl('mprewardsystem/checkout/cancelrewards')) ?>" method="post">
                 <dl class="wk_applied_rewards">
-                    <dt><?=/* @noEscape */ __('Applied Rewards') ?></dt>
+                    <dt><?=$escaper->escapeHtml(__('Applied Rewards')) ?></dt>
                     <dd>
                         <ul class="form-list">
                             <?php foreach ($rewardInfo as $key => $info): ?>
@@ -72,7 +80,7 @@ data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
                                         <label>
                                             <span><?=$block->escapeHtml($block
                                             ->getSellerName($info['seller_id'])) ?> : </span>
-                                            <span><?=/* @noEscape */ __('Using') ?></span>
+                                            <span><?=$escaper->escapeHtml(__('Using')) ?></span>
                                             <span><?=$block->escapeHtml($block->getPricingHelper()
                                             ->currency(abs($info['amount']), true, false)) ?></span>
                                             <span><?=$block
@@ -91,8 +99,8 @@ data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
                          <div class="actions-toolbar">
                             <div class="primary">
                                 <button class="action apply primary" id="cancel_reward" type="submit" 
-                                value="<?= /* @noEscape */__('Cancel Rewards') ?>">
-                                    <span><?=/* @noEscape */ __('Cancel Reward') ?></span>
+                                value="<?= $escaper->escapeHtml(__('Cancel Rewards')) ?>">
+                                    <span><?= $escaper->escapeHtml(__('Cancel Reward')) ?></span>
                                 </button>
                             </div>
                         </div>

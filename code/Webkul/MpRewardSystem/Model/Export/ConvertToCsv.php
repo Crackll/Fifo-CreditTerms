@@ -75,21 +75,21 @@ class ConvertToCsv extends UiCsv
      */
     public function getCsvFile()
     {
-        $component = $this->filter->getComponent();
+        $components = $this->filter->getComponent();
 
         $title = hash('md5', microtime());
-        $file = 'export/' . $component->getName() . $title . '.csv';
+        $file = 'export/' . $components->getName() . $title . '.csv';
 
-        $this->filter->prepareComponent($component);
+        $this->filter->prepareComponent($components);
         $this->filter->applySelectionOnTargetProvider();
-        $dataProvider = $component->getContext()->getDataProvider();
-        $fields = $this->metadataProvider->getFields($component);
+        $dataProvider = $components->getContext()->getDataProvider();
+        $fields = $this->metadataProvider->getFields($components);
         $options = $this->metadataProvider->getOptions();
 
         $this->directory->create('export');
         $stream = $this->directory->openFile($file, 'w+');
         $stream->lock();
-        $stream->writeCsv($this->metadataProvider->getHeaders($component));
+        $stream->writeCsv($this->metadataProvider->getHeaders($components));
         $i = 1;
         $searchCriteria = $dataProvider->getSearchCriteria()
             ->setCurrentPage($i)
@@ -98,8 +98,8 @@ class ConvertToCsv extends UiCsv
         while ($totalCount > 0) {
             $items = $dataProvider->getSearchResult()->getItems();
             foreach ($items as $item) {
-                $this->metadataProvider->convertDate($item, $component->getName());
-                if ($component->getName() == "mprewardsystem_cartrules") {
+                $this->metadataProvider->convertDate($item, $components->getName());
+                if ($components->getName() == "mprewardsystem_cartrules") {
                     $customer = $this->_customerModel->create()
                         ->load($item->getSellerId());
                     $CustName = $customer->getFirstname() . " " . $customer->getLastname();

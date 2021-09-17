@@ -36,9 +36,9 @@ define([
                 $(".wk-seller-rating").hide();
             });
 
-            $('#askque').click(function () {
-                $('#ask-form input,#ask-form textarea').removeClass('mage-error');
-                $('#ask-form div.mage-error').remove();
+            $('.ask_que').click(function () {
+                $('#wkcom-ask-form input,#wkcom-ask-form textarea').removeClass('mage-error');
+                $('#wkcom-ask-form div.mage-error').remove();
                 if(self.options.isLoggedIn || self.options.guestQueryApproval == '1'){
                     $('#wk-mp-ask-data').modal('openModal');
                 } else {
@@ -85,15 +85,15 @@ define([
                         text: 'Reset',
                         class:'',
                         click: function () {
-                            if ($('#ask-form').find('#name').attr('readonly')=='readonly') {
-                                name = $('#ask-form').find('#name').val();
+                            if ($('#wkcom-ask-form').find('#name').attr('readonly')=='readonly') {
+                                name = $('#wkcom-ask-form').find('#name').val();
                             }
-                            if ($('#ask-form').find('#email').attr('readonly')=='readonly') {
-                                email = $('#ask-form').find('#email').val();
+                            if ($('#wkcom-ask-form').find('#email').attr('readonly')=='readonly') {
+                                email = $('#wkcom-ask-form').find('#email').val();
                             }
-                            $('#ask-form')[0].reset();
-                            $('#ask-form').find('#name').val(name);
-                            $('#ask-form').find('#email').val(email);
+                            $('#wkcom-ask-form')[0].reset();
+                            $('#wkcom-ask-form').find('#name').val(name);
+                            $('#wkcom-ask-form').find('#email').val(email);
                         } //handler on button click
                     },{
                         text: 'Submit',
@@ -199,7 +199,7 @@ define([
                                 $(this).addClass('mage-error');
                                 $('#ask_form .errormail').text(self.options.varificationMsg).slideDown('slow').delay(2000).slideUp('slow');
                             } else {
-                                var form = $('#ask-form')[0];
+                                var form = $('#wkcom-ask-form')[0];
                                 var formData = new FormData(form);
                                 
                                 formData.append('files',data);
@@ -228,7 +228,7 @@ define([
                             }
                         } else {
                            
-                            var form = $('#ask-form')[0];
+                            var form = $('#wkcom-ask-form')[0];
                             var formData = new FormData(form);
                             
                             formData.append('files',data);

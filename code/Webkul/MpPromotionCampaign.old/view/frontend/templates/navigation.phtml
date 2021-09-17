@@ -1,0 +1,44 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMpHelper();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+$isPartner = $helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isCampaignIndex = $helper->isAllowedAction('mppromotioncampaign/campaign/index');
+if ($isPartner && (($isSellerGroup && $isCampaignIndex) || !$isSellerGroup)) { ?>
+    <?php if (($isSellerGroup && $isCampaignIndex) || !$isSellerGroup) { ?>
+        <?php
+        $isCurrUrl = strpos($magentoCurrentUrl, 'mppromotioncampaign/campaign/index');
+        $redirectUrl = $block->getUrl(
+            'mppromotioncampaign/campaign/index',
+            ['_secure' => $block->getRequest()->isSecure()]
+        );
+        ?>
+        <li class="nav item <?= /* @noEscape */  $isCurrUrl? "current":"";?>">
+            <?php if ($block->getNavSelectClass('mppromotioncampaign/campaign/index')) { ?>
+                <strong><?= /* @noEscape */  __('Promotion') ?></strong>
+            <?php } else { ?>
+                <a href="<?= /* @noEscape */ $redirectUrl ?>">
+                    <?= /* @noEscape */  __('Promotion') ?>
+                </a>
+            <?php } ?>
+        </li>
+    <?php } ?>
+<script type="text/x-magento-init">
+{
+    "*" : {
+            "navigation": ""
+    }
+}
+</script>
+<?php } ?>

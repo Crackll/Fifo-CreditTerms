@@ -137,15 +137,16 @@ class ProductAdd extends \Magento\Backend\App\Action
                     ->save();
             }
             // Save Campaign Details to Product
-            $productDetail->setSpecialFromDate(date("Y-m-d h:i:s", strtotime($campainDetail['start_date'])));
-            $productDetail->setSpecialToDate(date("Y-m-d h:i:s", strtotime($campainDetail['end_date'])));
-            $productDetail->setSpecialPrice($promotionPrice);
-            $productDetail->setCampaignId($campaignId);
-            $productDetail->save();
+            $this->helper->updateSpecialPriceDates(
+                $productDetail->getSku(),
+                $promotionPrice,
+                date("Y-m-d h:i:s", strtotime($campainDetail['start_date'])),
+                date("Y-m-d h:i:s", strtotime($campainDetail['end_date']))
+            );
         }
         $this->messageManager->addSuccess(
             __(
-                'A total of %1 record(s) have been added.',
+                'A total of %1 product(s) have been added.',
                 $count
             )
         );

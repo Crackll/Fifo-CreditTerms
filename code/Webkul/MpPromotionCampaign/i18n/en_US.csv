@@ -118,3 +118,11 @@ Running Status,Running Status
 (Percent %),(Percent %)
 Campaign Id,Campaign Id
 Upload Banner,Upload Banner
+"Add Products","Add Products"
+"A total of %1 product(s) have been refused to join campaign.","A total of %1 product(s) have been refused to join campaign."
+"A total of %1 product(s) have been joined the campaign.","A total of %1 product(s) have been joined the campaign."
+"A total of %1 product(s) have been added.","A total of %1 product(s) have been added."
+"Manage Campaign Products","Manage Campaign Products"
+"Add Product","Add Product"
+"A total of 2 product(s) have been deleted.","A total of 2 product(s) have been deleted."
+"Do you want to cancel your promotion ?","Do you want to cancel your promotion ?"

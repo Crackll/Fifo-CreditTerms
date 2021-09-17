@@ -125,7 +125,6 @@ class Collection extends CampaignProductCollection implements SearchResultInterf
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setSearchCriteria(
         \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null
@@ -150,7 +149,6 @@ class Collection extends CampaignProductCollection implements SearchResultInterf
      * @param int $totalCount
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setTotalCount($totalCount)
     {
@@ -163,7 +161,6 @@ class Collection extends CampaignProductCollection implements SearchResultInterf
      * @param \Magento\Framework\Api\ExtensibleDataInterface[] $items
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setItems(array $items = null)
     {

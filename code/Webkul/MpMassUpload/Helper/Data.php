@@ -986,7 +986,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $wholeData['product']['category_ids'] = $categoryIds;
         $wholeData['product']['name'] = $data['product']['name'];
         // $wholeData['product']['manufacturer'] = (isset($data['product']['manufacturer']) ? $data['product']['manufacturer'] : '');
-        $wholeData['product']['country_of_manufacture'] = $data['product']['country_of_manufacture'];
+        $wholeData['product']['country_of_manufacture'] = isset($data['product']['country_of_manufacture']) ? $data['product']['country_of_manufacture'] : '';
         $wholeData['product']['short_description'] = $data['product']['short_description'];
         $wholeData['product']['description'] = $data['product']['description'];
         $wholeData['product']['sku'] = $data['product']['sku'];

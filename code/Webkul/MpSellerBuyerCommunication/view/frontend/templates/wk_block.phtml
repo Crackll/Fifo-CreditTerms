@@ -412,31 +412,31 @@ if ($sellerId) {
         
             <?php  }
             ?>
-            <form id="ask-form" method="post" action="#" class="fieldset" data-mage-init='{"validation":{}}'
+            <form id="wkcom-ask-form" method="post" action="#" class="fieldset" data-mage-init='{"validation":{}}'
              enctype="multipart/form-data" >
                 <div class="form-list field required" data-bind="scope: 'customer'">
-                    <label class="label"><?= $block->escapeHtml(__('Support Type')) ?> :</label>
+                    <label class="label labelhead"><?= $block->escapeHtml(__('Support Type')) ?> :</label>
                     <select name="support_type" class="validate-select required-entry">
                         <?php foreach ($_helper->getSupportTypes() as $key => $value) { ?>
                             <option value=<?= $block->escapeHtml($key); ?>><?= $block->escapeHtml($value); ?></option>
                         <?php }  ?>
                     </select>
 
-                    <label class="label"><?= $block->escapeHtml(__('Your Name')) ?> :</label>
+                    <label class="label labelhead"><?= $block->escapeHtml(__('Your Name')) ?> :</label>
                     <input type="text" name="name" class="queryemail wk-contact_input_fields 
                     validate-no-html-tags required-entry" id="name" value="<?= $block->escapeHtml($buyerName)?>" 
                     <?= /* @noEscape */ $readonly?>/>
 
-                    <label class="label"><?= $block->escapeHtml(__('Your Email')) ?> :</label>
+                    <label class="label labelhead"><?= $block->escapeHtml(__('Your Email')) ?> :</label>
                     <input type="email" name="email" id="email" class="queryemail validate-no-html-tags required-entry 
                     validate-email wk-contact_input_fields" value="<?= $block->escapeHtml($buyerEmail)?>" 
                     <?= /* @noEscape */ $readonly?>/>
 
-                    <label class="label"><?= $block->escapeHtml(__('Subject')) ?> :</label>
+                    <label class="label labelhead"><?= $block->escapeHtml(__('Subject')) ?> :</label>
                     <input type="text" name="subject" class="wk-contact_input_fields validate-no-html-tags 
                     required-entry"/>
 
-                    <label class="label"><?= $block->escapeHtml(__('Your Query')) ?> :</label>
+                    <label class="label labelhead"><?= $block->escapeHtml(__('Your Query')) ?> :</label>
                     <textarea id="queryquestion"  name="ask" class="queryquestion wk-contact_input_fields 
                     required-entry" style="width:100%;"></textarea>
 
@@ -503,17 +503,17 @@ if ($sellerId) {
                             ?>
                           <form id="flag-form" method="post" action="#" class="fieldset">
                               <div class="modal-body form-list field wk-flag-form required">
-                                  <label class="label"><?= $block->escapeHtml(__('Your Name')) ?> :</label>
+                                  <label class="label labelhead"><?= $block->escapeHtml(__('Your Name')) ?> :</label>
                                   <input type="text" name="name" 
                                   class="queryemail wk-contact_input_fields required-entry" 
                                   value="<?= $block->escapeHtml($reporterName)?>" <?= /* @noEscape */ $readonly?>/>
-                                  <label class="label"><?= $block->escapeHtml(__('Your Email')) ?> :</label>
+                                  <label class="label labelhead"><?= $block->escapeHtml(__('Your Email')) ?> :</label>
                                   <input type="text" name="email" 
                                   class="queryemail required-entry validate-email wk-contact_input_fields"
                                    value="<?= $block->escapeHtml($reporterEmail)?>" <?= /* @noEscape */ $readonly?>/>
                                   <?php if ($helper->getProductFlagData('reason')):
                                         ?>
-                                    <label class="label"><?=
+                                    <label class="label labelhead"><?=
                                     $block->escapeHtml(__('Choose an appropriate reason to flag')) ?> :</label>
                                         <?php foreach ($flagReasons as $flagReason): ?>
                                       <div class="wk-flagreasons">
@@ -601,7 +601,7 @@ see if it violates any of our policy or selling guidelines.'))?>
             'captchenable'  => $captchenable,
             'cardType' => $cardType,
             'varificationMsg' => __(' enable to varifiy captcha'),
-            'formValidator' => '#ask-form',
+            'formValidator' => '#wkcom-ask-form',
             'attachmentTemplate' => '#attachment-template',
             'saveAjaxFileUrl' => $block->getUrl(
                 "mpsellerbuyercommunication/seller/saveFiles",
@@ -635,7 +635,7 @@ see if it violates any of our policy or selling guidelines.'))?>
             "Magento_Ui/js/modal/alert",
             "mage/mage"
         ], function($, alert) {
-            var askDataForm = $('#ask-form');
+            var askDataForm = $('#wkcom-ask-form');
             var cardType = <?= $block->escapeHtml($cardType); ?>;
 
             askDataForm.mage('validation', {});
@@ -724,3 +724,9 @@ see if it violates any of our policy or selling guidelines.'))?>
             });
         });
     </script>
+
+<style>
+    .labelhead{
+        display: block;
+    }
+</style>

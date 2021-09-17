@@ -1,0 +1,160 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+$helper = $block->getmppromotionHelper();
+$detail =  $helper->campainDetail($block->getRequest()->getparam('id'));
+
+$campaignJoin = '0';
+$campaignJoin = $helper->campaignSellerStatus($block->getRequest()->getparam('id'));
+?>
+<div class="row">
+  <div class="mppromotioncolumn" >
+    <?php
+    if ($detail->getBanner()) {
+        /* @noEscape */ echo '<img src="'.$helper->mediaUrl().$detail->getBanner().'">';
+    }
+    ?>
+   
+  </div>
+  <div class="mppromotioncolumn" >
+    <h4><?= /* @noEscape */   __("Promotion Period");?></h4>
+    <div class="pro-per">
+    <div class="promotion-lable">
+        <b><?= /* @noEscape */   __("Start");?></b></div>
+        <div class="promotion-value">
+        <p><?= /* @noEscape */  $helper->getLocaleZoneDateTime($detail['start_date']) ?></p>
+        </div>
+  </div>
+  <div class="pro-per">
+    <div class="promotion-lable">
+        <b><?= /* @noEscape */   __("End");?></b></div>
+        <div class="promotion-value">
+        <p><?= /* @noEscape */  $helper->getLocaleZoneDateTime($detail['end_date']) ?></p>
+        </div>
+  </div> 
+  <div class="pro-per">
+    <center>
+    <?php if ($campaignJoin != 0) { ?>
+        <?php
+        $campaignStatus = $helper->campaignStatus($block->getRequest()->getparam('id'));
+        ?>
+        <?php if ($campaignStatus['code'] == 2) { ?>
+            <?php
+            $formPostUrl = $block->getUrl('mppromotioncampaign/campaign/cancelcampaign/');
+            ?>
+            <form method="post" id="cancelForm" action="<?= /* @noEscape */ $formPostUrl ?>">
+            <input type="hidden" name="campaignId" 
+                value="<?=  /* @noEscape */  $block->getRequest()->getparam('id');?>">
+            <button class="button cancel-btn"><span><?= /* @noEscape */  __("Cancel ");?></span></button>
+            </form>
+        <?php } ?>
+    <?php } else { ?>
+        <?php
+        $campaignStatus = $helper->campaignStatus($block->getRequest()->getparam('id'));
+        ?>
+        <?php if ($campaignStatus['code'] == 2) { ?>
+        <form method="post" action="<?= /* @noEscape */  $block->getUrl('mppromotioncampaign/campaign/SellerJoin/');?>">
+            <input type="hidden" name="campaignId" value="<?= /* @noEscape */  $block->getRequest()->getparam('id');?>">
+            <button class="join-btn" type="submit"><?= /* @noEscape */  __("Join");?></button>
+        </form>
+        <?php } ?>
+    <?php } ?>
+    </center>
+  </div>
+  </div>
+  <div class="mppromotioncolumn" >
+    <h4><?= /* @noEscape */   __("Total");?></h4>
+   
+  <div class="pro-per">
+    <div class="promotion-lable2">
+        <b><?= /* @noEscape */   __("Total Seller");?></b></div>
+        <div class="promotion-value">
+        <?php  $totlaSeller = $block->totalSeller($block->getRequest()->getparam('id'));?>
+        <p><?= /* @noEscape */  $totlaSeller;?></p>
+        </div>
+  </div>
+  <div class="pro-per">
+    <div class="promotion-lable2">
+        <b><?= /* @noEscape */   __("Total Product");?></b></div>
+        <div class="promotion-value">
+        <p><?= /* @noEscape */  $block->totalProduct($block->getRequest()->getparam('id'));?></p>
+        </div>
+  </div>
+  </div>
+</div>
+
+<div class="des">
+  <b><?= /* @noEscape */  __("Description");?></b>
+  <hr>
+    <?= /* @noEscape */  $detail['description'];?>
+</div>
+<!--Pop up -->
+<div id="popup-modal" style="display:none;">
+  <center>
+    <div class="campaign-btn">
+      <button class="campaign-back"><?= /* @noEscape */  __("Back");?> </button>
+      <button class="campaign-confirm"><?= /* @noEscape */  __("Confirm");?> </button>
+    </div>
+  </center>
+</div>
+<?php
+if (!$block->campainSellerJoin($block->getRequest()->getparam('id'))) {
+    ?>
+</div>
+    <?php } ?>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: $.mage.__('Do you want to cancel your promotion ?')
+               
+            };
+
+            var popup = modal(options, $('#popup-modal'));
+            $(".cancel-btn").on('click',function(event){
+              event.preventDefault();
+                $("#popup-modal").modal("openModal");
+                $(".modal-footer").remove();
+            });
+
+            $(".campaign-confirm").on('click',function(){ 
+              $("#cancelForm").submit();
+            });
+            
+            $(".campaign-back").on('click',function(){ 
+              $("#popup-modal").modal("closeModal");
+            });
+           
+
+        }
+    );
+</script>
+<style>
+  .modal-popup._inner-scroll .modal-inner-wrap {
+    max-height: 80%;
+    width: 60%;
+  }
+  .des{
+    word-break: break-all;
+  }
+</style>

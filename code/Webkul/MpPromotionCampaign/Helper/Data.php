@@ -14,6 +14,8 @@ namespace Webkul\MpPromotionCampaign\Helper;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Webkul\MpPromotionCampaign\Model\Campaign as CampaignModel;
 use Webkul\MpPromotionCampaign\Model\CampaignProduct as CampaignProModel;
+use Magento\Catalog\Api\SpecialPriceInterface;
+use Magento\Catalog\Api\Data\SpecialPriceInterfaceFactory;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -37,6 +39,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * @var BooleanUtils
      */
     private $booleanUtils;
+
+    /**
+     * @var SpecialPriceInterface
+     */
+    private $specialPrice;
+ 
+    /**
+     * @var SpecialPriceInterfaceFactory
+     */
+    private $specialPriceFactory;
 
     /**
      * Constructor
@@ -72,7 +84,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         \Webkul\Marketplace\Helper\Data $marketplaceHelper,
         \Magento\Cms\Model\Template\FilterProvider $filterProvider,
         \Webkul\MpPromotionCampaign\Model\ResourceModel\CampaignProduct\CollectionFactory $campaignProduct,
-        \Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign\Grid\CollectionFactory $campaignCollection
+        \Webkul\MpPromotionCampaign\Model\ResourceModel\Campaign\Grid\CollectionFactory $campaignCollection,
+        SpecialPriceInterface $specialPrice,
+        SpecialPriceInterfaceFactory $specialPriceFactory
     ) {
         $this->_resource = $resource;
         $this->filterProvider = $filterProvider;
@@ -88,6 +102,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->timezone = $timezone;
         $this->booleanUtils = $booleanUtils;
         $this->cacheTypeList = $cacheTypeList;
+        $this->specialPrice = $specialPrice;
+        $this->specialPriceFactory = $specialPriceFactory;
         parent::__construct($context);
     }
     public function getCMSContent($content)
@@ -146,8 +162,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         );
         $campaignStatus->addFieldToFilter('sellerCam.seller_id', $sellerId);
         $campaignStatus->addFieldToFilter('main_table.start_date', ['lt' => $currentTimeStamp]);
-        $campaignAll->addFieldToFilter('main_table.end_date', ['gt' => $currentTimeStamp]);
-        $campaignAll->addFieldToFilter('main_table.status', CampaignModel::STATUS_ENABLED);
+        $campaignStatus->addFieldToFilter('main_table.end_date', ['gt' => $currentTimeStamp]);
+        $campaignStatus->addFieldToFilter('main_table.status', CampaignModel::STATUS_ENABLED);
         $data['liveCampaign'] = $campaignStatus->getSize();
 
         // get seller's all finished campaign count
@@ -397,11 +413,32 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
                 // update discounted product price to campaign product table
                 $camProduct->setPrice($promotionPrice)->save();
                 // update campaign details to catalog product
-                $product->setSpecialFromDate($startDate);
-                $product->setSpecialToDate($endDate);
-                $product->setSpecialPrice($promotionPrice);
-                $product->save();
+                $this->updateSpecialPriceDates($product->getSku(), $promotionPrice, $startDate, $endDate);
             }
+            // clear cache to show updated data on product page
+            $this->marketplaceHelper->clearCache();
+        }
+    }
+
+    public function updateSpecialPriceDates($sku, $promotionPrice, $startDate, $endDate)
+    {
+        try {
+            $prices[] = $this->specialPriceFactory->create()
+                ->setSku($sku)
+                ->setStoreId(0)
+                ->setPrice($promotionPrice)
+                ->setPriceFrom($startDate)
+                ->setPriceTo($endDate);
+            $prices[] = $this->specialPriceFactory->create()
+                ->setSku($sku)
+                ->setStoreId(1)
+                ->setPrice($promotionPrice)
+                ->setPriceFrom($startDate)
+                ->setPriceTo($endDate);
+ 
+            $product = $this->specialPrice->update($prices);
+        } catch (\Exception $e) {
+            //throw $e;
         }
     }
 }

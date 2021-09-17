@@ -1,0 +1,120 @@
+"Save and Continue Edit","Save and Continue Edit"
+"Save Campaign","Save Campaign"
+"Campaign Detail","Campaign Detail"
+"Campaign Details","Campaign Details"
+Information,Information
+Title,Title
+Discount,Discount
+Status,Status
+From,From
+To,To
+"Registered Date","Registered Date"
+"Campaign Link","Campaign Link"
+"Promotion Banners","Promotion Banners"
+"Campaign Banner","Campaign Banner"
+Discription,Discription
+Action,Action
+Reset,Reset
+Total Seller,Total Seller
+Total Product,Total Product
+Marketplace Promotion Campaign,Marketplace Promotion Campaign
+Description,Description
+"This campaign no longer exists.","This campaign no longer exists."
+"Manage Promotion Campaign","Manage Promotion Campaign"
+"Manage Promotion Campaigns","Manage Promotion Campaigns"
+"A total of %1 campaign(s) have been deleted.","A total of %1 campaign(s) have been deleted."
+"A total of %1 campaign(s) have been disabled.","A total of %1 campaign(s) have been disabled."
+"A total of %1 campaign(s) have been enabled.","A total of %1 campaign(s) have been enabled."
+"A total of %1 campaign(s) have been joined.","A total of %1 campaign(s) have been joined."
+"A total of %1 campaign(s) have been refused.","A total of %1 campaign(s) have been refused."
+"You updated the campaign.","You updated the campaign."
+"You saved the campaign.","You saved the campaign."
+"Campaign already created during this date.","Campaign already created during this date."
+"Something went wrong while saving the campaign data. Please review the error log.","Something went wrong while saving the campaign data. Please review the error log."
+"You successfully cancel this campaign.","You successfully cancel this campaign."
+Promotion,Promotion
+"A total of %1 record(s) have been added.","A total of %1 record(s) have been added."
+"Campaign already start. You can't update product","Campaign already start. You can't update product"
+"Update successfully","Update successfully"
+"'You can set promation price greater than or equal to ' .","'You can set promation price greater than or equal to ' ."
+"Campaign expired. You can't update product","Campaign expired. You can't update product"
+"You successfully joined this campaign.","You successfully joined this campaign."
+"During Promotion","During Promotion"
+"Coming Soon","Coming Soon"
+Finish,Finish
+"Campain Product","Campain Product"
+Enabled,Enabled
+Disabled,Disabled
+Disable,Disable
+Enable,Enable
+"""You can't purchase  "" .","""You can't purchase  "" ."
+Edit,Edit
+Upcoming,Upcoming
+Live,Live
+Expired,Expired
+"View Customer","View Customer"
+Join,Join
+View,View
+Joined,Joined
+Pending,Pending
+Refused,Refused
+"View Product","View Product"
+"Manage Product","Manage Product"
+"Promotion Detail","Promotion Detail"
+"Add New Product","Add New Product"
+"Promotion Period","Promotion Period"
+Start,Start
+End,End
+Total,Total
+Cancel,Cancel
+Registred,Registred
+Store,Store
+Product,Product
+Do you want to join promotion ?,Do you want to join promotion ?
+Back,Back
+"Do you want to cancel your promotion ?","Do you want to cancel your promotion ?"
+Back,Back
+Confirm,Confirm
+"All Promotion","All Promotion"
+"Participation Promotion","Participation Promotion"
+"Go to Details Page","Go to Details Page"
+"CANCEL PROMOTION","CANCEL PROMOTION"
+"Something went wrong.","Something went wrong."
+"Add New Campaign","Add New Campaign"
+Delete,Delete
+"Delete Selected Campaigns","Delete Selected Campaigns"
+"Are you sure you want to delete?","Are you sure you want to delete?"
+"Manage Status","Manage Status"
+ID,ID
+"Start Date","Start Date"
+"End Date","End Date"
+"Manage Product ","Manage Product "
+Add,Add
+"Are you sure you want to join selected products?","Are you sure you want to join selected products?"
+Refuse,Refuse
+"Are you sure you want to refuse selected products?","Are you sure you want to refuse selected products?"
+"Seller Name","Seller Name"
+"Product Name","Product Name"
+Qty,Qty
+"Promotion Price","Promotion Price"
+Campaigns,Campaigns
+Promotion Banner,Promotion Banner
+Name,Name
+Period,Period
+"Registraction Date","Registraction Date"
+Manage,Manage
+"Product Add","Product Add"
+"Are you sure you want to add selected products?","Are you sure you want to add selected products?"
+Thumbnail,Thumbnail
+sku,sku
+Price,Price
+"Are you sure you want to delete selected products?","Are you sure you want to delete selected products?"
+name,name
+Quantity,Quantity
+Sku,Sku
+Cancel ,Cancel
+Back ,Back
+Running Status,Running Status
+(Percent %),(Percent %)
+Campaign Id,Campaign Id
+Upload Banner,Upload Banner

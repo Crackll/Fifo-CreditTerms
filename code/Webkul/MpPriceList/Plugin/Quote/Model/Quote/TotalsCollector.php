@@ -46,9 +46,15 @@ class TotalsCollector
         \Magento\Quote\Model\Quote $quote
     ) {
         $action = $this->request->getFullActionName();
-        if ($this->_helper->isModuleEnabled() && $action != "sales_order_create_loadBlock" && $action != "sales_order_create_save") {
-            $this->_helper->collectTotals($quote);
+
+        $data = $this->request->getParams();
+
+        if(isset($data['uenc'])) {
+            if ($this->_helper->isModuleEnabled() && $action != "sales_order_create_loadBlock" && $action != "sales_order_create_save") {
+                $this->_helper->collectTotals($quote);
+            }
         }
+      
         return $proceed($quote);
     }
 }

@@ -207,7 +207,8 @@ $isPartner = $block->isSeller(); ?>
         <fieldset class="fieldset">
             <?= $block->getBlockHtml('formkey') ?>
             <?= $block->getBlockHtml('seller.formkey')?>
-            <legend class="legend">
+            <!-- <legend class="legend"> -->
+            <legend class="legend" style="display:unset !important;">
                 <span><?= $block->escapeHtml(__("Upload Profile")); ?></span>
                 <button class="button wk-mp-btn" type="submit">
                     <span><span><?= $block->escapeHtml(__("Upload Profile")); ?></span></span>

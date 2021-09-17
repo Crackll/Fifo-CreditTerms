@@ -156,8 +156,8 @@ class Save extends CartController
     public function validateData($data)
     {
         $error = [];
-        $startDate = strpos($data['start_date'], '/');
-        $endDate = strpos($data['end_date'], '/');
+        $startDate = strpos($data['start_date'], '-');
+        $endDate = strpos($data['end_date'], '-');
         if ($data['start_date'] > $data['end_date']) {
             $error[] = __("End date can not be lesser then start From date.");
         } elseif ($data['amount_from'] >= $data['amount_to']) {

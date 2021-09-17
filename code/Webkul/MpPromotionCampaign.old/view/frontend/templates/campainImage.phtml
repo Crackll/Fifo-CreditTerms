@@ -1,0 +1,19 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpPromotionCampaign
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$campainId = $block->getRequest()->getparam('id');
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getMpPromotionCampaignHelper();
+$detail = $helper->campainDetail($campainId);
+?>
+<?= /* @noEscape */  $helper->getCMSContent($detail->getBanner());
+?>
+

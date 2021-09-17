@@ -115,7 +115,6 @@ class Collection extends CampaignCollection implements SearchResultInterface
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setSearchCriteria(
         \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null
@@ -140,7 +139,6 @@ class Collection extends CampaignCollection implements SearchResultInterface
      * @param int $totalCount
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setTotalCount($totalCount)
     {
@@ -153,7 +151,6 @@ class Collection extends CampaignCollection implements SearchResultInterface
      * @param \Magento\Framework\Api\ExtensibleDataInterface[] $items
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setItems(array $items = null)
     {
@@ -208,7 +205,8 @@ class Collection extends CampaignCollection implements SearchResultInterface
         $this->getSelect()->where('cam.status = '.CampaignModel::STATUS_ENABLED);
         if ($campaignStatus == 1) {
             $this->getSelect()->where('main_table.seller_id= '.$sellerId);
-            $this->getSelect()->where('cam.start_date >"'.$currentTimeStamp.'"');
+            $this->getSelect()->where('cam.start_date <"'.$currentTimeStamp.'"');
+            $this->getSelect()->where('cam.end_date >"'.$currentTimeStamp.'"');
         }
         if ($campaignStatus == 2) {
             $this->getSelect()->where('main_table.seller_id= '.$sellerId);

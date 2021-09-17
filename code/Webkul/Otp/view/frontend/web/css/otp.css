@@ -291,3 +291,14 @@ button.otpResendBtn:active {
     position: absolute;
     width: 1px;
 }
+
+.otpModalCustomer, .otp_modal_popup {
+    z-index:9999 !important;
+}
+
+.otpModalCustomer + .modals-overlay{
+    display: none !important;
+}
+/* .mfp-wrap.mfp-close-btn-in.mfp-auto-cursor.mfp-move-from-top.mfp-ready{
+    display: none !important;
+} */

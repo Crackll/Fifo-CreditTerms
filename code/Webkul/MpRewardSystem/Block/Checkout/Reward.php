@@ -85,6 +85,14 @@ class Reward extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
     }
     /**
+     * get Current customer loggedin
+     * @return \Magento\Customer\Model\Session
+     */
+    public function isCustomerLoggedin()
+    {
+        return $this->customerSession->isLoggedIn();
+    }
+    /**
      * get Current customer from session
      * @return \Magento\Customer\Model\Session
      */

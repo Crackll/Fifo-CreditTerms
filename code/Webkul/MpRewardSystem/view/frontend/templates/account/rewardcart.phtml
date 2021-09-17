@@ -49,7 +49,7 @@ enctype="multipart/form-data" data-hasrequired="<?=/* @noEscape */ __('* Require
     <fieldset class="fieldset info">
        <?=/* @noEscape */ $block->getBlockHtml('formkey')?>
        <?=/* @noEscape */ $block->getBlockHtml('seller.formkey')?>
-        <legend class="legend"><span><?=/* @noEscape */ __('Manage Rewards') ?></span>
+        <legend class="legend" style="display:unset !important;"><span style="float:left; display:inline-block; font-size:x-large;"><?=/* @noEscape */ __('Manage Rewards') ?></span>
             <button type="submit" class="button wk-mp-btn action save primary">
                 <span><span><?=/* @noEscape */ __('Save') ?></span></span>
             </button>
@@ -309,6 +309,12 @@ enctype="multipart/form-data" data-hasrequired="<?=/* @noEscape */ __('* Require
             </div>
         </div>
     </fieldset>
+    <div class="buttons-set">
+         <p class="back-link">
+             <a href="javascript:;" onclick="javascript: window.history.back();" 
+             class="left">&laquo; <?=/* @noEscape */__('Back')?></a>
+         </p>
+     </div>
 </div>
 <div class="wk_cart_rule_wrapper" style="display:none">
     <div class="wk_mp_design wk_mp_rewardCartRule">
