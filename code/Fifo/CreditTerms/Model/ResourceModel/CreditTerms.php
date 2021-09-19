@@ -17,6 +17,5 @@ class CreditTerms extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     protected function _construct()
     {
         $this->_init('fifo_creditterms_definitions', 'creditterms_definition_id');
-        //here "fifo_creditterms" is table name and "creditterms_definition_id" is the primary key of custom table
     }
 }

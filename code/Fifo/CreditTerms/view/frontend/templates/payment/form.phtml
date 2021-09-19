@@ -1,17 +1,11 @@
 <?php
-/**
- * Webkul Software.
- *
- * @category  Webkul
- * @package   Webkul_Otp
- * @author    Webkul
- * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
- * @license   https://store.webkul.com/license.html
- */
 
 /** @var \Fifo\CreditTerms\Block\Payment\Form $block */
+
+$creditTermsOptions = $block->getBuyerCreditTerms();
+
 ?>
-<form class="form form-edit-account" action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
+<form class="form credit-payment-term-form" action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
       method="post" id="form-validate" enctype="multipart/form-data"
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
       autocomplete="off">
@@ -34,6 +28,7 @@
             <div class="control">
                 <input type="text" class="input-text"
                        name="commercial_registration_number" id="commercial-registration-number"
+                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getCustomAttribute('cr_number')->getValue()) ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -44,6 +39,7 @@
             <div class="control">
                 <input type="text" class="input-text"
                        name="company_name" id="company-name"
+                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getCustomAttribute('company')->getValue()) ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -67,16 +63,30 @@
                        autocomplete="off" />
             </div>
         </div>
-        <div class="field location-region required">
-            <label class="label" for="location-region">
-                <span><?= $block->escapeHtml(__('Location / Region')) ?></span>
+        <div class="field country required">
+            <label class="label" for="country_id">
+                <span><?= $block->escapeHtml(__('Country')) ?></span>
             </label>
             <div class="control">
-                <input type="text" class="input-text"
-                       name="location_region" id="location-region"
-                       autocomplete="off" />
+                <?php
+                    echo $block->getCountryList();
+                ?>
             </div>
         </div>
+
+        <div class="field region required">
+            <label class="label" for="state"><span><?php /* @escapeNotVerified */ echo __('State') ?></span></label>
+            <div class="control">
+                <?php echo $block->getRegions();?>
+            </div>
+        </div>
+        <div class="field states required" style="display:none">
+            <label class="label" for="states"><span><?php /* @escapeNotVerified */ echo __('State') ?></span></label>
+            <div class="control">
+                <input name="state" id="states" title="<?php /* @escapeNotVerified */ echo __('State') ?>"  class="input-text" type="text" />
+            </div>
+        </div>
+
         <div class="field owner-name required">
             <label class="label" for="owner-name">
                 <span><?= $block->escapeHtml(__('Owner Name')) ?></span>
@@ -84,6 +94,7 @@
             <div class="control">
                 <input type="text" class="input-text"
                        name="owner_name" id="owner-name"
+                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getFirstname()) ?> <?= $block->escapeHtmlAttr($block->getCustomer()->getLastname()) ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -104,6 +115,7 @@
             <div class="control">
                 <input type="text" class="input-text"
                        name="contact_number" id="contact-number"
+                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getCustomAttribute('mobile_number')->getValue()) ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -114,6 +126,7 @@
             <div class="control">
                 <input type="text" class="input-text"
                        name="contact_email" id="contact-email"
+                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -122,9 +135,13 @@
                 <span><?= $block->escapeHtml(__('Buyer Credit Term')) ?></span>
             </label>
             <div class="control">
-                <input type="text" class="input-text"
-                       name="buyer_credit_term" id="buyer-credit-term"
-                       autocomplete="off" />
+                <select class="input-select" name="buyer_credit_term" id="buyer-credit-term">
+                    <?php foreach ($creditTermsOptions as $option) {?>
+                        <option value="<?= /**@noEscape */ $option['value'] ?>">
+                            <?= /**@noEscape */ $option['label'] ?>
+                        </option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
     </fieldset>
@@ -141,3 +158,31 @@
         </div>
     </div>
 </form>
+
+<script>
+    require(['jquery'], function(jQuery){
+        jQuery(document).on('change','#country',function() {
+            var param = 'country_id='+jQuery('#country').val();
+            jQuery.ajax({
+                showLoader: true,
+                url: '<?php /* @escapeNotVerified */ echo $block->getRegionsAction(); ?>',
+                data: param,
+                type: "GET",
+                dataType: 'json'
+            }).done(function (data) {
+                jQuery('#state').empty();
+                if(data.value === '')
+                {
+                    jQuery('.field.states.required').show();
+                    jQuery('.field.region.required').hide();
+                }
+                else
+                {
+                    jQuery('#state').append(data.value);
+                    jQuery('.field.states.required').hide();
+                    jQuery('.field.region.required').show();
+                }
+            });
+        });
+    });
+</script>

@@ -6,7 +6,10 @@
 namespace Fifo\CreditTerms\Block\Payment;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Model\AccountManagement;
+use Magento\Framework\View\Element\Template\Context;
+use Magento\Customer\Model\Session;
+use Magento\Newsletter\Model\SubscriberFactory;
+use Magento\Customer\Api\AccountManagementInterface;
 
 /**
  * Customer edit form block
@@ -17,6 +20,29 @@ use Magento\Customer\Model\AccountManagement;
  */
 class Form extends \Magento\Customer\Block\Account\Dashboard
 {
+    protected $_directoryBlock;
+    protected $_buyerCreditTermFactory;
+
+    public function __construct(
+        Context $context,
+        Session $customerSession,
+        SubscriberFactory $subscriberFactory,
+        CustomerRepositoryInterface $customerRepository,
+        AccountManagementInterface $customerAccountManagement,
+        \Magento\Directory\Block\Data $directoryBlock,
+        \Fifo\CreditTerms\Model\CreditTermsFactory $buyerCreditTermFactory,
+        array $data = []
+    ){
+        $this->_directoryBlock = $directoryBlock;
+        $this->_buyerCreditTermFactory = $buyerCreditTermFactory;
+        parent::__construct($context, $customerSession,$subscriberFactory,$customerRepository,$customerAccountManagement);
+    }
+
+    public function getRegionsAction()
+    {
+        return $this->getUrl('creditterms/payment/regions', ['_secure' => true]);
+    }
+
     /**
      * Retrieve form data
      *
@@ -54,5 +80,37 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
         }
 
         return $this;
+    }
+
+    public function getCountryList()
+    {
+        $country = $this->_directoryBlock->getCountryHtmlSelect();
+        return $country;
+    }
+
+    public function getRegions()
+    {
+        $region = $this->_directoryBlock->getRegionHtmlSelect();
+        return $region;
+    }
+
+    public function getBuyerCreditTerms(){
+        $collection = $this->_buyerCreditTermFactory->create()->getCollection()
+            ->addFieldToSelect(['terms_name','payment_terms','credit_limit'])
+            ->addFieldToFilter("type", \Fifo\CreditTerms\Model\Source\TypeOptions::BUYER_TYPE);
+
+        $termOptions = [];
+        foreach ($collection as $termData){
+            $termName = $termData->getData('terms_name');
+            $paymentTerms = $termData->getData('payment_terms');
+            $creditLimit = $termData->getData('credit_limit');
+            $termOptions[$termName] = __($termName." Credit Term (Upto ".$paymentTerms." days and ".$creditLimit." credit limit)");
+        }
+
+        foreach ($termOptions as $index => $value) {
+            $result[] = ['value' => $index, 'label' => $value];
+        }
+
+        return $result;
     }
 }
