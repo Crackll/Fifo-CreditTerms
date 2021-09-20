@@ -112,46 +112,83 @@ class InstallSchema implements InstallSchemaInterface
                     'Application Id'
                 )
                 ->addColumn(
-                    'status',
+                    'application_status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Application Status'
+                )
+                ->addColumn(
+                    'cr_number',
                     \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                     1,
                     ['nullable' => false,'default' => 0],
-                    'Payment Terms'
+                    'Commercial Registration Number'
                 )
                 ->addColumn(
-                    'terms_name',
+                    'company_name',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => true],
-                    'Terms Name'
+                    'Company Name'
                 )
                 ->addColumn(
-                    'terms_description',
+                    'restaurant_name',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => true,'default' => null],
-                    'Description of Terms'
+                    'Restaurant Name'
                 )
                 ->addColumn(
-                    'payment_terms',
+                    'number_of_branches',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => false,'default' => null],
-                    'Payment Terms'
+                    'Number of branches'
                 )
                 ->addColumn(
-                    'credit_limit',
+                    'location',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => true,'default' => null],
-                    'Credit Limit'
+                    'Location'
                 )
                 ->addColumn(
-                    'type',
+                    'region',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => true,'default' => null],
-                    'Type'
+                    'Region'
+                )->addColumn(
+                    'owner_name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Owner name'
+                )->addColumn(
+                    'contact_person_name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Contact Person Name'
+                )->addColumn(
+                    'contact_number',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Contact Number'
+                )->addColumn(
+                    'contact_email',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Contact Email'
+                )->addColumn(
+                    'buyer_credit_terms',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Buyer Credit terms'
                 )
                 ->addColumn(
                     'created_at',

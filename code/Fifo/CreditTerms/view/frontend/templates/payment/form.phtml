@@ -3,6 +3,9 @@
 /** @var \Fifo\CreditTerms\Block\Payment\Form $block */
 
 $creditTermsOptions = $block->getBuyerCreditTerms();
+$crNumber = !is_null($block->getCustomer()->getCustomAttribute('cr_number')) ? $block->getCustomer()->getCustomAttribute('cr_number')->getValue() : '';
+$company = !is_null($block->getCustomer()->getCustomAttribute('company')) ? $block->getCustomer()->getCustomAttribute('company')->getValue() : '';
+$mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_number')) ? $block->getCustomer()->getCustomAttribute('mobile_number')->getValue() : '';
 
 ?>
 <form class="form credit-payment-term-form" action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
@@ -28,7 +31,7 @@ $creditTermsOptions = $block->getBuyerCreditTerms();
             <div class="control">
                 <input type="text" class="input-text"
                        name="commercial_registration_number" id="commercial-registration-number"
-                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getCustomAttribute('cr_number')->getValue()) ?>"
+                       value="<?= $crNumber ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -39,7 +42,7 @@ $creditTermsOptions = $block->getBuyerCreditTerms();
             <div class="control">
                 <input type="text" class="input-text"
                        name="company_name" id="company-name"
-                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getCustomAttribute('company')->getValue()) ?>"
+                       value="<?= $company ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -115,7 +118,7 @@ $creditTermsOptions = $block->getBuyerCreditTerms();
             <div class="control">
                 <input type="text" class="input-text"
                        name="contact_number" id="contact-number"
-                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getCustomAttribute('mobile_number')->getValue()) ?>"
+                       value="<?= $mobileNumber ?>"
                        autocomplete="off" />
             </div>
         </div>

@@ -107,6 +107,7 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
             $termOptions[$termName] = __($termName." Credit Term (Upto ".$paymentTerms." days and ".$creditLimit." credit limit)");
         }
 
+        $result = [];
         foreach ($termOptions as $index => $value) {
             $result[] = ['value' => $index, 'label' => $value];
         }
