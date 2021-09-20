@@ -10,7 +10,8 @@
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="fifo_creditterms::core" title="Fifo CreditTerms" module="Fifo_CreditTerms" sortOrder="90" resource="Fifo_CreditTerms::sample"/>
+        <add id="fifo_creditterms::core" title="Fifo CreditTerms" module="Fifo_CreditTerms" sortOrder="30" resource="Fifo_CreditTerms::sample"/>
         <add id="fifo_creditterms::definition" title="Credit Terms Definition" module="Fifo_CreditTerms" sortOrder="10" parent="fifo_creditterms::core" action="fifo_creditterms/definitions/" resource="Fifo_CreditTerms::definitions"/>
+        <add id="fifo_creditterms::application" title="Credit Terms Application" module="Fifo_CreditTerms" sortOrder="20" parent="fifo_creditterms::core" action="fifo_creditterms/applications/" resource="Fifo_CreditTerms::applications"/>
     </menu>
 </config>

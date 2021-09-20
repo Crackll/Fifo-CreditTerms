@@ -27,71 +27,144 @@ class InstallSchema implements InstallSchemaInterface
 		$installer = $setup;
 		$installer->startSetup();
 
-		/**
-		 * Creating table fifo_creditterms_definitions
-		 */
-		$table = $installer->getConnection()->newTable(
-			$installer->getTable('fifo_creditterms_definitions')
-		)
-        ->addColumn(
-			'creditterms_definition_id',
-			\Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-			null,
-			['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
-			'Definition Id'
-		)
-        ->addColumn(
-            'status',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            1,
-            ['nullable' => false,'default' => 0],
-            'Payment Terms'
-        )
-        ->addColumn(
-			'terms_name',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-			255,
-			['nullable' => true],
-			'Terms Name'
-		)
-        ->addColumn(
-			'terms_description',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-			255,
-			['nullable' => true,'default' => null],
-			'Description of Terms'
-		)
-        ->addColumn(
-			'payment_terms',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            255,
-			['nullable' => false,'default' => null],
-			'Payment Terms'
-		)
-        ->addColumn(
-			'credit_limit',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-			255,
-			['nullable' => true,'default' => null],
-			'Credit Limit'
-		)
-        ->addColumn(
-            'type',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            255,
-            ['nullable' => true,'default' => null],
-            'Type'
-        )
-        ->addColumn(
-			'created_at',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
-			null,
-			['nullable' => false],
-			'Created At'
-		)->setComment(
-            'Fifo CreditTerms Definition Table'
-        );
-		$installer->getConnection()->createTable($table);
+		$definitionTableName = $installer->getTable('fifo_creditterms_definitions');
+        if ($installer->getConnection()->isTableExists($definitionTableName) != true) {
+            /**
+             * Creating table fifo_creditterms_definitions
+             */
+            $table = $installer->getConnection()->newTable(
+                $definitionTableName
+            )
+                ->addColumn(
+                    'creditterms_definition_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
+                    'Definition Id'
+                )
+                ->addColumn(
+                    'status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    1,
+                    ['nullable' => false,'default' => 0],
+                    'Payment Terms'
+                )
+                ->addColumn(
+                    'terms_name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true],
+                    'Terms Name'
+                )
+                ->addColumn(
+                    'terms_description',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Description of Terms'
+                )
+                ->addColumn(
+                    'payment_terms',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => false,'default' => null],
+                    'Payment Terms'
+                )
+                ->addColumn(
+                    'credit_limit',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Credit Limit'
+                )
+                ->addColumn(
+                    'type',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Type'
+                )
+                ->addColumn(
+                    'created_at',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+                    null,
+                    ['nullable' => false],
+                    'Created At'
+                )->setComment(
+                    'Fifo CreditTerms Definition Table'
+                );
+            $installer->getConnection()->createTable($table);
+        }
+
+        $applicationTableName = $installer->getTable('fifo_creditterms_applications');
+        if ($installer->getConnection()->isTableExists($applicationTableName) != true) {
+            /**
+             * Creating table fifo_creditterms_applications
+             */
+            $table = $installer->getConnection()->newTable(
+                $applicationTableName
+            )
+                ->addColumn(
+                    'creditterms_application_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
+                    'Application Id'
+                )
+                ->addColumn(
+                    'status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    1,
+                    ['nullable' => false,'default' => 0],
+                    'Payment Terms'
+                )
+                ->addColumn(
+                    'terms_name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true],
+                    'Terms Name'
+                )
+                ->addColumn(
+                    'terms_description',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Description of Terms'
+                )
+                ->addColumn(
+                    'payment_terms',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => false,'default' => null],
+                    'Payment Terms'
+                )
+                ->addColumn(
+                    'credit_limit',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Credit Limit'
+                )
+                ->addColumn(
+                    'type',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Type'
+                )
+                ->addColumn(
+                    'created_at',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+                    null,
+                    ['nullable' => false],
+                    'Created At'
+                )->setComment(
+                    'Fifo CreditTerms Definition Table'
+                );
+            $installer->getConnection()->createTable($table);
+        }
+
 		$installer->endSetup();
 	}
 }
