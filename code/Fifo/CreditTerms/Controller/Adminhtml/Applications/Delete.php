@@ -17,7 +17,7 @@ class Delete extends \Fifo\CreditTerms\Controller\Adminhtml\Applications
         $id = $this->getRequest()->getParam('id');
         if ($id) {
             try {
-                $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms');
+                $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTermsApplications');
                 $model->load($id);
                 $model->delete();
                 $this->messageManager->addSuccess(__('You deleted the credit term application.'));

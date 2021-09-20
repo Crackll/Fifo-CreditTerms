@@ -31,7 +31,7 @@ class Regions extends \Magento\Framework\App\Action\Action
             $html = '';
             if(count($regions) > 0)
             {
-                $html .= '<select name="region" id="region" class="required-entry validate-state">';
+                $html .= '<select name="region" id="state" class="required-entry validate-state">';
                 $html.='<option selected="selected" value="">Please select a region.</option>';
                 foreach($regions as $state)
                 {
@@ -39,7 +39,7 @@ class Regions extends \Magento\Framework\App\Action\Action
                 }
                 $html .= "</select>";
             }else{
-                $html .= '<input name="region" id="region-text" class="required-entry input-text" type="text"';
+                $html .= '<input name="region" id="state" class="required-entry input-text" type="text"';
             }
             $resultJson = $this->resultJsonFactory->create();
             $resultJson->setData(['success' => true,'value'=>$html]);

@@ -15,7 +15,7 @@ class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Applications
     {
         if ($this->getRequest()->getPostValue()) {
             try {
-                $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms');
+                $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTermsApplications');
                 $data = $this->getRequest()->getPostValue();
 
                 $inputFilter = new \Zend_Filter_Input(

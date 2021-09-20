@@ -16,6 +16,6 @@ class CreditTermsApplications extends \Magento\Framework\Model\ResourceModel\Db\
      */
     protected function _construct()
     {
-        $this->_init('fifo_creditterms_applictions', 'creditterms_appliction_id');
+        $this->_init('fifo_creditterms_applications', 'creditterms_application_id');
     }
 }

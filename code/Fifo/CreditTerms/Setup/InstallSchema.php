@@ -113,10 +113,16 @@ class InstallSchema implements InstallSchemaInterface
                 )
                 ->addColumn(
                     'application_status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    255,
+                    ['nullable' => true,'default' => 0],
+                    'Application Status'
+                )->addColumn(
+                    'email',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
                     ['nullable' => true,'default' => null],
-                    'Application Status'
+                    'Email'
                 )
                 ->addColumn(
                     'cr_number',
@@ -189,6 +195,31 @@ class InstallSchema implements InstallSchemaInterface
                     255,
                     ['nullable' => true,'default' => null],
                     'Buyer Credit terms'
+                )->addColumn(
+                    'paylater_checkout',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    255,
+                    ['nullable' => true,'default' => 0],
+                    'Paylater Checkout'
+                )
+                ->addColumn(
+                    'make_payment',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Make Payment'
+                )->addColumn(
+                    'date_of_payment',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Date of Payment'
+                )->addColumn(
+                    'payment_reference',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    ['nullable' => true,'default' => null],
+                    'Payment Reference'
                 )
                 ->addColumn(
                     'created_at',

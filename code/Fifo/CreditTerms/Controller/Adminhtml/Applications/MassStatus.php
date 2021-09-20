@@ -13,7 +13,7 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
-use Fifo\CreditTerms\Model\ResourceModel\CreditTerms\CollectionFactory;
+use Fifo\CreditTerms\Model\ResourceModel\CreditTermsApplications\CollectionFactory;
 
 class MassStatus extends \Magento\Backend\App\Action
 {
@@ -51,13 +51,16 @@ class MassStatus extends \Magento\Backend\App\Action
         $collectionSize = $collection->getSize();
 
         foreach ($collection as $record) {
-            $record->setStatus($this->getRequest()->getParam('status'))->save();
+            $record->setStatus($this->getRequest()->getParam('application_status'))->save();
         }
 
-        if($this->getRequest()->getParam('status') == 1){
-            $status = 'enabled';
+        $appStatus = $this->getRequest()->getParam('application_status');
+        if($appStatus == 1){
+            $status = 'Approved';
+        }else if($appStatus == 2){
+            $status = 'Rejected';
         }else{
-            $status = 'disabled';
+            $status = 'New';
         }
 
         $this->messageManager->addSuccess(__('A total of %1 record(s) have been '.$status, $collectionSize));

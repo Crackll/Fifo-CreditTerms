@@ -37,7 +37,7 @@ class InlineEdit extends \Magento\Backend\App\Action
             } else {
                 foreach (array_keys($postApplications) as $modelid) {
                     /** @var \Magento\Cms\Model\Block $block */
-                    $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms')->load($modelid);
+                    $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTermsApplications')->load($modelid);
                     try {
                         $model->setData(array_merge($model->getData(), $postApplications[$modelid]));
                         $model->save();

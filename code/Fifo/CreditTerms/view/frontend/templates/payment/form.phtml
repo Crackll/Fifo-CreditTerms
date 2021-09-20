@@ -78,15 +78,9 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
         </div>
 
         <div class="field region required">
-            <label class="label" for="state"><span><?php /* @escapeNotVerified */ echo __('State') ?></span></label>
+            <label class="label" for="state"><span><?php /* @escapeNotVerified */ echo __('Region') ?></span></label>
             <div class="control">
                 <?php echo $block->getRegions();?>
-            </div>
-        </div>
-        <div class="field states required" style="display:none">
-            <label class="label" for="states"><span><?php /* @escapeNotVerified */ echo __('State') ?></span></label>
-            <div class="control">
-                <input name="state" id="states" title="<?php /* @escapeNotVerified */ echo __('State') ?>"  class="input-text" type="text" />
             </div>
         </div>
 
@@ -173,18 +167,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
                 type: "GET",
                 dataType: 'json'
             }).done(function (data) {
-                jQuery('#state').empty();
-                if(data.value === '')
-                {
-                    jQuery('.field.states.required').show();
-                    jQuery('.field.region.required').hide();
-                }
-                else
-                {
-                    jQuery('#state').append(data.value);
-                    jQuery('.field.states.required').hide();
-                    jQuery('.field.region.required').show();
-                }
+                jQuery('#state').html(data.value);
             });
         });
     });

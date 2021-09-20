@@ -15,7 +15,7 @@ class Edit extends \Fifo\CreditTerms\Controller\Adminhtml\Applications
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
-        $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTerms');
+        $model = $this->_objectManager->create('Fifo\CreditTerms\Model\CreditTermsApplications');
 
         if ($id) {
             $model->load($id);

@@ -80,72 +80,189 @@ class Main extends Generic implements TabInterface
         }
 
         $fieldset->addField(
-            'status',
+            'application_status',
             'select',
             [
-                'name' => 'status',
-                'label' => __('Status'),
-                'title' => __('Status'),
-                'options'   => [0 => 'Disable', 1 => 'Enable'],
+                'name' => 'application_status',
+                'label' => __('Application Status'),
+                'title' => __('Application Status'),
+                'options'   => [0 => 'New', 1 => 'Approved', 2 => 'Rejected'],
                 'required' => true
             ]
         );
 
         $fieldset->addField(
-            'terms_name',
+            'email',
             'text',
             [
-                'name' => 'terms_name',
-                'label' => __('Terms Name'),
-                'title' => __('Terms Name'),
+                'name' => 'email',
+                'label' => __('Email'),
+                'title' => __('Email'),
                 'required' => true
             ]
         );
 
         $fieldset->addField(
-            'terms_description',
-            'editor',
-            [
-                'name' => 'terms_description',
-                'label' => __('Description of Terms'),
-                'title' => __('Description of Terms'),
-                'style' => 'height:26em;',
-                'required' => true,
-                'config'    => $this->_wysiwygConfig->getConfig(),
-                'wysiwyg' => true
-            ]
-        );
-
-        $fieldset->addField(
-            'payment_terms',
+            'cr_number',
             'text',
             [
-                'name' => 'payment_terms',
-                'label' => __('Payment Terms'),
-                'title' => __('Payment Terms'),
+                'name' => 'cr_number',
+                'label' => __('Commercial Registration Number'),
+                'title' => __('Commercial Registration Number'),
                 'required' => true
             ]
         );
 
         $fieldset->addField(
-            'credit_limit',
+            'company_name',
             'text',
             [
-                'name' => 'credit_limit',
-                'label' => __('Credit Limit'),
-                'title' => __('Credit Limit'),
+                'name' => 'company_name',
+                'label' => __('Company Name'),
+                'title' => __('Company Name'),
                 'required' => true
             ]
         );
 
         $fieldset->addField(
-            'type',
-            'select',
+            'restaurant_name',
+            'text',
             [
-                'name' => 'type',
-                'label' => __('Type'),
-                'title' => __('Type'),
-                'options'   => ['buyer' => 'Buyer', 'supplier' => 'Supplier'],
+                'name' => 'restaurant_name',
+                'label' => __('Restaurant name'),
+                'title' => __('Restaurant name'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'number_of_branches',
+            'text',
+            [
+                'name' => 'number_of_branches',
+                'label' => __('Number of branches'),
+                'title' => __('Number of branches'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'location',
+            'text',
+            [
+                'name' => 'location',
+                'label' => __('Location'),
+                'title' => __('Location'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'region',
+            'text',
+            [
+                'name' => 'region',
+                'label' => __('Region'),
+                'title' => __('Region'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'owner_name',
+            'text',
+            [
+                'name' => 'owner_name',
+                'label' => __('Owner name'),
+                'title' => __('Owner name'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'contact_person_name',
+            'text',
+            [
+                'name' => 'contact_person_name',
+                'label' => __('Contact Person Name'),
+                'title' => __('Contact Person Name'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'contact_number',
+            'text',
+            [
+                'name' => 'contact_number',
+                'label' => __('Contact Number'),
+                'title' => __('Contact Number'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'contact_email',
+            'text',
+            [
+                'name' => 'contact_email',
+                'label' => __('Contact Email'),
+                'title' => __('Contact Email'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'buyer_credit_terms',
+            'text',
+            [
+                'name' => 'buyer_credit_terms',
+                'label' => __('Buyer Credit Terms'),
+                'title' => __('Buyer Credit Terms'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'paylater_checkout',
+            'text',
+            [
+                'name' => 'paylater_checkout',
+                'label' => __('Paylater Checkout'),
+                'title' => __('Paylater Checkout'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'make_payment',
+            'text',
+            [
+                'name' => 'make_payment',
+                'label' => __('Make Payment'),
+                'title' => __('Make Payment'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'date_of_payment',
+            'text',
+            [
+                'name' => 'date_of_payment',
+                'label' => __('Date of Payment'),
+                'title' => __('Date of Payment'),
+                'required' => true
+            ]
+        );
+
+        $fieldset->addField(
+            'payment_reference',
+            'text',
+            [
+                'name' => 'payment_reference',
+                'label' => __('Payment Reference'),
+                'title' => __('Payment Reference'),
                 'required' => true
             ]
         );
