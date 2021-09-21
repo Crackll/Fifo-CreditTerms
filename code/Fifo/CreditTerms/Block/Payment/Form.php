@@ -22,6 +22,7 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
 {
     protected $_directoryBlock;
     protected $_buyerCreditTermFactory;
+    protected $_objectManager;
 
     public function __construct(
         Context $context,
@@ -35,12 +36,18 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
     ){
         $this->_directoryBlock = $directoryBlock;
         $this->_buyerCreditTermFactory = $buyerCreditTermFactory;
+        $this->_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         parent::__construct($context, $customerSession,$subscriberFactory,$customerRepository,$customerAccountManagement);
     }
 
     public function getRegionsAction()
     {
         return $this->getUrl('creditterms/payment/regions', ['_secure' => true]);
+    }
+
+    public function getSubmitFormAction()
+    {
+        return $this->getUrl('creditterms/payment/requestcreditpost', ['_secure' => true]);
     }
 
     /**
@@ -86,6 +93,18 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
     {
         $country = $this->_directoryBlock->getCountryHtmlSelect();
         return $country;
+    }
+
+    public function getAllRegions()
+    {
+        $collection = $this->_objectManager->create(\Magento\Directory\Model\Region::class)
+            ->getCollection();
+        $result = [];
+        foreach ($collection as $item) {
+            $result[$item->getRegionId()] = $item->getName();
+        }
+
+        return $result;
     }
 
     public function getRegions()

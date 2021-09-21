@@ -39,7 +39,7 @@ class Regions extends \Magento\Framework\App\Action\Action
                 }
                 $html .= "</select>";
             }else{
-                $html .= '<input name="region" id="state" class="required-entry input-text" type="text"';
+                $html .= '<input name="region" id="state" class="required-entry input-text" type="text"/>';
             }
             $resultJson = $this->resultJsonFactory->create();
             $resultJson->setData(['success' => true,'value'=>$html]);

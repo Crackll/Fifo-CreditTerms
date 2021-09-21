@@ -8,7 +8,7 @@ $company = !is_null($block->getCustomer()->getCustomAttribute('company')) ? $blo
 $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_number')) ? $block->getCustomer()->getCustomAttribute('mobile_number')->getValue() : '';
 
 ?>
-<form class="form credit-payment-term-form" action="<?= $block->escapeUrl($block->getUrl('customer/account/editPost')) ?>"
+<form class="form credit-payment-term-form" action="<?= $block->escapeUrl($block->getSubmitFormAction()) ?>"
       method="post" id="form-validate" enctype="multipart/form-data"
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
       autocomplete="off">
@@ -30,7 +30,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
-                       name="commercial_registration_number" id="commercial-registration-number"
+                       name="cr_number" id="commercial-registration-number"
                        value="<?= $crNumber ?>"
                        autocomplete="off" />
             </div>
@@ -80,7 +80,13 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
         <div class="field region required">
             <label class="label" for="state"><span><?php /* @escapeNotVerified */ echo __('Region') ?></span></label>
             <div class="control">
-                <?php echo $block->getRegions();?>
+                <select name="region" id="state" class="input-select">
+                    <?php foreach ($block->getAllRegions() AS $regionId => $regionData): ?>
+                        <option value="<?php echo $regionData ?>">
+                            <?php echo $regionData;  ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
 
@@ -132,7 +138,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
                 <span><?= $block->escapeHtml(__('Buyer Credit Term')) ?></span>
             </label>
             <div class="control">
-                <select class="input-select" name="buyer_credit_term" id="buyer-credit-term">
+                <select class="input-select" name="buyer_credit_terms" id="buyer-credit-term">
                     <?php foreach ($creditTermsOptions as $option) {?>
                         <option value="<?= /**@noEscape */ $option['value'] ?>">
                             <?= /**@noEscape */ $option['label'] ?>
@@ -167,7 +173,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
                 type: "GET",
                 dataType: 'json'
             }).done(function (data) {
-                jQuery('#state').html(data.value);
+                jQuery('#state').replaceWith(data.value);
             });
         });
     });
