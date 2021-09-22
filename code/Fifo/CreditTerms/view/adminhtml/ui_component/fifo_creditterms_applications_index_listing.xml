@@ -15,14 +15,6 @@
             <item name="deps" xsi:type="string">fifo_creditterms_applications_index_listing.fifo_creditterms_applications_index_listing_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">fifo_creditterms_applications_index_listing_columns</item>
-        <item name="buttons" xsi:type="array">
-            <item name="add" xsi:type="array">
-                <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Item</item>
-                <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/new</item>
-            </item>
-        </item>
     </argument>
     <dataSource name="fifo_creditterms_applications_index_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
@@ -455,5 +447,13 @@
                 </item>
             </argument>
         </column>
+        <actionsColumn name="actions" class="Fifo\CreditTerms\Ui\Component\Listing\Column\CreditTermsApplicationActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">creditterms_definition_id</item>
+                    <item name="urlEntityParamName" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </actionsColumn>
     </columns>
 </listing>

@@ -9,7 +9,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
 
 ?>
 <form class="form credit-payment-term-form" action="<?= $block->escapeUrl($block->getSubmitFormAction()) ?>"
-      method="post" id="form-validate" enctype="multipart/form-data"
+      method="post" id="form-validate-payment-creditterm" enctype="multipart/form-data"
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
       autocomplete="off">
 
@@ -19,6 +19,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             <div class="control">
                 <input type="email" name="email" id="email"
                        autocomplete="email" data-input="change-email"
+                       required="required"
                        value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
                        title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                        class="input-text" data-validate="{required:true, 'validate-email':true}" />
@@ -30,6 +31,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="cr_number" id="commercial-registration-number"
                        value="<?= $crNumber ?>"
                        autocomplete="off" />
@@ -41,6 +44,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="company_name" id="company-name"
                        value="<?= $company ?>"
                        autocomplete="off" />
@@ -52,6 +57,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="restaurant_name" id="restaurant-name"
                        autocomplete="off" />
             </div>
@@ -62,6 +69,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="number_of_branches" id="number-of-branches"
                        autocomplete="off" />
             </div>
@@ -80,7 +89,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
         <div class="field region required">
             <label class="label" for="state"><span><?php /* @escapeNotVerified */ echo __('Region') ?></span></label>
             <div class="control">
-                <select name="region" id="state" class="input-select">
+                <select name="region" id="state" class="input-select" required="required" data-validate="{required:true}">
                     <?php foreach ($block->getAllRegions() AS $regionId => $regionData): ?>
                         <option value="<?php echo $regionData ?>">
                             <?php echo $regionData;  ?>
@@ -96,6 +105,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="owner_name" id="owner-name"
                        value="<?= $block->escapeHtmlAttr($block->getCustomer()->getFirstname()) ?> <?= $block->escapeHtmlAttr($block->getCustomer()->getLastname()) ?>"
                        autocomplete="off" />
@@ -107,6 +118,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="contact_person_name" id="contact-person-name"
                        autocomplete="off" />
             </div>
@@ -117,6 +130,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="contact_number" id="contact-number"
                        value="<?= $mobileNumber ?>"
                        autocomplete="off" />
@@ -128,6 +143,8 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
             </label>
             <div class="control">
                 <input type="text" class="input-text"
+                       required="required"
+                       data-validate="{required:true}"
                        name="contact_email" id="contact-email"
                        value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
                        autocomplete="off" />
@@ -138,7 +155,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
                 <span><?= $block->escapeHtml(__('Buyer Credit Term')) ?></span>
             </label>
             <div class="control">
-                <select class="input-select" name="buyer_credit_terms" id="buyer-credit-term">
+                <select class="input-select" name="buyer_credit_terms" required="required" data-validate="{required:true}" id="buyer-credit-term">
                     <?php foreach ($creditTermsOptions as $option) {?>
                         <option value="<?= /**@noEscape */ $option['value'] ?>">
                             <?= /**@noEscape */ $option['label'] ?>
@@ -163,7 +180,10 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
 </form>
 
 <script>
-    require(['jquery'], function(jQuery){
+    require(['jquery',"mage/mage"], function(jQuery){
+        var dataForm = $('#form-validate-payment-creditterm');
+        dataForm.mage('validation', {});
+
         jQuery(document).on('change','#country',function() {
             var param = 'country_id='+jQuery('#country').val();
             jQuery.ajax({

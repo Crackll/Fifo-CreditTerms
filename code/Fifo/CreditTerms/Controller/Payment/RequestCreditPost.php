@@ -102,8 +102,6 @@ class RequestCreditPost extends Action
                     );
                 }
 
-                error_log(print_r($params,true));
-
                 $creditTermApp = $this->creditTermsApplicationsFactory->create();
                 $creditTermApp->setData($params);
                 $id = $creditTermApp->save()->getId();
