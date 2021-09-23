@@ -11,7 +11,7 @@ namespace Fifo\CreditTerms\Ui\Component\Listing\Column;
 
 class CreditTermsApplicationActions extends \Magento\Ui\Component\Listing\Columns\Column
 {
-    const URL_PATH_EDIT = 'fifo_creditterms/application/edit';
+    const URL_PATH_EDIT = 'fifo_creditterms/applications/edit';
 
     /**
      * URL builder

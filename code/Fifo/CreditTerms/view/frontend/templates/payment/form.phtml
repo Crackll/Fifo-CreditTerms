@@ -181,7 +181,7 @@ $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_numbe
 
 <script>
     require(['jquery',"mage/mage"], function(jQuery){
-        var dataForm = $('#form-validate-payment-creditterm');
+        var dataForm = jQuery('#form-validate-payment-creditterm');
         dataForm.mage('validation', {});
 
         jQuery(document).on('change','#country',function() {

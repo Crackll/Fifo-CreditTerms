@@ -116,28 +116,6 @@
                     <label translate="true">Delete</label>
                 </settings>
             </action>
-            <action name="status">
-                <settings>
-                    <type>status</type>
-                    <label translate="true">Change status</label>
-                    <actions>
-                        <action name="0">
-                            <type>enable</type>
-                            <label translate="true">Enable</label>
-                            <url path="fifo_creditterms/applications/massStatus">
-                                <param name="status">1</param>
-                            </url>
-                        </action>
-                        <action name="1">
-                            <type>disable</type>
-                            <label translate="true">Disable</label>
-                            <url path="fifo_creditterms/applications/massStatus">
-                                <param name="status">0</param>
-                            </url>
-                        </action>
-                    </actions>
-                </settings>
-            </action>
         </massaction>
         <paging name="listing_paging">
             <argument name="data" xsi:type="array">
@@ -206,7 +184,7 @@
         </column>
         <column name="application_status">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Fifo\CreditTerms\Model\Source\Status</item>
+                <item name="options" xsi:type="object">Fifo\CreditTerms\Model\Source\ApplicationStatus</item>
                 <item name="config" xsi:type="array">
                     <item name="editor" xsi:type="array">
                         <item name="editorType" xsi:type="string">select</item>
@@ -393,15 +371,20 @@
         </column>
         <column name="paylater_checkout">
             <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Fifo\CreditTerms\Model\Source\Status</item>
                 <item name="config" xsi:type="array">
                     <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="editorType" xsi:type="string">select</item>
                         <item name="validation" xsi:type="array">
                             <item name="required-entry" xsi:type="boolean">true</item>
                         </item>
                     </item>
-                    <item name="filter" xsi:type="string">text</item>
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
                     <item name="label" xsi:type="string" translate="true">Paylater Checkout</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
                 </item>
             </argument>
         </column>
@@ -450,7 +433,7 @@
         <actionsColumn name="actions" class="Fifo\CreditTerms\Ui\Component\Listing\Column\CreditTermsApplicationActions">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="indexField" xsi:type="string">creditterms_definition_id</item>
+                    <item name="indexField" xsi:type="string">creditterms_application_id</item>
                     <item name="urlEntityParamName" xsi:type="string">id</item>
                 </item>
             </argument>

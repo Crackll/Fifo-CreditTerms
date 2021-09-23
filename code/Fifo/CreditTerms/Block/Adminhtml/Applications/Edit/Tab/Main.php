@@ -225,11 +225,12 @@ class Main extends Generic implements TabInterface
 
         $fieldset->addField(
             'paylater_checkout',
-            'text',
+            'select',
             [
                 'name' => 'paylater_checkout',
                 'label' => __('Paylater Checkout'),
                 'title' => __('Paylater Checkout'),
+                'options'   => [0 => 'Disable', 1 => 'Enable'],
                 'required' => true
             ]
         );
@@ -245,14 +246,16 @@ class Main extends Generic implements TabInterface
             ]
         );
 
+        $dateFormat = $this->_localeDate->getDateFormat();
         $fieldset->addField(
             'date_of_payment',
-            'text',
+            'date',
             [
                 'name' => 'date_of_payment',
                 'label' => __('Date of Payment'),
                 'title' => __('Date of Payment'),
-                'required' => true
+                'required' => true,
+                'date_format' => $dateFormat
             ]
         );
 
