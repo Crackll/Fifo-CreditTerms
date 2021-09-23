@@ -43,6 +43,24 @@ class ApplicationStatus extends AbstractSource implements SourceInterface, Optio
         ];
     }
 
+    public static function getOptionValueById($id){
+        switch ($id){
+            case self::STATUS_APPROVED:
+                $result = 'Approved';
+                break;
+            case self::STATUS_REJECTED:
+                $result = 'Rejected';
+                break;
+            case self::STATUS_NEW:
+                $result = 'New';
+                break;
+            default:
+                $result = '';
+                break;
+        }
+        return $result;
+    }
+
     /**
      * Retrieve option array with empty value
      *

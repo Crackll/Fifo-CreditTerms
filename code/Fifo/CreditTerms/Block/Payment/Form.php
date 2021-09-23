@@ -50,6 +50,21 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
         return $this->getUrl('creditterms/payment/requestcreditpost', ['_secure' => true]);
     }
 
+    public function getCreditApplicationCollection(){
+        $collection = $this->_objectManager->create(\Fifo\CreditTerms\Model\CreditTermsApplications::class)
+            ->getCollection()
+            ->addFieldToSelect(['application_status'])
+            ->addFieldToFilter('email',$this->customerSession->getCustomer()->getEmail())
+            ->getLastItem()->getData();
+
+        $status = '';
+        if(count($collection)){
+            $status = \Fifo\CreditTerms\Model\Source\ApplicationStatus::getOptionValueById($collection['application_status']);
+        }
+
+        return $status;
+    }
+
     /**
      * Retrieve form data
      *
