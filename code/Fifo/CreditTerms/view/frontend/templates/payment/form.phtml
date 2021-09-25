@@ -98,13 +98,7 @@ $appStatus = $block->getCreditApplicationCollection();
         <div class="field region required">
             <label class="label" for="state"><span><?php /* @escapeNotVerified */ echo __('Region') ?></span></label>
             <div class="control">
-                <select name="region" id="state" class="input-select" required="required" data-validate="{required:true}">
-                    <?php foreach ($block->getAllRegions() AS $regionId => $regionData): ?>
-                        <option value="<?php echo $regionData ?>">
-                            <?php echo $regionData;  ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <input name="region" id="state" class="required-entry input-text" type="text"/>
             </div>
         </div>
 
@@ -191,9 +185,11 @@ $appStatus = $block->getCreditApplicationCollection();
     require(['jquery',"mage/mage"], function(jQuery){
         var dataForm = jQuery('#form-validate-payment-creditterm');
         dataForm.mage('validation', {});
+        jQuery(".field.region #state").attr("disabled", "disabled");
 
         jQuery(document).on('change','#country',function() {
             var param = 'country_id='+jQuery('#country').val();
+
             jQuery.ajax({
                 showLoader: true,
                 url: '<?php /* @escapeNotVerified */ echo $block->getRegionsAction(); ?>',
