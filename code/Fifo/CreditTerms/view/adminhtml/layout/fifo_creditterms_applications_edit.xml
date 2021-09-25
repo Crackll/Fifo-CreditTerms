@@ -14,9 +14,14 @@
         <referenceContainer name="left">
             <block class="Fifo\CreditTerms\Block\Adminhtml\Applications\Edit\Tabs" name="fifo_creditterms_applications_edit_tabs">
                 <block class="Fifo\CreditTerms\Block\Adminhtml\Applications\Edit\Tab\Main" name="fifo_creditterms_applications_edit_tab_main"/>
+                <block class="Fifo\CreditTerms\Block\Adminhtml\Applications\Edit\Tab\MakePayments" name="fifo_creditterms_applications_edit_tab_make_payment_section"/>
                 <action method="addTab">
                     <argument name="name" xsi:type="string">main_section</argument>
                     <argument name="block" xsi:type="string">fifo_creditterms_applications_edit_tab_main</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">make_payment_section</argument>
+                    <argument name="block" xsi:type="string">fifo_creditterms_applications_edit_tab_make_payment_section</argument>
                 </action>
             </block>
         </referenceContainer>

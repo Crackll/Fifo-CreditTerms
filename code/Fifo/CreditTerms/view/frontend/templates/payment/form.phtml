@@ -81,13 +81,17 @@ $appStatus = $block->getCreditApplicationCollection();
             </div>
         </div>
         <div class="field country required">
-            <label class="label" for="country_id">
+            <label class="label" for="country">
                 <span><?= $block->escapeHtml(__('Country')) ?></span>
             </label>
             <div class="control">
-                <?php
-                    echo $block->getCountryList();
-                ?>
+                <select name="region" id="country" class="input-select" required="required" data-validate="{required:true}">
+                    <?php foreach ($block->getCountryList() AS $countryCode => $countryData): ?>
+                        <option value="<?php echo $countryCode ?>">
+                            <?php echo $countryData;  ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
 

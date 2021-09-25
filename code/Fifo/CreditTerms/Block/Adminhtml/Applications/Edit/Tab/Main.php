@@ -235,41 +235,6 @@ class Main extends Generic implements TabInterface
             ]
         );
 
-        $fieldset->addField(
-            'make_payment',
-            'text',
-            [
-                'name' => 'make_payment',
-                'label' => __('Make Payment'),
-                'title' => __('Make Payment'),
-                'required' => true
-            ]
-        );
-
-        $dateFormat = $this->_localeDate->getDateFormat();
-        $fieldset->addField(
-            'date_of_payment',
-            'date',
-            [
-                'name' => 'date_of_payment',
-                'label' => __('Date of Payment'),
-                'title' => __('Date of Payment'),
-                'required' => true,
-                'date_format' => $dateFormat
-            ]
-        );
-
-        $fieldset->addField(
-            'payment_reference',
-            'text',
-            [
-                'name' => 'payment_reference',
-                'label' => __('Payment Reference'),
-                'title' => __('Payment Reference'),
-                'required' => true
-            ]
-        );
-
         $form->setValues($model->getData());
         $this->setForm($form);
         return parent::_prepareForm();

@@ -106,8 +106,25 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
 
     public function getCountryList()
     {
-        $country = $this->_directoryBlock->getCountryHtmlSelect();
-        return $country;
+        /** @var \Magento\Directory\Model\ResourceModel\Country\CollectionFactory $countryCollectionFactory */
+        $countryCollectionFactory = $this->_objectManager->get(\Magento\Directory\Model\ResourceModel\Country\CollectionFactory::class);
+
+        /** @var \Magento\Directory\Model\ResourceModel\Country\Collection $countryCollection */
+        $countryCollection = $countryCollectionFactory->create();
+        $countryCollection = $countryCollection->toOptionArray();
+
+        $result = [];
+        foreach ($countryCollection as $country){
+            if(isset($country['value']) && empty($country['value'])){
+                $result[] = [
+                    'value'=> '',
+                    'label'=> 'Please Select Country'
+                ];
+            }else{
+                $result[] = $country;
+            }
+        }
+        return array_column($result, 'label', 'value');
     }
 
     public function getAllRegions()
