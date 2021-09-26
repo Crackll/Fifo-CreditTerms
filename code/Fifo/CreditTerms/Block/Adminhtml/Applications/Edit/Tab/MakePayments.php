@@ -46,16 +46,10 @@ class MakePayments extends Generic implements TabInterface
      */
     public function isHidden()
     {
-        return true;
+        return false;
     }
 
-    /**
-     * Prepare form before rendering HTML
-     *
-     * @return $this
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
-     */
+
     protected function _prepareForm()
     {
         $model = $this->_coreRegistry->registry('current_fifo_creditterms_applications');
@@ -104,6 +98,9 @@ class MakePayments extends Generic implements TabInterface
             ]
         );
 
+        $form->setValues($model->getData());
+        $this->setForm($form);
+        return parent::_prepareForm();
 
     }
 }

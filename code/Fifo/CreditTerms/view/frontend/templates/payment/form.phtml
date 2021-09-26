@@ -85,9 +85,9 @@ $appStatus = $block->getCreditApplicationCollection();
                 <span><?= $block->escapeHtml(__('Country')) ?></span>
             </label>
             <div class="control">
-                <select name="region" id="country" class="input-select" required="required" data-validate="{required:true}">
-                    <?php foreach ($block->getCountryList() AS $countryCode => $countryData): ?>
-                        <option value="<?php echo $countryCode ?>">
+                <select name="location" id="country" class="input-select" required="required" data-validate="{required:true}">
+                    <?php foreach ($block->getCountryList() as $countryCode => $countryData): ?>
+                        <option value="<?php echo $countryData ?>">
                             <?php echo $countryData;  ?>
                         </option>
                     <?php endforeach; ?>
@@ -160,7 +160,7 @@ $appStatus = $block->getCreditApplicationCollection();
             <div class="control">
                 <select class="input-select" name="buyer_credit_terms" required="required" data-validate="{required:true}" id="buyer-credit-term">
                     <?php foreach ($creditTermsOptions as $option) {?>
-                        <option value="<?= /**@noEscape */ $option['value'] ?>">
+                        <option value="<?= $block->escapeQuote($option['value']); ?>">
                             <?= /**@noEscape */ $option['label'] ?>
                         </option>
                     <?php } ?>
@@ -189,6 +189,13 @@ $appStatus = $block->getCreditApplicationCollection();
 
         jQuery(document).on('change','#country',function() {
             var param = 'country_id='+jQuery('#country').val();
+            console.log(param);
+            if(param === ''){
+                console.log('empty');
+                jQuery(".field.region #state").attr("disabled", "disabled");
+            }else{
+                jQuery(".field.region #state").removeAttr("disabled");
+            }
 
             jQuery.ajax({
                 showLoader: true,

@@ -60,13 +60,6 @@ class Main extends Generic implements TabInterface
         return false;
     }
 
-    /**
-     * Prepare form before rendering HTML
-     *
-     * @return $this
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
-     */
     protected function _prepareForm()
     {
         $model = $this->_coreRegistry->registry('current_fifo_creditterms_applications');

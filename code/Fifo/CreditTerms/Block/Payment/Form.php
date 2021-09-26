@@ -10,6 +10,7 @@ use Magento\Framework\View\Element\Template\Context;
 use Magento\Customer\Model\Session;
 use Magento\Newsletter\Model\SubscriberFactory;
 use Magento\Customer\Api\AccountManagementInterface;
+use \Magento\Framework\Json\Helper\Data as JsonHelper;
 
 /**
  * Customer edit form block
@@ -23,6 +24,7 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
     protected $_directoryBlock;
     protected $_buyerCreditTermFactory;
     protected $_objectManager;
+    protected $_jsonHelper;
 
     public function __construct(
         Context $context,
@@ -32,9 +34,11 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
         AccountManagementInterface $customerAccountManagement,
         \Magento\Directory\Block\Data $directoryBlock,
         \Fifo\CreditTerms\Model\CreditTermsFactory $buyerCreditTermFactory,
+        JsonHelper $jsonHelper,
         array $data = []
     ){
         $this->_directoryBlock = $directoryBlock;
+        $this->_jsonHelper = $jsonHelper;
         $this->_buyerCreditTermFactory = $buyerCreditTermFactory;
         $this->_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         parent::__construct($context, $customerSession,$subscriberFactory,$customerRepository,$customerAccountManagement);
@@ -155,7 +159,15 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
             $termName = $termData->getData('terms_name');
             $paymentTerms = $termData->getData('payment_terms');
             $creditLimit = $termData->getData('credit_limit');
-            $termOptions[$termName] = __($termName." Credit Term (Upto ".$paymentTerms." days and ".$creditLimit." credit limit)");
+
+            $optionData = [
+                'termCategory' => $termName,
+                'termDays' => $paymentTerms,
+                'termLimit' => $creditLimit
+            ];
+            $optionJson = $this->_jsonHelper->jsonEncode($optionData);
+
+            $termOptions[$optionJson] = __($termName." Credit Term (Upto ".$paymentTerms." days and ".$creditLimit." credit limit)");
         }
 
         $result = [];
