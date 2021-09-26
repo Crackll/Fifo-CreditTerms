@@ -15,16 +15,19 @@ use Magento\Backend\Block\Widget\Tab\TabInterface;
 class Main extends Generic implements TabInterface
 {
     protected $_wysiwygConfig;
+    protected $buyerCreditTermFactory;
 
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
+        \Fifo\CreditTerms\Model\CreditTermsFactory $buyerCreditTermFactory,
         array $data = []
     )
     {
         $this->_wysiwygConfig = $wysiwygConfig;
+        $this->buyerCreditTermFactory = $buyerCreditTermFactory;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -205,13 +208,24 @@ class Main extends Generic implements TabInterface
             ]
         );
 
+        $buyerCollection = $this->buyerCreditTermFactory->create()->getCollection()
+            ->addFieldToSelect(['terms_name','payment_terms','credit_limit'])
+            ->addFieldToFilter("type", \Fifo\CreditTerms\Model\Source\TypeOptions::BUYER_TYPE)->getData();
+        $termOptions = [];
+        foreach ($buyerCollection as $buyerTermData){
+            if(isset($buyerTermData['creditterms_definition_id'])){
+                $termOptions[$buyerTermData['creditterms_definition_id']] = __($buyerTermData['terms_name']." Credit Term (Upto ".$buyerTermData['payment_terms']." days and ".$buyerTermData['credit_limit']." credit limit)");
+            }
+        }
+
         $fieldset->addField(
             'buyer_credit_terms',
-            'text',
+            'select',
             [
                 'name' => 'buyer_credit_terms',
-                'label' => __('Buyer Credit Terms'),
-                'title' => __('Buyer Credit Terms'),
+                'label' => __('Buyer Credit Term'),
+                'title' => __('Buyer Credit Term'),
+                'options'   => $termOptions,
                 'required' => true
             ]
         );

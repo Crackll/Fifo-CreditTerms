@@ -34,6 +34,8 @@ class RequestCreditPost extends Action implements CsrfAwareActionInterface
 
     private $creditTermsApplicationsFactory;
 
+    private $buyerCreditTermFactory;
+
     protected $_jsonHelper;
 
     /**
@@ -47,12 +49,14 @@ class RequestCreditPost extends Action implements CsrfAwareActionInterface
         Session $customerSession,
         FormKeyValidator $formKeyValidator,
         \Fifo\CreditTerms\Model\CreditTermsApplicationsFactory $creditTermsApplicationsFactory,
+        \Fifo\CreditTerms\Model\CreditTermsFactory $buyerCreditTermFactory,
         JsonHelper $jsonHelper
     ) {
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->_jsonHelper = $jsonHelper;
         $this->creditTermsApplicationsFactory = $creditTermsApplicationsFactory;
+        $this->buyerCreditTermFactory = $buyerCreditTermFactory;
         parent::__construct(
             $context
         );
@@ -135,11 +139,14 @@ class RequestCreditPost extends Action implements CsrfAwareActionInterface
                 $creditTermApp->setData('created_at',date('Y-m-d H:i:s'));
 
                 if(isset($params['buyer_credit_terms'])){
-                    $termJsonDecode = $this->_jsonHelper->jsonDecode($params['buyer_credit_terms']);
-                    $creditTermApp->setData('credit_term_category',$termJsonDecode['termCategory']);
-                    $creditTermApp->setData('credit_term_days',$termJsonDecode['termDays']);
-                    $creditTermApp->setData('credit_term_limit',$termJsonDecode['termLimit']);
-                    $creditTermApp->setData('buyer_credit_terms',$termJsonDecode['termCategory']);
+                    $buyerCollection = $this->buyerCreditTermFactory->create()->getCollection()
+                        ->addFieldToSelect(['terms_name','payment_terms','credit_limit'])
+                        ->addFieldToFilter("creditterms_definition_id", $params['buyer_credit_terms'])
+                        ->addFieldToFilter("type", \Fifo\CreditTerms\Model\Source\TypeOptions::BUYER_TYPE)->getLastItem()->getData();
+                    $creditTermApp->setData('credit_term_category',$buyerCollection['terms_name']);
+                    $creditTermApp->setData('credit_term_days',$buyerCollection['payment_terms']);
+                    $creditTermApp->setData('credit_term_limit',$buyerCollection['credit_limit']);
+                    $creditTermApp->setData('buyer_credit_terms',$buyerCollection['creditterms_definition_id']);
                 }
 
                 $id = $creditTermApp->save()->getId();

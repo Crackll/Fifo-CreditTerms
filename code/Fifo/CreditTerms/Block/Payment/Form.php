@@ -163,15 +163,9 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
             $termName = $termData->getData('terms_name');
             $paymentTerms = $termData->getData('payment_terms');
             $creditLimit = $termData->getData('credit_limit');
+            $termDefId = $termData->getData('creditterms_definition_id');
 
-            $optionData = [
-                'termCategory' => $termName,
-                'termDays' => $paymentTerms,
-                'termLimit' => $creditLimit
-            ];
-            $optionJson = $this->_jsonHelper->jsonEncode($optionData);
-
-            $termOptions[$optionJson] = __($termName." Credit Term (Upto ".$paymentTerms." days and ".$creditLimit." credit limit)");
+            $termOptions[$termDefId] = __($termName." Credit Term (Upto ".$paymentTerms." days and ".$creditLimit." credit limit)");
         }
 
         $result = [];
