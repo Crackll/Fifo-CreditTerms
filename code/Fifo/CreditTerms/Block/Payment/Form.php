@@ -57,16 +57,20 @@ class Form extends \Magento\Customer\Block\Account\Dashboard
     public function getCreditApplicationCollection(){
         $collection = $this->_objectManager->create(\Fifo\CreditTerms\Model\CreditTermsApplications::class)
             ->getCollection()
-            ->addFieldToSelect(['application_status'])
+            ->addFieldToSelect(['application_status','created_at','credit_term_category','credit_term_days','credit_term_limit'])
             ->addFieldToFilter('email',$this->customerSession->getCustomer()->getEmail())
             ->getLastItem()->getData();
 
-        $status = '';
+        $result = [];
         if(count($collection)){
-            $status = \Fifo\CreditTerms\Model\Source\ApplicationStatus::getOptionValueById($collection['application_status']);
+            $result['status'] = \Fifo\CreditTerms\Model\Source\ApplicationStatus::getOptionValueById($collection['application_status']);
+            $result['term_category'] = $collection['credit_term_category'];
+            $result['term_days'] = $collection['credit_term_days'];
+            $result['term_limit'] = $collection['credit_term_limit'];
+            $result['date'] = $collection['created_at'];
         }
 
-        return $status;
+        return $result;
     }
 
     /**

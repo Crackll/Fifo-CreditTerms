@@ -132,6 +132,7 @@ class RequestCreditPost extends Action implements CsrfAwareActionInterface
                 $creditTermApp->setData('contact_number',$params['contact_number']);
                 $creditTermApp->setData('contact_email',$params['contact_email']);
                 $creditTermApp->setData('contact_email',$params['contact_email']);
+                $creditTermApp->setData('created_at',date('Y-m-d H:i:s'));
 
                 if(isset($params['buyer_credit_terms'])){
                     $termJsonDecode = $this->_jsonHelper->jsonDecode($params['buyer_credit_terms']);

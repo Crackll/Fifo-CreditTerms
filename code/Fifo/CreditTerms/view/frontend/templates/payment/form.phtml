@@ -7,11 +7,11 @@ $crNumber = !is_null($block->getCustomer()->getCustomAttribute('cr_number')) ? $
 $company = !is_null($block->getCustomer()->getCustomAttribute('company')) ? $block->getCustomer()->getCustomAttribute('company')->getValue() : '';
 $mobileNumber = !is_null($block->getCustomer()->getCustomAttribute('mobile_number')) ? $block->getCustomer()->getCustomAttribute('mobile_number')->getValue() : '';
 
-$appStatus = $block->getCreditApplicationCollection();
+$appCollection = $block->getCreditApplicationCollection();
 
 ?>
 
-<?php if($appStatus == ""): ?>
+<?php if(empty($appCollection)): ?>
 
 <form class="form credit-payment-term-form" action="<?= $block->escapeUrl($block->getSubmitFormAction()) ?>"
       method="post" id="form-validate-payment-creditterm" enctype="multipart/form-data"
@@ -149,7 +149,6 @@ $appStatus = $block->getCreditApplicationCollection();
                        required="required"
                        data-validate="{required:true}"
                        name="contact_email" id="contact-email"
-                       value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>"
                        autocomplete="off" />
             </div>
         </div>
@@ -211,7 +210,23 @@ $appStatus = $block->getCreditApplicationCollection();
 </script>
 
 <?php else: ?>
-    <div> You Application has been Submitted. </div>
-    <p>Status: <?php echo $appStatus; ?> </p>
+    <div> <b>Note:</b> You Application has been Submitted. </div>
+    <table style="margin-top: 10px;">
+        <tr>
+            <th>Date</th>
+            <th>Term Category</th>
+            <th>Payment Terms</th>
+            <th>Credit Limits</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td><?php echo $appCollection['date'] ?></td>
+            <td><?php echo $appCollection['term_category'] ?></td>
+            <td><?php echo $appCollection['term_days'] ?></td>
+            <td><?php echo $appCollection['term_limit'] ?></td>
+            <td><?php echo $appCollection['status'] ?></td>
+        </tr>
+    </table>
+
 <?php endif; ?>
 
