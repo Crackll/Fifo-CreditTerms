@@ -31,8 +31,20 @@ class Save extends \Fifo\CreditTerms\Controller\Adminhtml\Applications
                         throw new \Magento\Framework\Exception\LocalizedException(__('The wrong Application is specified.'));
                     }
                 }
-
                 $model->setData($data);
+
+                if(isset($data['buyer_credit_terms'])){
+                    $buyerDefinitionModel = $this->_objectManager->create('\Fifo\CreditTerms\Model\CreditTerms');
+                    $defCollection = $buyerDefinitionModel->getCollection()
+                        ->addFieldToSelect(['terms_name','payment_terms','credit_limit'])
+                        ->addFieldToFilter("creditterms_definition_id",$data['buyer_credit_terms'])
+                        ->addFieldToFilter("type", \Fifo\CreditTerms\Model\Source\TypeOptions::BUYER_TYPE)->getLastItem()->getData();
+
+                    $model->setData('credit_term_category',$defCollection['terms_name']);
+                    $model->setData('credit_term_days',$defCollection['payment_terms']);
+                    $model->setData('credit_term_limit',$defCollection['credit_limit']);
+                }
+
                 $session = $this->_objectManager->get('Magento\Backend\Model\Session');
                 $session->setPageData($model->getData());
                 $model->save();
